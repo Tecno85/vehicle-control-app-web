@@ -4,13 +4,16 @@
 
 - Este repositorio corresponde a VehicleControlApp Web. No modificar desde aquí el código del proyecto Android.
 - DazaDev es la empresa desarrolladora. Ivan Dario Madrid Daza es el desarrollador responsable. El trabajo es individual; Codex no es integrante del equipo.
-- Usar Android como antecedente visual y funcional. No asumir que todas sus pantallas o funciones entran en el primer MVP web.
+- El producto de este repositorio es una Web App responsive para escritorio y móvil; no se desarrolla una aplicación nativa Android en este alcance. Conservar menciones históricas de Android solo cuando ayuden a explicar decisiones previas, sin incluir sus pantallas ni funciones como parte del diseño web.
 - El MVP contempla crear y clasificar vehículos; registrar ingresos, gastos y documentos; y consultar la información por vehículo.
 - Los tipos de ingreso iniciales son la cuota fija diaria del taxi y el total diario variable de inDrive en vehículos particulares habilitados para esa modalidad.
 - Katerin puede cambiar la cuota de un taxi cuando lo decida. También quiere registrar el valor recibido si es menor que la cuota esperada o es cero, y anotar el motivo. Falta definir si ese valor solo afecta el registro del día y desde cuándo aplica un cambio de cuota.
-- Los gastos tienen fecha, valor, descripción y categoría. Categorías iniciales: Combustible, Lavado, Mantenimiento y Repuestos. Se acordó permitir agregar y editar categorías; definir qué pasa con gastos previos si cambia una categoría.
+- Los gastos tienen fecha, valor, descripción y categoría. Categorías iniciales: Combustible, Lavado, Mantenimiento y Repuestos. Se pueden agregar y renombrar categorías; si una ya está usada, se desactiva para conservar los gastos anteriores.
 - Para SOAT y tecnomecánica, registrar nombre y vencimiento. Permitir guardar esos datos antes de adjuntar un archivo. Se contempla un archivo por registro, que se podrá visualizar o descargar.
 - PDF, Word (.doc/.docx) e imágenes comunes (JPG/JPEG, PNG) son formatos candidatos, no una lista técnica cerrada. No inventar límites, almacenamiento ni conservación.
+- Cada cuenta tendrá su propia flota. El MVP considera a la persona titular con acceso a sus datos; no se definieron roles para compartir flotas.
+- Se acordó permitir registro propio, ingreso con correo y contraseña y recuperación de contraseña por correo. Estos flujos están diseñados en la evidencia de sesión 3, pero no implementados. Las reglas técnicas de contraseña, verificación del correo y vigencia del enlace de recuperación siguen pendientes.
+- Vehículos, ingresos, gastos y documentos se pueden editar según las reglas de la evidencia de sesión 3. Vehículos con registros se desactivan; vehículos sin registros pueden eliminarse con confirmación. Ingresos y gastos se eliminan definitivamente con confirmación. Al eliminar un documento también se elimina su archivo asociado, con confirmación.
 
 ## Fuentes y precisión
 
@@ -19,15 +22,17 @@
 - Katerin validó inicialmente el flujo el 28 de septiembre de 2026; buscó y encontró el SOAT en un caso distinto ese mismo día; pidió adjuntos el 2 de octubre; y revisó Android el 8 de octubre. La consulta breve de requerimientos se realizó el 12 de octubre. No combinar los eventos ni cambiar sus fechas.
 - Katerin dijo que le gusta el flujo inicial y está abierta a modificarlo si nueva evidencia lo requiere. No tratarlo como aprobación definitiva de pantallas o reglas.
 - Usar `docs/evidencia-sesion-1.md` como registro histórico de la semana 1 y `docs/evidencia-sesion-2-requerimientos-backlog.md` para los requerimientos y acuerdos posteriores. Si hay discrepancias, respetar fechas y aclarar el cambio posterior, no borrar la historia.
+- Usar `docs/evidencia-sesion-3-diseno-pantallas.md` para el mapa y las fichas de pantallas, el prototipo Figma y los acuerdos posteriores sobre acceso y edición/eliminación.
 - No inventar usuarios, integrantes, resultados de pruebas ni decisiones técnicas.
 
 ## Límites de implementación y etapa
 
-- La actividad documental vigente es la evidencia de requerimientos y backlog de sesión 2, con entrega indicada para el 15 de octubre de 2026. No afirmar que las funciones web están implementadas o probadas.
-- El login queda para una etapa posterior del plan. No definir por inferencia roles, permisos ni detalles de autenticación.
+- La actividad documental vigente es la evidencia de diseño de pantallas de sesión 3, con entrega indicada para el 22 de octubre de 2026. La prueba del prototipo con Katerin está pendiente. No afirmar que las funciones web o la autenticación están implementadas o probadas.
+- El login y la recuperación se incluyen en el diseño de sesión 3; no se implementan como parte de esta evidencia. No inventar roles, permisos compartidos ni políticas técnicas de autenticación.
 - React/Material UI, NestJS, Hasura GraphQL Engine y PostgreSQL en Neon son orientación del instructor, no decisiones cerradas.
 - No adelantar actividades posteriores ni implementar funcionalidades sin solicitud expresa.
 - No hacer commits salvo que Ivan lo solicite.
+- Reglas de edición/eliminación acordadas: un vehículo con registros se desactiva para conservarlos; sin registros se puede eliminar con confirmación. Los ingresos y gastos se eliminan definitivamente con confirmación. Los documentos se pueden editar y reemplazar; al eliminarlos también se elimina su archivo. Las categorías usadas se renombrarán o desactivarán para conservar los gastos históricos.
 - En criterios BDD, presentar cada escenario completo con las etiquetas **Dado**, **Cuando** y **Entonces**. Mantener notas pendientes, reglas y criterios de calidad fuera de escenarios incompletos.
 
 ## Buenas prácticas de desarrollo
