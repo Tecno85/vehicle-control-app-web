@@ -20,14 +20,14 @@ El diseño de sesión 3 incluye registro propio, inicio con correo y contraseña
 
 ## Estado y evidencias
 
-Este repositorio contiene documentación de descubrimiento, planificación y diseño, además de un prototipo local de revisión en HTML, CSS y JavaScript. No hay funcionalidades del producto listas para producción. El prototipo simula los recorridos principales y mantiene cambios solo mientras la página está abierta; no implementa autenticación real, servidor ni almacenamiento persistente.
+Este repositorio contiene documentación de descubrimiento, planificación y diseño, además de un prototipo responsive para revisión en HTML, CSS y JavaScript. No hay funcionalidades del producto listas para producción. El prototipo simula los recorridos principales y mantiene cambios solo mientras la página está abierta; no implementa autenticación real, servidor ni almacenamiento persistente.
 
 - [Contexto del proyecto](docs/contexto-proyecto.md): contexto general, evidencia, alcance y decisiones abiertas.
 - [Evidencia de avance de semana 1](docs/evidencia-sesion-1.md): registro histórico de la primera actividad, con entrega indicada para el 8 de octubre de 2026.
 - [Requerimientos y backlog de sesión 2](docs/evidencia-sesion-2-requerimientos-backlog.md): consulta a Katerin del 12 de octubre, historias BDD y backlog de la actividad con entrega indicada para el 15 de octubre de 2026.
 - [Diseño de pantallas de sesión 3](docs/evidencia-sesion-3-diseno-pantallas.md): mapa, fichas de pantallas, reglas de acceso y edición, recorrido de escritorio y móvil y prueba pendiente con Katerin. La entrega indicada es el 22 de octubre de 2026.
 
-El [prototipo web local de sesión 3](prototipo-web-sesion-3/) permite recorrer las pantallas de acceso, vehículos, detalle, ingresos, gastos, documentos y categorías. Sus datos son ficticios y se pierden al recargar; la carga de archivos funciona solo dentro de la sesión del navegador. Katerin aún no lo ha probado.
+El [prototipo responsive de sesión 3](https://tecno85.github.io/vehicle-control-app-web/) permite recorrer las pantallas de acceso, vehículos, detalle, ingresos, gastos, documentos y categorías. Se publicó para revisión en GitHub Pages el 18 de octubre de 2026. Sus datos son ficticios y se pierden al recargar; la carga de archivos funciona solo dentro de la sesión del navegador. Katerin aún no lo ha probado. El [código del prototipo](prototipo-web-sesion-3/) está en este repositorio.
 
 Para este prototipo de revisión usé React y Vite junto con HTML, CSS y JavaScript. Es una herramienta temporal para validar pantallas; no define la arquitectura del producto. Las vistas para móvil son una adaptación responsive de la Web App.
 

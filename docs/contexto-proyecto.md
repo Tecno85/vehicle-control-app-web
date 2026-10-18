@@ -1,6 +1,6 @@
 # Contexto del proyecto VehicleControlApp Web
 
-**Estado del contexto:** 16 de octubre de 2026
+**Estado del contexto:** 18 de octubre de 2026
 **Actividad actual:** diseño de pantallas de sesión 3; entrega indicada para el 22 de octubre de 2026.
 **Modalidad de trabajo:** individual.
 
@@ -27,6 +27,7 @@
 | 8 oct 2026 | Conversación de validación reportada por DazaDev | Katerin, propietaria y administradora de la flota, indicó que considera adecuado el proceso actual. Revisó lo realizado en la app Android y manifestó que le gustó el trabajo hasta ese momento. | No se hicieron preguntas formales en esta conversación. La validación corresponde al proceso actual y al estado de Android, no a una aprobación del login o de todas las funciones web. |
 | 12 oct 2026 | Consulta breve de requerimientos realizada por Ivan | Katerin respondió preguntas sobre el proceso web, los ingresos de taxi e inDrive, gastos y categorías, documentos de vehículos y la información a consultar. | Los acuerdos se resumen en el alcance web y se detallan en la [evidencia de sesión 2](evidencia-sesion-2-requerimientos-backlog.md). No se debe atribuir esta consulta a la conversación del 8 de octubre. |
 | 16 oct 2026 | Decisiones de diseño acordadas con Ivan | Se definió el modelo de cuentas independientes, el registro propio, el ingreso con correo y contraseña, la recuperación por correo y reglas de edición y eliminación para el MVP. | Son decisiones para diseñar el flujo; la autenticación y las funciones web no están implementadas. Se documentan en la [evidencia de sesión 3](evidencia-sesion-3-diseno-pantallas.md). |
+| 18 oct 2026 | Alcance responsive y publicación documentados por Ivan | Se confirmó que el producto de este repositorio es una Web App para escritorio y móvil; la vista móvil es responsive y no se desarrollará una aplicación nativa. Se publicó el prototipo de sesión 3 en GitHub Pages. | La publicación permite revisar el prototipo; no significa que las funciones estén implementadas en el producto ni que Katerin ya lo haya probado. |
 | Sin fecha especificada | Observación previa de Katerin sobre Android | El término “Registro de documentos” le resultó confuso; también sugirió adjuntar imágenes de facturas. | Mantener como observación distinta de la retroalimentación del 2 de octubre. La propuesta de facturas no se incorpora automáticamente al alcance inicial. |
 | Fechas y condiciones distintas, no detalladas aquí | Antecedente de pruebas Android | Katerin y Jean Carlos probaron el MVP Android en momentos y condiciones distintos. | No combinar sus pruebas ni atribuir resultados específicos sin evidencia separada. |
 
@@ -66,7 +67,7 @@ La app Android es antecedente funcional, no especificación automática de la we
 
 **Nota de precisión:** según lo reportado, el código Android contiene el formulario y la ruta de ingreso de inDrive. `docs/04-flujo-navegacion.md` no menciona esa pantalla y está desactualizado en ese punto. Este repositorio web no modifica el código Android.
 
-**Decisión de trabajo para la web:** consideraré todas las funciones conocidas de Android como candidatas del producto web y las priorizaré por etapas, usando también su estructura visual y funcional como referencia. Mantendré el MVP web acordado como primera etapa; no trasladaré automáticamente todas las funciones Android a esa primera entrega.
+**Decisión de trabajo para la web:** priorizaré por etapas las funciones acordadas para el producto web y mantendré el MVP como primera etapa. El alcance de este repositorio es una Web App responsive para escritorio y móvil; no desarrollaré una aplicación nativa.
 
 ## 4. Alcance web inicial
 
@@ -89,7 +90,7 @@ PDF es el formato de soporte más común que indicó Katerin. PDF, documentos de
 
 Para el MVP, la usuaria crea su cuenta o ingresa y luego consulta la lista de vehículos. Desde allí crea o selecciona un vehículo, registra ingresos o gastos y registra SOAT o tecnomecánica. Puede adjuntar el soporte antes o después de guardar los datos y después consultar la información del vehículo y visualizar o descargar el archivo.
 
-Propongo que, después del acceso, se muestre la lista de vehículos inspirada en Android. El recorrido está representado en el diseño de Figma y en un prototipo local de revisión hecho con HTML, CSS y JavaScript; aún no es una función del producto ni ha sido aprobado definitivamente por Katerin. La pantalla de acceso contempla correo y contraseña, creación de cuenta propia y recuperación por correo. Cada cuenta tendrá su propia flota; el MVP considera a la persona titular con acceso a sus propios datos y no incorpora roles para compartir una flota. El login forma parte del diseño de sesión 3 porque el instructor pidió incluirlo en esta entrega; no está implementado. Katerin aún debe revisar estas pantallas.
+Propongo que, después del acceso, se muestre la lista de vehículos como pantalla principal de la Web App responsive. El recorrido está representado en el diseño de Figma y en un prototipo publicado en GitHub Pages, hecho con HTML, CSS y JavaScript; aún no es una función del producto ni ha sido aprobado definitivamente por Katerin. La pantalla de acceso contempla correo y contraseña, creación de cuenta propia y recuperación por correo. Cada cuenta tendrá su propia flota; el MVP considera a la persona titular con acceso a sus propios datos y no incorpora roles para compartir una flota. El login forma parte del diseño de sesión 3 porque el instructor pidió incluirlo en esta entrega; no está implementado. Katerin aún debe revisar estas pantallas.
 
 El prototipo de sesión 3 también refleja que los vehículos se editan; los que tienen registros asociados se desactivan para conservarlos y los que no tienen registros se pueden eliminar con confirmación. Los ingresos y gastos se editan y se eliminan definitivamente con confirmación. Los documentos se pueden editar, reemplazar y eliminar con su archivo; las categorías usadas se pueden renombrar o desactivar de acuerdo con las reglas descritas en la [evidencia de sesión 3](evidencia-sesion-3-diseno-pantallas.md). La fecha desde la que aplica una cuota nueva de taxi sigue pendiente.
 
@@ -97,7 +98,7 @@ El prototipo de sesión 3 también refleja que los vehículos se editan; los que
 
 El backlog de sesión 2 contiene cinco historias de usuario priorizadas para el MVP: crear y clasificar vehículos; registrar ingresos y ajustar la cuota del taxi; registrar gastos y administrar categorías; registrar documentos y consultar sus soportes; y consultar la información por vehículo. Los criterios BDD y sus pendientes están detallados en la [evidencia de requerimientos y backlog](evidencia-sesion-2-requerimientos-backlog.md).
 
-El login se incluyó como pantalla y recorrido del prototipo de sesión 3, a solicitud del instructor. No está implementado. Las demás funciones conocidas de Android se consideran para etapas posteriores. Su inclusión y prioridad deben respetar el alcance de cada actividad y nueva evidencia de la usuaria.
+El login se incluyó como pantalla y recorrido del prototipo de sesión 3, a solicitud del instructor. No está implementado. Las funciones que queden fuera del MVP se priorizarán para etapas posteriores; este repositorio no incluye una aplicación nativa.
 
 ## 6. Organización y evidencias
 

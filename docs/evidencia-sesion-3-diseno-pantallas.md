@@ -12,7 +12,7 @@
 
 En esta actividad convierto los requerimientos priorizados en pantallas y recorridos para revisar antes de implementar la aplicación. Tomo como base el contexto del proyecto, la evidencia de sesión 2 y la guía y plantilla de sesión 3. El alcance es una Web App responsive para escritorio y móvil; las pantallas móviles son adaptaciones de la misma aplicación, no una aplicación nativa.
 
-Preparé un [prototipo navegable](../prototipo-web-sesion-3/) con datos ficticios. GitHub Pages es el destino elegido para compartirlo; la publicación y el enlace siguen pendientes. La publicación puede quedar accesible públicamente; conservaré únicamente datos de demostración.
+Preparé un [prototipo navegable](../prototipo-web-sesion-3/) con datos ficticios y lo publiqué en [GitHub Pages](https://tecno85.github.io/vehicle-control-app-web/) el 18 de octubre de 2026. La dirección permite revisar la misma Web App responsive en escritorio y móvil. La publicación es accesible públicamente; el prototipo solo muestra datos de demostración.
 
 ## 2. Contexto, alcance y decisiones
 
@@ -35,7 +35,7 @@ Propongo una identidad de «bitácora vehicular contemporánea»: fondo cálido,
 
 ### Límites del prototipo
 
-El prototipo simula la navegación y algunas acciones. No verifica cuentas, envía correos ni guarda datos en un servidor; los cambios se pierden al recargar y los archivos solo se muestran localmente en el navegador. Nombres, placas, importes, vencimientos y archivos son ficticios. No es una aplicación implementada ni se ha publicado.
+El prototipo simula la navegación y algunas acciones. No verifica cuentas, envía correos ni guarda datos en un servidor; los cambios se pierden al recargar y los archivos solo se muestran en el navegador durante la sesión. Nombres, placas, importes, vencimientos y archivos son ficticios. Está publicado como prototipo de revisión; no es una aplicación implementada.
 
 ## 3. Personas y acceso
 
@@ -291,7 +291,6 @@ Durante la sesión plantearé cada tarea y observaré sin indicar dónde hacer c
 
 - Revisar los demás recorridos móviles, el orden con teclado y los mensajes de validación.
 - Realizar la prueba con Katerin y registrar observaciones y un ajuste real.
-- Preparar la publicación de revisión en GitHub Pages y verificar el enlace antes de incorporarlo. Aún no se ha publicado.
 - Precisar la vigencia de cambios en la cuota, las reglas técnicas de acceso y los formatos, tamaño y conservación de archivos antes de implementar.
 
 ## 11. Revisión de entrega
@@ -301,7 +300,7 @@ Durante la sesión plantearé cada tarea y observaré sin indicar dónde hacer c
 | Recorrido, mapa y fichas con capturas | Incluidos. |
 | Elementos comunes y estados | Incluidos; algunos estados siguen como propuesta o pendiente. |
 | Recorrido móvil a 360 px y ajuste visual | Incluido para el detalle del taxi; faltan las demás pantallas. |
-| Prototipo y enlace accesible | Prototipo local incluido; URL de GitHub Pages pendiente. |
+| Prototipo y enlace accesible | Publicado y comprobado en [GitHub Pages](https://tecno85.github.io/vehicle-control-app-web/). |
 | Prueba, observaciones y ajuste | Pendientes de la sesión con Katerin. |
 
 ## Fuentes

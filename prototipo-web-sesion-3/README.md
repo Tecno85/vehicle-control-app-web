@@ -1,6 +1,6 @@
 # Prototipo web de la sesión 3
 
-Este prototipo local sirve para revisar el diseño y los recorridos de VehicleControlApp Web antes de implementarlos. Usa datos ficticios y no se conecta a un servidor.
+Este prototipo sirve para revisar el diseño responsive y los recorridos de VehicleControlApp Web antes de implementarlos. Está publicado en [GitHub Pages](https://tecno85.github.io/vehicle-control-app-web/), usa datos ficticios y no se conecta a un servidor.
 
 ## Abrirlo en local
 
@@ -19,7 +19,7 @@ npm run build
 
 ## Compartirlo para revisión
 
-El repositorio incluye un flujo manual de GitHub Actions para publicar el prototipo en GitHub Pages. No se publica automáticamente al subir cambios: primero se debe elegir **GitHub Actions** como fuente en la configuración de Pages y ejecutar **Publicar prototipo de sesión 3** desde la pestaña Actions. La URL solo se agregará a la evidencia después de publicar y comprobar que se puede abrir.
+El prototipo se publicó por primera vez el 18 de octubre de 2026. El flujo manual de GitHub Actions permite publicar las versiones siguientes: desde la pestaña **Actions**, ejecuta **Publicar prototipo de sesión 3**. La fuente de Pages ya está configurada como **GitHub Actions**.
 
 GitHub Pages puede dejar el sitio accesible públicamente, incluso si el repositorio es privado, según el plan y la configuración. Por eso el prototipo muestra datos ficticios y no incluye datos de la flota. `npm run build` conserva la preparación existente para Sites; el flujo de Pages usa `npm run build:pages` y publica solo `dist/client/`.
 
