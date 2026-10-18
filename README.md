@@ -1,40 +1,64 @@
 # VehicleControlApp Web
 
-VehicleControlApp Web es la versión web de VehicleControlApp y tendrá un repositorio propio. DazaDev es la empresa desarrolladora e Ivan Dario Madrid Daza es el desarrollador responsable. El trabajo es individual. Katerin, propietaria y administradora de una pequeña flota, es la usuaria inicial.
+VehicleControlApp Web es la versión responsive para escritorio y móvil de VehicleControlApp y tiene su propio repositorio. DazaDev desarrolla el producto e Ivan Dario Madrid Daza es el responsable. El trabajo es individual. Katerin, propietaria y administradora de una pequeña flota, es la usuaria inicial.
 
 ## Objetivo
 
-Quiero trasladar a una aplicación web el control manual de vehículos, ingresos, gastos y documentos que actualmente se lleva en un cuaderno, con la información organizada y consultable por vehículo.
+Quiero pasar a una aplicación web el control de vehículos, ingresos, gastos y documentos que actualmente se lleva en un cuaderno, para consultar esa información por vehículo.
 
-## Alcance acordado para el MVP
+## Alcance inicial
+
+El MVP contempla:
 
 - Crear vehículos y clasificarlos como taxi o particular.
-- Registrar ingresos y gastos por vehículo. Cada taxi tiene una cuota diaria fija que Katerin puede cambiar cuando lo decida. En un vehículo particular habilitado para inDrive se registra el total variable del día.
-- Registrar gastos con fecha, valor, descripción y categoría. Las categorías iniciales son Combustible, Lavado, Mantenimiento y Repuestos; se podrán agregar y renombrar. Si ya se usan, se podrán desactivar para conservar el historial.
-- Registrar documentos SOAT y tecnomecánica con nombre y vencimiento; guardar el registro antes de adjuntar un archivo; después visualizarlo o descargarlo. Se contempla un archivo por registro.
-- Consultar la información guardada por vehículo.
+- Registrar los ingresos diarios: cuota del taxi, que Katerin puede cambiar, o total variable de inDrive en particulares habilitados.
+- Registrar gastos por fecha, valor, descripción y categoría. Las categorías iniciales son Combustible, Lavado, Mantenimiento y Repuestos.
+- Registrar SOAT y tecnomecánica con su vencimiento, adjuntar un archivo y luego visualizarlo o descargarlo.
+- Consultar la información por vehículo.
 
-PDF es el formato de soporte más común indicado. Word (.doc/.docx) e imágenes comunes (JPG/JPEG, PNG) son formatos candidatos; la lista final, límites y almacenamiento siguen pendientes de definición.
+El formato PDF es el más común indicado por Katerin. Word (.doc/.docx) e imágenes comunes (JPG/JPEG, PNG) son formatos candidatos. La lista final, los límites y el almacenamiento aún están por definir.
 
-El diseño de sesión 3 incluye registro propio, inicio con correo y contraseña y recuperación por correo. Cada cuenta tendrá su propia flota; el MVP considera a la persona titular y no define roles para compartir datos. La autenticación no está implementada. El producto de este repositorio es una Web App responsive para escritorio y móvil, no una aplicación nativa.
+## Estado actual
 
-## Estado y evidencias
+El repositorio reúne documentación de descubrimiento y diseño, y un prototipo responsive para revisar los recorridos. El prototipo representa las pantallas de acceso, creación de cuenta y recuperación de contraseña, pero sus acciones son simuladas. **No contiene una aplicación lista para producción.** No implementa autenticación real, servidor ni almacenamiento persistente: usa datos de demostración y los cambios se pierden al recargar la página. Los archivos seleccionados solo se muestran durante la sesión del navegador. Katerin aún debe probarlo.
 
-Este repositorio contiene documentación de descubrimiento, planificación y diseño, además de un prototipo responsive para revisión en HTML, CSS y JavaScript. No hay funcionalidades del producto listas para producción. El prototipo simula los recorridos principales y mantiene cambios solo mientras la página está abierta; no implementa autenticación real, servidor ni almacenamiento persistente.
+El [prototipo de sesión 3 está publicado en GitHub Pages](https://tecno85.github.io/vehicle-control-app-web/). Se puede recorrer en escritorio y móvil; la vista móvil es adaptable y no es una aplicación nativa.
 
-- [Contexto del proyecto](docs/contexto-proyecto.md): contexto general, evidencia, alcance y decisiones abiertas.
-- [Evidencia de avance de semana 1](docs/evidencia-sesion-1.md): registro histórico de la primera actividad, con entrega indicada para el 8 de octubre de 2026.
-- [Requerimientos y backlog de sesión 2](docs/evidencia-sesion-2-requerimientos-backlog.md): consulta a Katerin del 12 de octubre, historias BDD y backlog de la actividad con entrega indicada para el 15 de octubre de 2026.
-- [Diseño de pantallas de sesión 3](docs/evidencia-sesion-3-diseno-pantallas.md): mapa, fichas de pantallas, reglas de acceso y edición, recorrido de escritorio y móvil y prueba pendiente con Katerin. La entrega indicada es el 22 de octubre de 2026.
+## Organización del repositorio
 
-El [prototipo responsive de sesión 3](https://tecno85.github.io/vehicle-control-app-web/) permite recorrer las pantallas de acceso, vehículos, detalle, ingresos, gastos, documentos y categorías. Se publicó para revisión en GitHub Pages el 18 de octubre de 2026. Sus datos son ficticios y se pierden al recargar; la carga de archivos funciona solo dentro de la sesión del navegador. Katerin aún no lo ha probado. El [código del prototipo](prototipo-web-sesion-3/) está en este repositorio.
+```text
+.
+├── .github/workflows/              # Publicación manual del prototipo en Pages
+├── docs/                            # Contexto y evidencias de las sesiones
+│   └── evidencia-sesion-3/capturas/ # Capturas incluidas en la evidencia de diseño
+└── prototipo-web-sesion-3/           # Código React y Vite del prototipo
+```
 
-Para este prototipo de revisión usé React y Vite junto con HTML, CSS y JavaScript. Es una herramienta temporal para validar pantallas; no define la arquitectura del producto. Las vistas para móvil son una adaptación responsive de la Web App.
+- [Contexto del proyecto](docs/contexto-proyecto.md): alcance, acuerdos y decisiones pendientes.
+- [Evidencia de semana 1](docs/evidencia-sesion-1.md): registro histórico de la actividad.
+- [Evidencia de sesión 2](docs/evidencia-sesion-2-requerimientos-backlog.md): consulta, requerimientos e historias priorizadas.
+- [Evidencia de sesión 3](docs/evidencia-sesion-3-diseno-pantallas.md): mapa, fichas, capturas y prueba pendiente con Katerin.
 
-El diseño previo en [Figma](https://www.figma.com/design/pyVd1exSYW5O5B2Qt2cy2V) se conserva como referencia visual de la evidencia. No se actualizó durante la preparación del prototipo HTML.
+Las fechas de entrega indicadas en las evidencias son: semana 1, 8 de octubre; sesión 2, 15 de octubre; y sesión 3, 22 de octubre de 2026.
 
-Para abrir el prototipo localmente, desde su carpeta ejecuta `npm ci` y luego `npm run dev`. Vite mostrará la dirección local en la terminal.
+## Abrir el prototipo en macOS
 
-## Orientación técnica
+Con Node.js y npm instalados, desde la carpeta raíz del repositorio ejecuta:
 
-React con Material UI, NestJS, Hasura GraphQL Engine y PostgreSQL en Neon aparecen en los materiales del instructor como orientación. No son decisiones técnicas definitivas ni tecnologías implementadas en este repositorio.
+```bash
+cd prototipo-web-sesion-3
+npm ci
+npm run dev
+```
+
+Vite mostrará en la terminal la dirección local para abrir en el navegador.
+
+## Publicar una nueva versión del prototipo
+
+La publicación no se ejecuta automáticamente al subir cambios. En GitHub, abre **Actions**, selecciona **Publicar prototipo de sesión 3** y ejecútalo manualmente. El flujo publica el prototipo en GitHub Pages.
+
+## Referencias técnicas
+
+El prototipo de revisión está hecho con React y Vite, usando HTML, CSS y JavaScript. Esta elección sirve para validar las pantallas y no define la arquitectura final del producto. React con Material UI, NestJS, Hasura GraphQL Engine y PostgreSQL en Neon son orientación de los materiales del instructor, no decisiones técnicas definitivas.
+
+El [diseño previo en Figma](https://www.figma.com/design/pyVd1exSYW5O5B2Qt2cy2V) se conserva como referencia visual de la evidencia; no se actualizó al preparar el prototipo HTML.
