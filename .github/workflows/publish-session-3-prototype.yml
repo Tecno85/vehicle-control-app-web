@@ -1,0 +1,57 @@
+name: Publicar prototipo de sesión 3
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v6
+
+      - name: Preparar Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: prototipo-web-sesion-3/package-lock.json
+
+      - name: Instalar dependencias
+        run: npm ci
+        working-directory: prototipo-web-sesion-3
+
+      - name: Preparar el sitio para GitHub Pages
+        run: npm run build:pages
+        working-directory: prototipo-web-sesion-3
+        env:
+          VITE_BASE_PATH: /vehicle-control-app-web/
+
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Subir el sitio estático
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: prototipo-web-sesion-3/dist/client
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publicar el sitio
+        id: deployment
+        uses: actions/deploy-pages@v4
