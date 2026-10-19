@@ -298,7 +298,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 
 @media (max-width: 760px) {
   .workspace { display: block; }
-  .sidebar { position: fixed; z-index: 10; top: auto; right: 0; bottom: 0; left: 0; display: block; width: 100%; height: auto; padding: 7px 8px max(8px, env(safe-area-inset-bottom)); border: 0; border-top: 1px solid var(--line); }
+  .sidebar { position: fixed; z-index: 10; top: auto; right: 0; bottom: 0; left: 0; display: block; width: 100%; height: auto; padding: 7px 8px max(8px, env(safe-area-inset-bottom)); border: 0; border-top: 1px solid var(--line); background: var(--surface); box-shadow: 0 -2px 8px rgba(0,0,0,0.08); }
   .sidebar > .brand, .sidebar-label, .sidebar-bottom { display: none; }
   .main-nav { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; }
   .nav-button { min-height: 50px; padding: 4px; border-radius: 8px; text-align: center; font-size: 12px; }
@@ -312,7 +312,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .topbar-actions { gap: 7px; }
   .demo-pill { display: none; }
   .theme-button { min-height: 40px; padding-inline: 10px; font-size: 12px; }
-  .page-content { padding: 12px 16px 96px; }
+  .page-content { padding: 12px 16px max(104px, calc(96px + env(safe-area-inset-bottom))); }
   .prototype-note { margin-bottom: 8px; padding: 8px 12px; font-size: 12px; line-height: 1.35; }
   .page-heading { grid-template-columns: minmax(0, 1fr); gap: 6px; margin-bottom: 16px; }
   .page-heading-copy { grid-column: 1; grid-row: 2; }
@@ -363,13 +363,17 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .document-mark { flex-basis: 42px; height: 42px; font-size: 11px; }
   .document-main strong { font-size: 14px; }
   .document-main small { font-size: 12px; }
-  .row-actions .text-button { font-size: 12px; }
+  .row-actions .text-button { font-size: 12px; min-height: 40px; }
   .record-item, .record-list-entry { align-items: stretch; flex-direction: column; gap: 4px; padding-bottom: 8px; }
   .record-item .row-actions, .record-list-entry .row-actions { justify-content: flex-end; }
   .vehicle-status-actions { justify-content: center; padding-top: 4px; }
   .heading-actions { flex-direction: column; }
   .heading-actions .button { min-height: 44px; padding-inline: 10px; font-size: 12px; }
-  .confirmation-dialog { padding: 20px; }
+  .confirmation-dialog { padding: 20px; margin: 12px; max-height: calc(100vh - 24px); overflow-y: auto; }
+  .confirmation-dialog h2 { font-size: 22px; }
+  .confirmation-dialog > p:not(.eyebrow) { font-size: 14px; }
+  .confirmation-dialog .form-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 16px; }
+  .confirmation-dialog .button { min-height: 44px; font-size: 13px; }
   .record-row { gap: 9px; }
   .record-row strong { font-size: 14px; }
   .record-row small { font-size: 12px; }
@@ -379,7 +383,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .field-label { font-size: 13px; }
   .field input, .field select, .field textarea { min-height: 50px; font-size: 16px; }
   .form-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 24px; }
-  .form-actions .button { min-width: 0; padding: 0 10px; font-size: 13px; }
+  .form-actions .button { min-width: 0; padding: 0 10px; font-size: 13px; min-height: 44px; }
   .context-strip { align-items: flex-start; flex-direction: column; gap: 5px; }
   .success-card { padding: 18px; }
   .success-card .form-actions { grid-template-columns: 1fr; }
@@ -388,12 +392,65 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .preview-pdf { height: 60vh; }
   .category-form { align-items: stretch; flex-direction: column; }
   .category-form .button { width: 100%; }
-  .auth-layout { padding: 75px 16px 25px; }
+  .auth-layout { padding: 75px 16px max(25px, calc(25px + env(safe-area-inset-bottom))); }
   .auth-brand { top: 17px; left: 16px; }
   .auth-card { padding: 26px 22px; border-radius: 14px; }
   .auth-card h1 { font-size: 26px; }
   .auth-links { justify-content: flex-start; }
   .toast { right: 12px; bottom: 82px; left: 12px; max-width: none; }
+
+  /* VehicleForm - checkbox field touch target */
+  .check-field { min-height: 56px; padding: 14px; }
+  .check-field input { width: 22px; height: 22px; }
+  .check-field strong { font-size: 14px; }
+  .check-field small { font-size: 12px; }
+
+  /* File picker improvements */
+  .file-picker-button { min-height: 48px; padding: 0 16px; font-size: 13px; width: 100%; }
+  .file-picker-name { font-size: 12px; }
+
+  /* Category manager - touch targets */
+  .category-row { min-height: 56px; padding: 0 4px; }
+  .category-label strong { font-size: 14px; }
+  .category-label small { font-size: 12px; }
+  .category-row .row-actions { flex-wrap: wrap; gap: 6px; }
+  .category-row .row-actions .text-button { min-height: 40px; font-size: 12px; padding: 0 10px; }
+
+  /* Empty state */
+  .empty-state { min-height: 160px; padding: 20px; }
+  .empty-state h3 { font-size: 17px; }
+  .empty-state p { font-size: 13px; max-width: 100%; }
+
+  /* Auth form fields */
+  .auth-card .field input { min-height: 52px; font-size: 16px; }
+  .auth-card .form-actions { grid-template-columns: 1fr; gap: 8px; }
+  .auth-card .button { min-height: 48px; font-size: 14px; }
+
+  /* Toast above bottom nav on mobile */
+  .toast { bottom: max(88px, calc(82px + env(safe-area-inset-bottom))); }
+
+  /* Document preview - prevent overflow */
+  .preview-image { max-width: 100%; height: auto; }
+  .preview-pdf { width: 100%; max-width: 100%; }
+
+  /* Vehicle detail - ensure hero data visible above bottom nav */
+  .vehicle-hero { margin-bottom: 8px; }
+
+  /* Confirmation dialog - better mobile layout */
+  .confirmation-dialog .form-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .confirmation-dialog .button { min-height: 44px; }
+
+  /* Category manager form on mobile */
+  .category-form .field input { min-height: 50px; font-size: 16px; }
+
+  /* Empty state action button */
+  .empty-state .button { min-height: 44px; font-size: 13px; }
+
+  /* Ensure select elements have proper touch target */
+  .field select { min-height: 50px; font-size: 16px; }
+
+  /* Textarea on mobile */
+  .field textarea { min-height: 100px; font-size: 16px; }
 }
 
 @media (max-width: 370px) {
@@ -408,4 +465,14 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .vehicle-plate { font-size: 18px; }
   .status-chip, .type-chip { padding-inline: 7px; font-size: 10px; }
   .form-actions { grid-template-columns: 1fr; }
+  .auth-card { padding: 22px 16px; }
+  .auth-card h1 { font-size: 24px; }
+  .summary-card { min-height: 70px; padding: 8px 6px 8px 12px; }
+  .summary-card strong { font-size: 19px; }
+  .quick-actions .button { font-size: 11px; padding-inline: 6px; }
+  .heading-actions .button { font-size: 11px; padding-inline: 8px; }
+  .confirmation-dialog { padding: 16px; margin: 8px; }
+  .confirmation-dialog h2 { font-size: 20px; }
+  .confirmation-dialog .button { font-size: 12px; padding-inline: 8px; }
+  .document-mark { flex-basis: 38px; height: 38px; font-size: 10px; }
 }
