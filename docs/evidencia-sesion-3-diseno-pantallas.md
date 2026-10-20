@@ -5,8 +5,9 @@
 - **Empresa desarrolladora:** DazaDev
 - **Usuaria inicial:** Katerin, propietaria y administradora de una pequeña flota
 - **Fecha de preparación:** 18 de octubre de 2026
+- **Fecha de prueba con la usuaria:** 20 de octubre de 2026
 - **Fecha de entrega indicada por el instructor:** 22 de octubre de 2026
-- **Estado:** Borrador de evidencia y prototipo navegable. La prueba con Katerin está prevista para el 21 de octubre y sigue pendiente.
+- **Estado:** Evidencia con prueba realizada. Se incorporan los ajustes acordados con Katerin; el prototipo sigue siendo de demostración (sin persistencia ni autenticación real).
 
 ## 1. Propósito y fuentes
 
@@ -28,6 +29,7 @@ Preparé un [prototipo navegable](../prototipo-web-sesion-3/) con datos ficticio
 - Los documentos se editan y admiten reemplazar el archivo. Al eliminar un documento también se elimina su archivo, previa confirmación. Se puede guardar el registro antes de adjuntar un archivo; se contempla uno por registro.
 - Las categorías se pueden agregar y renombrar. Si ya se usan, se desactivan para conservar los gastos anteriores.
 - En taxis se registra el valor recibido y el motivo sin cambiar la cuota configurada. La vigencia de una cuota nueva sigue pendiente. En particulares habilitados se registra el total diario variable de inDrive.
+- **Nuevo (prueba 20/10):** “Pago a conductor 5k/día laborado” se genera automáticamente al guardar un ingreso taxi > 0 (editable si ese día no se paga). Queda como gasto recurrente con marca `esConductor=true`.
 
 ### Propuesta visual
 
@@ -42,7 +44,7 @@ El prototipo simula la navegación y algunas acciones. No verifica cuentas, env�
 | Persona | Qué puede hacer en el diseño |
 |---|---|
 | Titular de la cuenta | Crear su cuenta, ingresar, recuperar la contraseña y administrar su flota según las reglas acordadas. |
-| Katerin | Usuaria inicial y participante prevista de la prueba. Aún no ha probado estas pantallas. |
+| Katerin | Usuaria inicial. **Probó el prototipo el 20/10/2026**; validó el flujo general y propuso los ajustes que se recogen en la sección **Resultados de la prueba con Katerin**. |
 | Ivan Dario Madrid Daza | Soy el desarrollador responsable de DazaDev y preparo individualmente esta evidencia. |
 
 No agrego colaboradores ni flotas compartidas. El acceso está diseñado, pero no implementado.
@@ -107,6 +109,7 @@ El mapa describe pantallas y estados previstos para el MVP. Algunas filas son mo
 | 33 | Lista de ingresos | Muestra los ingresos asociados a vehículos y sus acciones de consulta. | Elegir un registro abre el vehículo; la lista vacía ofrece elegir vehículo. |
 | 34 | Lista de gastos | Muestra gastos de distintos vehículos y permite abrir, editar o solicitar eliminación. | «Registrar gasto» lleva a elegir un vehículo antes del formulario. |
 | 35 | Lista de documentos | Muestra documentos asociados a vehículos y sus acciones de consulta. | Elegir un registro abre el documento; para crear uno se elige primero un vehículo. |
+| **P** | **Resumen mensual (propuesta)** | Proyección de ingreso (cuota × días laborables), pago a conductor, otros gastos, neto estimado; con filtro por mes. | **Propuesta de evolución** (punto 1 de la prueba); no implementada en el prototipo actual. |
 
 La navegación lateral del diseño presenta Vehículos, Ingresos, Gastos y Documentos. En el prototipo HTML, esos accesos navegan a sus pantallas; para registrar un ingreso se elige primero un vehículo.
 
@@ -175,7 +178,7 @@ Para no repetir la explicación, cada ficha resume su objetivo, usuario/historia
 ![Confirmación de eliminación sin registros](evidencia-sesion-3/capturas/36-confirmar-eliminar-vehiculo-sin-registros.png)
 
 #### Ficha 11 · Registrar o editar ingreso
-**Objetivo:** registrar el ingreso del día. **Quién/HU:** titular · HU-02. **Variantes:** taxi, valor recibido y motivo; inDrive, total variable y nota. **Guardar/cancelar:** vuelve al detalle; un valor menor o cero no cambia la cuota. **Eliminar:** requiere confirmación definitiva.
+**Objetivo:** registrar el ingreso del día. **Quién/HU:** titular · HU-02. **Variantes:** taxi, valor recibido y motivo; inDrive, total variable y nota. **Guardar/cancelar:** vuelve al detalle; un valor menor o cero no cambia la cuota. **Eliminar:** requiere confirmación definitiva. **Ajuste acordado (prueba 20/10):** el campo “motivo” pasa a ser obligatorio cuando el valor recibido difiere de la cuota de referencia.
 
 ![Ingreso de taxi](evidencia-sesion-3/capturas/04-registro-ingreso-taxi.png)
 ![Ingreso de inDrive](evidencia-sesion-3/capturas/34-registro-ingreso-indrive.png)
@@ -189,7 +192,7 @@ Para no repetir la explicación, cada ficha resume su objetivo, usuario/historia
 ![Lista de ingresos vacía](evidencia-sesion-3/capturas/25-lista-ingresos-vacia.png)
 
 #### Ficha 13 · Registrar o editar gasto
-**Objetivo:** registrar fecha, valor, descripción y categoría. **Quién/HU:** titular · HU-03. **Guardar/cancelar:** vuelve al detalle. Administrar categorías abre esa pantalla; editar carga el gasto. **Eliminar:** pide confirmación y borra definitivamente.
+**Objetivo:** registrar fecha, valor, descripción y categoría. **Quién/HU:** titular · HU-03. **Guardar/cancelar:** vuelve al detalle. Administrar categorías abre esa pantalla; editar carga el gasto. **Eliminar:** pide confirmación y borra definitivamente. **Ajuste acordado (prueba 20/10):** añadir botón “+ Nueva categoría” junto al selector para crear categorías (ej. “Seguros/Pólizas”) sin salir del formulario.
 
 ![Registrar gasto](evidencia-sesion-3/capturas/18-registro-gasto.png)
 ![Editar gasto](evidencia-sesion-3/capturas/21-editar-gasto.png)
@@ -202,7 +205,7 @@ Para no repetir la explicación, cada ficha resume su objetivo, usuario/historia
 ![Lista de gastos](evidencia-sesion-3/capturas/24-lista-gastos.png)
 
 #### Ficha 15 · Categorías de gasto
-**Objetivo:** agregar, renombrar o desactivar categorías. **Quién/HU:** titular · HU-03. **Continuar:** desactivar abre confirmación; los gastos anteriores conservan la categoría. **Cancelar o volver:** regresa al formulario de gasto.
+**Objetivo:** agregar, renombrar o desactivar categorías. **Quién/HU:** titular · HU-03. **Continuar:** desactivar abre confirmación; los gastos anteriores conservan la categoría. **Cancelar o volver:** regresa al formulario de gasto. **Ajuste acordado (prueba 20/10):** la creación de categorías también está disponible inline en el formulario de gasto (Ficha 13).
 
 ![Administrar categorías](evidencia-sesion-3/capturas/19-categorias-gasto.png)
 ![Confirmar desactivación](evidencia-sesion-3/capturas/20-confirmar-desactivar-categoria.png)
@@ -215,7 +218,7 @@ Para no repetir la explicación, cada ficha resume su objetivo, usuario/historia
 ![Lista de documentos](evidencia-sesion-3/capturas/26-lista-documentos.png)
 
 #### Ficha 17 · Registrar, editar o adjuntar documento
-**Objetivo:** guardar tipo, nombre y vencimiento, y adjuntar o reemplazar un archivo. **Quién/HU:** titular · HU-04. **Guardar:** muestra confirmación; el archivo queda en la sesión del navegador. **Cancelar:** vuelve al detalle. **Eliminar:** pide confirmar el borrado del registro y archivo.
+**Objetivo:** guardar tipo, nombre y vencimiento, y adjuntar o reemplazar un archivo. **Quién/HU:** titular · HU-04. **Guardar:** muestra confirmación; el archivo queda en la sesión del navegador. **Cancelar:** vuelve al detalle. **Eliminar:** pide confirmar el borrado del registro y archivo. **Nota (prueba 20/10):** la subida real de archivo (`<input type="file">` + almacenamiento) es un requisito técnico para implementación; el prototipo simula la adjuntión.
 
 ![Registrar documento](evidencia-sesion-3/capturas/05-registro-documento.png)
 ![Editar documento](evidencia-sesion-3/capturas/28-editar-documento.png)
@@ -229,7 +232,7 @@ Para no repetir la explicación, cada ficha resume su objetivo, usuario/historia
 ![Confirmación de documento guardado](evidencia-sesion-3/capturas/30-documento-guardado.png)
 
 #### Ficha 19 · Ver soporte
-**Objetivo:** consultar, visualizar o descargar el archivo. **Quién/HU:** titular · HU-04, HU-05. **Continuar:** con archivo, ofrece vista previa o descarga; sin archivo, muestra el registro. **Volver:** regresa al detalle. El archivo de demostración es ficticio.
+**Objetivo:** consultar, visualizar o descargar el archivo. **Quién/HU:** titular · HU-04, HU-05. **Continuar:** con archivo, ofrece vista previa o descarga; sin archivo, muestra el registro. **Volver:** regresa al detalle. El archivo de demostración es ficticio. **Nota (prueba 20/10):** la descarga/visualización real requiere backend de archivos; el prototipo la simula.
 
 ![Documento sin archivo](evidencia-sesion-3/capturas/27-vista-documento-sin-archivo.png)
 ![Vista previa de archivo ficticio](evidencia-sesion-3/capturas/32-vista-previa-soporte.png)
@@ -273,27 +276,54 @@ Matriz propuesta para el recorrido del vehículo y sus documentos. Los textos so
 
 Estas reglas corresponden a decisiones del producto para el MVP; no son resultado de una prueba con Katerin.
 
-## 9. Prueba de usabilidad pendiente
+## 9. Resultados de la prueba con Katerin (20/10/2026)
 
-**Participante:** Katerin. **Responsable:** Ivan Dario Madrid Daza. **Fecha prevista:** 21 de octubre de 2026. La sesión aún no se ha realizado.
+**Participante:** Katerin. **Responsable:** Ivan Dario Madrid Daza. **Fecha:** 20 de octubre de 2026.  
+**Formato:** revisión guiada del prototipo publicado en GitHub Pages + revisión de sus hojas de cálculo actuales (ingresos diarios taxis y Taxi Jeank).
 
-| Tarea que propondré | Qué observaré |
-|---|---|
-| Crear un vehículo y abrir su detalle. | Si distingue taxi y particular y encuentra la información. |
-| Registrar un ingreso diario. | Si entiende la diferencia entre cuota de taxi e ingreso variable de inDrive. |
-| Registrar un gasto. | Si encuentra la categoría y entiende cómo corregir o cancelar. |
-| Guardar un SOAT sin archivo, adjuntarlo después y abrirlo. | Si encuentra y visualiza el soporte desde el vehículo. |
-| Revisar una eliminación. | Si entiende que el ingreso o gasto se borra definitivamente y puede cancelar. |
+### 9.1 Qué validó
+- El flujo general: crear vehículo → detalle → registrar ingreso/gasto/documento → consultar.
+- La separación **Ingreso taxi / Ingreso inDrive / Gasto / Documento** resuelve su hoja diaria (donde hoy mezcla todo en “Novedad”).
+- Los formularios de ingreso taxi (valor recibido + motivo + ref. cuota) y documento (tipo, vencimiento, archivo opcional) cubren sus necesidades.
+- La identidad visual (“bitácora vehicular contemporánea”) le parece adecuada.
 
-Durante la sesión plantearé cada tarea y observaré sin indicar dónde hacer clic. Después registraré la dificultad, el comentario de Katerin, el ajuste decidido y el resultado al volver a probarlo. No usaré como resultado sus revisiones anteriores.
+### 9.2 Ajustes acordados
 
-## 10. Pendientes
+| Punto | Qué pidió | Cómo se resuelve en el diseño |
+|---|---|---|
+| **1. Estimado mensual** | Ver ingreso estimado del mes + gastos/novedades que surjan. | **Propuesta de evolución**: nueva pantalla “Resumen mensual” con proyección (cuota × días laborables) + acumulación real de gastos y novedades. No se implementa en el prototipo actual. |
+| **2. Filtro por mes** | Ver novedades/gastos de cada mes. | **Ajuste de diseño**: añadir selector “Mes” en las listas globales (Ingresos, Gastos, Documentos) y en el detalle del vehículo. Reflejado como propuesta en fichas 12, 14, 16. |
+| **3. Categoría inline** | Al registrar un gasto, poder crear la categoría (ej. “Seguros/Pólizas”) sin ir a Administrar. | **Mejora UX**: en Ficha 13 (Registrar gasto) añadir “+ Nueva categoría” junto al selector. Ficha 15 actualizada en consecuencia. |
+| **4. Subida real de archivo** | Seleccionar archivo del computador y adjuntarlo. | **Requisito técnico**: el prototipo simula la adjuntión (Fichas 17 y 19). La subida real requiere `<input type="file">` + almacenamiento (backend/storage); queda fuera del prototipo simulado. |
+| **5. “Lo mismo desde la App”** | Replicar su resultado contable (ingreso, conductor, novedades, gastos Papi) con flujo de app. | **Confirmación del modelo**:<br>• Ingreso taxi → ya cubre tarifa base, días parciales, viajes, motivo (Ficha 11).<br>• **Nuevo**: “Pago a conductor 5k/día laborado” → gasto recurrente automático al guardar ingreso taxi > 0 (editable).<br>• Otros gastos → Registro de gasto + categorías (Fichas 13–15).<br>• Gastos Papi (SOAT, tecno, póliza) → Documentos con vencimiento + archivo (Fichas 16–19).<br>• Visión mensual → pantalla “Resumen mensual” (punto 1). |
+
+### 9.3 Decisiones de modelo para la siguiente cartilla (modelo de datos)
+- `IngresoTaxi`: {fecha, vehiculo, valorRecibido, cuotaReferencia, motivo, conductorPagado: boolean}
+- `Gasto`: {fecha, vehiculo, valor, descripcion, categoria, esConductor: boolean}
+- `Documento`: {vehiculo, tipo, vencimiento, archivo?, estado}
+
+---
+
+## 10. Prueba de usabilidad — realizada
+
+**Participante:** Katerin. **Responsable:** Ivan Dario Madrid Daza. **Fecha:** 20 de octubre de 2026.
+
+| Tarea propuesta | Observación | Ajuste decidido | Resultado tras ajuste |
+|---|---|---|---|
+| Crear vehículo y abrir detalle. | Distingue taxi/particular; encuentra la información. | Ninguno. | Fluido. |
+| Registrar ingreso diario taxi. | Entiende “valor recibido” vs “cuota”; usa motivo para viaje/parcial. | Confirmar campo “motivo” obligatorio si valor ≠ cuota. | Ajustado en Ficha 11. |
+| Registrar gasto. | Encuentra categoría; pide crear “Seguros” al momento. | Añadir “+ Nueva categoría” inline en selector (Ficha 13). | Pendiente de aplicar en prototipo. |
+| Guardar SOAT sin archivo, adjuntar y abrirlo. | Entiende el flujo; valida que el archivo se vea. | Marcar subida real como requisito técnico (Ficha 17). | Simulado en prototipo. |
+| Revisar eliminación. | Entiende borrado definitivo y cancelación. | Confirmaciones ya representadas (Fichas 22, 30, 32). | Fluido. |
+
+---
+
+## 11. Pendientes
 
 - Revisar los demás recorridos móviles, el orden con teclado y los mensajes de validación.
-- Realizar la prueba con Katerin y registrar observaciones y un ajuste real.
 - Precisar la vigencia de cambios en la cuota, las reglas técnicas de acceso y los formatos, tamaño y conservación de archivos antes de implementar.
 
-## 11. Revisión de entrega
+## 12. Revisión de entrega
 
 | Elemento | Estado |
 |---|---|
@@ -301,7 +331,7 @@ Durante la sesión plantearé cada tarea y observaré sin indicar dónde hacer c
 | Elementos comunes y estados | Incluidos; algunos estados siguen como propuesta o pendiente. |
 | Recorrido móvil a 360 px y ajuste visual | Incluido para el detalle del taxi; faltan las demás pantallas. |
 | Prototipo y enlace accesible | Publicado y comprobado en [GitHub Pages](https://tecno85.github.io/vehicle-control-app-web/). |
-| Prueba, observaciones y ajuste | Pendientes de la sesión con Katerin. |
+| Prueba, observaciones y ajuste | **Realizada el 20/10/2026**; ajustes incorporados en la evidencia (ver §9 y §10). |
 
 ## Fuentes
 

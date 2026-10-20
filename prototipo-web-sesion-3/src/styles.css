@@ -289,6 +289,69 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .confirmation-dialog > p:not(.eyebrow) { color: var(--muted); font-size: 14px; line-height: 1.55; }
 .button-danger { background: var(--red); color: #fff; }
 
+/* Filter bar for lists */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 18px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: linear-gradient(180deg, #fbf8f0 0%, var(--surface-soft) 100%);
+}
+.filter-select { display: grid; flex: 1 1 220px; min-width: 0; gap: 9px; }
+.filter-select > span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.filter-select > span::before {
+  content: "";
+  flex: 0 0 15px;
+  width: 15px;
+  height: 15px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%231f6b70' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='2'/%3E%3Cpath d='M16 2v4M8 2v4M3 10h18'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.filter-select select {
+  width: 100%;
+  min-height: 50px;
+  padding: 0 46px 0 15px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%235d706a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") right 14px center / 18px 18px no-repeat;
+  appearance: none;
+  color: var(--text);
+  font-family: inherit;
+  font-size: var(--size-body);
+  font-weight: 500;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65), 0 1px 2px rgba(25, 51, 47, 0.05);
+  cursor: pointer;
+  transition: border-color 140ms ease, box-shadow 140ms ease;
+}
+.filter-select select:hover { border-color: color-mix(in srgb, var(--blue) 55%, var(--line)); }
+.filter-select select:focus-visible {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--blue) 22%, transparent);
+}
+
+/* Inline new category in expense form */
+.category-selector { display: flex; align-items: center; gap: 10px; }
+.category-selector select { flex: 1; }
+.inline-new-category { min-height: 50px; padding: 0 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--blue); font-size: var(--size-caption); font-weight: 700; cursor: pointer; }
+.inline-new-category:hover { border-color: var(--blue); }
+.inline-new-category-form { display: flex; flex: 1; gap: 8px; align-items: center; }
+.inline-new-category-form input { flex: 1; min-height: 50px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--text); font-size: var(--size-body); }
+.inline-actions { display: flex; gap: 8px; }
+.button-sm { min-height: 44px; padding: 0 14px; font-size: var(--size-caption); font-weight: 700; }
+
 @media (max-width: 1050px) {
   .workspace { grid-template-columns: 210px minmax(0, 1fr); }
   .sidebar { width: 210px; }
@@ -451,6 +514,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 
   /* Textarea on mobile */
   .field textarea { min-height: 100px; font-size: 16px; }
+
 }
 
 @media (max-width: 370px) {
@@ -475,4 +539,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .confirmation-dialog h2 { font-size: 20px; }
   .confirmation-dialog .button { font-size: 12px; padding-inline: 8px; }
   .document-mark { flex-basis: 38px; height: 38px; font-size: 10px; }
+  .filter-bar { padding: 10px 12px; gap: 8px; }
+  .filter-select select { min-height: 50px; font-size: 16px; padding-right: 40px; }
 }

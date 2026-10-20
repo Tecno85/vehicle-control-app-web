@@ -17,7 +17,7 @@ const demoVehicles = [
     model: "Taxi",
     type: "Taxi",
     driver: "Conductor de ejemplo",
-    quota: 180000,
+    quota: 60000,
     status: "Activo",
   },
 ];
@@ -58,7 +58,10 @@ const initialExpenses = [
   },
 ];
 
-const expenseCategories = ["Combustible", "Lavado", "Mantenimiento", "Repuestos"];
+const expenseCategories = ["Combustible", "Lavado", "Mantenimiento", "Repuestos", "Seguros/Pólizas"];
+
+const CONDUCTOR_DAILY = 5000;
+const CONDUCTOR_CATEGORY = "Conductor";
 
 function formatCurrency(value) {
   return new Intl.NumberFormat("es-CO", {
@@ -66,6 +69,19 @@ function formatCurrency(value) {
     currency: "COP",
     maximumFractionDigits: 0,
   }).format(Number(value) || 0);
+}
+
+function formatMonthLabel(value) {
+  if (!/^\d{4}-\d{2}$/.test(value)) return value;
+  const [year, month] = value.split("-").map(Number);
+  const label = new Intl.DateTimeFormat("es-CO", { month: "long", year: "numeric" })
+    .format(new Date(year, month - 1, 1));
+  return label.charAt(0).toUpperCase() + label.slice(1);
+}
+
+function getMonthKey(date) {
+  const value = String(date || "").slice(0, 7);
+  return /^\d{4}-\d{2}$/.test(value) ? value : "";
 }
 
 function getToday() {
@@ -203,19 +219,49 @@ function App() {
       return;
     }
 
+    const isTaxi = currentVehicle.type === "Taxi";
+    const quota = currentVehicle.quota || 0;
+    const reason = String(form.get("reason") || "").trim();
+    const note = String(form.get("note") || "").trim();
+
+    if (isTaxi && amount !== quota && !reason) {
+      setFormError("Si el valor recibido difiere de la cuota, escribe el motivo.");
+      return;
+    }
+
     const existingIncome = incomes.find((item) => item.id === editingIncomeId);
     const income = {
       id: existingIncome?.id || `income-${Date.now()}`,
       vehicleId: currentVehicle.id,
-      type: currentVehicle.type === "Taxi" ? "Cuota diaria de taxi" : "Ingreso diario de inDrive",
+      type: isTaxi ? "Cuota diaria de taxi" : "Ingreso diario de inDrive",
       date: String(form.get("date") || ""),
       amount,
-      note: String(form.get("note") || "").trim(),
-      reason: String(form.get("reason") || "").trim(),
+      note,
+      reason,
+      conductorPagado: isTaxi && amount > 0,
     };
     setIncomes((current) => existingIncome
       ? current.map((item) => item.id === existingIncome.id ? income : item)
       : [income, ...current]);
+
+    // Auto-registrar pago a conductor (5k) si es taxi con ingreso > 0
+    if (isTaxi && amount > 0 && !existingIncome) {
+      const conductorExpense = {
+        id: `expense-${Date.now()}`,
+        vehicleId: currentVehicle.id,
+        date: String(form.get("date") || ""),
+        amount: CONDUCTOR_DAILY,
+        category: CONDUCTOR_CATEGORY,
+        description: "Pago a conductor",
+        isConductor: true,
+      };
+      setExpenses((current) => [conductorExpense, ...current]);
+      // Añadir categoría "Conductor" si no existe
+      if (!categoryList.includes(CONDUCTOR_CATEGORY)) {
+        setCategoryList((c) => [...c, CONDUCTOR_CATEGORY]);
+      }
+    }
+
     setEditingIncomeId(null);
     setFormError("");
     setPage("vehicle-detail");
@@ -344,6 +390,11 @@ function App() {
     announce("El cambio se aplicó solo a esta demostración temporal.");
   }
 
+  function addCategoryInline(name) {
+    setCategoryList((current) => current.some((category) => category.toLowerCase() === name.toLowerCase()) ? current : [...current, name]);
+    announce(`Categoría "${name}" agregada a esta demostración.`);
+  }
+
   function addCategory(event) {
     event.preventDefault();
     const cleanName = categoryName.trim();
@@ -427,7 +478,7 @@ function App() {
               {page === "vehicle-form" && <VehicleForm vehicle={vehicles.find((item) => item.id === editingVehicleId)} onCancel={() => { setEditingVehicleId(null); setPage(editingVehicleId ? "vehicle-detail" : "fleet"); }} onSave={saveVehicle} type={newVehicleType} setType={setNewVehicleType} error={formError} />}
               {page === "vehicle-detail" && currentVehicle && <VehicleDetail vehicle={currentVehicle} hasRecords={vehicleHasRecords(currentVehicle.id)} documents={documents.filter((item) => item.vehicleId === currentVehicle.id)} expenses={expenses.filter((item) => item.vehicleId === currentVehicle.id)} incomes={incomes.filter((item) => item.vehicleId === currentVehicle.id)} onBack={() => setPage("fleet")} onEdit={() => editVehicle(currentVehicle)} onDeleteOrDeactivate={() => setPendingConfirmation({ type: vehicleHasRecords(currentVehicle.id) ? "vehicle-deactivate" : "vehicle-delete", id: currentVehicle.id, name: currentVehicle.plate })} onIncome={() => { setEditingIncomeId(null); setFormError(""); setPage("income-form"); }} onExpense={() => { setEditingExpenseId(null); setFormError(""); setPage("expense-form"); }} onDocument={() => { setEditingDocumentId(null); setAttachingToDocumentId(null); setSelectedFile(null); setFormError(""); setPage("document-form"); }} onDocumentOpen={openDocument} onDocumentEdit={editDocument} onDocumentDelete={(document) => setPendingConfirmation({ type: "document", id: document.id, name: document.name })} onIncomeEdit={editIncome} onIncomeDelete={(income) => setPendingConfirmation({ type: "income", id: income.id, name: income.type })} onExpenseEdit={editExpense} onExpenseDelete={(expense) => setPendingConfirmation({ type: "expense", id: expense.id, name: expense.description })} />}
               {page === "income-form" && currentVehicle && <IncomeForm key={editingIncomeId || `new-${currentVehicle.id}`} vehicle={currentVehicle} income={incomes.find((item) => item.id === editingIncomeId)} onCancel={() => { setEditingIncomeId(null); returnToVehicle(); }} onSave={saveIncome} error={formError} />}
-              {page === "expense-form" && currentVehicle && <ExpenseForm key={editingExpenseId || `new-${currentVehicle.id}`} vehicle={currentVehicle} expense={expenses.find((item) => item.id === editingExpenseId)} categories={activeCategories} onCancel={() => { setEditingExpenseId(null); returnToVehicle(); }} onSave={saveExpense} onCategories={() => { setEditingCategory(null); setCategoryName(""); setPage("categories"); }} error={formError} />}
+              {page === "expense-form" && currentVehicle && <ExpenseForm key={editingExpenseId || `new-${currentVehicle.id}`} vehicle={currentVehicle} expense={expenses.find((item) => item.id === editingExpenseId)} categories={activeCategories} onCancel={() => { setEditingExpenseId(null); returnToVehicle(); }} onSave={saveExpense} onAddCategory={addCategoryInline} onCategories={() => { setEditingCategory(null); setCategoryName(""); setPage("categories"); }} error={formError} />}
               {page === "expense-list" && <ExpenseList expenses={expenses} vehicles={vehicles} onAdd={() => { const vehicle = vehicles.find((item) => item.status === "Activo"); if (vehicle) setCurrentVehicleId(vehicle.id); setEditingExpenseId(null); setFormError(""); setPage(vehicle ? "expense-form" : "fleet"); }} onOpen={openVehicle} onEdit={editExpense} onDelete={(expense) => setPendingConfirmation({ type: "expense", id: expense.id, name: expense.description })} />}
               {page === "income-list" && <IncomeList incomes={incomes} vehicles={vehicles} onAdd={() => setPage("fleet")} onOpen={openVehicle} onEdit={editIncome} onDelete={(income) => setPendingConfirmation({ type: "income", id: income.id, name: income.type })} />}
               {page === "document-list" && <DocumentList documents={documents} vehicles={vehicles} onOpen={openDocument} onEdit={editDocument} onDelete={(document) => setPendingConfirmation({ type: "document", id: document.id, name: document.name })} onAdd={() => setPage("fleet")} />}
@@ -675,7 +726,7 @@ function IncomeForm({ vehicle, income, onCancel, onSave, error }) {
         <div className="form-stack">
           <Field label="Fecha"><input name="date" type="date" lang="es-CO" defaultValue={income?.date || getToday()} required /></Field>
           <Field label={isTaxi ? "Valor recibido" : "Total del día"}><input name="amount" type="number" min="0" inputMode="numeric" defaultValue={income?.amount ?? ""} placeholder="Escribe el valor" required /></Field>
-          {isTaxi ? <Field label="Motivo (opcional)"><textarea name="reason" rows="3" defaultValue={income?.reason || ""} placeholder="Anota por qué fue menor o no hubo ingreso" /></Field> : <Field label="Nota (opcional)"><textarea name="note" rows="3" defaultValue={income?.note || ""} placeholder="Agrega una nota para este día" /></Field>}
+          {isTaxi ? <Field label="Motivo (obligatorio si el valor difiere de la cuota)"><textarea name="reason" rows="3" defaultValue={income?.reason || ""} placeholder="Anota por qué fue menor o no hubo ingreso" /></Field> : <Field label="Nota (opcional)"><textarea name="note" rows="3" defaultValue={income?.note || ""} placeholder="Agrega una nota para este día" /></Field>}
         </div>
         {isTaxi && <p className="helper-panel">Registrar el valor recibido no cambia la cuota configurada del taxi.</p>}
         {error && <p className="form-error" role="alert">{error}</p>}
@@ -685,10 +736,34 @@ function IncomeForm({ vehicle, income, onCancel, onSave, error }) {
   );
 }
 
-function ExpenseForm({ vehicle, expense, categories, onCancel, onSave, onCategories, error }) {
+function ExpenseForm({ vehicle, expense, categories, onCancel, onSave, onAddCategory, onCategories, error }) {
+  const [showNewCategory, setShowNewCategory] = useState(false);
+  const [newCategoryName, setNewCategoryName] = useState("");
+  const [categoryError, setCategoryError] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(expense?.category || categories[0]);
+
   const selectableCategories = expense && !categories.includes(expense.category)
     ? [expense.category, ...categories]
     : categories;
+
+  function handleNewCategory(event) {
+    event.preventDefault();
+    const name = newCategoryName.trim();
+    if (!name) {
+      setCategoryError("Escribe un nombre para la categoría.");
+      return;
+    }
+    if (categories.some((category) => category.toLowerCase() === name.toLowerCase())) {
+      setCategoryError("Esa categoría ya existe.");
+      return;
+    }
+    onAddCategory(name);
+    setSelectedCategory(name);
+    setCategoryError("");
+    setNewCategoryName("");
+    setShowNewCategory(false);
+  }
+
   return (
     <>
       <PageHeading title={expense ? "Editar gasto" : "Registrar gasto"} subtitle={`Vehículo: ${vehicle.plate}`} back={onCancel} />
@@ -697,7 +772,31 @@ function ExpenseForm({ vehicle, expense, categories, onCancel, onSave, onCategor
           <Field label="Fecha"><input name="date" type="date" lang="es-CO" defaultValue={expense?.date || getToday()} required /></Field>
           <Field label="Valor"><input name="amount" type="number" min="0" inputMode="numeric" defaultValue={expense?.amount ?? ""} placeholder="Escribe el valor" required /></Field>
           <Field label="Descripción"><input name="description" defaultValue={expense?.description || ""} placeholder="Ej. Cambio de aceite" required /></Field>
-          <Field label="Categoría"><select name="category" defaultValue={expense?.category || categories[0]}>{selectableCategories.map((category) => <option key={category}>{category}</option>)}</select></Field>
+          <Field label="Categoría">
+            <div className="category-selector">
+              <select name="category" value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
+                {selectableCategories.map((category) => <option key={category}>{category}</option>)}
+              </select>
+              {!showNewCategory ? (
+                <button type="button" className="inline-new-category" onClick={() => { setShowNewCategory(true); setCategoryError(""); }}>+ Nueva categoría</button>
+              ) : (
+                <div className="inline-new-category-form">
+                  <input
+                    type="text"
+                    value={newCategoryName}
+                    onChange={(e) => setNewCategoryName(e.target.value)}
+                    placeholder="Nombre de la nueva categoría"
+                    autoFocus
+                  />
+                  <div className="inline-actions">
+                    <button type="button" className="button button-quiet button-sm" onClick={() => { setShowNewCategory(false); setNewCategoryName(""); setCategoryError(""); }}>Cancelar</button>
+                    <button type="button" className="button button-primary button-sm" onClick={handleNewCategory}>Crear</button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </Field>
+          {categoryError && <p className="form-error" role="alert">{categoryError}</p>}
         </div>
         <button className="text-button categories-link" type="button" onClick={onCategories}>Administrar categorías</button>
         {error && <p className="form-error" role="alert">{error}</p>}
@@ -772,32 +871,147 @@ function DocumentView({ document, vehicle, onBack, onEdit, onDelete }) {
 }
 
 function ExpenseList({ expenses, vehicles, onAdd, onOpen, onEdit, onDelete }) {
+  const [filterMonth, setFilterMonth] = useState("");
+  const months = useMemo(() => {
+    const ms = new Set(expenses.map((e) => getMonthKey(e.date)).filter(Boolean));
+    return Array.from(ms).sort().reverse();
+  }, [expenses]);
+
+  const filtered = filterMonth
+    ? expenses.filter((e) => getMonthKey(e.date) === filterMonth)
+    : expenses;
+
   return <>
     <PageHeading title="Gastos" subtitle="Consulta los gastos registrados en esta demostración." action={<button className="button button-primary" onClick={onAdd}>Registrar gasto</button>} />
-    <section className="content-card data-section"><div className="record-list">{expenses.map((expense) => {
-      const vehicle = vehicles.find((item) => item.id === expense.vehicleId);
-      return <div className="record-list-entry" key={expense.id}><button className="list-record-button" onClick={() => vehicle && onOpen(vehicle.id)}><RecordRow title={expense.description} subtitle={`${vehicle?.plate || "Vehículo"} · ${expense.category} · ${expense.date}`} amount={formatCurrency(expense.amount)} /></button><div className="row-actions"><button className="text-button" onClick={() => onEdit(expense)}>Editar</button><button className="text-button destructive-link" onClick={() => onDelete(expense)}>Eliminar</button></div></div>;
-    })}{!expenses.length && <EmptyState title="Todavía no hay gastos" text="Registra un gasto desde el detalle del vehículo." />}</div></section>
+    <section className="content-card data-section">
+      <div className="filter-bar">
+        <label className="filter-select">
+          <span>Filtrar por mes</span>
+          <select value={filterMonth} onChange={(e) => setFilterMonth(e.target.value)}>
+            <option value="">Todos los meses</option>
+            {months.map((m) => <option key={m} value={m}>{formatMonthLabel(m)}</option>)}
+          </select>
+        </label>
+      </div>
+      <div className="record-list">
+        {filtered.map((expense) => {
+          const vehicle = vehicles.find((item) => item.id === expense.vehicleId);
+          return (
+            <div className="record-list-entry" key={expense.id}>
+              <button className="list-record-button" onClick={() => vehicle && onOpen(vehicle.id)}>
+                <RecordRow title={expense.description} subtitle={`${vehicle?.plate || "Vehículo"} · ${expense.category} · ${expense.date}`} amount={formatCurrency(expense.amount)} />
+              </button>
+              <div className="row-actions">
+                <button className="text-button" onClick={() => onEdit(expense)}>Editar</button>
+                <button className="text-button destructive-link" onClick={() => onDelete(expense)}>Eliminar</button>
+              </div>
+            </div>
+          );
+        })}
+        {(() => {
+          if (!filtered.length && filterMonth) return <EmptyInline text={"Sin gastos en " + filterMonth + "."} />;
+          if (!expenses.length && !filterMonth) return <EmptyState title="Todavía no hay gastos" text="Registra un gasto desde el detalle del vehículo." />;
+          return null;
+        })()}
+      </div></section>
   </>;
 }
 
 function IncomeList({ incomes, vehicles, onAdd, onOpen, onEdit, onDelete }) {
+  const [filterMonth, setFilterMonth] = useState("");
+  const months = useMemo(() => {
+    const ms = new Set(incomes.map((i) => getMonthKey(i.date)).filter(Boolean));
+    return Array.from(ms).sort().reverse();
+  }, [incomes]);
+
+  const filtered = filterMonth
+    ? incomes.filter((i) => getMonthKey(i.date) === filterMonth)
+    : incomes;
+
   return <>
     <PageHeading title="Ingresos" subtitle="Cuotas de taxi e ingresos diarios de inDrive." action={<button className="button button-primary" onClick={onAdd}>Elegir vehículo</button>} />
-    <section className="content-card data-section"><div className="record-list">{incomes.map((income) => {
-      const vehicle = vehicles.find((item) => item.id === income.vehicleId);
-      return <div className="record-list-entry" key={income.id}><button className="list-record-button" onClick={() => vehicle && onOpen(vehicle.id)}><RecordRow title={income.type} subtitle={`${vehicle?.plate || "Vehículo"} · ${income.date}`} amount={formatCurrency(income.amount)} positive /></button><div className="row-actions"><button className="text-button" onClick={() => onEdit(income)}>Editar</button><button className="text-button destructive-link" onClick={() => onDelete(income)}>Eliminar</button></div></div>;
-    })}{!incomes.length && <EmptyState title="Todavía no hay ingresos registrados" text="Abre un vehículo para registrar su ingreso diario." />}</div></section>
+    <section className="content-card data-section">
+      <div className="filter-bar">
+        <label className="filter-select">
+          <span>Filtrar por mes</span>
+          <select value={filterMonth} onChange={(e) => setFilterMonth(e.target.value)}>
+            <option value="">Todos los meses</option>
+            {months.map((m) => <option key={m} value={m}>{formatMonthLabel(m)}</option>)}
+          </select>
+        </label>
+      </div>
+      <div className="record-list">
+        {filtered.map((income) => {
+          const vehicle = vehicles.find((item) => item.id === income.vehicleId);
+          return (
+            <div className="record-list-entry" key={income.id}>
+              <button className="list-record-button" onClick={() => vehicle && onOpen(vehicle.id)}>
+                <RecordRow title={income.type} subtitle={`${vehicle?.plate || "Vehículo"} · ${income.date}`} amount={formatCurrency(income.amount)} positive />
+              </button>
+              <div className="row-actions">
+                <button className="text-button" onClick={() => onEdit(income)}>Editar</button>
+                <button className="text-button destructive-link" onClick={() => onDelete(income)}>Eliminar</button>
+              </div>
+            </div>
+          );
+        })}
+        {(() => {
+          if (!filtered.length && filterMonth) return <EmptyInline text={"Sin ingresos en " + filterMonth + "."} />;
+          if (!incomes.length && !filterMonth) return <EmptyState title="Todavía no hay ingresos registrados" text="Abre un vehículo para registrar su ingreso diario." />;
+          return null;
+        })()}
+      </div></section>
   </>;
 }
 
 function DocumentList({ documents, vehicles, onOpen, onEdit, onDelete, onAdd }) {
+  const [filterMonth, setFilterMonth] = useState("");
+  const months = useMemo(() => {
+    const ms = new Set(documents.map((d) => getMonthKey(d.dueDate)).filter(Boolean));
+    return Array.from(ms).sort().reverse();
+  }, [documents]);
+
+  const filtered = filterMonth
+    ? documents.filter((d) => getMonthKey(d.dueDate) === filterMonth)
+    : documents;
+
   return <>
     <PageHeading title="Documentos" subtitle="SOAT y tecnomecánica asociados a tus vehículos." action={<button className="button button-primary" onClick={onAdd}>Ir a un vehículo</button>} />
-    <section className="content-card data-section"><div className="document-list">{documents.map((document) => {
-      const vehicle = vehicles.find((item) => item.id === document.vehicleId);
-      return <article className="document-row" key={document.id}><span className="document-mark">{document.type}</span><span className="document-main"><strong>{document.name}</strong><small>{vehicle?.plate || "Vehículo"} · {document.dueDate}</small><small>{document.fileName}</small></span><div className="row-actions"><button className="text-button" onClick={() => onOpen(document.id)}>Abrir</button><button className="text-button" onClick={() => onEdit(document)}>Editar</button><button className="text-button destructive-link" onClick={() => onDelete(document)}>Eliminar</button></div></article>;
-    })}{!documents.length && <EmptyState title="Todavía no hay documentos" text="Registra un documento desde el detalle del vehículo." />}</div></section>
+    <section className="content-card data-section">
+      <div className="filter-bar">
+        <label className="filter-select">
+          <span>Filtrar por mes</span>
+          <select value={filterMonth} onChange={(e) => setFilterMonth(e.target.value)}>
+            <option value="">Todos los meses</option>
+            {months.map((m) => <option key={m} value={m}>{formatMonthLabel(m)}</option>)}
+          </select>
+        </label>
+      </div>
+      <div className="document-list">
+        {filtered.map((document) => {
+          const vehicle = vehicles.find((item) => item.id === document.vehicleId);
+          return (
+            <article className="document-row" key={document.id}>
+              <span className="document-mark">{document.type}</span>
+              <span className="document-main">
+                <strong>{document.name}</strong>
+                <small>{vehicle?.plate || "Vehículo"} · {document.dueDate}</small>
+                <small>{document.fileName}</small>
+              </span>
+              <div className="row-actions">
+                <button className="text-button" onClick={() => onOpen(document.id)}>Abrir</button>
+                <button className="text-button" onClick={() => onEdit(document)}>Editar</button>
+                <button className="text-button destructive-link" onClick={() => onDelete(document)}>Eliminar</button>
+              </div>
+            </article>
+          );
+        })}
+        {(() => {
+          if (!filtered.length && filterMonth) return <EmptyInline text={"Sin documentos con vencimiento en " + filterMonth + "."} />;
+          if (!documents.length && !filterMonth) return <EmptyState title="Todavía no hay documentos" text="Registra un documento desde el detalle del vehículo." />;
+          return null;
+        })()}
+      </div></section>
   </>;
 }
 

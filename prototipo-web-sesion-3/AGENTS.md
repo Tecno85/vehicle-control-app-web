@@ -11,6 +11,8 @@
 - Mantener la jerarquía clara y las proporciones equilibradas. Evitar adornos, avisos y tarjetas que compitan con las tareas principales.
 - Usar esquinas redondeadas de forma consistente en imágenes y superficies, sin convertir cada control en una cápsula.
 - Conservar las pantallas y acciones acordadas; mejorar su presentación no autoriza a ampliar el alcance funcional.
+- En las listas, el filtro por mes se muestra como etiqueta en mayúsculas con icono de calendario, encima de un selector de ancho completo. No volver a colocar la etiqueta y el selector en la misma línea ni dentro del bloque de estilos móviles.
+- La cuota diaria de referencia del taxi de demostración es $60.000. Al guardar un ingreso de taxi mayor que cero se registra automáticamente el pago al conductor por $5.000, editable.
 
 Run the local server yourself and open the preview in the browser available to this environment. Do not give the user server-start instructions when you can run it.
 
