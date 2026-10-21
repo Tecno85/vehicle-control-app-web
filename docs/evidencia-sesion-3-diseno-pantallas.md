@@ -244,7 +244,7 @@ Para no repetir la explicación, cada ficha resume su objetivo, usuario/historia
 
 Revisé el detalle del taxi a 360 × 800 px. Para dejar espacio a las tareas, organicé la información en una columna, las acciones rápidas en dos y «Registrar documento» a todo el ancho. Esta es la vista responsive de la Web App en una pantalla móvil.
 
-Después de la prueba ajusté los recorridos móviles de formularios, listas y confirmaciones: controles de al menos 44 px, campos de 16 px para evitar el zoom del navegador, navegación inferior fija, espacio para el área segura y acciones que se apilan cuando no caben. Verifiqué la lista de gastos con filtro por mes y el formulario de gasto con creación de categoría a 390 × 844 px. Aún falta revisar el orden con teclado y documentar las pantallas restantes.
+Después de la prueba ajusté los recorridos móviles de formularios, listas y confirmaciones: controles de al menos 44 px, campos de 16 px para evitar el zoom del navegador, navegación inferior fija, espacio para el área segura y acciones que se apilan cuando no caben. Revisé en emulación de navegador, a 390 × 844 px, la lista de gastos con filtro por mes y el formulario de gasto con creación de categoría. Aún falta verificar en un dispositivo móvil real, revisar el orden con teclado y documentar las pantallas restantes.
 
 ![Detalle de taxi a 360 × 800 px](evidencia-sesion-3/capturas/06-detalle-taxi-movil.png)
 ![Lista de gastos con filtro por mes en móvil](evidencia-sesion-3/capturas/41-lista-gastos-filtro-mes-movil.png)
@@ -281,7 +281,7 @@ Matriz propuesta para el recorrido del vehículo y sus documentos. Los textos so
 | Documento | Se editan sus datos, se puede reemplazar el archivo y al eliminar se borra también el adjunto, con confirmación. | El prototipo permite editar, reemplazar el archivo y confirmar el borrado del registro y su soporte. |
 | Categoría | Se agrega o renombra. Si una categoría ya está usada, se desactiva para conservar los gastos anteriores. | El prototipo permite agregar, renombrar y desactivar categorías. Los gastos asociados conservan su etiqueta al desactivarla; al renombrar, se actualiza la etiqueta de los gastos demostrativos. |
 
-Estas reglas corresponden a decisiones del producto para el MVP; no son resultado de una prueba con Katerin.
+Estas reglas se acordaron antes de la prueba del 20 de octubre de 2026 y no cambiaron con ella.
 
 ## 9. Resultados de la prueba con Katerin (20/10/2026)
 
@@ -327,7 +327,7 @@ Estas reglas corresponden a decisiones del producto para el MVP; no son resultad
 
 ## 11. Pendientes
 
-- Revisar en dispositivo móvil los recorridos ajustados y documentar capturas de las pantallas restantes; revisar el orden con teclado y los mensajes de validación.
+- Verificar en un dispositivo móvil real los recorridos ajustados y documentar capturas de las pantallas restantes; revisar el orden con teclado y los mensajes de validación.
 - Precisar la vigencia de cambios en la cuota, las reglas técnicas de acceso y los formatos, tamaño y conservación de archivos antes de implementar.
 - Evaluar la propuesta de “Resumen mensual” antes de incorporarla al alcance.
 
@@ -337,7 +337,7 @@ Estas reglas corresponden a decisiones del producto para el MVP; no son resultad
 |---|---|
 | Recorrido, mapa y fichas con capturas | Incluidos. |
 | Elementos comunes y estados | Incluidos; algunos estados siguen como propuesta o pendiente. |
-| Recorrido móvil a 360 px y ajuste visual | Ajustes responsive aplicados a todas las pantallas; las capturas móviles documentadas cubren el detalle del taxi y las pantallas ajustadas de la prueba. |
+| Recorrido móvil a 360 px y ajuste visual | Ajustes responsive aplicados a todas las pantallas; capturas en emulación de navegador del detalle del taxi y de las pantallas ajustadas de la prueba. |
 | Prototipo y enlace accesible | Publicado y comprobado en [GitHub Pages](https://tecno85.github.io/vehicle-control-app-web/). |
 | Ajustes de la prueba incorporados | Filtro por mes, categoría inline, motivo obligatorio y pago a conductor en la demostración. |
 | Prueba, observaciones y ajuste | **Realizada el 20/10/2026**; ajustes incorporados en la evidencia (ver §9 y §10). |
