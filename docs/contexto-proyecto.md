@@ -1,7 +1,7 @@
 # Contexto del proyecto VehicleControlApp Web
 
-**Estado del contexto:** 18 de octubre de 2026
-**Actividad actual:** diseño de pantallas de sesión 3; entrega indicada para el 22 de octubre de 2026.
+**Estado del contexto:** 21 de octubre de 2026
+**Actividad actual:** diseño de pantallas de sesión 3; prueba con Katerin realizada el 20 de octubre y entrega indicada para el 22 de octubre de 2026.
 **Modalidad de trabajo:** individual.
 
 ## 1. Ficha del proyecto
@@ -28,6 +28,7 @@
 | 12 oct 2026 | Consulta breve de requerimientos realizada por Ivan | Katerin respondió preguntas sobre el proceso web, los ingresos de taxi e inDrive, gastos y categorías, documentos de vehículos y la información a consultar. | Los acuerdos se resumen en el alcance web y se detallan en la [evidencia de sesión 2](evidencia-sesion-2-requerimientos-backlog.md). No se debe atribuir esta consulta a la conversación del 8 de octubre. |
 | 16 oct 2026 | Decisiones de diseño acordadas con Ivan | Se definió el modelo de cuentas independientes, el registro propio, el ingreso con correo y contraseña, la recuperación por correo y reglas de edición y eliminación para el MVP. | Son decisiones para diseñar el flujo; la autenticación y las funciones web no están implementadas. Se documentan en la [evidencia de sesión 3](evidencia-sesion-3-diseno-pantallas.md). |
 | 18 oct 2026 | Alcance responsive y publicación documentados por Ivan | Se confirmó que el producto de este repositorio es una Web App para escritorio y móvil; la vista móvil es responsive y no se desarrollará una aplicación nativa. Se publicó el prototipo de sesión 3 en GitHub Pages. | La publicación permite revisar el prototipo; no significa que las funciones estén implementadas en el producto ni que Katerin ya lo haya probado. |
+| 20 oct 2026 | Prueba del prototipo con Katerin | Katerin recorrió el prototipo publicado y revisó sus hojas de cálculo actuales. Validó el flujo general y propuso ajustes: estimado mensual, filtro por mes, creación de categoría desde el formulario de gasto y pago al conductor. | Los resultados y ajustes están en la [evidencia de sesión 3](evidencia-sesion-3-diseno-pantallas.md), §9 y §10. La prueba no implementa persistencia, autenticación ni subida real de archivos. |
 | Sin fecha especificada | Observación previa de Katerin sobre Android | El término “Registro de documentos” le resultó confuso; también sugirió adjuntar imágenes de facturas. | Mantener como observación distinta de la retroalimentación del 2 de octubre. La propuesta de facturas no se incorpora automáticamente al alcance inicial. |
 | Fechas y condiciones distintas, no detalladas aquí | Antecedente de pruebas Android | Katerin y Jean Carlos probaron el MVP Android en momentos y condiciones distintos. | No combinar sus pruebas ni atribuir resultados específicos sin evidencia separada. |
 
@@ -94,6 +95,8 @@ Propongo que, después del acceso, se muestre la lista de vehículos como pantal
 
 El prototipo de sesión 3 también refleja que los vehículos se editan; los que tienen registros asociados se desactivan para conservarlos y los que no tienen registros se pueden eliminar con confirmación. Los ingresos y gastos se editan y se eliminan definitivamente con confirmación. Los documentos se pueden editar, reemplazar y eliminar con su archivo; las categorías usadas se pueden renombrar o desactivar de acuerdo con las reglas descritas en la [evidencia de sesión 3](evidencia-sesion-3-diseno-pantallas.md). La fecha desde la que aplica una cuota nueva de taxi sigue pendiente.
 
+Después de la prueba del 20 de octubre de 2026, el prototipo incluye además: filtro por mes en las listas de ingresos, gastos y documentos; creación de categoría desde el formulario de gasto; motivo obligatorio cuando el valor recibido del taxi difiere de la cuota; y registro automático del pago al conductor por $5.000 al guardar un ingreso de taxi mayor que cero. Son ajustes de demostración y siguen sin persistencia ni autenticación real.
+
 ## 5. Backlog vigente
 
 El backlog de sesión 2 contiene cinco historias de usuario priorizadas para el MVP: crear y clasificar vehículos; registrar ingresos y ajustar la cuota del taxi; registrar gastos y administrar categorías; registrar documentos y consultar sus soportes; y consultar la información por vehículo. Los criterios BDD y sus pendientes están detallados en la [evidencia de requerimientos y backlog](evidencia-sesion-2-requerimientos-backlog.md).
@@ -105,8 +108,8 @@ El login se incluyó como pantalla y recorrido del prototipo de sesión 3, a sol
 - El trabajo es individual. DazaDev es la empresa desarrolladora e Ivan Dario Madrid Daza es el desarrollador responsable.
 - La [evidencia de semana 1](evidencia-sesion-1.md) conserva el registro de esa actividad y su fecha de entrega indicada: 8 de octubre de 2026.
 - En la [evidencia de sesión 2](evidencia-sesion-2-requerimientos-backlog.md) registré la consulta breve que realicé con Katerin el 12 de octubre y la entrega indicada para el 15 de octubre de 2026.
-- La [evidencia de sesión 3](evidencia-sesion-3-diseno-pantallas.md) documenta el diseño de pantallas, los prototipos visuales y los acuerdos posteriores sobre cuentas y edición/eliminación. La entrega indicada es el 22 de octubre de 2026; la prueba con Katerin está pendiente.
-- Katerin revisó inicialmente el flujo web el 28 de septiembre, pidió adjuntar soportes el 2 de octubre, validó el proceso y el avance Android el 8 de octubre, y respondió preguntas breves el 12 de octubre. Estos contactos no se deben combinar.
+- La [evidencia de sesión 3](evidencia-sesion-3-diseno-pantallas.md) documenta el diseño de pantallas, los prototipos visuales y los acuerdos posteriores sobre cuentas y edición/eliminación. La entrega indicada es el 22 de octubre de 2026; la prueba con Katerin se realizó el 20 de octubre de 2026 y sus resultados están en esa evidencia.
+- Katerin revisó inicialmente el flujo web el 28 de septiembre, pidió adjuntar soportes el 2 de octubre, validó el proceso y el avance Android el 8 de octubre, respondió preguntas breves el 12 de octubre y probó el prototipo web el 20 de octubre. Estos contactos no se deben combinar.
 
 ## 7. Orientación técnica, no decisión
 

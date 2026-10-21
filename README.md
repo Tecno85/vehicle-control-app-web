@@ -20,7 +20,7 @@ El formato PDF es el más común indicado por Katerin. Word (.doc/.docx) e imág
 
 ## Estado actual
 
-El repositorio reúne documentación de descubrimiento y diseño, y un prototipo responsive para revisar los recorridos. El prototipo representa las pantallas de acceso, creación de cuenta y recuperación de contraseña, pero sus acciones son simuladas. **No contiene una aplicación lista para producción.** No implementa autenticación real, servidor ni almacenamiento persistente: usa datos de demostración y los cambios se pierden al recargar la página. Los archivos seleccionados solo se muestran durante la sesión del navegador. Katerin aún debe probarlo.
+El repositorio reúne documentación de descubrimiento y diseño, y un prototipo responsive para revisar los recorridos. El prototipo representa las pantallas de acceso, creación de cuenta y recuperación de contraseña, pero sus acciones son simuladas. **No contiene una aplicación lista para producción.** No implementa autenticación real, servidor ni almacenamiento persistente: usa datos de demostración y los cambios se pierden al recargar la página. Los archivos seleccionados solo se muestran durante la sesión del navegador. Katerin probó el prototipo el 20 de octubre de 2026; sus observaciones y los ajustes acordados están en la [evidencia de sesión 3](docs/evidencia-sesion-3-diseno-pantallas.md).
 
 El [prototipo de sesión 3 está publicado en GitHub Pages](https://tecno85.github.io/vehicle-control-app-web/). Se puede recorrer en escritorio y móvil; la vista móvil es adaptable y no es una aplicación nativa.
 
@@ -37,7 +37,7 @@ El [prototipo de sesión 3 está publicado en GitHub Pages](https://tecno85.gith
 - [Contexto del proyecto](docs/contexto-proyecto.md): alcance, acuerdos y decisiones pendientes.
 - [Evidencia de semana 1](docs/evidencia-sesion-1.md): registro histórico de la actividad.
 - [Evidencia de sesión 2](docs/evidencia-sesion-2-requerimientos-backlog.md): consulta, requerimientos e historias priorizadas.
-- [Evidencia de sesión 3](docs/evidencia-sesion-3-diseno-pantallas.md): mapa, fichas, capturas y prueba pendiente con Katerin.
+- [Evidencia de sesión 3](docs/evidencia-sesion-3-diseno-pantallas.md): mapa, fichas, capturas y resultados de la prueba con Katerin del 20 de octubre de 2026.
 
 Las fechas de entrega indicadas en las evidencias son: semana 1, 8 de octubre; sesión 2, 15 de octubre; y sesión 3, 22 de octubre de 2026.
 

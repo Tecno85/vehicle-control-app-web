@@ -515,6 +515,15 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   /* Textarea on mobile */
   .field textarea { min-height: 100px; font-size: 16px; }
 
+  /* Category selector with inline creation */
+  .category-selector { flex-direction: column; align-items: stretch; }
+  .category-selector select { width: 100%; }
+  .inline-new-category { width: 100%; }
+  .inline-new-category-form { flex-direction: column; align-items: stretch; }
+  .inline-new-category-form input { width: 100%; }
+  .inline-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .inline-actions .button { min-height: 44px; }
+
 }
 
 @media (max-width: 370px) {

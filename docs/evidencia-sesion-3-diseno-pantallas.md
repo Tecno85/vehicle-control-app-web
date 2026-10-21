@@ -4,7 +4,7 @@
 - **Responsable:** Ivan Dario Madrid Daza, trabajo individual
 - **Empresa desarrolladora:** DazaDev
 - **Usuaria inicial:** Katerin, propietaria y administradora de una pequeña flota
-- **Fecha de preparación:** 18 de octubre de 2026
+- **Fecha de preparación:** 18 de octubre de 2026; última actualización: 21 de octubre de 2026
 - **Fecha de prueba con la usuaria:** 20 de octubre de 2026
 - **Fecha de entrega indicada por el instructor:** 22 de octubre de 2026
 - **Estado:** Evidencia con prueba realizada. Se incorporan los ajustes acordados con Katerin; el prototipo sigue siendo de demostración (sin persistencia ni autenticación real).
@@ -197,12 +197,15 @@ Para no repetir la explicación, cada ficha resume su objetivo, usuario/historia
 ![Registrar gasto](evidencia-sesion-3/capturas/18-registro-gasto.png)
 ![Editar gasto](evidencia-sesion-3/capturas/21-editar-gasto.png)
 
+![Nueva categoría desde el formulario de gasto](evidencia-sesion-3/capturas/40-registrar-gasto-nueva-categoria.png)
+
 ![Confirmar eliminación de gasto](evidencia-sesion-3/capturas/22-confirmar-eliminar-gasto.png)
 
 #### Ficha 14 · Gastos
 **Objetivo:** consultar gastos y abrir el vehículo o un registro. **Quién/HU:** titular · HU-03, HU-05. **Continuar:** permite registrar después de elegir vehículo, editar o solicitar eliminación. **Volver:** navegación principal.
 
 ![Lista de gastos](evidencia-sesion-3/capturas/24-lista-gastos.png)
+![Lista de gastos con filtro por mes](evidencia-sesion-3/capturas/39-lista-gastos-filtro-mes.png)
 
 #### Ficha 15 · Categorías de gasto
 **Objetivo:** agregar, renombrar o desactivar categorías. **Quién/HU:** titular · HU-03. **Continuar:** desactivar abre confirmación; los gastos anteriores conservan la categoría. **Cancelar o volver:** regresa al formulario de gasto. **Ajuste acordado (prueba 20/10):** la creación de categorías también está disponible inline en el formulario de gasto (Ficha 13).
@@ -239,9 +242,13 @@ Para no repetir la explicación, cada ficha resume su objetivo, usuario/historia
 
 ## 6. Vistas responsive para móvil
 
-Revisé el detalle del taxi a 360 × 800 px. Para dejar espacio a las tareas, organicé la información en una columna, las acciones rápidas en dos y «Registrar documento» a todo el ancho. Esta es la vista responsive de la Web App en una pantalla móvil. Aún falta revisar las demás pantallas móviles, incluidas las etiquetas, la legibilidad y el orden con teclado.
+Revisé el detalle del taxi a 360 × 800 px. Para dejar espacio a las tareas, organicé la información en una columna, las acciones rápidas en dos y «Registrar documento» a todo el ancho. Esta es la vista responsive de la Web App en una pantalla móvil.
+
+Después de la prueba ajusté los recorridos móviles de formularios, listas y confirmaciones: controles de al menos 44 px, campos de 16 px para evitar el zoom del navegador, navegación inferior fija, espacio para el área segura y acciones que se apilan cuando no caben. Verifiqué la lista de gastos con filtro por mes y el formulario de gasto con creación de categoría a 390 × 844 px. Aún falta revisar el orden con teclado y documentar las pantallas restantes.
 
 ![Detalle de taxi a 360 × 800 px](evidencia-sesion-3/capturas/06-detalle-taxi-movil.png)
+![Lista de gastos con filtro por mes en móvil](evidencia-sesion-3/capturas/41-lista-gastos-filtro-mes-movil.png)
+![Registrar gasto con nueva categoría en móvil](evidencia-sesion-3/capturas/42-registrar-gasto-nueva-categoria-movil.png)
 
 ## 7. Elementos comunes, mensajes y estados
 
@@ -292,10 +299,10 @@ Estas reglas corresponden a decisiones del producto para el MVP; no son resultad
 | Punto | Qué pidió | Cómo se resuelve en el diseño |
 |---|---|---|
 | **1. Estimado mensual** | Ver ingreso estimado del mes + gastos/novedades que surjan. | **Propuesta de evolución**: nueva pantalla “Resumen mensual” con proyección (cuota × días laborables) + acumulación real de gastos y novedades. No se implementa en el prototipo actual. |
-| **2. Filtro por mes** | Ver novedades/gastos de cada mes. | **Ajuste de diseño**: añadir selector “Mes” en las listas globales (Ingresos, Gastos, Documentos) y en el detalle del vehículo. Reflejado como propuesta en fichas 12, 14, 16. |
-| **3. Categoría inline** | Al registrar un gasto, poder crear la categoría (ej. “Seguros/Pólizas”) sin ir a Administrar. | **Mejora UX**: en Ficha 13 (Registrar gasto) añadir “+ Nueva categoría” junto al selector. Ficha 15 actualizada en consecuencia. |
+| **2. Filtro por mes** | Ver novedades/gastos de cada mes. | **Ajuste implementado en el prototipo**: selector «Filtrar por mes» en las listas de Ingresos, Gastos y Documentos. En el detalle del vehículo queda como ajuste de diseño pendiente. |
+| **3. Categoría inline** | Al registrar un gasto, poder crear la categoría (ej. “Seguros/Pólizas”) sin ir a Administrar. | **Ajuste implementado en el prototipo**: en Ficha 13 (Registrar gasto) hay un botón “+ Nueva categoría” junto al selector. Ficha 15 se mantiene para la administración completa. |
 | **4. Subida real de archivo** | Seleccionar archivo del computador y adjuntarlo. | **Requisito técnico**: el prototipo simula la adjuntión (Fichas 17 y 19). La subida real requiere `<input type="file">` + almacenamiento (backend/storage); queda fuera del prototipo simulado. |
-| **5. “Lo mismo desde la App”** | Replicar su resultado contable (ingreso, conductor, novedades, gastos Papi) con flujo de app. | **Confirmación del modelo**:<br>• Ingreso taxi → ya cubre tarifa base, días parciales, viajes, motivo (Ficha 11).<br>• **Nuevo**: “Pago a conductor 5k/día laborado” → gasto recurrente automático al guardar ingreso taxi > 0 (editable).<br>• Otros gastos → Registro de gasto + categorías (Fichas 13–15).<br>• Gastos Papi (SOAT, tecno, póliza) → Documentos con vencimiento + archivo (Fichas 16–19).<br>• Visión mensual → pantalla “Resumen mensual” (punto 1). |
+| **5. “Lo mismo desde la App”** | Replicar su resultado contable (ingreso, conductor, novedades, gastos Papi) con flujo de app. | **Confirmación del modelo**:<br>• Ingreso taxi → ya cubre tarifa base, días parciales, viajes, motivo (Ficha 11).<br>• **Implementado en el prototipo**: “Pago a conductor 5k/día laborado” → gasto recurrente automático al guardar ingreso taxi > 0 (editable).<br>• Otros gastos → Registro de gasto + categorías (Fichas 13–15).<br>• Gastos Papi (SOAT, tecno, póliza) → Documentos con vencimiento + archivo (Fichas 16–19).<br>• Visión mensual → pantalla “Resumen mensual” (punto 1). |
 
 ### 9.3 Decisiones de modelo para la siguiente cartilla (modelo de datos)
 - `IngresoTaxi`: {fecha, vehiculo, valorRecibido, cuotaReferencia, motivo, conductorPagado: boolean}
@@ -311,8 +318,8 @@ Estas reglas corresponden a decisiones del producto para el MVP; no son resultad
 | Tarea propuesta | Observación | Ajuste decidido | Resultado tras ajuste |
 |---|---|---|---|
 | Crear vehículo y abrir detalle. | Distingue taxi/particular; encuentra la información. | Ninguno. | Fluido. |
-| Registrar ingreso diario taxi. | Entiende “valor recibido” vs “cuota”; usa motivo para viaje/parcial. | Confirmar campo “motivo” obligatorio si valor ≠ cuota. | Ajustado en Ficha 11. |
-| Registrar gasto. | Encuentra categoría; pide crear “Seguros” al momento. | Añadir “+ Nueva categoría” inline en selector (Ficha 13). | Pendiente de aplicar en prototipo. |
+| Registrar ingreso diario taxi. | Entiende “valor recibido” vs “cuota”; usa motivo para viaje/parcial. | Confirmar campo “motivo” obligatorio si valor ≠ cuota. | **Aplicado en el prototipo:** el formulario no guarda si falta el motivo cuando el valor difiere de la cuota. |
+| Registrar gasto. | Encuentra categoría; pide crear “Seguros” al momento. | Añadir “+ Nueva categoría” inline en selector (Ficha 13). | **Aplicado en el prototipo:** botón junto al selector y categoría seleccionada al crearla. |
 | Guardar SOAT sin archivo, adjuntar y abrirlo. | Entiende el flujo; valida que el archivo se vea. | Marcar subida real como requisito técnico (Ficha 17). | Simulado en prototipo. |
 | Revisar eliminación. | Entiende borrado definitivo y cancelación. | Confirmaciones ya representadas (Fichas 22, 30, 32). | Fluido. |
 
@@ -320,8 +327,9 @@ Estas reglas corresponden a decisiones del producto para el MVP; no son resultad
 
 ## 11. Pendientes
 
-- Revisar los demás recorridos móviles, el orden con teclado y los mensajes de validación.
+- Revisar en dispositivo móvil los recorridos ajustados y documentar capturas de las pantallas restantes; revisar el orden con teclado y los mensajes de validación.
 - Precisar la vigencia de cambios en la cuota, las reglas técnicas de acceso y los formatos, tamaño y conservación de archivos antes de implementar.
+- Evaluar la propuesta de “Resumen mensual” antes de incorporarla al alcance.
 
 ## 12. Revisión de entrega
 
@@ -329,8 +337,9 @@ Estas reglas corresponden a decisiones del producto para el MVP; no son resultad
 |---|---|
 | Recorrido, mapa y fichas con capturas | Incluidos. |
 | Elementos comunes y estados | Incluidos; algunos estados siguen como propuesta o pendiente. |
-| Recorrido móvil a 360 px y ajuste visual | Incluido para el detalle del taxi; faltan las demás pantallas. |
+| Recorrido móvil a 360 px y ajuste visual | Ajustes responsive aplicados a todas las pantallas; las capturas móviles documentadas cubren el detalle del taxi y las pantallas ajustadas de la prueba. |
 | Prototipo y enlace accesible | Publicado y comprobado en [GitHub Pages](https://tecno85.github.io/vehicle-control-app-web/). |
+| Ajustes de la prueba incorporados | Filtro por mes, categoría inline, motivo obligatorio y pago a conductor en la demostración. |
 | Prueba, observaciones y ajuste | **Realizada el 20/10/2026**; ajustes incorporados en la evidencia (ver §9 y §10). |
 
 ## Fuentes

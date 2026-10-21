@@ -19,7 +19,7 @@
 
 - Separar hechos reportados, observaciones de Katerin, decisiones confirmadas, hipótesis y propuestas. No presentar hipótesis de ahorro de tiempo como resultados medidos.
 - Mantener separadas las observaciones de Katerin y Jean Carlos sobre Android. Jean Carlos no utilizará la aplicación web.
-- Katerin validó inicialmente el flujo el 28 de septiembre de 2026; buscó y encontró el SOAT en un caso distinto ese mismo día; pidió adjuntos el 2 de octubre; y revisó Android el 8 de octubre. La consulta breve de requerimientos se realizó el 12 de octubre. No combinar los eventos ni cambiar sus fechas.
+- Katerin validó inicialmente el flujo el 28 de septiembre de 2026; buscó y encontró el SOAT en un caso distinto ese mismo día; pidió adjuntos el 2 de octubre; revisó Android el 8 de octubre; y respondió la consulta breve de requerimientos el 12 de octubre. La prueba del prototipo web se realizó el 20 de octubre de 2026. No combinar los eventos ni cambiar sus fechas.
 - Katerin dijo que le gusta el flujo inicial y está abierta a modificarlo si nueva evidencia lo requiere. No tratarlo como aprobación definitiva de pantallas o reglas.
 - Usar `docs/evidencia-sesion-1.md` como registro histórico de la semana 1 y `docs/evidencia-sesion-2-requerimientos-backlog.md` para los requerimientos y acuerdos posteriores. Si hay discrepancias, respetar fechas y aclarar el cambio posterior, no borrar la historia.
 - Usar `docs/evidencia-sesion-3-diseno-pantallas.md` para el mapa y las fichas de pantallas, el prototipo Figma y los acuerdos posteriores sobre acceso y edición/eliminación.
@@ -27,7 +27,8 @@
 
 ## Límites de implementación y etapa
 
-- La actividad documental vigente es la evidencia de diseño de pantallas de sesión 3, con entrega indicada para el 22 de octubre de 2026. La prueba del prototipo con Katerin está pendiente. No afirmar que las funciones web o la autenticación están implementadas o probadas.
+- La actividad documental vigente es la evidencia de diseño de pantallas de sesión 3, con entrega indicada para el 22 de octubre de 2026. La prueba del prototipo con Katerin se realizó el 20 de octubre de 2026; sus resultados y ajustes están en la evidencia de sesión 3. No afirmar que las funciones web o la autenticación están implementadas o probadas en producción.
+- Tras la prueba del 20 de octubre de 2026, el prototipo incluye filtro por mes en las listas, creación de categoría desde el formulario de gasto, motivo obligatorio cuando el valor del taxi difiere de la cuota y registro automático del pago al conductor por $5.000 al guardar un ingreso de taxi mayor que cero. Son ajustes de demostración; no están implementados en un producto con persistencia.
 - El login y la recuperación se incluyen en el diseño de sesión 3; no se implementan como parte de esta evidencia. No inventar roles, permisos compartidos ni políticas técnicas de autenticación.
 - React/Material UI, NestJS, Hasura GraphQL Engine y PostgreSQL en Neon son orientación del instructor, no decisiones cerradas.
 - No adelantar actividades posteriores ni implementar funcionalidades sin solicitud expresa.
