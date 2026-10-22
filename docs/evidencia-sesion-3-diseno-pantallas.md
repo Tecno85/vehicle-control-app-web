@@ -7,7 +7,7 @@
 - **Fecha de preparación:** 18 de octubre de 2026; última actualización: 21 de octubre de 2026
 - **Fecha de prueba con la usuaria:** 20 de octubre de 2026
 - **Fecha de entrega indicada por el instructor:** 22 de octubre de 2026
-- **Estado:** Evidencia con prueba realizada. Se incorporan los ajustes acordados con Katerin; el prototipo sigue siendo de demostración (sin persistencia ni autenticación real).
+- **Estado:** Evidencia compacta con prueba realizada. Se incorporan los ajustes acordados con Katerin; el prototipo sigue siendo de demostración, sin persistencia ni autenticación real.
 
 ## 1. Propósito y fuentes
 
@@ -15,11 +15,13 @@ En esta actividad convierto los requerimientos priorizados en pantallas y recorr
 
 Preparé un [prototipo navegable](../prototipo-web-sesion-3/) con datos ficticios y lo publiqué en [GitHub Pages](https://tecno85.github.io/vehicle-control-app-web/) el 18 de octubre de 2026. La dirección permite revisar la misma Web App responsive en escritorio y móvil. La publicación es accesible públicamente; el prototipo solo muestra datos de demostración.
 
+Esta versión compacta conserva el mapa completo de 35 pantallas y la cobertura de HU-01 a HU-05. Incluye 24 capturas: 20 de escritorio y 4 del recorrido principal en móvil.
+
 ## 2. Contexto, alcance y decisiones
 
 ### Antecedentes
 
-- Katerin administra una pequeña flota y hoy lleva el control en un cuaderno. El 28 de septiembre revisó el flujo general; el 2 de octubre pidió adjuntar documentos para consultarlos en la aplicación. El 8 de octubre comentó que le gustaba el avance Android. Estas revisiones no validan las pantallas web de esta evidencia.
+- Katerin administra una pequeña flota y hoy lleva el control en un cuaderno. El 28 de septiembre revisó el flujo general; el 2 de octubre pidió adjuntar documentos para consultarlos en la aplicación. El 8 de octubre comentó que le gustaba el avance Android. Estas revisiones no validan por sí solas las pantallas web de esta evidencia.
 - El 12 de octubre realicé la consulta de requerimientos de sesión 2. Jean Carlos no utilizará la Web App. Mantengo separados estos eventos y sus resultados; los acuerdos están en [la evidencia de sesión 2](evidencia-sesion-2-requerimientos-backlog.md).
 
 ### Decisiones para el MVP
@@ -29,35 +31,49 @@ Preparé un [prototipo navegable](../prototipo-web-sesion-3/) con datos ficticio
 - Los documentos se editan y admiten reemplazar el archivo. Al eliminar un documento también se elimina su archivo, previa confirmación. Se puede guardar el registro antes de adjuntar un archivo; se contempla uno por registro.
 - Las categorías se pueden agregar y renombrar. Si ya se usan, se desactivan para conservar los gastos anteriores.
 - En taxis se registra el valor recibido y el motivo sin cambiar la cuota configurada. La vigencia de una cuota nueva sigue pendiente. En particulares habilitados se registra el total diario variable de inDrive.
-- **Nuevo (prueba 20/10):** “Pago a conductor 5k/día laborado” se genera automáticamente al guardar un ingreso taxi > 0 (editable si ese día no se paga). Queda como gasto recurrente con marca `esConductor=true`.
+- **Ajustes de demostración incorporados después de la prueba:** filtro por mes en las listas, creación de categoría desde el formulario de gasto, motivo obligatorio cuando el valor del taxi difiere de la cuota y pago al conductor de $5.000 al guardar un ingreso taxi mayor que cero, editable si ese día no se paga. Son cambios del prototipo, no funcionalidad persistente.
 
 ### Propuesta visual
 
-Propongo una identidad de «bitácora vehicular contemporánea»: fondo cálido, verde petróleo, acento latón y tipografía diferenciada para títulos y placas. Es una propuesta visual; Katerin aún debe revisarla.
+Propongo una identidad de «bitácora vehicular contemporánea»: fondo cálido, verde petróleo, acento latón y tipografía diferenciada para títulos y placas. Katerin revisó la identidad visual el 20 de octubre de 2026 y le pareció adecuada. Esa revisión no equivale a una aprobación definitiva de todas las pantallas ni de las reglas del producto.
 
 ### Límites del prototipo
 
 El prototipo simula la navegación y algunas acciones. No verifica cuentas, envía correos ni guarda datos en un servidor; los cambios se pierden al recargar y los archivos solo se muestran en el navegador durante la sesión. Nombres, placas, importes, vencimientos y archivos son ficticios. Está publicado como prototipo de revisión; no es una aplicación implementada.
 
-## 3. Personas y acceso
+## 3. Personas, roles y acceso
 
-| Persona | Qué puede hacer en el diseño |
+| Persona | Rol en el diseño |
 |---|---|
 | Titular de la cuenta | Crear su cuenta, ingresar, recuperar la contraseña y administrar su flota según las reglas acordadas. |
-| Katerin | Usuaria inicial. **Probó el prototipo el 20/10/2026**; validó el flujo general y propuso los ajustes que se recogen en la sección **Resultados de la prueba con Katerin**. |
+| Katerin | Usuaria inicial. **Probó el prototipo el 20/10/2026**, validó el flujo general y revisó la identidad visual; sus observaciones están en la sección 9. |
 | Ivan Dario Madrid Daza | Soy el desarrollador responsable de DazaDev y preparo individualmente esta evidencia. |
 
-No agrego colaboradores ni flotas compartidas. El acceso está diseñado, pero no implementado.
+El MVP no define roles para compartir flotas: la persona titular accede a sus propios datos. El acceso está diseñado, pero no implementado.
 
-## 4. Recorrido principal
+## 4. Recorrido principal y rutas propuestas
 
 **Crear cuenta o ingresar → ver la flota → crear y clasificar un vehículo → abrir su detalle → registrar ingresos, gastos o documentos → consultar los registros del vehículo → abrir el soporte guardado.**
 
 En un taxi se muestra la cuota diaria de referencia y se permite guardar el valor recibido y el motivo para una fecha. Para un particular habilitado para inDrive, se registra el total variable del día. En documentos, se puede guardar primero el nombre y el vencimiento y adjuntar después un archivo.
 
-### Relación entre historias y recorridos
+### Rutas propuestas
 
-“Ruta” significa aquí un recorrido propuesto entre pantallas; el prototipo navega por estado y no cambia la URL. Las rutas de la aplicación definitiva siguen sin definirse.
+“Ruta” significa aquí una dirección propuesta para la implementación. El prototipo navega por estado y no cambia la URL; las rutas de esta tabla **no están implementadas**. Las confirmaciones se resolverían como estado o diálogo, no como una URL independiente.
+
+| Flujo | Rutas propuestas | Acceso | Pantallas |
+|---|---|---|---|
+| Acceso y cuenta | `/ingresar`, `/crear-cuenta`, `/recuperar-contrasena`, `/recuperar-contrasena/nueva` | Público | 01–07 |
+| Flota | `/vehiculos` | Titular | 08 |
+| Vehículo | `/vehiculos/nuevo`, `/vehiculos/:id`, `/vehiculos/:id/editar` | Titular | 09–12, 27–28 |
+| Ingresos | `/ingresos`, `/vehiculos/:id/ingresos/nuevo`, `/ingresos/:id/editar` | Titular | 17–18, 31–33 |
+| Gastos | `/gastos`, `/vehiculos/:id/gastos/nuevo`, `/gastos/:id/editar`, `/gastos/categorias` | Titular | 19–25, 34 |
+| Documentos | `/documentos`, `/vehiculos/:id/documentos/nuevo`, `/documentos/:id`, `/documentos/:id/editar` | Titular | 13–16, 26, 29–30, 35 |
+| Resumen mensual (propuesta) | `/resumen` | Titular | P |
+
+Las rutas de edición pueden resolverse como página o como formulario dentro de la misma pantalla. Se proponen con identificador para conservar un enlace directo cuando se implemente el producto. La protección de rutas, la sesión y la autorización son parte del trabajo de implementación y no de este prototipo. La vista previa y la descarga del soporte se resolverían dentro de `/documentos/:id`, sin una ruta adicional.
+
+### Relación entre historias y recorridos
 
 | Historia | Pantallas relacionadas | Recorrido y resultado esperado |
 |---|---|---|
@@ -70,7 +86,7 @@ En un taxi se muestra la cuota diaria de referencia y se permite guardar el valo
 
 ## 5. Mapa de pantallas de escritorio
 
-El mapa describe pantallas y estados previstos para el MVP. Algunas filas son modos de un mismo formulario o cuadros de confirmación, no páginas independientes. Los IDs son propios de este mapa y no corresponden al prefijo de las capturas. El prototipo adapta el contenido al tamaño de la ventana y usa navegación por estado, sin rutas URL.
+El mapa describe pantallas y estados previstos para el MVP. Algunas filas son modos de un mismo formulario o cuadros de confirmación, no páginas independientes. Los IDs son propios de este mapa y no corresponden al prefijo de las capturas. El prototipo adapta el contenido al tamaño de la ventana y usa navegación por estado; la tabla de rutas de la sección 4 es una propuesta de implementación.
 
 | N.º | Pantalla | Elementos principales y acciones | Destino o resultado en el prototipo |
 |---:|---|---|---|
@@ -97,6 +113,9 @@ El mapa describe pantallas y estados previstos para el MVP. Algunas filas son mo
 | 21 | Editar gasto | Campos de fecha, valor, descripción y categoría; acciones para guardar, eliminar o cancelar. | Guardar vuelve al listado; eliminar pide confirmación. |
 | 22 | Confirmar eliminación de gasto | Explica que el borrado es permanente y afecta historial y totales; permite cancelar o eliminar. | Cancelar conserva el registro; confirmar lo elimina definitivamente. |
 | 23 | Gastos recientes del vehículo | Sección del detalle con gastos ficticios y acciones para registrar, editar o pedir eliminación. | Las acciones abren el formulario o el cuadro de confirmación correspondiente. |
+
+| N.º | Pantalla | Elementos principales y acciones | Destino o resultado en el prototipo |
+|---:|---|---|---|
 | 24 | Agregar o renombrar categoría | Formulario integrado en la pantalla de categorías, con nombre y acciones para guardar o cancelar. | Guarda la categoría o vuelve a la administración sin aplicar el cambio. |
 | 25 | Confirmar desactivación de categoría | Explica que dejará de aparecer en nuevos gastos y se conservará en los anteriores. | Permite conservarla o desactivarla y volver a categorías. |
 | 26 | Descargar soporte | Acción disponible desde la vista del documento cuando hay un archivo adjunto. | Inicia la descarga del archivo seleccionado en la demostración; no abre una pantalla nueva. |
@@ -113,142 +132,112 @@ El mapa describe pantallas y estados previstos para el MVP. Algunas filas son mo
 
 La navegación lateral del diseño presenta Vehículos, Ingresos, Gastos y Documentos. En el prototipo HTML, esos accesos navegan a sus pantallas; para registrar un ingreso se elige primero un vehículo.
 
-### 5.1 Fichas individuales de las pantallas
+### 5.1 Fichas de las pantallas principales
 
-Para no repetir la explicación, cada ficha resume su objetivo, usuario/historia, acción principal, regreso y captura. Las variantes y confirmaciones se incluyen en la ficha de su recorrido; no son rutas URL independientes.
+Para no repetir la explicación, cada ficha resume su objetivo, usuario/historia, acción principal, regreso y capturas. Esta versión agrupa variantes del mismo recorrido; el mapa conserva las 35 pantallas y sus estados. Las capturas adicionales de variantes, listas y confirmaciones se conservan en la carpeta como archivo.
+
+| Grupo de fichas | Fichas | Pantallas que cubre |
+|---|---|---|
+| Acceso | 01–03 | 01–07 |
+| Flota y vehículo | 04–06 | 08–12, 27–28 |
+| Ingresos y gastos | 07–09 | 17–25, 31–34 |
+| Documentos | 10–11 | 13–16, 26, 29–30, 35 |
 
 #### Ficha 01 · Iniciar sesión
-**Objetivo:** acceder a la flota. **Quién/HU:** titular · acceso transversal. **Continuar:** «Ingresar» abre la flota simulada; los enlaces abren registro o recuperación. **Volver:** esta es la entrada del flujo.
+**Objetivo:** acceder a la flota. **Quién/HU:** titular · acceso transversal. **Continuar:** «Ingresar» abre la flota simulada; los enlaces abren registro o recuperación. **Volver:** esta es la entrada del flujo. La cuenta es propia y no hay roles compartidos.
 
 ![Inicio de sesión](evidencia-sesion-3/capturas/01-inicio-sesion.png)
 
 #### Ficha 02 · Crear cuenta
-**Objetivo:** representar el registro propio. **Quién/HU:** persona que crea una cuenta · acceso transversal. **Guardar:** muestra confirmación simulada. **Cancelar:** vuelve al acceso.
+**Objetivo:** representar el registro propio. **Quién/HU:** persona que crea una cuenta · acceso transversal. **Guardar:** muestra la confirmación simulada de la pantalla 03. **Cancelar:** vuelve al acceso. No se crea una cuenta real.
 
 ![Crear cuenta](evidencia-sesion-3/capturas/07-crear-cuenta.png)
 
-#### Ficha 03 · Cuenta creada
-**Objetivo:** confirmar el registro de demostración. **Quién/HU:** titular · acceso transversal. **Continuar o volver:** regresa al acceso; no crea una cuenta real.
-
-![Confirmación de cuenta](evidencia-sesion-3/capturas/08-cuenta-creada.png)
-
-#### Ficha 04 · Recuperar contraseña
-**Objetivo:** solicitar recuperación con el correo. **Quién/HU:** titular · acceso transversal. **Continuar:** muestra confirmación genérica. **Cancelar:** vuelve al acceso.
+#### Ficha 03 · Recuperación de contraseña
+**Objetivo:** solicitar instrucciones y representar el cambio de contraseña. **Quién/HU:** titular · acceso transversal. **Continuar:** el envío muestra una confirmación genérica (pantalla 05); el enlace de demostración permite crear una contraseña nueva (06) y confirmar el cambio (07). **Cancelar:** vuelve al acceso. No envía correos ni cambia contraseñas reales.
 
 ![Recuperar contraseña](evidencia-sesion-3/capturas/09-recuperar-contrasena.png)
 
-#### Ficha 05 · Solicitud de recuperación
-**Objetivo:** confirmar que se enviarán instrucciones si existe la cuenta. **Quién/HU:** titular · acceso transversal. **Continuar:** abre el siguiente paso de demostración. **Cancelar:** vuelve al acceso.
+**Estados del acceso representados.** Las confirmaciones y el cambio de contraseña se describen aquí; no se incluyen capturas adicionales para mantener la versión compacta.
 
-![Confirmación de recuperación](evidencia-sesion-3/capturas/10-solicitud-recuperacion.png)
+| Pantalla | Qué muestra | Resultado |
+|---|---|---|
+| 03 · Cuenta creada | Confirmación del registro de demostración. | Vuelve al acceso; no crea una cuenta real. |
+| 05 · Solicitud de recuperación | Aviso genérico si el correo está registrado. | Abre el enlace de demostración. |
+| 06 · Crear contraseña nueva | Nueva contraseña y confirmación. | Guarda y muestra la confirmación; no cambia una contraseña real. |
+| 07 · Contraseña actualizada | Confirmación final del recorrido. | Vuelve al acceso. |
 
-#### Ficha 06 · Crear contraseña nueva
-**Objetivo:** representar el cambio de contraseña. **Quién/HU:** titular · acceso transversal. **Guardar:** muestra confirmación simulada. **Cancelar:** vuelve a recuperación.
-
-![Crear contraseña](evidencia-sesion-3/capturas/11-crear-contrasena.png)
-
-#### Ficha 07 · Contraseña actualizada
-**Objetivo:** confirmar el final del recorrido simulado. **Quién/HU:** titular · acceso transversal. **Continuar o volver:** regresa al acceso; no cambia una contraseña real.
-
-![Confirmación de contraseña](evidencia-sesion-3/capturas/12-contrasena-actualizada.png)
-
-#### Ficha 08 · Mis vehículos
+#### Ficha 04 · Mis vehículos
 **Objetivo:** consultar la flota, conteos y vencimientos. **Quién/HU:** titular · HU-01, HU-05. **Continuar:** agregar abre el formulario; elegir una tarjeta abre el detalle. El estado vacío permite crear el primer vehículo. **Salir:** vuelve al acceso.
 
-![Lista de vehículos](evidencia-sesion-3/capturas/02-mis-vehiculos.png)
-![Estado vacío de vehículos](evidencia-sesion-3/capturas/37-flota-sin-vehiculos.png)
+![Mis vehículos](evidencia-sesion-3/capturas/02-mis-vehiculos.png)
+![Flota sin vehículos](evidencia-sesion-3/capturas/37-flota-sin-vehiculos.png)
 
-#### Ficha 09 · Crear o editar vehículo
-**Objetivo:** clasificar y guardar los datos del vehículo. **Quién/HU:** titular · HU-01. **Variantes:** particular muestra la opción inDrive; taxi muestra conductor y cuota. **Guardar:** abre el detalle. **Cancelar:** vuelve a la flota al crear o al detalle al editar.
+#### Ficha 05 · Crear o editar vehículo
+**Objetivo:** clasificar y guardar los datos del vehículo. **Quién/HU:** titular · HU-01. **Variantes:** particular muestra la opción inDrive; taxi muestra conductor y cuota. **Guardar:** abre el detalle. **Cancelar:** vuelve a la flota al crear o al detalle al editar. La edición reutiliza este formulario (pantalla 27).
 
-![Formulario de particular](evidencia-sesion-3/capturas/13-formulario-vehiculo-particular.png)
-![Formulario de taxi](evidencia-sesion-3/capturas/14-formulario-vehiculo-taxi.png)
+![Formulario de vehículo particular](evidencia-sesion-3/capturas/13-formulario-vehiculo-particular.png)
+![Formulario de vehículo taxi](evidencia-sesion-3/capturas/14-formulario-vehiculo-taxi.png)
 
-![Edición de vehículo](evidencia-sesion-3/capturas/15-editar-vehiculo.png)
-
-#### Ficha 10 · Detalle del vehículo
-**Objetivo:** consultar datos, documentos, ingresos y gastos. **Quién/HU:** titular · HU-01 a HU-05. **Continuar:** permite editar o iniciar registros; taxi muestra cuota e inDrive aparece en particulares habilitados. **Volver:** regresa a la flota. Si tiene movimientos, se ofrece desactivar; sin ellos, eliminar con confirmación.
+#### Ficha 06 · Detalle del vehículo
+**Objetivo:** consultar datos, documentos, ingresos y gastos. **Quién/HU:** titular · HU-01 a HU-05. **Continuar:** permite editar o iniciar registros; el taxi muestra la cuota y el particular habilitado muestra inDrive. **Volver:** regresa a la flota. Si tiene movimientos, se ofrece desactivar; sin ellos, eliminar con confirmación.
 
 ![Detalle de taxi](evidencia-sesion-3/capturas/03-detalle-taxi.png)
 ![Detalle de particular habilitado para inDrive](evidencia-sesion-3/capturas/33-detalle-particular.png)
+![Confirmación de desactivación de vehículo](evidencia-sesion-3/capturas/23-confirmar-desactivar-vehiculo.png)
 
-![Confirmación de desactivación](evidencia-sesion-3/capturas/23-confirmar-desactivar-vehiculo.png)
-![Confirmación de eliminación de vehículo](evidencia-sesion-3/capturas/35-confirmar-eliminar-vehiculo.png)
+#### Ficha 07 · Ingresos
+**Objetivo:** registrar el ingreso del día y consultar el historial. **Quién/HU:** titular · HU-02. **Variantes:** taxi, valor recibido, motivo y referencia de la cuota; inDrive, total variable y nota. **Guardar/cancelar:** vuelve al detalle; un valor menor o cero no cambia la cuota. **Editar/eliminar:** requiere confirmación definitiva (pantallas 31–32). El motivo es obligatorio cuando el valor del taxi difiere de la cuota.
 
-![Confirmación de eliminación sin registros](evidencia-sesion-3/capturas/36-confirmar-eliminar-vehiculo-sin-registros.png)
+![Registrar ingreso de taxi](evidencia-sesion-3/capturas/04-registro-ingreso-taxi.png)
+![Registrar ingreso de inDrive](evidencia-sesion-3/capturas/34-registro-ingreso-indrive.png)
 
-#### Ficha 11 · Registrar o editar ingreso
-**Objetivo:** registrar el ingreso del día. **Quién/HU:** titular · HU-02. **Variantes:** taxi, valor recibido y motivo; inDrive, total variable y nota. **Guardar/cancelar:** vuelve al detalle; un valor menor o cero no cambia la cuota. **Eliminar:** requiere confirmación definitiva. **Ajuste acordado (prueba 20/10):** el campo “motivo” pasa a ser obligatorio cuando el valor recibido difiere de la cuota de referencia.
-
-![Ingreso de taxi](evidencia-sesion-3/capturas/04-registro-ingreso-taxi.png)
-![Ingreso de inDrive](evidencia-sesion-3/capturas/34-registro-ingreso-indrive.png)
-
-![Editar ingreso](evidencia-sesion-3/capturas/16-editar-ingreso.png)
-![Confirmar eliminación de ingreso](evidencia-sesion-3/capturas/17-confirmar-eliminar-ingreso.png)
-
-#### Ficha 12 · Ingresos
-**Objetivo:** consultar ingresos y elegir un vehículo para registrar otro. **Quién/HU:** titular · HU-02. **Continuar:** permite abrir o editar registros; elegir vehículo lleva a la flota. **Volver:** navegación principal. La captura muestra el estado vacío.
-
-![Lista de ingresos vacía](evidencia-sesion-3/capturas/25-lista-ingresos-vacia.png)
-
-#### Ficha 13 · Registrar o editar gasto
-**Objetivo:** registrar fecha, valor, descripción y categoría. **Quién/HU:** titular · HU-03. **Guardar/cancelar:** vuelve al detalle. Administrar categorías abre esa pantalla; editar carga el gasto. **Eliminar:** pide confirmación y borra definitivamente. **Ajuste acordado (prueba 20/10):** añadir botón “+ Nueva categoría” junto al selector para crear categorías (ej. “Seguros/Pólizas”) sin salir del formulario.
+#### Ficha 08 · Gastos
+**Objetivo:** registrar fecha, valor, descripción y categoría; consultar y filtrar. **Quién/HU:** titular · HU-03, HU-05. **Guardar/cancelar:** vuelve al detalle. **Continuar:** administrar categorías abre la ficha 09; editar y eliminar piden confirmación. **Ajustes de la prueba:** botón «+ Nueva categoría» dentro del formulario y filtro por mes en la lista.
 
 ![Registrar gasto](evidencia-sesion-3/capturas/18-registro-gasto.png)
-![Editar gasto](evidencia-sesion-3/capturas/21-editar-gasto.png)
-
 ![Nueva categoría desde el formulario de gasto](evidencia-sesion-3/capturas/40-registrar-gasto-nueva-categoria.png)
-
-![Confirmar eliminación de gasto](evidencia-sesion-3/capturas/22-confirmar-eliminar-gasto.png)
-
-#### Ficha 14 · Gastos
-**Objetivo:** consultar gastos y abrir el vehículo o un registro. **Quién/HU:** titular · HU-03, HU-05. **Continuar:** permite registrar después de elegir vehículo, editar o solicitar eliminación. **Volver:** navegación principal.
-
-![Lista de gastos](evidencia-sesion-3/capturas/24-lista-gastos.png)
 ![Lista de gastos con filtro por mes](evidencia-sesion-3/capturas/39-lista-gastos-filtro-mes.png)
 
-#### Ficha 15 · Categorías de gasto
-**Objetivo:** agregar, renombrar o desactivar categorías. **Quién/HU:** titular · HU-03. **Continuar:** desactivar abre confirmación; los gastos anteriores conservan la categoría. **Cancelar o volver:** regresa al formulario de gasto. **Ajuste acordado (prueba 20/10):** la creación de categorías también está disponible inline en el formulario de gasto (Ficha 13).
+#### Ficha 09 · Categorías de gasto
+**Objetivo:** agregar, renombrar o desactivar categorías. **Quién/HU:** titular · HU-03. **Continuar:** desactivar abre confirmación; los gastos anteriores conservan la categoría. **Cancelar o volver:** regresa al formulario de gasto. La creación desde el formulario también está disponible en la ficha 08.
 
 ![Administrar categorías](evidencia-sesion-3/capturas/19-categorias-gasto.png)
-![Confirmar desactivación](evidencia-sesion-3/capturas/20-confirmar-desactivar-categoria.png)
-
 ![Renombrar categoría](evidencia-sesion-3/capturas/38-renombrar-categoria.png)
 
-#### Ficha 16 · Documentos
-**Objetivo:** consultar documentos de los vehículos. **Quién/HU:** titular · HU-04, HU-05. **Continuar:** permite abrir, editar o pedir eliminación; para crear, se elige primero un vehículo. **Volver:** navegación principal.
-
-![Lista de documentos](evidencia-sesion-3/capturas/26-lista-documentos.png)
-
-#### Ficha 17 · Registrar, editar o adjuntar documento
-**Objetivo:** guardar tipo, nombre y vencimiento, y adjuntar o reemplazar un archivo. **Quién/HU:** titular · HU-04. **Guardar:** muestra confirmación; el archivo queda en la sesión del navegador. **Cancelar:** vuelve al detalle. **Eliminar:** pide confirmar el borrado del registro y archivo. **Nota (prueba 20/10):** la subida real de archivo (`<input type="file">` + almacenamiento) es un requisito técnico para implementación; el prototipo simula la adjuntión.
+#### Ficha 10 · Documentos
+**Objetivo:** registrar y consultar SOAT y tecnomecánica. **Quién/HU:** titular · HU-04, HU-05. **Guardar:** muestra la confirmación e indica si falta adjuntar el soporte. **Continuar:** permite adjuntar o reemplazar el archivo, editar el registro o eliminarlo con confirmación y borrado del archivo. La lista y la edición se describen en el mapa.
 
 ![Registrar documento](evidencia-sesion-3/capturas/05-registro-documento.png)
-![Editar documento](evidencia-sesion-3/capturas/28-editar-documento.png)
+![Documento guardado sin archivo](evidencia-sesion-3/capturas/30-documento-guardado.png)
 
-![Adjuntar soporte](evidencia-sesion-3/capturas/31-adjuntar-soporte.png)
-![Confirmar eliminación de documento y archivo](evidencia-sesion-3/capturas/29-confirmar-eliminar-documento.png)
+#### Ficha 11 · Ver soporte
+**Objetivo:** consultar, visualizar o descargar el archivo. **Quién/HU:** titular · HU-04, HU-05. **Continuar:** con archivo, ofrece vista previa o descarga; sin archivo, muestra el registro. **Volver:** regresa al detalle. El archivo de demostración es ficticio. La visualización y la descarga reales requieren almacenamiento; el prototipo las simula.
 
-#### Ficha 18 · Documento guardado
-**Objetivo:** confirmar el registro e indicar si falta adjuntar soporte. **Quién/HU:** titular · HU-04. **Continuar:** adjunta el archivo o permite visualizarlo. **Volver:** regresa al detalle.
+![Vista previa del soporte](evidencia-sesion-3/capturas/32-vista-previa-soporte.png)
 
-![Confirmación de documento guardado](evidencia-sesion-3/capturas/30-documento-guardado.png)
-
-#### Ficha 19 · Ver soporte
-**Objetivo:** consultar, visualizar o descargar el archivo. **Quién/HU:** titular · HU-04, HU-05. **Continuar:** con archivo, ofrece vista previa o descarga; sin archivo, muestra el registro. **Volver:** regresa al detalle. El archivo de demostración es ficticio. **Nota (prueba 20/10):** la descarga/visualización real requiere backend de archivos; el prototipo la simula.
-
-![Documento sin archivo](evidencia-sesion-3/capturas/27-vista-documento-sin-archivo.png)
-![Vista previa de archivo ficticio](evidencia-sesion-3/capturas/32-vista-previa-soporte.png)
+Las capturas adicionales de variantes, listas y confirmaciones se conservan en la carpeta de capturas como archivo. Esta versión incluye las 24 que sostienen el recorrido principal y las reglas del MVP.
 
 ## 6. Vistas responsive para móvil
 
-Revisé el detalle del taxi a 360 × 800 px. Para dejar espacio a las tareas, organicé la información en una columna, las acciones rápidas en dos y «Registrar documento» a todo el ancho. Esta es la vista responsive de la Web App en una pantalla móvil.
+Revisé el recorrido principal a 360 × 800 px en emulación de navegador: inicio de sesión, flota, detalle del taxi y formulario de gasto con creación de categoría. Las capturas muestran el primer tramo de cada pantalla; el contenido completo se puede desplazar.
 
-Después de la prueba ajusté los recorridos móviles de formularios, listas y confirmaciones: controles de al menos 44 px, campos de 16 px para evitar el zoom del navegador, navegación inferior fija, espacio para el área segura y acciones que se apilan cuando no caben. Revisé en emulación de navegador, a 390 × 844 px, la lista de gastos con filtro por mes y el formulario de gasto con creación de categoría. Aún falta verificar en un dispositivo móvil real, revisar el orden con teclado y documentar las pantallas restantes.
+Después de la prueba ajusté los recorridos móviles de formularios, listas y confirmaciones: controles de al menos 44 px, campos de 16 px para evitar el zoom del navegador, navegación inferior fija, espacio para el área segura y acciones que se apilan cuando no caben. Aún falta verificar en un dispositivo móvil real, revisar el orden con teclado y documentar las pantallas restantes.
 
-![Detalle de taxi a 360 × 800 px](evidencia-sesion-3/capturas/06-detalle-taxi-movil.png)
-![Lista de gastos con filtro por mes en móvil](evidencia-sesion-3/capturas/41-lista-gastos-filtro-mes-movil.png)
-![Registrar gasto con nueva categoría en móvil](evidencia-sesion-3/capturas/42-registrar-gasto-nueva-categoria-movil.png)
+| Criterio de revisión móvil | Estado |
+|---|---|
+| Controles táctiles de al menos 44 px | Aplicado en las pantallas revisadas. |
+| Campos de 16 px para evitar el zoom | Aplicado en formularios. |
+| Navegación inferior y área segura | Aplicadas en la vista móvil. |
+| Prueba en dispositivo móvil real | Pendiente, con fecha por definir. |
+| Orden de tabulación y lectores de pantalla | Pendiente de revisión. |
+
+![Inicio de sesión en móvil a 360 px](evidencia-sesion-3/capturas/43-inicio-sesion-movil-360.png)
+![Mis vehículos en móvil a 360 px](evidencia-sesion-3/capturas/44-mis-vehiculos-movil-360.png)
+![Detalle del taxi en móvil a 360 px](evidencia-sesion-3/capturas/45-detalle-taxi-movil-360.png)
+![Registrar gasto con nueva categoría en móvil a 360 px](evidencia-sesion-3/capturas/46-registrar-gasto-movil-360.png)
+
+Las capturas anteriores de 390 px se conservan como archivo y no se usan en esta versión compacta.
 
 ## 7. Elementos comunes, mensajes y estados
 
@@ -281,66 +270,69 @@ Matriz propuesta para el recorrido del vehículo y sus documentos. Los textos so
 | Documento | Se editan sus datos, se puede reemplazar el archivo y al eliminar se borra también el adjunto, con confirmación. | El prototipo permite editar, reemplazar el archivo y confirmar el borrado del registro y su soporte. |
 | Categoría | Se agrega o renombra. Si una categoría ya está usada, se desactiva para conservar los gastos anteriores. | El prototipo permite agregar, renombrar y desactivar categorías. Los gastos asociados conservan su etiqueta al desactivarla; al renombrar, se actualiza la etiqueta de los gastos demostrativos. |
 
-Estas reglas se acordaron antes de la prueba del 20 de octubre de 2026 y no cambiaron con ella.
+Las reglas de edición y eliminación se acordaron antes de la prueba del 20 de octubre de 2026 y no cambiaron con ella. La prueba añadió validaciones de captura y atajos, no nuevas reglas de borrado.
 
-## 9. Resultados de la prueba con Katerin (20/10/2026)
+## 9. Prueba con Katerin (20/10/2026)
 
 **Participante:** Katerin. **Responsable:** Ivan Dario Madrid Daza. **Fecha:** 20 de octubre de 2026.  
-**Formato:** revisión guiada del prototipo publicado en GitHub Pages + revisión de sus hojas de cálculo actuales (ingresos diarios taxis y Taxi Jeank).
+**Formato:** revisión guiada del prototipo publicado en GitHub Pages y de sus hojas de cálculo actuales de ingresos diarios de taxis.
 
 ### 9.1 Qué validó
-- El flujo general: crear vehículo → detalle → registrar ingreso/gasto/documento → consultar.
-- La separación **Ingreso taxi / Ingreso inDrive / Gasto / Documento** resuelve su hoja diaria (donde hoy mezcla todo en “Novedad”).
-- Los formularios de ingreso taxi (valor recibido + motivo + ref. cuota) y documento (tipo, vencimiento, archivo opcional) cubren sus necesidades.
-- La identidad visual (“bitácora vehicular contemporánea”) le parece adecuada.
 
-### 9.2 Ajustes acordados
+- El flujo general: crear vehículo → detalle → registrar ingreso, gasto o documento → consultar.
+- La separación **Ingreso taxi / Ingreso inDrive / Gasto / Documento** resuelve su hoja diaria, donde hoy mezcla todo en «Novedad».
+- Los formularios de ingreso taxi (valor recibido, motivo y referencia de cuota) y de documento (tipo, vencimiento y archivo opcional) cubren sus necesidades.
+- La identidad visual de «bitácora vehicular contemporánea» le pareció adecuada.
+- Las confirmaciones de borrado y desactivación se entienden como acciones que conservan o eliminan el historial.
 
-| Punto | Qué pidió | Cómo se resuelve en el diseño |
-|---|---|---|
-| **1. Estimado mensual** | Ver ingreso estimado del mes + gastos/novedades que surjan. | **Propuesta de evolución**: nueva pantalla “Resumen mensual” con proyección (cuota × días laborables) + acumulación real de gastos y novedades. No se implementa en el prototipo actual. |
-| **2. Filtro por mes** | Ver novedades/gastos de cada mes. | **Ajuste implementado en el prototipo**: selector «Filtrar por mes» en las listas de Ingresos, Gastos y Documentos. En el detalle del vehículo queda como ajuste de diseño pendiente. |
-| **3. Categoría inline** | Al registrar un gasto, poder crear la categoría (ej. “Seguros/Pólizas”) sin ir a Administrar. | **Ajuste implementado en el prototipo**: en Ficha 13 (Registrar gasto) hay un botón “+ Nueva categoría” junto al selector. Ficha 15 se mantiene para la administración completa. |
-| **4. Subida real de archivo** | Seleccionar archivo del computador y adjuntarlo. | **Requisito técnico**: el prototipo simula la adjuntión (Fichas 17 y 19). La subida real requiere `<input type="file">` + almacenamiento (backend/storage); queda fuera del prototipo simulado. |
-| **5. “Lo mismo desde la App”** | Replicar su resultado contable (ingreso, conductor, novedades, gastos Papi) con flujo de app. | **Confirmación del modelo**:<br>• Ingreso taxi → ya cubre tarifa base, días parciales, viajes, motivo (Ficha 11).<br>• **Implementado en el prototipo**: “Pago a conductor 5k/día laborado” → gasto recurrente automático al guardar ingreso taxi > 0 (editable).<br>• Otros gastos → Registro de gasto + categorías (Fichas 13–15).<br>• Gastos Papi (SOAT, tecno, póliza) → Documentos con vencimiento + archivo (Fichas 16–19).<br>• Visión mensual → pantalla “Resumen mensual” (punto 1). |
+### 9.2 Observaciones y ajustes
 
-### 9.3 Decisiones de modelo para la siguiente cartilla (modelo de datos)
-- `IngresoTaxi`: {fecha, vehiculo, valorRecibido, cuotaReferencia, motivo, conductorPagado: boolean}
-- `Gasto`: {fecha, vehiculo, valor, descripcion, categoria, esConductor: boolean}
-- `Documento`: {vehiculo, tipo, vencimiento, archivo?, estado}
-
----
-
-## 10. Prueba de usabilidad — realizada
-
-**Participante:** Katerin. **Responsable:** Ivan Dario Madrid Daza. **Fecha:** 20 de octubre de 2026.
-
-| Tarea propuesta | Observación | Ajuste decidido | Resultado tras ajuste |
+| Tarea o tema | Observación de Katerin | Decisión | Estado en el prototipo |
 |---|---|---|---|
-| Crear vehículo y abrir detalle. | Distingue taxi/particular; encuentra la información. | Ninguno. | Fluido. |
-| Registrar ingreso diario taxi. | Entiende “valor recibido” vs “cuota”; usa motivo para viaje/parcial. | Confirmar campo “motivo” obligatorio si valor ≠ cuota. | **Aplicado en el prototipo:** el formulario no guarda si falta el motivo cuando el valor difiere de la cuota. |
-| Registrar gasto. | Encuentra categoría; pide crear “Seguros” al momento. | Añadir “+ Nueva categoría” inline en selector (Ficha 13). | **Aplicado en el prototipo:** botón junto al selector y categoría seleccionada al crearla. |
-| Guardar SOAT sin archivo, adjuntar y abrirlo. | Entiende el flujo; valida que el archivo se vea. | Marcar subida real como requisito técnico (Ficha 17). | Simulado en prototipo. |
-| Revisar eliminación. | Entiende borrado definitivo y cancelación. | Confirmaciones ya representadas (Fichas 22, 30, 32). | Fluido. |
+| Crear vehículo y abrir el detalle | Distingue taxi y particular; encuentra la información. | Sin cambios. | Fluido. |
+| Registrar ingreso diario de taxi | Entiende «valor recibido» frente a «cuota» y usa el motivo para viajes o días parciales. | Motivo obligatorio si el valor difiere de la cuota. | Aplicado. |
+| Registrar gasto | Encuentra la categoría y pide crear «Seguros» en ese momento. | Botón «+ Nueva categoría» dentro del formulario. | Aplicado. |
+| Guardar SOAT sin archivo, adjuntar y abrirlo | Entiende el flujo y valida que el archivo se vea. | Subida real como requisito técnico. | Simulado. |
+| Revisar eliminación | Entiende el borrado definitivo y la cancelación. | Confirmaciones ya representadas. | Fluido. |
+| Filtrar por mes | Quiere ver las novedades y gastos de cada mes. | Filtro por mes en las listas. | Aplicado; falta en el detalle del vehículo. |
+| Pago al conductor | Quiere replicar su resultado contable diario. | Gasto automático de $5.000 por día laborado al guardar un ingreso taxi mayor que cero; editable. | Aplicado. |
+| Resumen mensual | Quiere ver el ingreso estimado del mes y los gastos que surjan. | Pantalla «Resumen mensual» con proyección y acumulación real. | Propuesta; no implementada. |
 
----
+Los ajustes se incorporaron al prototipo, pero **no se hizo una segunda prueba con Katerin**. Esa repetición queda pendiente, con fecha por definir. La prueba revisó una demostración, no una implementación con persistencia, autenticación o subida real de archivos.
 
-## 11. Pendientes
+### 9.3 Decisiones de modelo para la siguiente cartilla
 
-- Verificar en un dispositivo móvil real los recorridos ajustados y documentar capturas de las pantallas restantes; revisar el orden con teclado y los mensajes de validación.
-- Precisar la vigencia de cambios en la cuota, las reglas técnicas de acceso y los formatos, tamaño y conservación de archivos antes de implementar.
-- Evaluar la propuesta de “Resumen mensual” antes de incorporarla al alcance.
+- `IngresoTaxi`: {fecha, vehículo, valorRecibido, cuotaReferencia, motivo, conductorPagado: boolean}.
+- `Gasto`: {fecha, vehículo, valor, descripción, categoría, esConductor: boolean}.
+- `Documento`: {vehículo, tipo, vencimiento, archivo?, estado}.
 
-## 12. Revisión de entrega
+## 10. Cierre, pendientes y revisión
+
+### 10.1 Pendientes
+
+| Pendiente | Estado | Fecha |
+|---|---|---|
+| Repetir la prueba con Katerin después de los ajustes y registrar sus observaciones. | Pendiente | Por definir |
+| Verificar en un dispositivo móvil real los recorridos, el orden con teclado y los mensajes de validación. | Pendiente | Por definir |
+| Precisar la vigencia de cambios en la cuota, las reglas técnicas de acceso y los formatos, tamaño y conservación de archivos. | Pendiente | Por definir |
+| Evaluar la propuesta de «Resumen mensual» antes de incorporarla al alcance. | Pendiente | Por definir |
+
+La implementación de rutas, autenticación y persistencia no forma parte de esta evidencia. Las rutas de la sección 4 son una propuesta de diseño; el prototipo actual navega por estado.
+
+### 10.2 Revisión de entrega
 
 | Elemento | Estado |
 |---|---|
-| Recorrido, mapa y fichas con capturas | Incluidos. |
+| Recorrido, mapa y fichas con capturas | Incluidos; mapa de 35 pantallas, 11 fichas y 24 capturas. |
+| Rutas propuestas | Incluidas en la sección 4; no implementadas. |
 | Elementos comunes y estados | Incluidos; algunos estados siguen como propuesta o pendiente. |
-| Recorrido móvil a 360 px y ajuste visual | Ajustes responsive aplicados a todas las pantallas; capturas en emulación de navegador del detalle del taxi y de las pantallas ajustadas de la prueba. |
+| Recorrido móvil a 360 px | Cuatro capturas del recorrido principal; falta la verificación en un dispositivo real. |
 | Prototipo y enlace accesible | Publicado y comprobado en [GitHub Pages](https://tecno85.github.io/vehicle-control-app-web/). |
-| Ajustes de la prueba incorporados | Filtro por mes, categoría inline, motivo obligatorio y pago a conductor en la demostración. |
-| Prueba, observaciones y ajuste | **Realizada el 20/10/2026**; ajustes incorporados en la evidencia (ver §9 y §10). |
+| Ajustes de la prueba incorporados | Filtro por mes, categoría inline, motivo obligatorio y pago al conductor en la demostración. |
+| Prueba con Katerin | **Realizada el 20/10/2026**; la segunda prueba queda pendiente. |
+| Límites declarados | Sin persistencia, autenticación real ni subida real de archivos. |
+
+La evidencia queda lista para revisión y conserva la trazabilidad entre historias, pantallas, rutas propuestas, capturas y reglas. No presenta el prototipo como una aplicación implementada ni la revisión de Katerin como una aprobación definitiva.
 
 ## Fuentes
 

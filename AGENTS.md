@@ -19,7 +19,7 @@
 
 - Separar hechos reportados, observaciones de Katerin, decisiones confirmadas, hipótesis y propuestas. No presentar hipótesis de ahorro de tiempo como resultados medidos.
 - Mantener separadas las observaciones de Katerin y Jean Carlos sobre Android. Jean Carlos no utilizará la aplicación web.
-- Katerin validó inicialmente el flujo el 28 de septiembre de 2026; buscó y encontró el SOAT en un caso distinto ese mismo día; pidió adjuntos el 2 de octubre; revisó Android el 8 de octubre; y respondió la consulta breve de requerimientos el 12 de octubre. La prueba del prototipo web se realizó el 20 de octubre de 2026. No combinar los eventos ni cambiar sus fechas.
+- Katerin validó inicialmente el flujo el 28 de septiembre de 2026; buscó y encontró el SOAT en un caso distinto ese mismo día; pidió adjuntos el 2 de octubre; revisó Android el 8 de octubre; y respondió la consulta breve de requerimientos el 12 de octubre. La prueba del prototipo web se realizó el 20 de octubre de 2026; allí revisó la identidad visual y le pareció adecuada. No combinar los eventos ni cambiar sus fechas.
 - Katerin dijo que le gusta el flujo inicial y está abierta a modificarlo si nueva evidencia lo requiere. No tratarlo como aprobación definitiva de pantallas o reglas.
 - Usar `docs/evidencia-sesion-1.md` como registro histórico de la semana 1 y `docs/evidencia-sesion-2-requerimientos-backlog.md` para los requerimientos y acuerdos posteriores. Si hay discrepancias, respetar fechas y aclarar el cambio posterior, no borrar la historia.
 - Usar `docs/evidencia-sesion-3-diseno-pantallas.md` para el mapa y las fichas de pantallas, el prototipo Figma y los acuerdos posteriores sobre acceso y edición/eliminación.
