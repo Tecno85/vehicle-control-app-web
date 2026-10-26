@@ -1,7 +1,7 @@
 # Contexto del proyecto VehicleControlApp Web
 
-**Estado del contexto:** 21 de octubre de 2026
-**Actividad actual:** diseño de pantallas de sesión 3; prueba con Katerin realizada el 20 de octubre y entrega indicada para el 22 de octubre de 2026.
+**Estado del contexto:** 26 de octubre de 2026
+**Actividad actual:** modelo de datos y servicios de las sesiones 4 y 5. La versión 0.1, con los apartados 1 y 2, se revisa el 29 de octubre y el documento completo se entrega el 5 de noviembre de 2026.
 **Modalidad de trabajo:** individual.
 
 ## 1. Ficha del proyecto
@@ -29,6 +29,7 @@
 | 16 oct 2026 | Decisiones de diseño acordadas con Ivan | Se definió el modelo de cuentas independientes, el registro propio, el ingreso con correo y contraseña, la recuperación por correo y reglas de edición y eliminación para el MVP. | Son decisiones para diseñar el flujo; la autenticación y las funciones web no están implementadas. Se documentan en la [evidencia de sesión 3](evidencia-sesion-3-diseno-pantallas.md). |
 | 18 oct 2026 | Alcance responsive y publicación documentados por Ivan | Se confirmó que el producto de este repositorio es una Web App para escritorio y móvil; la vista móvil es responsive y no se desarrollará una aplicación nativa. Se publicó el prototipo de sesión 3 en GitHub Pages. | La publicación permite revisar el prototipo; en esa fecha no significaba que las funciones estuvieran implementadas en el producto ni que Katerin ya lo hubiera probado. |
 | 20 oct 2026 | Prueba del prototipo con Katerin | Katerin recorrió el prototipo publicado y revisó sus hojas de cálculo actuales. Validó el flujo general, revisó la identidad visual y propuso ajustes: estimado mensual, filtro por mes, creación de categoría desde el formulario de gasto y pago al conductor. | Los resultados y ajustes están en la [evidencia de sesión 3](evidencia-sesion-3-diseno-pantallas.md), §9. La prueba no implementa persistencia, autenticación ni subida real de archivos. |
+| 26 oct 2026 | Decisiones de modelo de datos tomadas por Ivan | Una sola tabla de ingresos con tipo taxi o inDrive; un ingreso por vehículo y fecha; placa única por cuenta; categorías propias de cada cuenta; el pago al conductor se conecta con su ingreso. | Son decisiones de diseño, no de Katerin, y no están implementadas. Se detallan en la [evidencia de sesiones 4 y 5](evidencia-sesion-4-modelo-datos-servicios.md). |
 | Sin fecha especificada | Observación previa de Katerin sobre Android | El término “Registro de documentos” le resultó confuso; también sugirió adjuntar imágenes de facturas. | Mantener como observación distinta de la retroalimentación del 2 de octubre. La propuesta de facturas no se incorpora automáticamente al alcance inicial. |
 | Fechas y condiciones distintas, no detalladas aquí | Antecedente de pruebas Android | Katerin y Jean Carlos probaron el MVP Android en momentos y condiciones distintos. | No combinar sus pruebas ni atribuir resultados específicos sin evidencia separada. |
 
@@ -81,7 +82,7 @@ La app Android es antecedente funcional, no especificación automática de la we
 
 En el alcance web incluiré la **cuota fija diaria de cada taxi** y el **total variable diario de inDrive** en vehículos particulares habilitados para esa modalidad. Katerin podrá cambiar la cuota del taxi cuando lo decida. También acordamos que pueda registrar el valor recibido si es menor que la cuota esperada o es cero, y anotar el motivo. Debo definir si ese valor afecta solo el registro del día o también la cuota configurada, y desde cuándo surte efecto un cambio. Taxi/particular son clasificaciones de vehículo; inDrive es una modalidad de ingreso.
 
-Incluiré en los gastos la fecha, el valor, la descripción y la categoría. Las categorías iniciales son **Combustible, Lavado, Mantenimiento y Repuestos**. Katerin podrá agregar y renombrar categorías; si una categoría ya está usada, se desactiva para conservar los gastos anteriores.
+Incluiré en los gastos la fecha, el valor, la descripción y la categoría. Las categorías iniciales son **Combustible, Lavado, Mantenimiento y Repuestos**. Katerin podrá agregar y renombrar categorías; si una categoría ya está usada, se desactiva para conservar los gastos anteriores. En el modelo de datos, cada cuenta tiene sus propias categorías.
 
 Para el primer alcance documental se consideran **SOAT y tecnomecánica**. Cada registro conserva nombre y vencimiento, y admite un archivo de soporte que se pueda visualizar o descargar. Está acordado que el registro puede guardarse antes de adjuntar el archivo y que después se añade el soporte; se plantea un archivo por registro.
 
@@ -109,6 +110,7 @@ El login se incluyó como pantalla y recorrido del prototipo de sesión 3, a sol
 - La [evidencia de semana 1](evidencia-sesion-1.md) conserva el registro de esa actividad y su fecha de entrega indicada: 8 de octubre de 2026.
 - En la [evidencia de sesión 2](evidencia-sesion-2-requerimientos-backlog.md) registré la consulta breve que realicé con Katerin el 12 de octubre y la entrega indicada para el 15 de octubre de 2026.
 - La [evidencia de sesión 3](evidencia-sesion-3-diseno-pantallas.md) documenta el diseño de pantallas, los prototipos visuales y los acuerdos posteriores sobre cuentas y edición/eliminación. La entrega indicada es el 22 de octubre de 2026; la prueba con Katerin se realizó el 20 de octubre de 2026 y sus resultados están en esa evidencia.
+- La [evidencia de sesiones 4 y 5](evidencia-sesion-4-modelo-datos-servicios.md) documenta el proceso del MVP, el modelo de datos y, para el 5 de noviembre de 2026, los servicios principales. La versión 0.1, con los apartados 1 y 2, se revisa el 29 de octubre de 2026.
 - Katerin revisó inicialmente el flujo web el 28 de septiembre, pidió adjuntar soportes el 2 de octubre, validó el proceso y el avance Android el 8 de octubre, respondió preguntas breves el 12 de octubre y probó el prototipo web el 20 de octubre; en esa prueba revisó la identidad visual y le pareció adecuada. Estos contactos no se deben combinar.
 
 ## 7. Orientación técnica, no decisión
@@ -118,7 +120,7 @@ Los materiales del instructor presentan React y Material UI, NestJS, Hasura Grap
 ## 8. Decisiones abiertas antes de implementar
 
 - **Cuota e ingreso diario del taxi:** acordamos permitir cambiar la cuota y registrar el valor real del día, incluso si es menor o cero, con su motivo. Debo definir desde cuándo aplica una cuota modificada y si el valor diario afecta solo ese día o también la cuota configurada.
-- **Ingresos de inDrive:** debo definir cómo corregir registros y si se admite más de un total para el mismo vehículo y fecha.
+- **Ingresos de inDrive:** el 26 de octubre de 2026 decidí, para el modelo de datos, que se guarde un solo ingreso por vehículo y fecha y que se corrija editando el registro. Queda pendiente aplicarlo en la implementación.
 - **Formularios:** debo precisar los campos obligatorios y las validaciones del vehículo y de cada registro.
 - **Categorías de gastos:** acordamos los campos y las categorías iniciales, además de permitir agregar y renombrar categorías. Si una categoría ya está usada, se desactiva para conservar los gastos anteriores.
 - **Archivos:** acordamos permitir un archivo por registro y guardar primero los datos. PDF es el formato más común señalado; debo definir los formatos finales, el tamaño máximo, el almacenamiento y la conservación. Interpreto provisionalmente “.Docs” como Word (.doc/.docx).
