@@ -75,6 +75,8 @@ El 28 de septiembre Katerin revisó inicialmente el flujo de cuatro capacidades 
 - La lista definitiva de formatos de archivo, el tamaño máximo, el almacenamiento y el tiempo de conservación. PDF es el formato más común indicado; PDF, Word (.doc/.docx) e imágenes JPG/JPEG o PNG son formatos candidatos, no una especificación técnica cerrada.
 - Si se necesitan usuarios adicionales en el futuro y qué accesos tendría cada uno. Jean Carlos no utilizará esta versión web.
 
+**Actualización posterior:** el 26 de octubre de 2026, en la [evidencia de sesiones 4 y 5](evidencia-sesion-4-modelo-datos-servicios.md), decidí que cada vehículo tenga un solo ingreso por fecha y que un ingreso se corrija editándolo. Esta sección conserva los pendientes tal como estaban al cierre de la sesión 2.
+
 ## 6. Historias de usuario y criterios de aceptación BDD
 
 ### HU-01 — Crear y clasificar vehículos

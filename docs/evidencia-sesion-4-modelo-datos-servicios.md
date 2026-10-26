@@ -2,7 +2,7 @@
 
 | Proyecto | Responsable y versión |
 |---|---|
-| VehicleControlApp Web · DazaDev | Ivan Dario Madrid Daza, trabajo individual. Versión 0.1 del 26 de octubre de 2026: borrador de los apartados 1 y 2 para la revisión del 29 de octubre de 2026. |
+| VehicleControlApp Web · DazaDev | Ivan Dario Madrid Daza, trabajo individual. Versión 0.2 del 26 de octubre de 2026: borrador ajustado de los apartados 1 y 2 para la revisión del 29 de octubre de 2026. |
 
 - **Actividad:** Sesiones 4 y 5 — Modelo de datos y servicios del MVP
 - **Usuaria inicial:** Katerin, propietaria y administradora de una pequeña flota
@@ -79,7 +79,7 @@ En **Tipo** uso tipos simples y, entre paréntesis, su equivalente en PostgreSQL
 | nombre | texto (`varchar(80)`) | Obligatorio. Nombre visible de la titular. |
 | correo | texto (`varchar(120)`) | Obligatorio y único. Sirve para ingresar y recuperar la contraseña. |
 | contrasena_hash | texto (`text`) | Obligatorio. Contraseña protegida mediante hash; nunca se muestra ni se devuelve. |
-| activo | sí/no (`boolean`) | Inicia en sí. Solo una cuenta activa puede ingresar. |
+| activo | sí/no (`boolean`) | Propuesta. Inicia en sí y permitiría desactivar una cuenta sin borrar sus datos. No hay reglas acordadas para desactivar cuentas. |
 | creado_en | fecha y hora (`timestamptz`) | La establece el servidor. |
 
 **Tabla: `vehiculos`**
@@ -134,7 +134,7 @@ En **Tipo** uso tipos simples y, entre paréntesis, su equivalente en PostgreSQL
 | ingreso_id | entero (`integer`) | FK opcional y única a `ingresos.id`. Solo la tiene el pago automático de $5.000 al conductor; indica qué ingreso lo generó. |
 | creado_en | fecha y hora (`timestamptz`) | La establece el servidor. |
 
-Al guardar un ingreso de taxi mayor que cero, el ingreso y el gasto del conductor se guardan juntos: si uno falla, no se guarda ninguno. El gasto queda en la categoría «Conductor» y Katerin lo puede editar si ese día no se pagó.
+Al guardar un ingreso de taxi mayor que cero, el ingreso y el gasto del conductor se guardan juntos: si uno falla, no se guarda ninguno. El gasto queda en la categoría «Conductor». Si ese día no se pagó al conductor, Katerin elimina ese gasto con confirmación; no se deja en cero porque el valor de un gasto debe ser mayor que cero.
 
 **Tabla: `documentos`**
 
@@ -184,8 +184,9 @@ El 26 de octubre de 2026 tomé estas decisiones de diseño como responsable del 
 - Los ingresos de taxi e inDrive van en una sola tabla con el campo `tipo`.
 - Solo hay un ingreso por vehículo y fecha. Esto resuelve el pendiente de duplicados que dejó abierto la evidencia de sesión 2.
 - La placa es única dentro de cada cuenta.
-- Las categorías son de cada cuenta.
+- Las categorías son de cada cuenta. Al crear la cuenta se generan Combustible, Lavado, Mantenimiento y Repuestos; «Conductor» se crea con el primer pago automático.
 - El pago al conductor se conecta con su ingreso mediante `gastos.ingreso_id`.
+- Si ese día no se pagó al conductor, su gasto se elimina; no se deja en cero.
 
 Frente al borrador de la sección 9.3 de la evidencia de sesión 3:
 - Agrego el `nombre` del documento, que exige HU-04.
@@ -195,10 +196,12 @@ Frente al borrador de la sección 9.3 de la evidencia de sesión 3:
 | Pendiente | Fecha |
 |---|---|
 | Qué pasa con el gasto del conductor al editar o eliminar su ingreso. Se define con los servicios de la semana 5. | 5 de noviembre de 2026 |
+| Qué pasa con los ingresos guardados si un vehículo cambia de taxi a particular o al revés, o si un particular deja de estar habilitado para inDrive, ya que `ingresos.tipo` debe coincidir con el vehículo. Se define con los servicios de la semana 5. | 5 de noviembre de 2026 |
+| Si el pago al conductor es siempre de $5.000 o puede ser distinto en cada taxi, y dónde se guarda ese valor. El modelo todavía no tiene un campo para él. | Por definir |
 | Desde cuándo aplica una cuota nueva del taxi. El modelo ya conserva la cuota de referencia de cada ingreso. | Por definir |
 | Si se puede reactivar un vehículo o una categoría. El campo `activo` lo permitiría. | Por definir |
 | Formatos, tamaño, almacenamiento y conservación de los archivos. | Por definir |
-| Reglas de contraseña, verificación del correo y vigencia del enlace de recuperación, y si se necesita una tabla para esos enlaces. | Por definir |
+| Reglas de contraseña, verificación del correo y vigencia del enlace de recuperación, si se necesita una tabla para esos enlaces y si una cuenta se puede desactivar. | Por definir |
 
 ### Dudas para la revisión del 29 de octubre
 
@@ -216,6 +219,7 @@ La plantilla sugiere la carpeta `docs/04-datos-servicios`. Conservo la convenci�
 | Versión | Fecha | Cambios |
 |---|---|---|
 | 0.1 | 26 de octubre de 2026 | Proceso, entidades, diagrama, campos y relaciones iniciales para la revisión del 29 de octubre. |
+| 0.2 | 26 de octubre de 2026 | Ajustes antes de la revisión: `usuarios.activo` queda como propuesta; el gasto del conductor se elimina si ese día no se pagó; se completa la lista de decisiones con las categorías iniciales de cada cuenta; se agregan los pendientes del valor del pago al conductor, del cambio de tipo o de habilitación para inDrive de un vehículo con ingresos y de la desactivación de cuentas; las evidencias de sesiones 2 y 3 enlazan a esta. |
 
 ## Fuentes
 

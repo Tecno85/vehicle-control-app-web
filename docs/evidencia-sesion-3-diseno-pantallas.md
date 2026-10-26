@@ -306,6 +306,8 @@ Los ajustes se incorporaron al prototipo, pero **no se hizo una segunda prueba c
 - `Gasto`: {fecha, vehículo, valor, descripción, categoría, esConductor: boolean}.
 - `Documento`: {vehículo, tipo, vencimiento, archivo?, estado}.
 
+**Actualización posterior:** la [evidencia de sesiones 4 y 5](evidencia-sesion-4-modelo-datos-servicios.md) reemplaza este borrador. Reúne los ingresos de taxi e inDrive en una sola tabla, agrega el nombre del documento, calcula su estado en lugar de guardarlo y conecta el pago al conductor con su ingreso mediante `gastos.ingreso_id`. También precisa el pago «editable» de la sección 2: si ese día no se pagó al conductor, su gasto se elimina, porque un gasto no se deja en cero.
+
 ## 10. Cierre, pendientes y revisión
 
 ### 10.1 Pendientes
