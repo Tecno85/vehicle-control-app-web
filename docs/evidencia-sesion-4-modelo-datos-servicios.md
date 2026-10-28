@@ -2,11 +2,11 @@
 
 | Proyecto | Integrantes y versión |
 |---|---|
-| VehicleControlApp Web · DazaDev | Ivan Dario Madrid Daza, trabajo individual. Versión 0.3 del 28 de octubre de 2026: apartados 1 y 2 ajustados al alcance de la primera versión, para la revisión del 29 de octubre de 2026. |
+| VehicleControlApp Web · DazaDev | Ivan Dario Madrid Daza, trabajo individual. Versión 0.4 del 28 de octubre de 2026: apartados 1 y 2 ajustados al alcance de la primera versión y modelo cargado en Neon y Hasura, para la revisión del 29 de octubre de 2026. |
 
 - **Actividad:** Sesiones 4 y 5 — Modelo de datos y servicios del MVP
 - **Usuaria inicial:** Katerin, propietaria y administradora de una pequeña flota
-- **Estado:** modelo inicial para revisión. Es un diseño previo a la programación: no hay base de datos, API ni autenticación implementadas.
+- **Estado:** modelo inicial para revisión. Las tablas ya están creadas en Neon y expuestas por Hasura con datos de prueba ficticios; no hay aplicación, servicios, autenticación ni permisos implementados.
 
 Esta evidencia sigue la plantilla del instructor. En esta versión desarrollo los apartados 1 y 2, que corresponden a la semana 4. Los apartados 3 (servicios) y 4 (revisión y compromisos) se completan para el 5 de noviembre de 2026.
 
@@ -197,6 +197,25 @@ No hay relaciones muchos a muchos, así que no se necesita una tabla intermedia.
 
 **Regla de pertenencia:** cada ingreso, gasto o documento llega a su cuenta a través de `vehiculos.usuario_id`. La categoría de un gasto debe pertenecer a la misma cuenta que el vehículo.
 
+### Modelo cargado en Neon y Hasura
+
+Por indicación del instructor, el 28 de octubre de 2026 me registré en Neon y en Hasura Cloud y cargué en ellos el modelo de la primera versión. No es una aplicación implementada: no hay pantallas conectadas, servicios de NestJS, autenticación ni permisos por cuenta.
+
+| Paso | Resultado |
+|---|---|
+| Base de datos en Neon | Proyecto `vehicle-control-app-web` en AWS US East 2 (Ohio). Ejecuté [`modelo-inicial.sql`](evidencia-sesion-4/modelo-inicial.sql) sin errores: seis tablas y cuatro índices. |
+| API GraphQL en Hasura Cloud | Proyecto `vehicle-control-app` en el plan gratuito y en la misma región. Se conecta a Neon mediante una variable de entorno; la cadena de conexión y el secreto de administración no se guardan en el repositorio. |
+| Tablas y relaciones | Registré las seis tablas y las seis relaciones en ambos sentidos con los nombres de este documento, por ejemplo `vehiculo.ingresos` (array) y `gasto.categoria` (object). |
+
+Probé el recorrido del proceso con datos ficticios:
+- Se guardaron la titular de prueba, sus categorías, el taxi XYZ789 con cuota de $60.000, un ingreso de $60.000, el gasto de $5.000 del pago al conductor y el SOAT.
+- El ingreso de $40.000 sin motivo se rechazó por la restricción de la tabla `ingresos` y no se guardó.
+- La consulta del taxi devolvió en una sola respuesta su titular, su ingreso, su gasto y su SOAT.
+
+Dos hallazgos para la semana 5:
+- Hasura propuso `usuario.categorias_gasto` como object porque el índice único de categorías usa `lower(nombre)`. La registré a mano como array, que es lo que define el modelo.
+- Hasura responde al rechazo del motivo con el código `permission-error`. El servicio deberá traducirlo a un mensaje claro y al código HTTP que se defina en los contratos.
+
 ### Cómo crece el modelo en la fase posterior
 
 Esta tabla es una propuesta para las funciones que pasan a la fase posterior. No forma parte de la primera versión ni del diagrama.
@@ -260,6 +279,7 @@ La plantilla sugiere la carpeta `docs/04-datos-servicios`. Conservo la convenci�
 | 0.1 | 26 de octubre de 2026 | Proceso, entidades, diagrama, campos y relaciones iniciales para la revisión del 29 de octubre. |
 | 0.2 | 26 de octubre de 2026 | Ajustes antes de la revisión: `usuarios.activo` queda como propuesta; el gasto del conductor se elimina si ese día no se pagó; se completa la lista de decisiones con las categorías iniciales de cada cuenta; se agregan los pendientes del valor del pago al conductor, del cambio de tipo o de habilitación para inDrive de un vehículo con ingresos y de la desactivación de cuentas; las evidencias de sesiones 2 y 3 enlazan a esta. |
 | 0.3 | 28 de octubre de 2026 | Aplica la retroalimentación del instructor técnico del 27 de octubre: se define el alcance de la primera versión, con 26 de las 35 pantallas de la sesión 3; salen `gastos.ingreso_id` y los campos de archivo; el acceso queda como ingreso básico; se agrega cómo crece el modelo en la fase posterior; se actualizan el proceso, las historias, los pendientes y las dudas, incluido quién crea la cuenta de la titular. |
+| 0.4 | 28 de octubre de 2026 | Registra la carga del modelo en Neon y Hasura Cloud por indicación del instructor, la prueba con datos ficticios y dos hallazgos para la semana 5. |
 
 ## Fuentes
 
@@ -268,4 +288,5 @@ La plantilla sugiere la carpeta `docs/04-datos-servicios`. Conservo la convenci�
 - [Evidencia de requerimientos y backlog de sesión 2](evidencia-sesion-2-requerimientos-backlog.md).
 - [Evidencia de diseño de pantallas de sesión 3](evidencia-sesion-3-diseno-pantallas.md).
 - [Contexto del proyecto](contexto-proyecto.md).
+- Indicación del instructor de registrarse en Neon y Hasura Cloud.
 - Prototipo de sesión 3: las validaciones de vehículos, ingresos, gastos, categorías y documentos.
