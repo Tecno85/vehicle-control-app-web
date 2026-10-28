@@ -1,8 +1,8 @@
 # Modelo de datos y servicios de VehicleControlApp Web
 
-| Proyecto | Responsable y versión |
+| Proyecto | Integrantes y versión |
 |---|---|
-| VehicleControlApp Web · DazaDev | Ivan Dario Madrid Daza, trabajo individual. Versión 0.2 del 26 de octubre de 2026: borrador ajustado de los apartados 1 y 2 para la revisión del 29 de octubre de 2026. |
+| VehicleControlApp Web · DazaDev | Ivan Dario Madrid Daza, trabajo individual. Versión 0.3 del 28 de octubre de 2026: apartados 1 y 2 ajustados al alcance de la primera versión, para la revisión del 29 de octubre de 2026. |
 
 - **Actividad:** Sesiones 4 y 5 — Modelo de datos y servicios del MVP
 - **Usuaria inicial:** Katerin, propietaria y administradora de una pequeña flota
@@ -10,19 +10,46 @@
 
 Esta evidencia sigue la plantilla del instructor. En esta versión desarrollo los apartados 1 y 2, que corresponden a la semana 4. Los apartados 3 (servicios) y 4 (revisión y compromisos) se completan para el 5 de noviembre de 2026.
 
-Parto de las historias HU-01 a HU-05 de la [evidencia de sesión 2](evidencia-sesion-2-requerimientos-backlog.md), de las pantallas, reglas y ajustes de la [evidencia de sesión 3](evidencia-sesion-3-diseno-pantallas.md) y de las validaciones del prototipo. Los datos del ejemplo son ficticios.
+Parto de las historias HU-01 a HU-05 de la [evidencia de sesión 2](evidencia-sesion-2-requerimientos-backlog.md), de las pantallas, reglas y ajustes de la [evidencia de sesión 3](evidencia-sesion-3-diseno-pantallas.md), de las validaciones del prototipo y de la retroalimentación del instructor técnico sobre la sesión 3. Los datos del ejemplo son ficticios.
 
 ## 1. Proceso y entidades
+
+### Alcance de la primera versión
+
+El 27 de octubre de 2026 el instructor técnico revisó la evidencia de sesión 3 y recomendó reducir el alcance de implementación para conservar un MVP viable. El 28 de octubre de 2026 acepté la recomendación y ajusté el modelo a esa primera versión.
+
+- **Entra en la primera versión:**
+  - Vehículos taxi y particular, con la cuota del taxi y la opción de inDrive.
+  - Ingresos diarios, gastos y categorías.
+  - Registro de SOAT y tecnomecánica con nombre y vencimiento.
+  - Consulta por vehículo.
+  - Ingreso con correo y contraseña a una cuenta creada previamente.
+- **Pasa a una fase posterior:**
+  - Registro propio de cuentas, verificación del correo y recuperación de contraseña.
+  - Almacenamiento, visualización y descarga de archivos de soporte.
+  - Pago automático al conductor y otras automatizaciones contables.
+  - Resumen mensual.
+
+Las necesidades que expresó Katerin se conservan: adjuntar el soporte del documento (2 de octubre) y replicar su resultado contable con el pago al conductor (20 de octubre). Solo cambia la fase en que se implementan. En la primera versión, el pago al conductor se registra como un gasto más.
+
+**Pantallas de la primera versión.** De las 35 pantallas del mapa de la [evidencia de sesión 3](evidencia-sesion-3-diseno-pantallas.md), la primera versión usa 26. Pasan a la fase posterior las 9 que dependen de las funciones aplazadas:
+- 02 y 03: crear cuenta.
+- 04 a 07: recuperar la contraseña.
+- 15: documento con archivo.
+- 16: vista previa del soporte.
+- 26: descargar el soporte.
+
+La propuesta de resumen mensual (P) también queda para después. Cuatro pantallas se simplifican: la 13 (registrar documento) y la 29 (editar documento) quedan sin archivo, la 14 (documento guardado) queda sin la opción de adjuntar y la 30 (confirmar eliminación) ya no menciona un archivo.
 
 ### Proceso del MVP
 
 El MVP registra la información diaria de cada vehículo de la flota y permite consultarla en un solo lugar. Cada cuenta tiene su propia flota y no hay roles compartidos. El recorrido principal, con datos ficticios, es el siguiente:
 
-1. La titular ingresa con su correo y contraseña y ve su flota.
+1. La titular ingresa con el correo y la contraseña de su cuenta y ve su flota.
 2. Crea el taxi XYZ789 con una cuota diaria de $60.000.
-3. Registra el ingreso de un día por $60.000. Junto con el ingreso se guarda el gasto de $5.000 del pago al conductor.
-4. Registra el SOAT del taxi con su nombre y vencimiento, sin archivo. Más tarde adjunta el PDF.
-5. Consulta el taxi y ve el ingreso de $60.000, el gasto de $5.000 y el SOAT con su soporte. Si intenta registrar otro día por $40.000 sin escribir el motivo, la aplicación rechaza el ingreso y no guarda el ingreso ni el gasto del conductor.
+3. Registra el ingreso de un día por $60.000 y, aparte, el gasto de $5.000 del pago al conductor.
+4. Registra el SOAT del taxi con su nombre y vencimiento.
+5. Consulta el taxi y ve el ingreso de $60.000, el gasto de $5.000 y el SOAT. Si intenta registrar otro día por $40.000 sin escribir el motivo, la aplicación rechaza el ingreso y no guarda nada.
 
 ### Qué información necesitamos guardar
 
@@ -32,18 +59,18 @@ El MVP registra la información diaria de cada vehículo de la flota y permite c
 | `vehiculos` | Conservar los vehículos de cada cuenta, su clasificación como taxi o particular, la cuota del taxi y si un particular trabaja con inDrive. |
 | `ingresos` | Guardar el ingreso diario de cada vehículo: el valor recibido del taxi frente a su cuota o el total variable de inDrive. |
 | `categorias_gasto` | Conservar las categorías de gasto de cada cuenta y saber cuáles siguen activas. |
-| `gastos` | Guardar los gastos de cada vehículo con fecha, valor, descripción y categoría, incluido el pago automático al conductor. |
-| `documentos` | Guardar el SOAT y la tecnomecánica de cada vehículo con su vencimiento y la referencia a su archivo de soporte. |
+| `gastos` | Guardar los gastos de cada vehículo con fecha, valor, descripción y categoría, incluido el pago al conductor. |
+| `documentos` | Guardar el SOAT y la tecnomecánica de cada vehículo con su nombre y vencimiento. |
 
 ### Historias y tablas
 
 | Historia | Tablas que utiliza |
 |---|---|
-| Acceso transversal: crear cuenta e ingresar | `usuarios` |
+| Acceso: ingresar a la cuenta | `usuarios` |
 | HU-01 · Crear y clasificar vehículos | `vehiculos`, `usuarios` |
-| HU-02 · Registrar ingresos y ajustar la cuota del taxi | `ingresos`, `vehiculos`; `gastos` y `categorias_gasto` para el pago al conductor |
+| HU-02 · Registrar ingresos y ajustar la cuota del taxi | `ingresos`, `vehiculos` |
 | HU-03 · Registrar gastos y mantener categorías | `gastos`, `categorias_gasto`, `vehiculos` |
-| HU-04 · Registrar y consultar documentos | `documentos`, `vehiculos` |
+| HU-04 · Registrar y consultar documentos (sin archivo en la primera versión) | `documentos`, `vehiculos` |
 | HU-05 · Consultar información por vehículo | `vehiculos`, `ingresos`, `gastos`, `documentos` |
 
 ### Trabajo en dos semanas
@@ -53,8 +80,7 @@ El MVP registra la información diaria de cada vehículo de la flota y permite c
 | 4 · 22 de octubre | Proceso, entidades, diagrama y campos iniciales (esta versión). | 29 de octubre |
 | 5 · 29 de octubre | Modelo ajustado, servicios principales y comprobación del flujo. | 5 de noviembre |
 
-Las funciones que quedan para después del MVP son:
-- El resumen mensual que propuso Katerin en la prueba del 20 de octubre.
+Además de lo que pasa a la fase posterior, quedan para después del MVP:
 - Las novedades, los impuestos, las alertas y recordatorios de vencimiento, los reportes y las facturas.
 - Los roles para compartir una flota.
 
@@ -77,7 +103,7 @@ En **Tipo** uso tipos simples y, entre paréntesis, su equivalente en PostgreSQL
 |---|---|---|
 | id | entero (`integer`) | PK. Lo genera el sistema. |
 | nombre | texto (`varchar(80)`) | Obligatorio. Nombre visible de la titular. |
-| correo | texto (`varchar(120)`) | Obligatorio y único. Sirve para ingresar y recuperar la contraseña. |
+| correo | texto (`varchar(120)`) | Obligatorio y único. Sirve para ingresar. |
 | contrasena_hash | texto (`text`) | Obligatorio. Contraseña protegida mediante hash; nunca se muestra ni se devuelve. |
 | activo | sí/no (`boolean`) | Propuesta. Inicia en sí y permitiría desactivar una cuenta sin borrar sus datos. No hay reglas acordadas para desactivar cuentas. |
 | creado_en | fecha y hora (`timestamptz`) | La establece el servidor. |
@@ -118,7 +144,7 @@ En **Tipo** uso tipos simples y, entre paréntesis, su equivalente en PostgreSQL
 |---|---|---|
 | id | entero (`integer`) | PK. Lo genera el sistema. |
 | usuario_id | entero (`integer`) | FK obligatoria a `usuarios.id`. Cada cuenta tiene sus categorías. |
-| nombre | texto (`varchar(40)`) | Obligatorio y único dentro de la cuenta, sin distinguir mayúsculas. Al crear la cuenta se generan Combustible, Lavado, Mantenimiento y Repuestos. «Conductor» se crea con el primer pago automático. |
+| nombre | texto (`varchar(40)`) | Obligatorio y único dentro de la cuenta, sin distinguir mayúsculas. Al crear la cuenta se generan Combustible, Lavado, Mantenimiento y Repuestos. |
 | activo | sí/no (`boolean`) | Inicia en sí. Una categoría desactivada no aparece en gastos nuevos y se conserva en los anteriores. |
 
 **Tabla: `gastos`**
@@ -131,10 +157,9 @@ En **Tipo** uso tipos simples y, entre paréntesis, su equivalente en PostgreSQL
 | fecha | fecha (`date`) | Obligatoria. |
 | valor | entero (`integer`) | Obligatorio y mayor que cero. |
 | descripcion | texto (`varchar(120)`) | Obligatoria. |
-| ingreso_id | entero (`integer`) | FK opcional y única a `ingresos.id`. Solo la tiene el pago automático de $5.000 al conductor; indica qué ingreso lo generó. |
 | creado_en | fecha y hora (`timestamptz`) | La establece el servidor. |
 
-Al guardar un ingreso de taxi mayor que cero, el ingreso y el gasto del conductor se guardan juntos: si uno falla, no se guarda ninguno. El gasto queda en la categoría «Conductor». Si ese día no se pagó al conductor, Katerin elimina ese gasto con confirmación; no se deja en cero porque el valor de un gasto debe ser mayor que cero.
+En la primera versión, el pago al conductor se registra a mano como cualquier otro gasto. La conexión automática con el ingreso del taxi queda para la fase posterior.
 
 **Tabla: `documentos`**
 
@@ -145,19 +170,15 @@ Al guardar un ingreso de taxi mayor que cero, el ingreso y el gasto del conducto
 | tipo | texto (`varchar(15)`) | Obligatorio: SOAT o TECNOMECANICA. |
 | nombre | texto (`varchar(80)`) | Obligatorio. Por ejemplo, «SOAT 2026». |
 | vencimiento | fecha (`date`) | Obligatoria. |
-| archivo_nombre | texto (`varchar(255)`) | Opcional. Nombre original del archivo; vacío mientras no se adjunte. |
-| archivo_tipo | texto (`varchar(100)`) | Opcional. Formato del archivo, por ejemplo PDF o imagen. |
-| archivo_ruta | texto (`text`) | Opcional. Referencia al archivo guardado. El lugar de almacenamiento está pendiente. |
 | creado_en | fecha y hora (`timestamptz`) | La establece el servidor. |
 
-Un registro admite un solo archivo. Al reemplazarlo cambian los tres campos `archivo_*`; al eliminar el documento también se elimina su archivo.
+En la primera versión el documento se registra sin archivo. Los campos del soporte se agregan en la fase posterior, como se describe más abajo.
 
 ### Datos que se calculan
 
 Estos datos no se guardan en una columna, para evitar copias que puedan quedar desactualizadas:
 - Totales de ingresos y gastos por vehículo y por mes, y el neto.
 - Próximos vencimientos de la flota.
-- Si un documento tiene archivo, a partir de `archivo_ruta`.
 - Si un documento está vigente o vencido, a partir de `vencimiento`.
 - Si un vehículo tiene registros, que decide si se desactiva o se puede eliminar.
 
@@ -171,11 +192,26 @@ Estos datos no se guardan en una columna, para evitar copias que puedan quedar d
 | `vehiculos` con `gastos` | Uno a muchos: un vehículo tiene cero o muchos gastos. FK obligatoria `gastos.vehiculo_id`. | `vehiculo.gastos`: array. `gasto.vehiculo`: object. |
 | `vehiculos` con `documentos` | Uno a muchos: un vehículo tiene cero o muchos documentos. FK obligatoria `documentos.vehiculo_id`. | `vehiculo.documentos`: array. `documento.vehiculo`: object. |
 | `categorias_gasto` con `gastos` | Uno a muchos: una categoría clasifica cero o muchos gastos. FK obligatoria `gastos.categoria_id`. | `categoria_gasto.gastos`: array. `gasto.categoria`: object. |
-| `ingresos` con `gastos` | Uno a cero o uno: un ingreso de taxi genera como máximo un pago al conductor. FK opcional y única `gastos.ingreso_id`. | `ingreso.pago_conductor`: object. `gasto.ingreso`: object. |
 
 No hay relaciones muchos a muchos, así que no se necesita una tabla intermedia.
 
-**Regla de pertenencia:** cada ingreso, gasto o documento llega a su cuenta a través de `vehiculos.usuario_id`. La categoría de un gasto debe pertenecer a la misma cuenta que el vehículo, y el gasto del conductor debe ser del mismo vehículo que su ingreso.
+**Regla de pertenencia:** cada ingreso, gasto o documento llega a su cuenta a través de `vehiculos.usuario_id`. La categoría de un gasto debe pertenecer a la misma cuenta que el vehículo.
+
+### Cómo crece el modelo en la fase posterior
+
+Esta tabla es una propuesta para las funciones que pasan a la fase posterior. No forma parte de la primera versión ni del diagrama.
+
+| Función | Cambio propuesto en el modelo |
+|---|---|
+| Archivos de soporte | En `documentos`: `archivo_nombre`, `archivo_tipo` y `archivo_ruta`, opcionales y que se guardan o se vacían juntos. Un archivo por registro; al eliminar el documento se elimina también su archivo. |
+| Pago automático al conductor | En `gastos`: `ingreso_id`, FK opcional y única a `ingresos.id`, para saber qué ingreso generó cada pago. Es una relación de uno a cero o uno; en Hasura, `ingreso.pago_conductor` y `gasto.ingreso` serían object. La categoría «Conductor» se crearía con el primer pago. |
+| Registro, verificación y recuperación | Datos para verificar el correo y enlaces de recuperación con vigencia. La tabla y sus campos están por definir. |
+
+Preguntas abiertas de esa fase:
+- Formatos, tamaño, almacenamiento y conservación de los archivos.
+- Si el pago al conductor es siempre de $5.000 o puede ser distinto en cada taxi, y dónde se guarda ese valor.
+- Qué pasa con el gasto del conductor al editar o eliminar su ingreso.
+- Reglas de verificación del correo y vigencia del enlace de recuperación.
 
 ### Decisiones y pendientes del modelo
 
@@ -184,31 +220,34 @@ El 26 de octubre de 2026 tomé estas decisiones de diseño como responsable del 
 - Los ingresos de taxi e inDrive van en una sola tabla con el campo `tipo`.
 - Solo hay un ingreso por vehículo y fecha. Esto resuelve el pendiente de duplicados que dejó abierto la evidencia de sesión 2.
 - La placa es única dentro de cada cuenta.
-- Las categorías son de cada cuenta. Al crear la cuenta se generan Combustible, Lavado, Mantenimiento y Repuestos; «Conductor» se crea con el primer pago automático.
-- El pago al conductor se conecta con su ingreso mediante `gastos.ingreso_id`.
-- Si ese día no se pagó al conductor, su gasto se elimina; no se deja en cero.
+- Las categorías son de cada cuenta. Al crear la cuenta se generan Combustible, Lavado, Mantenimiento y Repuestos.
+
+Ese día también decidí conectar el pago automático al conductor con su ingreso mediante `gastos.ingreso_id`, crear la categoría «Conductor» con el primer pago y eliminar ese gasto si el pago no se hizo. Con la retroalimentación del 27 de octubre, esas decisiones pasan a la fase posterior junto con la automatización.
+
+El 28 de octubre de 2026, al aplicar esa retroalimentación, decidí para la primera versión:
+
+- El acceso es un ingreso con correo y contraseña a una cuenta creada previamente. El registro propio, la verificación del correo y la recuperación pasan a la fase posterior.
+- El pago al conductor se registra a mano como un gasto normal.
+- Los documentos se registran con tipo, nombre y vencimiento, sin archivo.
 
 Frente al borrador de la sección 9.3 de la evidencia de sesión 3:
 - Agrego el `nombre` del documento, que exige HU-04.
 - Calculo el estado del documento en lugar de guardarlo.
-- Reemplazo las marcas `conductorPagado` y `esConductor` por la FK `gastos.ingreso_id`.
+- Quito las marcas `conductorPagado` y `esConductor`. En la primera versión el pago al conductor es un gasto normal, y su conexión con el ingreso queda para la fase posterior.
 
-| Pendiente | Fecha |
+| Pendiente de la primera versión | Fecha |
 |---|---|
-| Qué pasa con el gasto del conductor al editar o eliminar su ingreso. Se define con los servicios de la semana 5. | 5 de noviembre de 2026 |
 | Qué pasa con los ingresos guardados si un vehículo cambia de taxi a particular o al revés, o si un particular deja de estar habilitado para inDrive, ya que `ingresos.tipo` debe coincidir con el vehículo. Se define con los servicios de la semana 5. | 5 de noviembre de 2026 |
-| Si el pago al conductor es siempre de $5.000 o puede ser distinto en cada taxi, y dónde se guarda ese valor. El modelo todavía no tiene un campo para él. | Por definir |
 | Desde cuándo aplica una cuota nueva del taxi. El modelo ya conserva la cuota de referencia de cada ingreso. | Por definir |
 | Si se puede reactivar un vehículo o una categoría. El campo `activo` lo permitiría. | Por definir |
-| Formatos, tamaño, almacenamiento y conservación de los archivos. | Por definir |
-| Reglas de contraseña, verificación del correo y vigencia del enlace de recuperación, si se necesita una tabla para esos enlaces y si una cuenta se puede desactivar. | Por definir |
+| Cómo se crea la cuenta de la titular, que en la primera versión ya debe existir antes de ingresar. | Por definir |
+| Reglas de la contraseña para el ingreso y si una cuenta se puede desactivar. | Por definir |
 
 ### Dudas para la revisión del 29 de octubre
 
 1. ¿Es adecuado reunir los ingresos de taxi e inDrive en una sola tabla con `tipo`, o es preferible separarlos?
 2. ¿Conviene guardar el dinero como entero en pesos (`integer`) o como `numeric`?
-3. Mientras no se define dónde se guardan los archivos, ¿es suficiente registrar en `documentos` la referencia al archivo?
-4. ¿La tabla para los enlaces de recuperación de contraseña se debe modelar ahora o puede esperar a la actividad de autenticación?
+3. ¿Es suficiente para la primera versión un ingreso con correo y contraseña a una cuenta creada previamente, dejando el registro propio y la recuperación para después?
 
 La orientación técnica del instructor es React, NestJS, Hasura GraphQL Engine y PostgreSQL en Neon. La uso como referencia para los tipos y las relaciones; no es una decisión cerrada. Los apartados 3 y 4 se completan para el 5 de noviembre de 2026.
 
@@ -220,10 +259,12 @@ La plantilla sugiere la carpeta `docs/04-datos-servicios`. Conservo la convenci�
 |---|---|---|
 | 0.1 | 26 de octubre de 2026 | Proceso, entidades, diagrama, campos y relaciones iniciales para la revisión del 29 de octubre. |
 | 0.2 | 26 de octubre de 2026 | Ajustes antes de la revisión: `usuarios.activo` queda como propuesta; el gasto del conductor se elimina si ese día no se pagó; se completa la lista de decisiones con las categorías iniciales de cada cuenta; se agregan los pendientes del valor del pago al conductor, del cambio de tipo o de habilitación para inDrive de un vehículo con ingresos y de la desactivación de cuentas; las evidencias de sesiones 2 y 3 enlazan a esta. |
+| 0.3 | 28 de octubre de 2026 | Aplica la retroalimentación del instructor técnico del 27 de octubre: se define el alcance de la primera versión, con 26 de las 35 pantallas de la sesión 3; salen `gastos.ingreso_id` y los campos de archivo; el acceso queda como ingreso básico; se agrega cómo crece el modelo en la fase posterior; se actualizan el proceso, las historias, los pendientes y las dudas, incluido quién crea la cuenta de la titular. |
 
 ## Fuentes
 
 - Instructor: *Sesiones 04 y 05 — Modelo de Datos y Contratos de API*, *Plantilla de Datos y API* y *Ejemplo de Datos y API — Horizonte*. Uso el ejemplo solo como referencia de estructura.
+- Retroalimentación del instructor técnico sobre la evidencia de sesión 3, recibida el 27 de octubre de 2026.
 - [Evidencia de requerimientos y backlog de sesión 2](evidencia-sesion-2-requerimientos-backlog.md).
 - [Evidencia de diseño de pantallas de sesión 3](evidencia-sesion-3-diseno-pantallas.md).
 - [Contexto del proyecto](contexto-proyecto.md).

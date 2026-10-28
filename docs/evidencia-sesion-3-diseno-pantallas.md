@@ -306,7 +306,7 @@ Los ajustes se incorporaron al prototipo, pero **no se hizo una segunda prueba c
 - `Gasto`: {fecha, vehículo, valor, descripción, categoría, esConductor: boolean}.
 - `Documento`: {vehículo, tipo, vencimiento, archivo?, estado}.
 
-**Actualización posterior:** la [evidencia de sesiones 4 y 5](evidencia-sesion-4-modelo-datos-servicios.md) reemplaza este borrador. Reúne los ingresos de taxi e inDrive en una sola tabla, agrega el nombre del documento, calcula su estado en lugar de guardarlo y conecta el pago al conductor con su ingreso mediante `gastos.ingreso_id`. También precisa el pago «editable» de la sección 2: si ese día no se pagó al conductor, su gasto se elimina, porque un gasto no se deja en cero.
+**Actualización posterior:** la [evidencia de sesiones 4 y 5](evidencia-sesion-4-modelo-datos-servicios.md) reemplaza este borrador. Reúne los ingresos de taxi e inDrive en una sola tabla, agrega el nombre del documento, calcula su estado en lugar de guardarlo y quita las marcas del conductor. Desde su versión 0.3, el pago al conductor se registra a mano como un gasto en la primera versión; su conexión automática con el ingreso queda para una fase posterior.
 
 ## 10. Cierre, pendientes y revisión
 
@@ -335,6 +335,8 @@ La implementación de rutas, autenticación y persistencia no forma parte de est
 | Límites declarados | Sin persistencia, autenticación real ni subida real de archivos. |
 
 La evidencia queda lista para revisión y conserva la trazabilidad entre historias, pantallas, rutas propuestas, capturas y reglas. No presenta el prototipo como una aplicación implementada ni la revisión de Katerin como una aprobación definitiva.
+
+**Actualización posterior:** el 27 de octubre de 2026 el instructor técnico revisó esta evidencia. Destacó la coherencia de los mockups y el valor de la prueba con Katerin, y recomendó reducir el alcance de implementación de la primera versión. Las 35 pantallas de este documento se conservan como diseño; la primera versión usa 26 de ellas. El alcance de la primera versión se detalla en la [evidencia de sesiones 4 y 5](evidencia-sesion-4-modelo-datos-servicios.md): pasan a una fase posterior el registro y la recuperación de cuenta, el almacenamiento de archivos, el resumen mensual y el pago automático al conductor.
 
 ## Fuentes
 

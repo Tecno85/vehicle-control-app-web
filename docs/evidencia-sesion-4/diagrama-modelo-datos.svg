@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 760" width="1240" height="760" role="img" aria-labelledby="titulo descripcion" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
   <title id="titulo">Modelo de datos de VehicleControlApp Web</title>
-  <desc id="descripcion">Seis tablas. usuarios tiene muchos vehiculos y muchas categorias_gasto. vehiculos tiene muchos ingresos, gastos y documentos. categorias_gasto clasifica muchos gastos. Un ingreso genera cero o un gasto de pago al conductor.</desc>
+  <desc id="descripcion">Seis tablas. usuarios tiene muchos vehiculos y muchas categorias_gasto. vehiculos tiene muchos ingresos, gastos y documentos. categorias_gasto clasifica muchos gastos.</desc>
   <style>
     .caja { fill: #eef4f1; stroke: #1f6b70; stroke-width: 1.5; }
     .nombre { font-size: 22px; font-weight: 700; fill: #19332f; }
@@ -31,9 +31,6 @@
   <line class="linea" x1="320" y1="480" x2="440" y2="480"/>
   <text class="card" x="330" y="470">1</text><text class="card" x="394" y="470">0..N</text>
 
-  <line class="linea" x1="780" y1="480" x2="900" y2="480"/>
-  <text class="card" x="790" y="470">0..1</text><text class="card" x="880" y="470">1</text>
-
   <!-- usuarios -->
   <rect class="caja" x="20" y="60" width="300" height="260" rx="4"/>
   <text class="nombre" x="44" y="100">usuarios</text>
@@ -58,8 +55,7 @@
   <text class="campo" x="924" y="140"><tspan class="clave">PK</tspan> id</text>
   <text class="campo" x="924" y="170"><tspan class="clave">FK</tspan> vehiculo_id</text>
   <text class="campo" x="924" y="200">tipo · nombre · vencimiento</text>
-  <text class="campo" x="924" y="230">archivo_nombre · archivo_tipo</text>
-  <text class="campo" x="924" y="260">archivo_ruta · creado_en</text>
+  <text class="campo" x="924" y="230">creado_en</text>
 
   <!-- categorias_gasto -->
   <rect class="caja" x="20" y="400" width="300" height="260" rx="4"/>
@@ -74,9 +70,8 @@
   <text class="campo" x="464" y="480"><tspan class="clave">PK</tspan> id</text>
   <text class="campo" x="464" y="510"><tspan class="clave">FK</tspan> vehiculo_id</text>
   <text class="campo" x="464" y="540"><tspan class="clave">FK</tspan> categoria_id</text>
-  <text class="campo" x="464" y="570"><tspan class="clave">FK</tspan> ingreso_id (opcional, única)</text>
-  <text class="campo" x="464" y="600">fecha · valor · descripcion</text>
-  <text class="campo" x="464" y="630">creado_en</text>
+  <text class="campo" x="464" y="570">fecha · valor · descripcion</text>
+  <text class="campo" x="464" y="600">creado_en</text>
 
   <!-- ingresos -->
   <rect class="caja" x="900" y="400" width="320" height="260" rx="4"/>
@@ -88,6 +83,6 @@
   <text class="campo" x="924" y="600">motivo · nota · creado_en</text>
 
   <!-- Leyenda -->
-  <text class="leyenda" x="20" y="712">PK = identifica la fila · FK = enlaza otra tabla · 1 = uno · 0..1 = cero o uno · 0..N = cero o muchos</text>
+  <text class="leyenda" x="20" y="712">PK = identifica la fila · FK = enlaza otra tabla · 1 = uno · 0..N = cero o muchos</text>
   <text class="leyenda" x="20" y="740">Diseño inicial para revisión · No representa una base de datos implementada</text>
 </svg>

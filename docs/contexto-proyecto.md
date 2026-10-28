@@ -1,7 +1,7 @@
 # Contexto del proyecto VehicleControlApp Web
 
-**Estado del contexto:** 26 de octubre de 2026
-**Actividad actual:** modelo de datos y servicios de las sesiones 4 y 5. La versión 0.2, con los apartados 1 y 2, se revisa el 29 de octubre y el documento completo se entrega el 5 de noviembre de 2026.
+**Estado del contexto:** 28 de octubre de 2026
+**Actividad actual:** modelo de datos y servicios de las sesiones 4 y 5. La versión 0.3, con los apartados 1 y 2 ajustados al alcance de la primera versión, se revisa el 29 de octubre y el documento completo se entrega el 5 de noviembre de 2026.
 **Modalidad de trabajo:** individual.
 
 ## 1. Ficha del proyecto
@@ -30,6 +30,8 @@
 | 18 oct 2026 | Alcance responsive y publicación documentados por Ivan | Se confirmó que el producto de este repositorio es una Web App para escritorio y móvil; la vista móvil es responsive y no se desarrollará una aplicación nativa. Se publicó el prototipo de sesión 3 en GitHub Pages. | La publicación permite revisar el prototipo; en esa fecha no significaba que las funciones estuvieran implementadas en el producto ni que Katerin ya lo hubiera probado. |
 | 20 oct 2026 | Prueba del prototipo con Katerin | Katerin recorrió el prototipo publicado y revisó sus hojas de cálculo actuales. Validó el flujo general, revisó la identidad visual y propuso ajustes: estimado mensual, filtro por mes, creación de categoría desde el formulario de gasto y pago al conductor. | Los resultados y ajustes están en la [evidencia de sesión 3](evidencia-sesion-3-diseno-pantallas.md), §9. La prueba no implementa persistencia, autenticación ni subida real de archivos. |
 | 26 oct 2026 | Decisiones de modelo de datos tomadas por Ivan | Una sola tabla de ingresos con tipo taxi o inDrive; un ingreso por vehículo y fecha; placa única por cuenta; categorías propias de cada cuenta, con las cuatro iniciales al crearla y «Conductor» con el primer pago; el pago al conductor se conecta con su ingreso y su gasto se elimina si ese día no se pagó. | Son decisiones de diseño, no de Katerin, y no están implementadas. Se detallan en la [evidencia de sesiones 4 y 5](evidencia-sesion-4-modelo-datos-servicios.md). |
+| 27 oct 2026 | Retroalimentación del instructor técnico sobre la evidencia de sesión 3 | Destacó la coherencia de los mockups y el valor de la prueba con Katerin. Recomendó reducir el alcance de implementación: priorizar vehículos, ingresos, gastos, categorías, registro de SOAT y tecnomecánica y consulta por vehículo, y dejar para una fase posterior la autenticación completa, la recuperación de contraseña, el almacenamiento de archivos, el resumen mensual y las automatizaciones contables. | Es una recomendación de alcance, no un cambio en las necesidades de Katerin. No impide continuar con el modelo de datos y los contratos de API. |
+| 28 oct 2026 | Ajuste de alcance de la primera versión decidido por Ivan | Acepté la recomendación: ingreso con correo y contraseña a una cuenta creada previamente; pago al conductor registrado a mano como gasto; documentos con nombre y vencimiento, sin archivo. La primera versión usa 26 de las 35 pantallas de la sesión 3. Las decisiones del 26 de octubre sobre el pago automático pasan a la fase posterior. | Se detalla en la versión 0.3 de la [evidencia de sesiones 4 y 5](evidencia-sesion-4-modelo-datos-servicios.md). No está implementado. |
 | Sin fecha especificada | Observación previa de Katerin sobre Android | El término “Registro de documentos” le resultó confuso; también sugirió adjuntar imágenes de facturas. | Mantener como observación distinta de la retroalimentación del 2 de octubre. La propuesta de facturas no se incorpora automáticamente al alcance inicial. |
 | Fechas y condiciones distintas, no detalladas aquí | Antecedente de pruebas Android | Katerin y Jean Carlos probaron el MVP Android en momentos y condiciones distintos. | No combinar sus pruebas ni atribuir resultados específicos sin evidencia separada. |
 
@@ -80,17 +82,19 @@ La app Android es antecedente funcional, no especificación automática de la we
 3. Registrar documentos asociados a un vehículo.
 4. Consultar la información guardada por vehículo.
 
+**Alcance de la primera versión:** por recomendación del instructor técnico del 27 de octubre de 2026, la primera versión incluye vehículos, ingresos, gastos, categorías, registro de SOAT y tecnomecánica sin archivo, consulta por vehículo e ingreso con correo y contraseña a una cuenta creada previamente. Pasan a una fase posterior el registro propio y la recuperación de contraseña, el almacenamiento de archivos, el resumen mensual y el pago automático al conductor. Las necesidades de Katerin se conservan; solo cambia la fase en que se implementan.
+
 En el alcance web incluiré la **cuota fija diaria de cada taxi** y el **total variable diario de inDrive** en vehículos particulares habilitados para esa modalidad. Katerin podrá cambiar la cuota del taxi cuando lo decida. También acordamos que pueda registrar el valor recibido si es menor que la cuota esperada o es cero, y anotar el motivo. Ese valor queda en el registro del día y no cambia la cuota configurada, como se decidió en la [evidencia de sesión 3](evidencia-sesion-3-diseno-pantallas.md). Debo definir desde cuándo surte efecto un cambio de cuota. Taxi/particular son clasificaciones de vehículo; inDrive es una modalidad de ingreso.
 
 Incluiré en los gastos la fecha, el valor, la descripción y la categoría. Las categorías iniciales son **Combustible, Lavado, Mantenimiento y Repuestos**. Katerin podrá agregar y renombrar categorías; si una categoría ya está usada, se desactiva para conservar los gastos anteriores. En el modelo de datos, cada cuenta tiene sus propias categorías.
 
-Para el primer alcance documental se consideran **SOAT y tecnomecánica**. Cada registro conserva nombre y vencimiento, y admite un archivo de soporte que se pueda visualizar o descargar. Está acordado que el registro puede guardarse antes de adjuntar el archivo y que después se añade el soporte; se plantea un archivo por registro.
+Para el primer alcance documental se consideran **SOAT y tecnomecánica**. Cada registro conserva nombre y vencimiento, y admite un archivo de soporte que se pueda visualizar o descargar. Está acordado que el registro puede guardarse antes de adjuntar el archivo y que después se añade el soporte; se plantea un archivo por registro. En la primera versión el registro se guarda sin archivo; la carga del soporte queda para la fase posterior.
 
 PDF es el formato de soporte más común que indicó Katerin. PDF, documentos de Word (.doc/.docx) e imágenes comunes (JPG/JPEG y PNG) son formatos candidatos; antes de implementar la carga, debo definir la lista técnica, los límites de tamaño, el almacenamiento y la conservación.
 
 ### Recorrido principal propuesto
 
-Para el MVP, la usuaria crea su cuenta o ingresa y luego consulta la lista de vehículos. Desde allí crea o selecciona un vehículo, registra ingresos o gastos y registra SOAT o tecnomecánica. Puede adjuntar el soporte antes o después de guardar los datos y después consultar la información del vehículo y visualizar o descargar el archivo.
+Para el MVP, la usuaria crea su cuenta o ingresa y luego consulta la lista de vehículos. Desde allí crea o selecciona un vehículo, registra ingresos o gastos y registra SOAT o tecnomecánica. Puede adjuntar el soporte antes o después de guardar los datos y después consultar la información del vehículo y visualizar o descargar el archivo. En la primera versión el recorrido empieza con el ingreso a una cuenta creada previamente y termina en la consulta del vehículo, sin adjuntar archivos.
 
 Propongo que, después del acceso, se muestre la lista de vehículos como pantalla principal de la Web App responsive. El recorrido está representado en el diseño de Figma y en un prototipo publicado en GitHub Pages, hecho con HTML, CSS y JavaScript; aún no es una función del producto ni ha sido aprobado definitivamente por Katerin. La pantalla de acceso contempla correo y contraseña, creación de cuenta propia y recuperación por correo. Cada cuenta tendrá su propia flota; el MVP considera a la persona titular con acceso a sus propios datos y no incorpora roles para compartir una flota. El login forma parte del diseño de sesión 3 porque el instructor pidió incluirlo en esta entrega; no está implementado. Katerin revisó la identidad visual y el flujo general el 20 de octubre de 2026; esa revisión no es una aprobación definitiva de todas las pantallas ni del login.
 
@@ -104,13 +108,15 @@ El backlog de sesión 2 contiene cinco historias de usuario priorizadas para el 
 
 El login se incluyó como pantalla y recorrido del prototipo de sesión 3, a solicitud del instructor. No está implementado. Las funciones que queden fuera del MVP se priorizarán para etapas posteriores; este repositorio no incluye una aplicación nativa.
 
+Tras la retroalimentación del 27 de octubre de 2026, HU-04 se implementa primero sin archivo de soporte, y el acceso de la primera versión se limita al ingreso con correo y contraseña.
+
 ## 6. Organización y evidencias
 
 - El trabajo es individual. DazaDev es la empresa desarrolladora e Ivan Dario Madrid Daza es el desarrollador responsable.
 - La [evidencia de semana 1](evidencia-sesion-1.md) conserva el registro de esa actividad y su fecha de entrega indicada: 8 de octubre de 2026.
 - En la [evidencia de sesión 2](evidencia-sesion-2-requerimientos-backlog.md) registré la consulta breve que realicé con Katerin el 12 de octubre y la entrega indicada para el 15 de octubre de 2026.
 - La [evidencia de sesión 3](evidencia-sesion-3-diseno-pantallas.md) documenta el diseño de pantallas, los prototipos visuales y los acuerdos posteriores sobre cuentas y edición/eliminación. La entrega indicada es el 22 de octubre de 2026; la prueba con Katerin se realizó el 20 de octubre de 2026 y sus resultados están en esa evidencia.
-- La [evidencia de sesiones 4 y 5](evidencia-sesion-4-modelo-datos-servicios.md) documenta el proceso del MVP, el modelo de datos y, para el 5 de noviembre de 2026, los servicios principales. La versión 0.2, con los apartados 1 y 2, se revisa el 29 de octubre de 2026.
+- La [evidencia de sesiones 4 y 5](evidencia-sesion-4-modelo-datos-servicios.md) documenta el proceso del MVP, el modelo de datos y, para el 5 de noviembre de 2026, los servicios principales. La versión 0.3, con los apartados 1 y 2 ajustados al alcance de la primera versión, se revisa el 29 de octubre de 2026.
 - Katerin revisó inicialmente el flujo web el 28 de septiembre, pidió adjuntar soportes el 2 de octubre, validó el proceso y el avance Android el 8 de octubre, respondió preguntas breves el 12 de octubre y probó el prototipo web el 20 de octubre; en esa prueba revisó la identidad visual y le pareció adecuada. Estos contactos no se deben combinar.
 
 ## 7. Orientación técnica, no decisión
@@ -123,8 +129,8 @@ Los materiales del instructor presentan React y Material UI, NestJS, Hasura Grap
 - **Ingresos de inDrive:** el 26 de octubre de 2026 decidí, para el modelo de datos, que se guarde un solo ingreso por vehículo y fecha y que se corrija editando el registro. Queda pendiente aplicarlo en la implementación.
 - **Formularios:** la [evidencia de sesiones 4 y 5](evidencia-sesion-4-modelo-datos-servicios.md) propone los campos obligatorios y las reglas de cada tabla. Falta confirmarlos con los servicios de la semana 5 y aplicarlos en los formularios al implementar.
 - **Categorías de gastos:** acordamos los campos y las categorías iniciales, además de permitir agregar y renombrar categorías. Si una categoría ya está usada, se desactiva para conservar los gastos anteriores.
-- **Archivos:** acordamos permitir un archivo por registro y guardar primero los datos. PDF es el formato más común señalado; debo definir los formatos finales, el tamaño máximo, el almacenamiento y la conservación. Interpreto provisionalmente “.Docs” como Word (.doc/.docx).
-- **Autenticación:** se acordó crear cuentas independientes con registro propio, correo y contraseña, y recuperación mediante correo. El MVP considera a la persona titular con acceso a su flota; no se definieron roles para compartir datos. Las políticas técnicas de contraseña, verificación del correo y validez del enlace de recuperación siguen pendientes. El flujo está representado en el diseño de Figma y en el prototipo local; no está implementado en el producto.
+- **Archivos:** acordamos permitir un archivo por registro y guardar primero los datos. PDF es el formato más común señalado; debo definir los formatos finales, el tamaño máximo, el almacenamiento y la conservación. Interpreto provisionalmente “.Docs” como Word (.doc/.docx). El almacenamiento de archivos queda para la fase posterior a la primera versión.
+- **Autenticación:** se acordó crear cuentas independientes con registro propio, correo y contraseña, y recuperación mediante correo. El MVP considera a la persona titular con acceso a su flota; no se definieron roles para compartir datos. Las políticas técnicas de contraseña, verificación del correo y validez del enlace de recuperación siguen pendientes. El flujo está representado en el diseño de Figma y en el prototipo local; no está implementado en el producto. En la primera versión solo se implementaría el ingreso con correo y contraseña a una cuenta creada previamente; falta definir cómo se crea esa cuenta. El registro propio, la verificación y la recuperación pasan a la fase posterior.
 
 Para ampliar las reglas de edición y eliminación y revisar cada pantalla, consulta la [evidencia de diseño de sesión 3](evidencia-sesion-3-diseno-pantallas.md). La evidencia de sesión 2 se conserva como registro histórico de esa actividad.
 
