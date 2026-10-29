@@ -2,7 +2,7 @@
 
 | Proyecto | Integrantes y versión |
 |---|---|
-| VehicleControlApp Web · DazaDev | Ivan Dario Madrid Daza, trabajo individual. Versión 0.4 del 28 de octubre de 2026: apartados 1 y 2 ajustados al alcance de la primera versión y modelo cargado en Neon y Hasura, para la revisión del 29 de octubre de 2026. |
+| VehicleControlApp Web · DazaDev | Ivan Dario Madrid Daza, trabajo individual. Versión 0.5 del 29 de octubre de 2026: apartados 1 y 2 ajustados al alcance de la primera versión, modelo cargado en Neon y Hasura y aclaración del ahorro para la prima del conductor, para la revisión del 29 de octubre de 2026. |
 
 - **Actividad:** Sesiones 4 y 5 — Modelo de datos y servicios del MVP
 - **Usuaria inicial:** Katerin, propietaria y administradora de una pequeña flota
@@ -27,10 +27,12 @@ El 27 de octubre de 2026 el instructor técnico revisó la evidencia de sesión 
 - **Pasa a una fase posterior:**
   - Registro propio de cuentas, verificación del correo y recuperación de contraseña.
   - Almacenamiento, visualización y descarga de archivos de soporte.
-  - Pago automático al conductor y otras automatizaciones contables.
+  - Registro automático del ahorro para la prima del conductor y otras automatizaciones contables.
   - Resumen mensual.
 
-Las necesidades que expresó Katerin se conservan: adjuntar el soporte del documento (2 de octubre) y replicar su resultado contable con el pago al conductor (20 de octubre). Solo cambia la fase en que se implementan. En la primera versión, el pago al conductor se registra como un gasto más.
+Las necesidades que expresó Katerin se conservan: adjuntar el soporte del documento (2 de octubre) y replicar su resultado contable con los $5.000 diarios del conductor (20 de octubre). Solo cambia la fase en que se implementan.
+
+El 29 de octubre de 2026 Katerin aclaró que esos $5.000 no son el sueldo del conductor: son un **ahorro** que aparta cada día trabajado para pagarle una **prima a mitad y a final de año**. El sueldo del conductor es aparte y no se registra en la aplicación. En la primera versión, el ahorro diario se registra como un gasto más en una categoría propia, por ejemplo «Ahorro prima conductor». Cuando se paga la prima no se registra otro gasto, para no contar dos veces el mismo dinero.
 
 **Pantallas de la primera versión.** De las 35 pantallas del mapa de la [evidencia de sesión 3](evidencia-sesion-3-diseno-pantallas.md), la primera versión usa 26. Pasan a la fase posterior las 9 que dependen de las funciones aplazadas:
 - 02 y 03: crear cuenta.
@@ -47,7 +49,7 @@ El MVP registra la información diaria de cada vehículo de la flota y permite c
 
 1. La titular ingresa con el correo y la contraseña de su cuenta y ve su flota.
 2. Crea el taxi XYZ789 con una cuota diaria de $60.000.
-3. Registra el ingreso de un día por $60.000 y, aparte, el gasto de $5.000 del pago al conductor.
+3. Registra el ingreso de un día por $60.000 y, aparte, el gasto de $5.000 del ahorro diario para la prima del conductor.
 4. Registra el SOAT del taxi con su nombre y vencimiento.
 5. Consulta el taxi y ve el ingreso de $60.000, el gasto de $5.000 y el SOAT. Si intenta registrar otro día por $40.000 sin escribir el motivo, la aplicación rechaza el ingreso y no guarda nada.
 
@@ -59,7 +61,7 @@ El MVP registra la información diaria de cada vehículo de la flota y permite c
 | `vehiculos` | Conservar los vehículos de cada cuenta, su clasificación como taxi o particular, la cuota del taxi y si un particular trabaja con inDrive. |
 | `ingresos` | Guardar el ingreso diario de cada vehículo: el valor recibido del taxi frente a su cuota o el total variable de inDrive. |
 | `categorias_gasto` | Conservar las categorías de gasto de cada cuenta y saber cuáles siguen activas. |
-| `gastos` | Guardar los gastos de cada vehículo con fecha, valor, descripción y categoría, incluido el pago al conductor. |
+| `gastos` | Guardar los gastos de cada vehículo con fecha, valor, descripción y categoría, incluido el ahorro diario para la prima del conductor. |
 | `documentos` | Guardar el SOAT y la tecnomecánica de cada vehículo con su nombre y vencimiento. |
 
 ### Historias y tablas
@@ -159,7 +161,7 @@ En **Tipo** uso tipos simples y, entre paréntesis, su equivalente en PostgreSQL
 | descripcion | texto (`varchar(120)`) | Obligatoria. |
 | creado_en | fecha y hora (`timestamptz`) | La establece el servidor. |
 
-En la primera versión, el pago al conductor se registra a mano como cualquier otro gasto. La conexión automática con el ingreso del taxi queda para la fase posterior.
+En la primera versión, el ahorro diario para la prima del conductor se registra a mano como cualquier otro gasto. La prima, cuando se paga, no se registra otra vez. La conexión automática del ahorro con el ingreso del taxi queda para la fase posterior.
 
 **Tabla: `documentos`**
 
@@ -181,6 +183,7 @@ Estos datos no se guardan en una columna, para evitar copias que puedan quedar d
 - Próximos vencimientos de la flota.
 - Si un documento está vigente o vencido, a partir de `vencimiento`.
 - Si un vehículo tiene registros, que decide si se desactiva o se puede eliminar.
+- El ahorro acumulado para la prima del conductor, como suma de los gastos de su categoría.
 
 ### Cómo se relacionan las tablas
 
@@ -208,7 +211,7 @@ Por indicación del instructor, el 28 de octubre de 2026 me registré en Neon y 
 | Tablas y relaciones | Registré las seis tablas y las seis relaciones en ambos sentidos con los nombres de este documento, por ejemplo `vehiculo.ingresos` (array) y `gasto.categoria` (object). |
 
 Probé el recorrido del proceso con datos ficticios:
-- Se guardaron la titular de prueba, sus categorías, el taxi XYZ789 con cuota de $60.000, un ingreso de $60.000, el gasto de $5.000 del pago al conductor y el SOAT.
+- Se guardaron la titular de prueba, sus categorías, el taxi XYZ789 con cuota de $60.000, un ingreso de $60.000, el gasto de $5.000 del ahorro para la prima del conductor y el SOAT.
 - El ingreso de $40.000 sin motivo se rechazó por la restricción de la tabla `ingresos` y no se guardó.
 - La consulta del taxi devolvió en una sola respuesta su titular, su ingreso, su gasto y su SOAT.
 
@@ -223,13 +226,13 @@ Esta tabla es una propuesta para las funciones que pasan a la fase posterior. No
 | Función | Cambio propuesto en el modelo |
 |---|---|
 | Archivos de soporte | En `documentos`: `archivo_nombre`, `archivo_tipo` y `archivo_ruta`, opcionales y que se guardan o se vacían juntos. Un archivo por registro; al eliminar el documento se elimina también su archivo. |
-| Pago automático al conductor | En `gastos`: `ingreso_id`, FK opcional y única a `ingresos.id`, para saber qué ingreso generó cada pago. Es una relación de uno a cero o uno; en Hasura, `ingreso.pago_conductor` y `gasto.ingreso` serían object. La categoría «Conductor» se crearía con el primer pago. |
+| Registro automático del ahorro para la prima | En `gastos`: `ingreso_id`, FK opcional y única a `ingresos.id`, para saber qué ingreso generó cada ahorro. Es una relación de uno a cero o uno; en Hasura, `ingreso.ahorro_prima` y `gasto.ingreso` serían object. La categoría del ahorro se crearía con el primer registro. |
 | Registro, verificación y recuperación | Datos para verificar el correo y enlaces de recuperación con vigencia. La tabla y sus campos están por definir. |
 
 Preguntas abiertas de esa fase:
 - Formatos, tamaño, almacenamiento y conservación de los archivos.
-- Si el pago al conductor es siempre de $5.000 o puede ser distinto en cada taxi, y dónde se guarda ese valor.
-- Qué pasa con el gasto del conductor al editar o eliminar su ingreso.
+- Si el ahorro para la prima es siempre de $5.000 o puede ser distinto en cada taxi, y dónde se guarda ese valor.
+- Qué pasa con el ahorro registrado al editar o eliminar su ingreso.
 - Reglas de verificación del correo y vigencia del enlace de recuperación.
 
 ### Decisiones y pendientes del modelo
@@ -246,13 +249,19 @@ Ese día también decidí conectar el pago automático al conductor con su ingre
 El 28 de octubre de 2026, al aplicar esa retroalimentación, decidí para la primera versión:
 
 - El acceso es un ingreso con correo y contraseña a una cuenta creada previamente. El registro propio, la verificación del correo y la recuperación pasan a la fase posterior.
-- El pago al conductor se registra a mano como un gasto normal.
+- Los $5.000 diarios del conductor se registran a mano como un gasto normal.
 - Los documentos se registran con tipo, nombre y vencimiento, sin archivo.
+
+El 29 de octubre de 2026, con la aclaración de Katerin, decidí:
+
+- Los $5.000 diarios son un ahorro para la prima del conductor de mitad y fin de año, y se registran como gasto el día en que se apartan.
+- Cuando se paga la prima no se registra otro gasto, porque ese dinero ya quedó registrado día a día.
+- El sueldo del conductor no se registra en la aplicación.
 
 Frente al borrador de la sección 9.3 de la evidencia de sesión 3:
 - Agrego el `nombre` del documento, que exige HU-04.
 - Calculo el estado del documento en lugar de guardarlo.
-- Quito las marcas `conductorPagado` y `esConductor`. En la primera versión el pago al conductor es un gasto normal, y su conexión con el ingreso queda para la fase posterior.
+- Quito las marcas `conductorPagado` y `esConductor`. En la primera versión el ahorro para la prima del conductor es un gasto normal, y su conexión con el ingreso queda para la fase posterior.
 
 | Pendiente de la primera versión | Fecha |
 |---|---|
@@ -280,6 +289,7 @@ La plantilla sugiere la carpeta `docs/04-datos-servicios`. Conservo la convenci�
 | 0.2 | 26 de octubre de 2026 | Ajustes antes de la revisión: `usuarios.activo` queda como propuesta; el gasto del conductor se elimina si ese día no se pagó; se completa la lista de decisiones con las categorías iniciales de cada cuenta; se agregan los pendientes del valor del pago al conductor, del cambio de tipo o de habilitación para inDrive de un vehículo con ingresos y de la desactivación de cuentas; las evidencias de sesiones 2 y 3 enlazan a esta. |
 | 0.3 | 28 de octubre de 2026 | Aplica la retroalimentación del instructor técnico del 27 de octubre: se define el alcance de la primera versión, con 26 de las 35 pantallas de la sesión 3; salen `gastos.ingreso_id` y los campos de archivo; el acceso queda como ingreso básico; se agrega cómo crece el modelo en la fase posterior; se actualizan el proceso, las historias, los pendientes y las dudas, incluido quién crea la cuenta de la titular. |
 | 0.4 | 28 de octubre de 2026 | Registra la carga del modelo en Neon y Hasura Cloud por indicación del instructor, la prueba con datos ficticios y dos hallazgos para la semana 5. |
+| 0.5 | 29 de octubre de 2026 | Registra la aclaración de Katerin: los $5.000 diarios son un ahorro para la prima del conductor de mitad y fin de año, no su sueldo. El ahorro se registra como gasto diario, la prima no se registra otra vez y el sueldo queda fuera de la aplicación. |
 
 ## Fuentes
 
@@ -289,4 +299,5 @@ La plantilla sugiere la carpeta `docs/04-datos-servicios`. Conservo la convenci�
 - [Evidencia de diseño de pantallas de sesión 3](evidencia-sesion-3-diseno-pantallas.md).
 - [Contexto del proyecto](contexto-proyecto.md).
 - Indicación del instructor de registrarse en Neon y Hasura Cloud.
+- Aclaración de Katerin sobre el ahorro para la prima del conductor, 29 de octubre de 2026.
 - Prototipo de sesión 3: las validaciones de vehículos, ingresos, gastos, categorías y documentos.

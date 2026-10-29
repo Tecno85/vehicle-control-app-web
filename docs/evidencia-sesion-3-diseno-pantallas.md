@@ -338,6 +338,8 @@ La evidencia queda lista para revisión y conserva la trazabilidad entre histori
 
 **Actualización posterior:** el 27 de octubre de 2026 el instructor técnico revisó esta evidencia. Destacó la coherencia de los mockups y el valor de la prueba con Katerin, y recomendó reducir el alcance de implementación de la primera versión. Las 35 pantallas de este documento se conservan como diseño; la primera versión usa 26 de ellas. El alcance de la primera versión se detalla en la [evidencia de sesiones 4 y 5](evidencia-sesion-4-modelo-datos-servicios.md): pasan a una fase posterior el registro y la recuperación de cuenta, el almacenamiento de archivos, el resumen mensual y el pago automático al conductor.
 
+**Actualización posterior:** el 29 de octubre de 2026 Katerin aclaró que los $5.000 diarios que esta evidencia llama «pago al conductor» son un ahorro para la prima del conductor de mitad y fin de año, no su sueldo. El detalle está en la [evidencia de sesiones 4 y 5](evidencia-sesion-4-modelo-datos-servicios.md).
+
 ## Fuentes
 
 - Instructor, *Sesión 03 — Diseño de Pantallas*, *Plantilla de Diseño de Pantallas* y *Ejemplo de Diseño de Pantallas — Horizonte*. Uso el ejemplo solo como referencia de estructura.
