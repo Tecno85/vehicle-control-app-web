@@ -1,7 +1,7 @@
 # Contexto del proyecto VehicleControlApp Web
 
-**Estado del contexto:** 29 de octubre de 2026
-**Actividad actual:** modelo de datos y servicios de las sesiones 4 y 5. La versión 0.5, con los apartados 1 y 2 ajustados al alcance de la primera versión, el modelo cargado en Neon y Hasura y la aclaración del ahorro para la prima del conductor, se revisa el 29 de octubre y el documento completo se entrega el 5 de noviembre de 2026.
+**Estado del contexto:** 30 de octubre de 2026
+**Actividad actual:** modelo de datos y servicios de las sesiones 4 y 5. La versión 0.6, con los apartados 1 y 2 ajustados al alcance de la primera versión, el modelo cargado en Neon y Hasura y el ahorro para la prima del conductor como quinta categoría inicial, se revisa el 30 de octubre (antes, 29 de octubre) y el documento completo se entrega el 6 de noviembre de 2026 (antes, 5 de noviembre).
 **Modalidad de trabajo:** individual.
 
 ## 1. Ficha del proyecto
@@ -34,8 +34,11 @@
 | 28 oct 2026 | Modelo cargado en Neon y Hasura Cloud por indicación del instructor | Ejecuté el script del modelo en un proyecto de Neon y conecté Hasura Cloud, con las seis tablas y sus relaciones. Una prueba con datos ficticios guardó el caso del taxi XYZ789 y rechazó un ingreso sin motivo. | No hay servicios, autenticación ni permisos, y la aplicación no está conectada. Las credenciales no se guardan en el repositorio. Detalle en la [evidencia de sesiones 4 y 5](evidencia-sesion-4-modelo-datos-servicios.md). |
 | 28 oct 2026 | Ajuste de alcance de la primera versión decidido por Ivan | Acepté la recomendación: ingreso con correo y contraseña a una cuenta creada previamente; pago al conductor registrado a mano como gasto; documentos con nombre y vencimiento, sin archivo. La primera versión usa 26 de las 35 pantallas de la sesión 3. Las decisiones del 26 de octubre sobre el pago automático pasan a la fase posterior. | Se detalla en la versión 0.3 de la [evidencia de sesiones 4 y 5](evidencia-sesion-4-modelo-datos-servicios.md). No está implementado. |
 | 29 oct 2026 | Aclaración de Katerin sobre los $5.000 diarios del taxi | Los $5.000 no son el sueldo del conductor: son un ahorro que aparta cada día trabajado para pagarle una prima a mitad y a final de año. El sueldo es aparte. | En la primera versión el ahorro se registra como gasto diario, la prima no se registra otra vez y el sueldo no se registra. Detalle en la [evidencia de sesiones 4 y 5](evidencia-sesion-4-modelo-datos-servicios.md). |
+| 30 oct 2026 | Cambio de fechas y quinta categoría inicial | El instructor trasladó la revisión de los apartados 1 y 2 del 29 al 30 de octubre, y la entrega completa del 5 al 6 de noviembre de 2026. Decidí que «Ahorro prima conductor» se cree con la cuenta, como quinta categoría inicial. | Cómo reconocer esa categoría si la titular le cambia el nombre se define con los servicios de la semana 5. Detalle en la versión 0.6 de la [evidencia de sesiones 4 y 5](evidencia-sesion-4-modelo-datos-servicios.md). |
 | Sin fecha especificada | Observación previa de Katerin sobre Android | El término “Registro de documentos” le resultó confuso; también sugirió adjuntar imágenes de facturas. | Mantener como observación distinta de la retroalimentación del 2 de octubre. La propuesta de facturas no se incorpora automáticamente al alcance inicial. |
 | Fechas y condiciones distintas, no detalladas aquí | Antecedente de pruebas Android | Katerin y Jean Carlos probaron el MVP Android en momentos y condiciones distintos. | No combinar sus pruebas ni atribuir resultados específicos sin evidencia separada. |
+
+En las filas del 20, 26 y 28 de octubre, «pago al conductor» corresponde a lo que desde la aclaración de Katerin del 29 de octubre se llama ahorro para la prima del conductor. Las filas se conservan como se escribieron.
 
 ### Interpretación de la evidencia
 
@@ -88,7 +91,7 @@ La app Android es antecedente funcional, no especificación automática de la we
 
 En el alcance web incluiré la **cuota fija diaria de cada taxi** y el **total variable diario de inDrive** en vehículos particulares habilitados para esa modalidad. Katerin podrá cambiar la cuota del taxi cuando lo decida. También acordamos que pueda registrar el valor recibido si es menor que la cuota esperada o es cero, y anotar el motivo. Ese valor queda en el registro del día y no cambia la cuota configurada, como se decidió en la [evidencia de sesión 3](evidencia-sesion-3-diseno-pantallas.md). Debo definir desde cuándo surte efecto un cambio de cuota. Taxi/particular son clasificaciones de vehículo; inDrive es una modalidad de ingreso.
 
-Incluiré en los gastos la fecha, el valor, la descripción y la categoría. Las categorías iniciales son **Combustible, Lavado, Mantenimiento y Repuestos**. Katerin podrá agregar y renombrar categorías; si una categoría ya está usada, se desactiva para conservar los gastos anteriores. En el modelo de datos, cada cuenta tiene sus propias categorías.
+Incluiré en los gastos la fecha, el valor, la descripción y la categoría. Las categorías iniciales que indicó Katerin son **Combustible, Lavado, Mantenimiento y Repuestos**; desde el 30 de octubre de 2026 se suma **Ahorro prima conductor**, para registrar el ahorro diario para la prima. Katerin podrá agregar y renombrar categorías; si una categoría ya está usada, se desactiva para conservar los gastos anteriores. En el modelo de datos, cada cuenta tiene sus propias categorías.
 
 Para el primer alcance documental se consideran **SOAT y tecnomecánica**. Cada registro conserva nombre y vencimiento, y admite un archivo de soporte que se pueda visualizar o descargar. Está acordado que el registro puede guardarse antes de adjuntar el archivo y que después se añade el soporte; se plantea un archivo por registro. En la primera versión el registro se guarda sin archivo; la carga del soporte queda para la fase posterior.
 
@@ -118,7 +121,7 @@ Tras la retroalimentación del 27 de octubre de 2026, HU-04 se implementa primer
 - La [evidencia de semana 1](evidencia-sesion-1.md) conserva el registro de esa actividad y su fecha de entrega indicada: 8 de octubre de 2026.
 - En la [evidencia de sesión 2](evidencia-sesion-2-requerimientos-backlog.md) registré la consulta breve que realicé con Katerin el 12 de octubre y la entrega indicada para el 15 de octubre de 2026.
 - La [evidencia de sesión 3](evidencia-sesion-3-diseno-pantallas.md) documenta el diseño de pantallas, los prototipos visuales y los acuerdos posteriores sobre cuentas y edición/eliminación. La entrega indicada es el 22 de octubre de 2026; la prueba con Katerin se realizó el 20 de octubre de 2026 y sus resultados están en esa evidencia.
-- La [evidencia de sesiones 4 y 5](evidencia-sesion-4-modelo-datos-servicios.md) documenta el proceso del MVP, el modelo de datos y, para el 5 de noviembre de 2026, los servicios principales. La versión 0.5, con los apartados 1 y 2 ajustados al alcance de la primera versión, el modelo cargado en Neon y Hasura y la aclaración del ahorro para la prima del conductor, se revisa el 29 de octubre de 2026.
+- La [evidencia de sesiones 4 y 5](evidencia-sesion-4-modelo-datos-servicios.md) documenta el proceso del MVP, el modelo de datos y, para el 6 de noviembre de 2026, los servicios principales. La versión 0.6, con los apartados 1 y 2 ajustados al alcance de la primera versión, el modelo cargado en Neon y Hasura y el ahorro para la prima del conductor como quinta categoría inicial, se revisa el 30 de octubre de 2026.
 - Katerin revisó inicialmente el flujo web el 28 de septiembre, pidió adjuntar soportes el 2 de octubre, validó el proceso y el avance Android el 8 de octubre, respondió preguntas breves el 12 de octubre y probó el prototipo web el 20 de octubre; en esa prueba revisó la identidad visual y le pareció adecuada. Estos contactos no se deben combinar.
 
 ## 7. Orientación técnica, no decisión

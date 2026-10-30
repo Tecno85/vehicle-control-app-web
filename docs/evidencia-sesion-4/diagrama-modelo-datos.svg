@@ -84,5 +84,5 @@
 
   <!-- Leyenda -->
   <text class="leyenda" x="20" y="712">PK = identifica la fila · FK = enlaza otra tabla · 1 = uno · 0..N = cero o muchos</text>
-  <text class="leyenda" x="20" y="740">Diseño inicial para revisión · No representa una base de datos implementada</text>
+  <text class="leyenda" x="20" y="740">Modelo de la primera versión · Cargado en Neon y expuesto por Hasura con datos de prueba; sin aplicación ni permisos</text>
 </svg>

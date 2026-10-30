@@ -1,6 +1,7 @@
--- Modelo inicial de VehicleControlApp Web para PostgreSQL (Neon).
--- Traduce la versión 0.3 de docs/evidencia-sesion-4-modelo-datos-servicios.md,
--- que cubre solo la primera versión: sin archivos ni pago automático al conductor.
+-- Modelo de la primera versión de VehicleControlApp Web para PostgreSQL (Neon).
+-- Traduce la versión 0.6 de docs/evidencia-sesion-4-modelo-datos-servicios.md,
+-- que cubre solo la primera versión: sin archivos ni registro automático del
+-- ahorro para la prima del conductor.
 --
 -- Aquí solo van las reglas que se comprueban dentro de una misma fila o con
 -- restricciones únicas. Las reglas que cruzan tablas se validan en los

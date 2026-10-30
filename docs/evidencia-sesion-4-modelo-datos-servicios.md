@@ -2,13 +2,13 @@
 
 | Proyecto | Integrantes y versión |
 |---|---|
-| VehicleControlApp Web · DazaDev | Ivan Dario Madrid Daza, trabajo individual. Versión 0.5 del 29 de octubre de 2026: apartados 1 y 2 ajustados al alcance de la primera versión, modelo cargado en Neon y Hasura y aclaración del ahorro para la prima del conductor, para la revisión del 29 de octubre de 2026. |
+| VehicleControlApp Web · DazaDev | Ivan Dario Madrid Daza, trabajo individual. Versión 0.6 del 30 de octubre de 2026: apartados 1 y 2 ajustados al alcance de la primera versión, modelo cargado en Neon y Hasura, ahorro para la prima del conductor como categoría inicial y prueba de rechazo confirmada con un caso de control, para la revisión del 29 de octubre de 2026, que el instructor trasladó al 30 de octubre. |
 
 - **Actividad:** Sesiones 4 y 5 — Modelo de datos y servicios del MVP
 - **Usuaria inicial:** Katerin, propietaria y administradora de una pequeña flota
-- **Estado:** modelo inicial para revisión. Las tablas ya están creadas en Neon y expuestas por Hasura con datos de prueba ficticios; no hay aplicación, servicios, autenticación ni permisos implementados.
+- **Estado:** modelo de la primera versión para revisión. Las tablas ya están creadas en Neon y expuestas por Hasura con datos de prueba ficticios; no hay aplicación, servicios, autenticación ni permisos implementados.
 
-Esta evidencia sigue la plantilla del instructor. En esta versión desarrollo los apartados 1 y 2, que corresponden a la semana 4. Los apartados 3 (servicios) y 4 (revisión y compromisos) se completan para el 5 de noviembre de 2026.
+Esta evidencia sigue la plantilla del instructor. En esta versión desarrollo los apartados 1 y 2, que corresponden a la semana 4. Los apartados 3 (servicios) y 4 (revisión y compromisos) se completan para el 6 de noviembre de 2026, fecha a la que el instructor trasladó la entrega del 5 de noviembre.
 
 Parto de las historias HU-01 a HU-05 de la [evidencia de sesión 2](evidencia-sesion-2-requerimientos-backlog.md), de las pantallas, reglas y ajustes de la [evidencia de sesión 3](evidencia-sesion-3-diseno-pantallas.md), de las validaciones del prototipo y de la retroalimentación del instructor técnico sobre la sesión 3. Los datos del ejemplo son ficticios.
 
@@ -32,7 +32,7 @@ El 27 de octubre de 2026 el instructor técnico revisó la evidencia de sesión 
 
 Las necesidades que expresó Katerin se conservan: adjuntar el soporte del documento (2 de octubre) y replicar su resultado contable con los $5.000 diarios del conductor (20 de octubre). Solo cambia la fase en que se implementan.
 
-El 29 de octubre de 2026 Katerin aclaró que esos $5.000 no son el sueldo del conductor: son un **ahorro** que aparta cada día trabajado para pagarle una **prima a mitad y a final de año**. El sueldo del conductor es aparte y no se registra en la aplicación. En la primera versión, el ahorro diario se registra como un gasto más en una categoría propia, por ejemplo «Ahorro prima conductor». Cuando se paga la prima no se registra otro gasto, para no contar dos veces el mismo dinero.
+El 29 de octubre de 2026 Katerin aclaró que esos $5.000 no son el sueldo del conductor: son un **ahorro** que aparta cada día trabajado para pagarle una **prima a mitad y a final de año**. El sueldo del conductor es aparte y no se registra en la aplicación. En la primera versión, el ahorro diario se registra como un gasto más en la categoría «Ahorro prima conductor», que se crea junto con la cuenta. Cuando se paga la prima no se registra otro gasto, para no contar dos veces el mismo dinero.
 
 **Pantallas de la primera versión.** De las 35 pantallas del mapa de la [evidencia de sesión 3](evidencia-sesion-3-diseno-pantallas.md), la primera versión usa 26. Pasan a la fase posterior las 9 que dependen de las funciones aplazadas:
 - 02 y 03: crear cuenta.
@@ -79,8 +79,8 @@ El MVP registra la información diaria de cada vehículo de la flota y permite c
 
 | Semana y encuentro | Avance esperado | Revisión |
 |---|---|---|
-| 4 · 22 de octubre | Proceso, entidades, diagrama y campos iniciales (esta versión). | 29 de octubre |
-| 5 · 29 de octubre | Modelo ajustado, servicios principales y comprobación del flujo. | 5 de noviembre |
+| 4 · 22 de octubre | Proceso, entidades, diagrama y campos iniciales (esta versión). | 29 de octubre, trasladada al 30 de octubre |
+| 5 · 29 de octubre | Modelo ajustado, servicios principales y comprobación del flujo. | 5 de noviembre, trasladada al 6 de noviembre |
 
 Además de lo que pasa a la fase posterior, quedan para después del MVP:
 - Las novedades, los impuestos, las alertas y recordatorios de vencimiento, los reportes y las facturas.
@@ -146,7 +146,7 @@ En **Tipo** uso tipos simples y, entre paréntesis, su equivalente en PostgreSQL
 |---|---|---|
 | id | entero (`integer`) | PK. Lo genera el sistema. |
 | usuario_id | entero (`integer`) | FK obligatoria a `usuarios.id`. Cada cuenta tiene sus categorías. |
-| nombre | texto (`varchar(40)`) | Obligatorio y único dentro de la cuenta, sin distinguir mayúsculas. Al crear la cuenta se generan Combustible, Lavado, Mantenimiento y Repuestos. |
+| nombre | texto (`varchar(40)`) | Obligatorio y único dentro de la cuenta, sin distinguir mayúsculas. Al crear la cuenta se generan cinco categorías: Combustible, Lavado, Mantenimiento, Repuestos y Ahorro prima conductor. |
 | activo | sí/no (`boolean`) | Inicia en sí. Una categoría desactivada no aparece en gastos nuevos y se conserva en los anteriores. |
 
 **Tabla: `gastos`**
@@ -161,7 +161,7 @@ En **Tipo** uso tipos simples y, entre paréntesis, su equivalente en PostgreSQL
 | descripcion | texto (`varchar(120)`) | Obligatoria. |
 | creado_en | fecha y hora (`timestamptz`) | La establece el servidor. |
 
-En la primera versión, el ahorro diario para la prima del conductor se registra a mano como cualquier otro gasto. La prima, cuando se paga, no se registra otra vez. La conexión automática del ahorro con el ingreso del taxi queda para la fase posterior.
+En la primera versión, el ahorro diario para la prima del conductor se registra a mano, en la categoría «Ahorro prima conductor», como cualquier otro gasto. La prima, cuando se paga, no se registra otra vez. La conexión automática del ahorro con el ingreso del taxi queda para la fase posterior.
 
 **Tabla: `documentos`**
 
@@ -183,7 +183,7 @@ Estos datos no se guardan en una columna, para evitar copias que puedan quedar d
 - Próximos vencimientos de la flota.
 - Si un documento está vigente o vencido, a partir de `vencimiento`.
 - Si un vehículo tiene registros, que decide si se desactiva o se puede eliminar.
-- El ahorro acumulado para la prima del conductor, como suma de los gastos de su categoría.
+- El ahorro acumulado para la prima del conductor, como suma de los gastos de la categoría «Ahorro prima conductor». Cómo reconocer esa categoría aunque cambie de nombre queda en los pendientes.
 
 ### Cómo se relacionan las tablas
 
@@ -206,7 +206,7 @@ Por indicación del instructor, el 28 de octubre de 2026 me registré en Neon y 
 
 | Paso | Resultado |
 |---|---|
-| Base de datos en Neon | Proyecto `vehicle-control-app-web` en AWS US East 2 (Ohio). Ejecuté [`modelo-inicial.sql`](evidencia-sesion-4/modelo-inicial.sql) sin errores: seis tablas y cuatro índices. |
+| Base de datos en Neon | Proyecto `vehicle-control-app-web` en AWS US East 2 (Ohio). Ejecuté [`modelo-inicial.sql`](evidencia-sesion-4/modelo-inicial.sql) sin errores: seis tablas y cuatro índices explícitos, además de los que crean las claves primarias y las restricciones únicas. |
 | API GraphQL en Hasura Cloud | Proyecto `vehicle-control-app` en el plan gratuito y en la misma región. Se conecta a Neon mediante una variable de entorno; la cadena de conexión y el secreto de administración no se guardan en el repositorio. |
 | Tablas y relaciones | Registré las seis tablas y las seis relaciones en ambos sentidos con los nombres de este documento, por ejemplo `vehiculo.ingresos` (array) y `gasto.categoria` (object). |
 
@@ -215,9 +215,16 @@ Probé el recorrido del proceso con datos ficticios:
 - El ingreso de $40.000 sin motivo se rechazó por la restricción de la tabla `ingresos` y no se guardó.
 - La consulta del taxi devolvió en una sola respuesta su titular, su ingreso, su gasto y su SOAT.
 
+El 30 de octubre de 2026 repetí la prueba de los rechazos con ingresos de prueba, que después borré:
+- Un ingreso de $60.000 del 3 de octubre se guardó.
+- Un ingreso de $40.000 sin motivo se rechazó con el código `permission-error` y el mensaje «Check constraint violation», por la restricción `ingresos_check1`. El mismo ingreso, esta vez con motivo, se guardó.
+- Un segundo ingreso del taxi para el mismo 3 de octubre se rechazó con el código `constraint-violation`, por la restricción `ingresos_vehiculo_id_fecha_key`.
+- Al borrar los ingresos de prueba, en la base quedó solo el ingreso del 1 de octubre.
+- La cuenta de prueba ya tenía las cinco categorías iniciales, incluida «Ahorro prima conductor».
+
 Dos hallazgos para la semana 5:
 - Hasura propuso `usuario.categorias_gasto` como object porque el índice único de categorías usa `lower(nombre)`. La registré a mano como array, que es lo que define el modelo.
-- Hasura responde al rechazo del motivo con el código `permission-error`. El servicio deberá traducirlo a un mensaje claro y al código HTTP que se defina en los contratos.
+- En estas dos pruebas, Hasura no usó el mismo código: el del motivo llegó como `permission-error`, que no describe el problema real, y el de la fecha repetida como `constraint-violation`. El servicio deberá reconocer cada rechazo por el nombre de la restricción y traducirlo a un mensaje claro y al código HTTP que se defina en los contratos, sin mostrar el mensaje técnico de la base de datos.
 
 ### Cómo crece el modelo en la fase posterior
 
@@ -226,7 +233,7 @@ Esta tabla es una propuesta para las funciones que pasan a la fase posterior. No
 | Función | Cambio propuesto en el modelo |
 |---|---|
 | Archivos de soporte | En `documentos`: `archivo_nombre`, `archivo_tipo` y `archivo_ruta`, opcionales y que se guardan o se vacían juntos. Un archivo por registro; al eliminar el documento se elimina también su archivo. |
-| Registro automático del ahorro para la prima | En `gastos`: `ingreso_id`, FK opcional y única a `ingresos.id`, para saber qué ingreso generó cada ahorro. Es una relación de uno a cero o uno; en Hasura, `ingreso.ahorro_prima` y `gasto.ingreso` serían object. La categoría del ahorro se crearía con el primer registro. |
+| Registro automático del ahorro para la prima | En `gastos`: `ingreso_id`, FK opcional y única a `ingresos.id`, para saber qué ingreso generó cada ahorro. Es una relación de uno a cero o uno; en Hasura, `ingreso.ahorro_prima` y `gasto.ingreso` serían object. La categoría del ahorro ya existe desde la creación de la cuenta. |
 | Registro, verificación y recuperación | Datos para verificar el correo y enlaces de recuperación con vigencia. La tabla y sus campos están por definir. |
 
 Preguntas abiertas de esa fase:
@@ -258,6 +265,8 @@ El 29 de octubre de 2026, con la aclaración de Katerin, decidí:
 - Cuando se paga la prima no se registra otro gasto, porque ese dinero ya quedó registrado día a día.
 - El sueldo del conductor no se registra en la aplicación.
 
+El 30 de octubre de 2026 decidí además que «Ahorro prima conductor» se cree con la cuenta, como quinta categoría inicial junto a las cuatro que indicó Katerin, para que cada titular la tenga lista sin crearla.
+
 Frente al borrador de la sección 9.3 de la evidencia de sesión 3:
 - Agrego el `nombre` del documento, que exige HU-04.
 - Calculo el estado del documento en lugar de guardarlo.
@@ -265,19 +274,20 @@ Frente al borrador de la sección 9.3 de la evidencia de sesión 3:
 
 | Pendiente de la primera versión | Fecha |
 |---|---|
-| Qué pasa con los ingresos guardados si un vehículo cambia de taxi a particular o al revés, o si un particular deja de estar habilitado para inDrive, ya que `ingresos.tipo` debe coincidir con el vehículo. Se define con los servicios de la semana 5. | 5 de noviembre de 2026 |
+| Qué pasa con los ingresos guardados si un vehículo cambia de taxi a particular o al revés, o si un particular deja de estar habilitado para inDrive, ya que `ingresos.tipo` debe coincidir con el vehículo. Se define con los servicios de la semana 5. | 6 de noviembre de 2026 |
+| Cómo reconoce la aplicación la categoría «Ahorro prima conductor» aunque la titular le cambie el nombre, por ejemplo con una marca en `categorias_gasto`. Se define con los servicios de la semana 5, sin cambiar todavía el esquema. | 6 de noviembre de 2026 |
 | Desde cuándo aplica una cuota nueva del taxi. El modelo ya conserva la cuota de referencia de cada ingreso. | Por definir |
 | Si se puede reactivar un vehículo o una categoría. El campo `activo` lo permitiría. | Por definir |
 | Cómo se crea la cuenta de la titular, que en la primera versión ya debe existir antes de ingresar. | Por definir |
 | Reglas de la contraseña para el ingreso y si una cuenta se puede desactivar. | Por definir |
 
-### Dudas para la revisión del 29 de octubre
+### Dudas para la revisión del 30 de octubre
 
 1. ¿Es adecuado reunir los ingresos de taxi e inDrive en una sola tabla con `tipo`, o es preferible separarlos?
 2. ¿Conviene guardar el dinero como entero en pesos (`integer`) o como `numeric`?
 3. ¿Es suficiente para la primera versión un ingreso con correo y contraseña a una cuenta creada previamente, dejando el registro propio y la recuperación para después?
 
-La orientación técnica del instructor es React, NestJS, Hasura GraphQL Engine y PostgreSQL en Neon. La uso como referencia para los tipos y las relaciones; no es una decisión cerrada. Los apartados 3 y 4 se completan para el 5 de noviembre de 2026.
+La orientación técnica del instructor es React, NestJS, Hasura GraphQL Engine y PostgreSQL en Neon. La uso como referencia para los tipos y las relaciones; no es una decisión cerrada. Los apartados 3 y 4 se completan para el 6 de noviembre de 2026.
 
 La plantilla sugiere la carpeta `docs/04-datos-servicios`. Conservo la convención del repositorio: la evidencia en `docs/evidencia-sesion-4-modelo-datos-servicios.md` y el diagrama en `docs/evidencia-sesion-4/`.
 
@@ -290,6 +300,7 @@ La plantilla sugiere la carpeta `docs/04-datos-servicios`. Conservo la convenci�
 | 0.3 | 28 de octubre de 2026 | Aplica la retroalimentación del instructor técnico del 27 de octubre: se define el alcance de la primera versión, con 26 de las 35 pantallas de la sesión 3; salen `gastos.ingreso_id` y los campos de archivo; el acceso queda como ingreso básico; se agrega cómo crece el modelo en la fase posterior; se actualizan el proceso, las historias, los pendientes y las dudas, incluido quién crea la cuenta de la titular. |
 | 0.4 | 28 de octubre de 2026 | Registra la carga del modelo en Neon y Hasura Cloud por indicación del instructor, la prueba con datos ficticios y dos hallazgos para la semana 5. |
 | 0.5 | 29 de octubre de 2026 | Registra la aclaración de Katerin: los $5.000 diarios son un ahorro para la prima del conductor de mitad y fin de año, no su sueldo. El ahorro se registra como gasto diario, la prima no se registra otra vez y el sueldo queda fuera de la aplicación. |
+| 0.6 | 30 de octubre de 2026 | Registra que el instructor trasladó la revisión al 30 de octubre y la entrega completa al 6 de noviembre. «Ahorro prima conductor» pasa a ser la quinta categoría inicial, y queda pendiente cómo reconocerla si cambia de nombre. Documenta la nueva prueba en Hasura, con el código de cada rechazo (motivo faltante y fecha repetida) y un caso de control que confirma que el rechazo del motivo viene de la restricción de la tabla, y precisa los índices creados en Neon. Actualiza el pie del diagrama y la cabecera del script SQL, sin cambiar sus instrucciones. |
 
 ## Fuentes
 
@@ -299,5 +310,6 @@ La plantilla sugiere la carpeta `docs/04-datos-servicios`. Conservo la convenci�
 - [Evidencia de diseño de pantallas de sesión 3](evidencia-sesion-3-diseno-pantallas.md).
 - [Contexto del proyecto](contexto-proyecto.md).
 - Indicación del instructor de registrarse en Neon y Hasura Cloud.
+- Cambio de fechas indicado por el instructor: revisión de los apartados 1 y 2 el 30 de octubre y entrega completa el 6 de noviembre de 2026.
 - Aclaración de Katerin sobre el ahorro para la prima del conductor, 29 de octubre de 2026.
 - Prototipo de sesión 3: las validaciones de vehículos, ingresos, gastos, categorías y documentos.
