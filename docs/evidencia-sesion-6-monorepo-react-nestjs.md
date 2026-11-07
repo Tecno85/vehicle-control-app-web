@@ -17,7 +17,7 @@
 
 | Fecha real | Trabajo realizado | Comprobación o resultado | Archivos |
 |---|---|---|---|
-| 7 nov 2026 | Registré la entrega de la evidencia de sesiones 4 y 5. DeepSeek revisó el plan y lo ajusté. Ejecuté el prompt 1, la base del monorepo, y el prompt 2, el endpoint de salud. Decidí pasar core-service a NestJS 12 con Node 24 LTS y repetí las comprobaciones. Ejecuté el prompt 3, el panel de verificación, y tomé sus capturas. Subí los dos commits a GitHub | Commits `b189467`, del paso 0, y `1b7ccc9`, del código, subidos a `origin/main` el 7 de noviembre. Las comprobaciones de los tres prompts y del cambio a NestJS 12 están en el apartado 7; las pruebas de conexión, en el apartado 6. Actualicé el README, el contexto y AGENTS.md | `README.md`, `docs/contexto-proyecto.md`, `.gitignore`, `.node-version`, `package.json`, `package-lock.json`, `apps/` y `docs/evidencia-sesion-6/capturas/` |
+| 7 nov 2026 | Registré la entrega de la evidencia de sesiones 4 y 5. DeepSeek revisó el plan y lo ajusté. Ejecuté el prompt 1, la base del monorepo, y el prompt 2, el endpoint de salud. Decidí pasar core-service a NestJS 12 con Node 24 LTS y repetí las comprobaciones. Ejecuté el prompt 3, el panel de verificación, y tomé sus capturas. Subí los dos commits a GitHub. Después agregué en la raíz los atajos de pruebas y lint, y ordené el índice de evidencias del README | Commits `b189467`, del paso 0, y `1b7ccc9`, del código, subidos a `origin/main` el 7 de noviembre. Las comprobaciones de los tres prompts y del cambio a NestJS 12 están en el apartado 7; las pruebas de conexión, en el apartado 6. Actualicé el README, el contexto y AGENTS.md. Los atajos nuevos, del commit `be915cf`, dan las mismas pruebas: 2 unitarias y 1 e2e | `README.md`, `AGENTS.md`, `docs/contexto-proyecto.md`, `.gitignore`, `.node-version`, `package.json`, `package-lock.json`, `apps/` y `docs/evidencia-sesion-6/capturas/` |
 
 ## 3. Objetivo y alcance
 
@@ -60,6 +60,9 @@ La pantalla de verificación es técnica y no forma parte del MVP.
 | `npm run dev:api` | Arranca core-service en modo desarrollo | http://localhost:3000/api |
 | `npm run dev:web` | Arranca web-app con Vite | http://localhost:5173 |
 | `npm run build` | Compila las dos apps | — |
+| `npm test` | Pruebas unitarias de las apps que las tienen; hoy, core-service | — |
+| `npm run test:e2e` | Prueba de `GET /api/health` con el origen de la web | — |
+| `npm run lint` | Revisión de estilo con oxlint en las dos apps | — |
 
 | Pieza | Versiones instaladas |
 |---|---|

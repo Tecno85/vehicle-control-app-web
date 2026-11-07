@@ -34,7 +34,7 @@
 ## Límites de implementación y etapa
 
 - La actividad vigente es la sesión 6, con entrega el 12 de noviembre de 2026. Es un monorepo con `apps/web-app` (React, TypeScript, Vite y Material UI) y `apps/core-service` (NestJS), conectados solo por la prueba de salud `GET /api/health` y un panel de verificación.
-- Las evidencias de sesión 3 y de sesiones 4 y 5 ya se entregaron y se conservan como registro, igual que la prueba del prototipo con Katerin del 20 de octubre de 2026.
+- Las evidencias de las sesiones 1 a 5 ya se entregaron y se conservan como registro, igual que la prueba del prototipo con Katerin del 20 de octubre de 2026.
 - El modelo de la primera versión está cargado en Neon y expuesto por Hasura Cloud con datos ficticios, pero core-service no se conecta a ellos.
 - No crear tablas, permisos, migraciones, servicios o pantallas del MVP, acceso ni conexión con Hasura o Neon sin solicitud expresa.
 - No guardar en el repositorio cadenas de conexión, secretos de administración ni otras credenciales. Los `.env` no se versionan; solo `.env.example`, sin secretos.
@@ -64,6 +64,14 @@
 - No presentar una función como terminada ni una comprobación como realizada si no se implementó o verificó. Explicar cualquier límite pendiente.
 - No agregar herramientas, dependencias ni patrones de arquitectura por costumbre; primero confirmar que la tecnología elegida para el proyecto los necesita.
 - Usar la versión estable recomendada de cada herramienta, como la etiqueta `latest` de npm o la LTS de Node, aunque la clase muestre otra. Antes de adoptarla, comprobar que funciona. Registrar el cambio en la evidencia.
+
+## Organización del trabajo
+
+- El código del producto va en `apps/<app>`. El prototipo de la sesión 3 queda aparte, con su propio npm.
+- Cada evidencia nueva va en `docs/evidencia-sesion-N-tema.md`, y sus recursos en `docs/evidencia-sesion-N/` (las capturas, en `capturas/`). Las evidencias anteriores conservan su nombre y ruta, porque los PDF entregados enlazan a ellas.
+- Fuera del repositorio, cada sesión tiene su carpeta en `Asesor_Técnico/Sesión_N`, con los materiales del instructor, el PDF de la evidencia y su planificación. En la raíz de `Asesor_Técnico` solo va lo que abarca varias sesiones.
+- La tabla «Evidencias» del README es el índice: cada sesión suma una fila y cambia su estado cuando se entrega.
+- Orden para cerrar una entrega: commit `feat` del código; evidencia, README, contexto y AGENTS.md; comprobaciones; PDF; commit `docs`; push y etiqueta, cuando Ivan lo pida; y, al enviarla, la fecha real en el README y el contexto.
 
 ## Documentación
 

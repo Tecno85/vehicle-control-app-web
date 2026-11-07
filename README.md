@@ -50,13 +50,18 @@ El [prototipo de sesión 3 está publicado en GitHub Pages](https://tecno85.gith
 ```
 
 - [Contexto del proyecto](docs/contexto-proyecto.md): alcance, acuerdos y decisiones pendientes.
-- [Evidencia de semana 1](docs/evidencia-sesion-1.md): registro histórico de la actividad.
-- [Evidencia de sesión 2](docs/evidencia-sesion-2-requerimientos-backlog.md): consulta, requerimientos e historias priorizadas.
-- [Evidencia de sesión 3](docs/evidencia-sesion-3-diseno-pantallas.md): mapa de 35 pantallas, rutas propuestas, 11 fichas, 24 capturas y resultados de la prueba con Katerin del 20 de octubre de 2026.
-- [Evidencia de sesiones 4 y 5](docs/evidencia-sesion-4-modelo-datos-servicios.md), versión 0.8, entregada el 6 de noviembre de 2026: alcance de la primera versión, proceso del MVP, seis tablas, diagrama, campos y relaciones con su tipo en Hasura, modelo cargado en Neon y Hasura, servicios S01 a S12 con sus contratos, revisión del diseño con historias y reglas, y dudas abiertas.
-- [Evidencia de sesión 6](docs/evidencia-sesion-6-monorepo-react-nestjs.md), versión 0.1, para el 12 de noviembre de 2026: base del monorepo con React y NestJS, prueba de conexión con éxito, error y recuperación, y registro de tres prompts con sus comprobaciones.
 
-Las fechas de entrega indicadas en las evidencias son: semana 1, 8 de octubre; sesión 2, 15 de octubre; sesión 3, 22 de octubre; y sesiones 4 y 5, revisión de los apartados 1 y 2 el 30 de octubre y documento completo el 6 de noviembre de 2026 (entregado en su versión 0.8). El instructor trasladó estas dos fechas, que eran el 29 de octubre y el 5 de noviembre. La [sesión 6](docs/evidencia-sesion-6-monorepo-react-nestjs.md) se entrega el 12 de noviembre de 2026.
+### Evidencias
+
+| Sesión | Evidencia | Entrega indicada | Estado |
+|---|---|---|---|
+| Semana 1 | [Evidencia de semana 1](docs/evidencia-sesion-1.md): registro histórico de la actividad | 8 oct 2026 | Entregada |
+| 2 | [Requerimientos y backlog](docs/evidencia-sesion-2-requerimientos-backlog.md): consulta, requerimientos e historias priorizadas | 15 oct 2026 | Entregada |
+| 3 | [Diseño de pantallas](docs/evidencia-sesion-3-diseno-pantallas.md): mapa de 35 pantallas, rutas propuestas, 11 fichas, 24 capturas y resultados de la prueba con Katerin del 20 de octubre de 2026 | 22 oct 2026 | Entregada |
+| 4 y 5 | [Modelo de datos y servicios](docs/evidencia-sesion-4-modelo-datos-servicios.md): alcance de la primera versión, proceso del MVP, seis tablas con su diagrama, campos y relaciones, modelo cargado en Neon y Hasura, servicios S01 a S12 con sus contratos, revisión del diseño y dudas abiertas | 6 nov 2026 | Entregada (versión 0.8) |
+| 6 | [Monorepo con React y NestJS](docs/evidencia-sesion-6-monorepo-react-nestjs.md): base del monorepo, prueba de conexión con éxito, error y recuperación, y registro de tres prompts con sus comprobaciones | 12 nov 2026 | Por entregar (versión 0.1) |
+
+El instructor trasladó dos fechas de las sesiones 4 y 5: la revisión de los apartados 1 y 2 pasó del 29 al 30 de octubre, y el documento completo, del 5 al 6 de noviembre de 2026.
 
 ## Ejecutar el monorepo
 

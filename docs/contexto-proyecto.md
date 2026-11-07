@@ -122,9 +122,9 @@ Tras la retroalimentación del 27 de octubre de 2026, HU-04 se implementa primer
 ## 6. Organización y evidencias
 
 - El trabajo es individual. DazaDev es la empresa desarrolladora e Ivan Dario Madrid Daza es el desarrollador responsable.
-- La [evidencia de semana 1](evidencia-sesion-1.md) conserva el registro de esa actividad y su fecha de entrega indicada: 8 de octubre de 2026.
-- En la [evidencia de sesión 2](evidencia-sesion-2-requerimientos-backlog.md) registré la consulta breve que realicé con Katerin el 12 de octubre y la entrega indicada para el 15 de octubre de 2026.
-- La [evidencia de sesión 3](evidencia-sesion-3-diseno-pantallas.md) documenta el diseño de pantallas, los prototipos visuales y los acuerdos posteriores sobre cuentas y edición/eliminación. La entrega indicada es el 22 de octubre de 2026; la prueba con Katerin se realizó el 20 de octubre de 2026 y sus resultados están en esa evidencia.
+- La [evidencia de semana 1](evidencia-sesion-1.md) conserva el registro de esa actividad, que se entregó el 8 de octubre de 2026.
+- En la [evidencia de sesión 2](evidencia-sesion-2-requerimientos-backlog.md) registré la consulta breve que realicé con Katerin el 12 de octubre. La entregué el 15 de octubre de 2026.
+- La [evidencia de sesión 3](evidencia-sesion-3-diseno-pantallas.md) documenta el diseño de pantallas, los prototipos visuales y los acuerdos posteriores sobre cuentas y edición/eliminación. Ya se entregó; la fecha indicada era el 22 de octubre de 2026. La prueba con Katerin se realizó el 20 de octubre de 2026 y sus resultados están en esa evidencia.
 - La [evidencia de sesiones 4 y 5](evidencia-sesion-4-modelo-datos-servicios.md) documenta el proceso del MVP, el modelo de datos, los servicios principales y la revisión del diseño. La versión 0.8 completa los cuatro apartados y se entregó el 6 de noviembre de 2026.
 - La [evidencia de sesión 6](evidencia-sesion-6-monorepo-react-nestjs.md) documenta la base del monorepo, la prueba de conexión entre React y NestJS y el registro de tres prompts. Se entrega el 12 de noviembre de 2026.
 - Katerin revisó inicialmente el flujo web el 28 de septiembre, pidió adjuntar soportes el 2 de octubre, validó el proceso y el avance Android el 8 de octubre, respondió preguntas breves el 12 de octubre y probó el prototipo web el 20 de octubre; en esa prueba revisó la identidad visual y le pareció adecuada. Estos contactos no se deben combinar.
