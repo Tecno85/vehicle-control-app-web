@@ -1,0 +1,12 @@
+{
+  "name": "vehicle-control-app-web",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev:api": "npm run start:dev --workspace apps/core-service",
+    "dev:web": "npm run dev --workspace apps/web-app",
+    "build": "npm run build --workspaces"
+  }
+}
