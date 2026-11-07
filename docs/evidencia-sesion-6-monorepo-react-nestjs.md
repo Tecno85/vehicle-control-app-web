@@ -10,38 +10,18 @@
 |---|---|---|
 | Repositorio monorepo con `web-app` y `core-service` | `package.json` (workspaces) y `apps/` | Subido a GitHub en el commit `1b7ccc9` ([repositorio](https://github.com/Tecno85/vehicle-control-app-web)), con `main` al día con `origin/main` |
 | README y `.env.example` para arrancar | README, apartado «Ejecutar el monorepo», y `apps/web-app/.env.example` | README con «Ejecutar el monorepo» y «Solución de problemas». Sus pasos y el `.env.example` se probaron tras una instalación limpia (`npm ci`) |
-| Interfaz React con éxito, error y recuperación | Apartado 6 y capturas 01 a 03 | Tres fases recorridas en la misma pestaña |
-| Registro de tres prompts con comprobaciones | Apartado 7 | Prompts 1 a 3 registrados, con sus comprobaciones |
+| Interfaz React con éxito, error y recuperación | Apartado 5 y capturas 01 a 03 | Tres fases recorridas en la misma pestaña |
+| Registro de tres prompts con comprobaciones | Apartado 6 | Prompts 1 a 3 registrados, con sus comprobaciones |
+
+**Alcance.** La pantalla de verificación es técnica y no forma parte del MVP. La entrega no incluye la conexión con Hasura y Neon, que la clase llama «el siguiente nivel», ni las pantallas del MVP de Katerin, ni el acceso con correo y contraseña.
 
 ## 2. Registro de trabajo real
 
 | Fecha real | Trabajo realizado | Comprobación o resultado | Archivos |
 |---|---|---|---|
-| 7 nov 2026 | Registré la entrega de la evidencia de sesiones 4 y 5. DeepSeek revisó el plan y lo ajusté. Ejecuté el prompt 1, la base del monorepo, y el prompt 2, el endpoint de salud. Decidí pasar core-service a NestJS 12 con Node 24 LTS y repetí las comprobaciones. Ejecuté el prompt 3, el panel de verificación, y tomé sus capturas. Subí los dos commits a GitHub. Después agregué en la raíz los atajos de pruebas y lint, y ordené el índice de evidencias del README | Commits `b189467`, del paso 0, y `1b7ccc9`, del código, subidos a `origin/main` el 7 de noviembre. Las comprobaciones de los tres prompts y del cambio a NestJS 12 están en el apartado 7; las pruebas de conexión, en el apartado 6. Actualicé el README, el contexto y AGENTS.md. Los atajos nuevos, del commit `be915cf`, dan las mismas pruebas: 2 unitarias y 1 e2e | `README.md`, `AGENTS.md`, `docs/contexto-proyecto.md`, `.gitignore`, `.node-version`, `package.json`, `package-lock.json`, `apps/` y `docs/evidencia-sesion-6/capturas/` |
+| 7 nov 2026 | Registré la entrega de la evidencia de sesiones 4 y 5. DeepSeek revisó el plan y lo ajusté. Ejecuté los prompts 1 y 2, pasé core-service a NestJS 12 con Node 24 LTS y ejecuté el prompt 3, con sus capturas. Después agregué en la raíz los atajos de pruebas y lint, ordené el índice de evidencias del README y compacté esta evidencia sin quitar comprobaciones | Commits `b189467`, del paso 0, `1b7ccc9`, del código, y `be915cf`, de los atajos, subidos a `origin/main`. Con los atajos pasan las mismas pruebas: 2 unitarias y 1 e2e. Las pruebas de conexión están en el apartado 5, y las de cada prompt, en el 6 | README, AGENTS.md, contexto, configuración de la raíz, `apps/` y capturas |
 
-## 3. Objetivo y alcance
-
-La sesión 6 pidió organizar el proyecto como monorepo, con una app web en React y un servicio en NestJS conectados por una prueba de salud. La entrega tiene los cuatro puntos del apartado 1:
-- El repositorio monorepo subido, con web-app y core-service.
-- El README y el `.env.example`, documentados para permitir el arranque.
-- Una interfaz React que muestre éxito, error y recuperación.
-- El registro de tres prompts completos, con sus comprobaciones.
-
-**Incluye:**
-
-- La base del monorepo con npm workspaces: `apps/web-app` y `apps/core-service`.
-- El endpoint `GET /api/health` en core-service.
-- Una pantalla técnica en web-app que comprueba la conexión y muestra carga, éxito y error.
-- El registro de los tres prompts con sus comprobaciones.
-
-**No incluye:**
-- La conexión con Hasura y Neon, que la clase llama «el siguiente nivel».
-- Las pantallas del MVP de Katerin.
-- El acceso con correo y contraseña.
-
-La pantalla de verificación es técnica y no forma parte del MVP.
-
-## 4. Estructura del monorepo
+## 3. Estructura del monorepo
 
 ```text
 .
@@ -70,20 +50,12 @@ La pantalla de verificación es técnica y no forma parte del MVP.
 | core-service | NestJS 12.4.0, TypeScript 6.0.3, Vitest 4.1.12 y oxlint 1.92.0 |
 | web-app | React 19.3.1, Vite 8.3.6, TypeScript 7.0.2, Material UI 9.5.0 y oxlint 1.92.0 |
 
-**Archivos de entorno.**
-- **web-app.** Es la única que usa un archivo de entorno: `apps/web-app/.env`, que se copia de `.env.example` y define `VITE_API_URL=http://localhost:3000/api`. El `.env` no se sube al repositorio.
-- **core-service.** No usa `.env` y siempre arranca en el puerto 3000.
+- **Archivos de entorno.** Solo web-app usa uno: `apps/web-app/.env`, copiado de `.env.example`, que define `VITE_API_URL=http://localhost:3000/api` y no se sube al repositorio. core-service no usa `.env` y siempre arranca en el puerto 3000.
+- **Prototipo de la sesión 3.** Queda fuera de `apps/*`, con su propio `package-lock.json` y su publicación en GitHub Pages con Node 22.
 
-**Prototipo de la sesión 3.** Queda fuera de `apps/*`, así que conserva su propio `package-lock.json` y su publicación en GitHub Pages con Node 22.
+## 4. Cómo funciona la verificación
 
-## 5. Cómo funciona la verificación
-
-1. La usuaria pulsa «Verificar conexión» en `HealthPanel`.
-2. `checkHealth()` lee `VITE_API_URL` y pide `${VITE_API_URL}/health` con `fetch`.
-3. core-service recibe `GET /api/health`. `configureApp` pone el prefijo `api`, y `HealthController` atiende `/health` y llama a `HealthService`.
-4. `HealthService` devuelve `{ status: 'ok', service: 'core-service' }`, con la forma de `HealthResponseDto`.
-5. NestJS responde en JSON, con el encabezado CORS para `http://localhost:5173`.
-6. `checkHealth()` comprueba la forma de la respuesta, y `HealthPanel` muestra una sola alerta.
+Al pulsar «Verificar conexión», `checkHealth()` lee `VITE_API_URL` y pide `${VITE_API_URL}/health` con `fetch`. core-service atiende `GET /api/health`, con el prefijo `api` y CORS solo para `http://localhost:5173`, y responde `{ status: 'ok', service: 'core-service' }`. La web comprueba la forma de la respuesta y muestra una sola alerta: el éxito o un mensaje claro para cada error, como se ve en el apartado 5. El mensaje de conexión es el mismo si el servicio está detenido, si la dirección es otra o si el navegador bloquea la respuesta por CORS, y cualquier otra falla muestra «Ocurrió un error inesperado. Vuelve a intentarlo.»
 
 | Papel, según la clase | Archivo | Responsabilidad |
 |---|---|---|
@@ -92,33 +64,19 @@ La pantalla de verificación es técnica y no forma parte del MVP.
 | Contrato | `core-service/src/health/health-response.dto.ts` | Define la forma de la respuesta |
 | Ensamblador | `core-service/src/health/health.module.ts` | Une el controlador y el servicio. `AppModule` lo importa |
 | Configuración común | `core-service/src/configure-app.ts` | Prefijo `api` y CORS solo para `http://localhost:5173`. La usan `main.ts` y la prueba e2e |
-| Escenario | `web-app/src/App.tsx` y `main.tsx` | Título, explicación y estilos base de MUI (`CssBaseline`) |
+| Escenario | `web-app/src/App.tsx` y `main.tsx` | Monta la app con `StrictMode` y `CssBaseline`, y muestra el título, una frase de explicación y el panel |
 | Interfaz | `web-app/src/components/HealthPanel.tsx` | Botón, estado de carga y una sola alerta |
-| Mensajero | `web-app/src/api/health.api.ts` | Llama al servicio y convierte cada falla en un mensaje claro |
-| Espejo | `web-app/src/types/health.ts` | Copia del contrato del DTO en la web |
+| Mensajero | `web-app/src/api/health.api.ts` | `checkHealth()` llama al servicio, revisa el código HTTP y la forma de la respuesta, y lanza `HealthCheckError` con el mensaje para la pantalla |
+| Espejo | `web-app/src/types/health.ts` | `HealthResponse`, copia de `HealthResponseDto` en la web |
 
-Mensajes que muestra el panel en cada caso:
+## 5. Pruebas de conexión
 
-| Caso | Mensaje en pantalla |
-|---|---|
-| Falta `VITE_API_URL` | «Falta configurar VITE_API_URL en apps/web-app/.env.» |
-| El servicio no responde: está detenido, la dirección es otra o el navegador bloquea la respuesta por CORS | «No se pudo conectar con core-service. Revisa que esté en marcha y vuelve a intentarlo.» |
-| Código HTTP de error | «core-service respondió con un error (HTTP 500).», con el número que corresponda |
-| Respuesta con otra forma | «core-service respondió, pero con un formato inesperado.» |
-| Cualquier otro error | «Ocurrió un error inesperado. Vuelve a intentarlo.» |
-
-## 6. Pruebas de conexión
-
-**Cómo las hice.** Las hice el 7 de noviembre de 2026 con Chrome 156 sin pantalla, a 1280 × 800.
-- **Herramienta.** Un script temporal, fuera del repositorio, manejó Chrome con el protocolo DevTools.
-- **Servicio.** El script detuvo core-service con SIGINT, lo mismo que Ctrl+C en la terminal, y lo volvió a arrancar con `npm run dev:api`.
-- **Pestaña.** Las tres fases ocurrieron en la misma pestaña, sin recargar la página.
-- **Capturas.** No están editadas. La 01 y la 03 se ven iguales porque muestran el mismo estado.
+**Cómo las hice.** El 7 de noviembre de 2026, con Chrome 156 sin pantalla a 1280 × 800, manejado por un script temporal fuera del repositorio. El script detuvo core-service con SIGINT, lo mismo que Ctrl+C, y lo volvió a arrancar con `npm run dev:api`. Las tres fases ocurrieron en la misma pestaña, sin recargar. Las capturas no están editadas; la 01 y la 03 se ven iguales porque muestran el mismo estado.
 
 | Fase | Acción | Resultado esperado | Resultado obtenido | Captura |
 |---|---|---|---|---|
 | 1. Servicio activo | Pulsar «Verificar conexión» | «Conectado: core-service» | «Conectado: core-service». La petición a `/api/health` respondió 200 | 01 |
-| 2. Servicio detenido | Detener core-service y pulsar | Error visible y botón habilitado | «No se pudo conectar con core-service…». El navegador registró `net::ERR_CONNECTION_REFUSED` y el botón quedó habilitado | 02 |
+| 2. Servicio detenido | Detener core-service y pulsar | Error visible y botón habilitado | «No se pudo conectar con core-service. Revisa que esté en marcha y vuelve a intentarlo.» El navegador registró `net::ERR_CONNECTION_REFUSED` y el botón quedó habilitado | 02 |
 | 3. Recuperación | Arrancar core-service y pulsar de nuevo | «Conectado: core-service» | «Conectado: core-service», con 200 | 03 |
 
 **Captura 01.** Servicio activo: la web muestra «Conectado: core-service».
@@ -146,16 +104,17 @@ Mensajes que muestra el panel en cada caso:
 | Accesibilidad básica | Lectura del DOM | `lang="es"`, título «VehicleControlApp Web», un solo `h1`, botón con el nombre «Verificar conexión» y una sola alerta con `role="alert"` |
 | Instalación limpia | Borrar `node_modules` y `dist`, ejecutar `npm ci` y repetir el build, las pruebas, el lint y todas las fases | Todo da el mismo resultado. `npm audit`: 0 vulnerabilidades |
 
-## 7. Registro de prompts
-
-### Prompt 1 · Base del monorepo (7 de noviembre de 2026)
+## 6. Registro de prompts
 
 | Rol | Quién o qué herramienta |
 |---|---|
-| Redacción del prompt | Claude Code (Claude Opus 5.5) |
-| Revisión con IA | DeepSeek V4.1 Flash Free (OpenCode) revisó el plan que contenía este prompt y no pidió cambios en él |
-| Revisión y envío | Ivan Dario Madrid Daza aprobó el texto del documento de prompts y pidió ejecutarlo |
-| Ejecución | Claude Code (Claude Opus 5.5) |
+| Redacción y ejecución | Claude Code (Claude Opus 5.5) |
+| Revisión con IA | DeepSeek V4.1 Flash Free (OpenCode) revisó el plan que contenía los tres prompts. Lo que dijo de cada uno está en su prompt |
+| Revisión y envío | Ivan Dario Madrid Daza aprobó cada texto del documento de prompts y pidió ejecutarlo |
+
+### Prompt 1 · Base del monorepo (7 de noviembre de 2026)
+
+**Revisión con IA:** DeepSeek no pidió cambios en este prompt.
 
 Texto exacto enviado:
 
@@ -195,7 +154,7 @@ Texto exacto enviado:
 - El prototipo de la sesión 3 sigue instalando y compilando por separado.
 ```
 
-> Los resultados de este prompt son de NestJS 11. El código actual usa NestJS 12: ver «Cambio a NestJS 12 tras el prompt 2», más abajo.
+> Resultados con NestJS 11. El código actual usa NestJS 12: ver «Cambio a NestJS 12 tras el prompt 2», más abajo.
 
 **Archivos creados o cambiados**
 
@@ -224,27 +183,14 @@ Texto exacto enviado:
 
 **Ajustes:** ninguno en los comandos.
 
-**Observaciones:**
-
+**Observaciones y decisiones:**
 - **core-service sin `.gitignore` propio.** Con `--skip-git`, la CLI de Nest no lo crea; el `.gitignore` de la raíz cubre `node_modules`, `dist` y `coverage`.
-- **Avisos de npm.**
-  - `npm install` informó 30 avisos de seguridad (5 bajos, 23 moderados y 2 altos) en las dependencias de las plantillas.
-  - Los dos altos vienen de `multer` 2.4.0, que usa `@nestjs/platform-express` para la subida de archivos. Hay una corrección con `npm audit fix`.
-  - También avisó que `eslint` 9.39.5 y `glob` 10.5.0 están obsoletos.
-
-**Mis decisiones tras el prompt 1, el mismo 7 de noviembre:**
-
-- **Quitar los README en inglés.** Se borraron `apps/web-app/README.md` y `apps/core-service/README.md`, que vinieron con las plantillas, porque el README de la raíz explica cómo ejecutar todo.
-- **Aplicar `npm audit fix`, sin `--force`.** No corrigió `multer`: la última versión 11 de `@nestjs/platform-express`, la 11.2.8, exige exactamente `multer` 2.4.0, y la corrección solo llega con NestJS 12. Ver el apartado 8.
+- **Avisos de npm.** `npm install` informó 30 avisos de seguridad (5 bajos, 23 moderados y 2 altos, estos de `multer` 2.4.0), y que `eslint` 9.39.5 y `glob` 10.5.0 están obsoletos. `npm audit fix`, sin `--force`, no corrigió `multer` (apartado 7).
+- **README en inglés.** Quité los de las dos plantillas, porque el README de la raíz explica cómo ejecutar todo.
 
 ### Prompt 2 · Endpoint de salud en NestJS (7 de noviembre de 2026)
 
-| Rol | Quién o qué herramienta |
-|---|---|
-| Redacción del prompt | Claude Code (Claude Opus 5.5) |
-| Revisión con IA | DeepSeek V4.1 Flash Free (OpenCode) revisó el plan y pidió reescribir las pruebas generadas y escribir completos los comandos `nest g`. El prompt ya incluye esos cambios |
-| Revisión y envío | Ivan Dario Madrid Daza aprobó el texto del documento de prompts y pidió ejecutarlo |
-| Ejecución | Claude Code (Claude Opus 5.5) |
+**Revisión con IA:** DeepSeek pidió reescribir las pruebas generadas y escribir completos los comandos `nest g`. El prompt ya incluye esos cambios.
 
 Texto exacto enviado:
 
@@ -284,7 +230,7 @@ Texto exacto enviado:
 - npm run build -w apps/core-service compila.
 ```
 
-> Los resultados de este prompt son de NestJS 11. El código actual usa NestJS 12: ver «Cambio a NestJS 12 tras el prompt 2», justo después.
+> Resultados con NestJS 11. El código actual usa NestJS 12: ver «Cambio a NestJS 12 tras el prompt 2», justo después.
 
 Comandos de la CLI de Nest:
 
@@ -294,18 +240,13 @@ npm exec -w apps/core-service -- nest g controller health
 npm exec -w apps/core-service -- nest g service health
 ```
 
-La CLI creó el módulo, el controlador, el servicio y sus pruebas. Además registró `HealthController` y `HealthService` en `HealthModule` e importó `HealthModule` en `AppModule`.
+La CLI creó el módulo, el controlador, el servicio y sus pruebas, los registró en `HealthModule` e importó `HealthModule` en `AppModule`.
 
-**Archivos creados o cambiados** (todos en `apps/core-service/`)
+**Archivos creados o cambiados** en `apps/core-service/`, además de los cinco de la tabla del apartado 4:
 
 | Archivo | Responsabilidad |
 |---|---|
-| `src/health/health-response.dto.ts` | Contrato de la respuesta: `status: 'ok'` y `service` de tipo texto |
-| `src/health/health.service.ts` | Produce la respuesta `{ status: 'ok', service: 'core-service' }` |
-| `src/health/health.controller.ts` | Recibe `GET /health` y delega en el servicio |
-| `src/health/health.module.ts` | Agrupa el controlador y el servicio de salud |
 | `src/health/health.controller.spec.ts` y `health.service.spec.ts` | Comprueban el objeto exacto. El módulo de prueba del controlador provee `HealthService` |
-| `src/configure-app.ts` | Prefijo global `api` y CORS solo para `http://localhost:5173`. Lo usan `main.ts` y la prueba e2e |
 | `src/main.ts` | Arranca la aplicación con `configureApp` en el puerto 3000 fijo |
 | `src/app.module.ts` | Solo importa `HealthModule` |
 | `test/app.e2e-spec.ts` | Prueba `GET /api/health` con el origen de la web-app |
@@ -328,34 +269,21 @@ La CLI creó el módulo, el controlador, el servicio y sus pruebas. Además regi
 | Prefijo obligatorio | `curl localhost:3000/health` | 404 |
 
 **Ajustes:**
-
-- **Coma final en `health.module.ts`.** La CLI generó `providers: [HealthService]` sin la coma final, y `npm run lint`, que usa `--fix`, la agregó con Prettier. Es el único cambio que hizo.
-- **`void bootstrap();` en `main.ts`.** El lint marcaba el aviso `no-floating-promises` en `bootstrap();`, que viene de la plantilla, y con `void` el aviso desaparece.
+- **Coma final en `health.module.ts`.** La CLI no la puso, y `npm run lint`, que usa `--fix`, la agregó con Prettier. Fue su único cambio.
+- **`void bootstrap();` en `main.ts`.** Quita el aviso `no-floating-promises` que el lint marcaba en la línea de la plantilla.
 
 ### Cambio a NestJS 12 tras el prompt 2 (7 de noviembre de 2026)
 
-**Mi decisión.** Decidí usar la versión estable recomendada de cada herramienta y no exactamente la que sugiere la clase, porque esas versiones cambian con frecuencia.
-- NestJS 12.4.0 es la versión `latest` en npm, y la 11 aparece como `legacy`.
-- Además, NestJS 12 corrige el aviso de `multer` (apartado 8).
-
-Aprobé instalar Node 24 LTS y rehacer core-service con la CLI de NestJS 12.
-
-Los textos de los prompts 1 y 2 no cambian. Sus tablas registran lo que pasó con NestJS 11. Este apartado registra la repetición con NestJS 12, que es el código actual.
+**Mi decisión.** Decidí usar la versión estable recomendada de cada herramienta y no exactamente la que sugiere la clase, porque esas versiones cambian con frecuencia. NestJS 12.4.0 es la versión `latest` en npm, la 11 aparece como `legacy`, y la 12 corrige el aviso de `multer` (apartado 7). Aprobé instalar Node 24 LTS y rehacer core-service con la CLI de NestJS 12. Los textos de los prompts 1 y 2 no cambian: sus tablas registran lo que pasó con NestJS 11, y este apartado, la repetición con NestJS 12, que es el código actual.
 
 **Pasos**
-
-1. **Instalar Node 24 LTS** con fnm (`fnm install 24`). Quedó Node 24.22.2 con npm 11.19.1. La versión por defecto de mi equipo sigue siendo la 22.13.0. El archivo `.node-version` de la raíz indica la 24 para este proyecto.
-2. **Rehacer core-service.** Guardé fuera del repositorio una copia del core-service con NestJS 11. Después quité esa carpeta, `node_modules` y `package-lock.json`, que se regeneran, y volví a crear core-service:
-   ```bash
-   npx --yes @nestjs/cli@12 new core-service --directory apps/core-service --package-manager npm --skip-git --skip-install
-   ```
-3. **Quitar de la plantilla lo que no se usa:**
-   - `README.md`, como con la versión 11.
-   - `AGENTS.md`. Son instrucciones para agentes que promueven un servicio de monitoreo, NestJS Observe, y el repositorio ya tiene su propio AGENTS.md.
-   - `@nestjs/mau` y el script `deploy`. Sirven para desplegar en la nube de NestJS, algo que está fuera del alcance, y traían 5 avisos de seguridad.
-   - Se conserva `.gitattributes`, que solo fija el fin de línea.
-4. **Repetir el prompt 2.** Usé los mismos tres comandos `nest g` y escribí los mismos archivos. Ahora las importaciones relativas terminan en `.js`, porque la plantilla usa módulos ESM.
-5. **Instalar** con `npm install` desde la raíz.
+- **Node 24 LTS** con fnm (`fnm install 24`): quedó Node 24.22.2 con npm 11.19.1. La versión por defecto de mi equipo sigue siendo la 22.13.0, y `.node-version` indica la 24 para este proyecto.
+- **core-service de nuevo.** Guardé fuera del repositorio una copia con NestJS 11, quité la carpeta, `node_modules` y `package-lock.json`, y lo volví a crear:
+  ```bash
+  npx --yes @nestjs/cli@12 new core-service --directory apps/core-service --package-manager npm --skip-git --skip-install
+  ```
+  De la plantilla quité el `README.md`; el `AGENTS.md`, con instrucciones para agentes que promueven NestJS Observe, porque el repositorio ya tiene el suyo; y `@nestjs/mau` con el script `deploy`, que sirven para desplegar en la nube de NestJS (apartado 7). Conservé `.gitattributes`, que solo fija el fin de línea.
+- **Prompt 2 repetido** con los mismos comandos `nest g` y los mismos archivos. Ahora las importaciones relativas terminan en `.js`, porque la plantilla usa módulos ESM. Después instalé con `npm install` desde la raíz.
 
 **Diferencias entre las plantillas 11 y 12**
 
@@ -373,34 +301,17 @@ Los textos de los prompts 1 y 2 no cambian. Sus tablas registran lo que pasó co
 | Comprobación | Comando | Resultado real |
 |---|---|---|
 | Avisos de seguridad | `npm install` y `npm audit` | 0 vulnerabilidades; con NestJS 11 eran 30 |
-| Un solo lockfile | `find . -name package-lock.json -not -path '*/node_modules/*'` | Solo el de la raíz, más el del prototipo, que es aparte |
-| Workspaces | `npm ls --workspaces --depth=0` | `core-service@0.0.1` y `web-app@0.0.0`, sin errores |
 | Versiones | `npm ls @nestjs/core multer typescript` | NestJS 12.4.0 con `multer` 2.5.0. TypeScript 6.0.3 en core-service, también para la CLI de Nest, y 7.0.2 en web-app, sin «invalid» |
-| La plantilla arranca | `npm run dev:api` y `curl localhost:3000` | «Nest application successfully started» y «Hello World!», antes de quitar el ejemplo |
-| web-app y puerto estricto | `npm run dev:web` dos veces | HTTP 200 en el 5173. La segunda copia: «Error: Port 5173 is already in use», con código de salida 1 |
-| Compilación | `npm run build` | Código de salida 0 en las dos apps |
 | Formato | `npm run format -w apps/core-service` | Prettier solo cambió `health.module.ts`: agregó la coma final que no puso la CLI |
-| Pruebas unitarias | `npm test -w apps/core-service` | 2 de 2 pasan, con el objeto exacto |
-| Prueba e2e | `npm run test:e2e -w apps/core-service` | 1 de 1 pasa: 200, `Access-Control-Allow-Origin: http://localhost:5173` y el JSON exacto |
 | Estilo | `npm run lint -w apps/core-service` | oxlint sin mensajes y con código de salida 0. Comprobé aparte, en un archivo de prueba fuera del repositorio, que sí marca una promesa sin `await` |
-| Ruta registrada | `npm run dev:api` | «Mapped {/api/health, GET} route» y «Nest application successfully started» |
-| Respuesta real | `curl -i localhost:3000/api/health` | `HTTP/1.1 200 OK` y `{"status":"ok","service":"core-service"}` |
-| CORS | `curl -i -H 'Origin: http://localhost:5173' …/api/health` | `Access-Control-Allow-Origin: http://localhost:5173` y `Vary: Origin` |
-| Nunca `*` | `curl -i -H 'Origin: http://otro.example' …/api/health` | El encabezado sigue siendo `http://localhost:5173` |
-| Sin «Hello World» | `curl localhost:3000/api` y `curl localhost:3000/` | 404 en los dos |
-| Prefijo obligatorio | `curl localhost:3000/health` | 404 |
 | Prototipo aparte | Con Node 22, como el flujo de GitHub Pages: `npm ci` y `npm run build:pages`, con la salida en una carpeta temporal | Los dos con código de salida 0, y sin cambios en el prototipo ni en `.github/` |
-| Git sin artefactos | `git status --short` y `git check-ignore -v` | Solo `.node-version`, `package.json`, `package-lock.json`, `apps/` y este borrador. `node_modules` y `dist` quedan ignorados. Más tarde apareció `tsconfig.build.tsbuildinfo` sin ignorar (apartado 8) |
+| Git sin artefactos | `git status --short` y `git check-ignore -v` | Solo `.node-version`, `package.json`, `package-lock.json`, `apps/` y este borrador; `node_modules` y `dist` quedan ignorados. Más tarde apareció `tsconfig.build.tsbuildinfo` sin ignorar (apartado 7) |
 | Sin secretos | `git grep --untracked` de cadenas de conexión de PostgreSQL y del secreto de administración de Hasura | Sin coincidencias |
+| Las demás de los prompts 1 y 2 | Un solo lockfile, workspaces, arranque de la plantilla y de web-app, puerto estricto, compilación, pruebas unitarias y e2e, ruta registrada, respuesta real, CORS, nunca `*`, sin «Hello World» y prefijo obligatorio | Mismo resultado que con NestJS 11: 2 de 2 pruebas unitarias, 1 de 1 e2e, 200 con el JSON exacto y el encabezado CORS, y 404 sin el prefijo |
 
 ### Prompt 3 · Panel de verificación en React (7 de noviembre de 2026)
 
-| Rol | Quién o qué herramienta |
-|---|---|
-| Redacción del prompt | Claude Code (Claude Opus 5.5) |
-| Revisión con IA | DeepSeek V4.1 Flash Free (OpenCode) revisó el plan que contenía este prompt. Solo comentó que `src/env.d.ts` es opcional y que, si se mantiene, declare solo `VITE_API_URL`, como quedó |
-| Revisión y envío | Ivan Dario Madrid Daza aprobó el texto del documento de prompts y pidió ejecutarlo |
-| Ejecución | Claude Code (Claude Opus 5.5) |
+**Revisión con IA:** DeepSeek solo comentó que `src/env.d.ts` es opcional y que, si se mantiene, declare solo `VITE_API_URL`, como quedó.
 
 Texto exacto enviado:
 
@@ -450,17 +361,12 @@ Texto exacto enviado:
 
 Comando de instalación: `npm install -w apps/web-app @mui/material @emotion/react @emotion/styled`. Instaló Material UI 9.5.0, `@emotion/react` 11.14.0 y `@emotion/styled` 11.14.1.
 
-**Archivos creados o cambiados** (todos en `apps/web-app/`)
+**Archivos creados o cambiados** en `apps/web-app/`, además de las piezas de la tabla del apartado 4:
 
 | Archivo | Responsabilidad |
 |---|---|
 | `index.html` | `lang="es"`, título «VehicleControlApp Web» y sin el ícono de Vite |
 | `.env.example` | Documenta `VITE_API_URL=http://localhost:3000/api`. El `.env` local se copió de aquí y está ignorado |
-| `src/main.tsx` | Monta la app con `StrictMode` y `CssBaseline` |
-| `src/App.tsx` | Escenario: `main` con el título, una frase de explicación y el panel |
-| `src/components/HealthPanel.tsx` | Botón, estado de carga y un solo resultado a la vez |
-| `src/api/health.api.ts` | `checkHealth()`: lee la variable, llama con `fetch`, revisa el código HTTP y la forma de la respuesta, y lanza `HealthCheckError` con el mensaje para la pantalla |
-| `src/types/health.ts` | `HealthResponse`, espejo de `HealthResponseDto` |
 | `src/env.d.ts` | Declara `VITE_API_URL` como texto opcional |
 | `package.json` | Agrega Material UI y Emotion |
 | `src/App.css`, `src/index.css`, `src/assets/` y `public/` | Quitados: eran la demostración de Vite, con su ícono |
@@ -473,37 +379,29 @@ Comando de instalación: `npm install -w apps/web-app @mui/material @emotion/rea
 | Estilo | `npm run lint -w apps/web-app` | oxlint sin mensajes y con código de salida 0 |
 | Tipo de la variable | Un archivo temporal que asignaba `import.meta.env.VITE_API_URL` a un número, revisado con `tsc` y luego borrado | `tsc` lo rechazó porque el tipo es `string \| undefined`, no `any` |
 | `.env` ignorado | `git check-ignore -v apps/web-app/.env` | Ignorado por la regla `.env` del `.gitignore` de la raíz; `.env.example` sí se sube |
-| Fases y otros casos | Script temporal con Chrome sin pantalla | Ver el apartado 6: las tres fases, la carga, los tres errores, 360 × 800, el teclado y la accesibilidad básica |
-| Instalación limpia | `npm ci` y repetir todo | Mismo resultado. `npm audit`: 0 vulnerabilidades |
+| Fases y otros casos | Script temporal con Chrome sin pantalla | Ver el apartado 5: las tres fases, la carga, los tres errores, 360 × 800, el teclado, la accesibilidad básica y la instalación limpia |
 
 **Ajustes:**
-
-- **Importaciones con extensión.** Las importaciones relativas llevan `.ts` o `.tsx`, como `import App from './App.tsx'` en la plantilla de Vite. Los tipos van con `import type`, como pide el prompt.
-- **Pequeños cambios de presentación.**
-  - El contenedor es un `main`, para que la página tenga una región principal.
-  - El botón no ocupa todo el ancho.
-  - El título usa el tamaño `h4` de MUI, pero sigue siendo un `h1`.
-- **Servidor falso dentro del script.** El plan lo tenía como archivo aparte, pero va dentro del mismo script temporal. Responde en el puerto 3999 con el encabezado CORS de `http://localhost:5173`.
+- **Importaciones con extensión.** Las relativas llevan `.ts` o `.tsx`, como en la plantilla de Vite, y los tipos van con `import type`, como pide el prompt.
+- **Presentación.** El contenedor es un `main`, para que la página tenga una región principal; el botón no ocupa todo el ancho, y el título usa el tamaño `h4` de MUI, aunque sigue siendo un `h1`.
+- **Servidor falso.** Va dentro del mismo script temporal, no como archivo aparte, como decía el plan. Responde en el puerto 3999 con el encabezado CORS de `http://localhost:5173`.
 
 **Observaciones:**
+- **Botón y foco.** El tema por defecto de MUI muestra el botón en mayúsculas, «VERIFICAR CONEXIÓN», aunque el lector de pantalla lee «Verificar conexión», y su foco de teclado es un brillo discreto sobre el color del botón. Decidí dejarlos así por ahora; si quiero cambiarlos, lo haré más adelante.
+- **Aviso de npm 11.** `fsevents` 2.3.3 tiene scripts de instalación que su lista de permitidos (`allowScripts`) aún no cubre. Es un paquete opcional de macOS para vigilar archivos, y la instalación terminó sin errores.
 
-- **Botón en mayúsculas.** El tema por defecto de MUI muestra el botón en mayúsculas: «VERIFICAR CONEXIÓN». El texto real, que lee el lector de pantalla, es «Verificar conexión».
-- **Foco discreto.** El foco de teclado de MUI en el botón es un brillo que late sobre el color del botón. Se ve, pero es discreto.
-- **Mi decisión, el 7 de noviembre de 2026:** dejo por ahora el botón y su foco como los muestra el tema por defecto de MUI. Si más adelante quiero cambiarlos, lo haré en otro momento.
-- **Aviso de npm 11.** Avisó que `fsevents` 2.3.3 tiene scripts de instalación que su lista de permitidos (`allowScripts`) aún no cubre. Es un paquete opcional de macOS para vigilar archivos, y la instalación terminó sin errores.
-
-## 8. Problemas encontrados
+## 7. Problemas encontrados
 
 | Síntoma | Causa | Solución |
 |---|---|---|
-| `npm audit` marca 2 avisos altos en `multer` 2.4.0 y `npm audit fix` no los corrige | `@nestjs/platform-express` 11.2.8, la última versión 11, exige exactamente `multer` 2.4.0. La versión corregida, 2.5.0, solo la usa NestJS 12 | Decidí pasar a NestJS 12 (apartado 7). `npm audit` queda en 0 avisos |
-| La CLI de NestJS 12 se detiene con `ERR_REQUIRE_CYCLE_MODULE` | Node 22.13.0, la versión por defecto de mi equipo, no resuelve un ciclo al cargar con `require` módulos ESM de la CLI. Con Node 22.23.1 y con Node 24.22.2 sí arranca. En una copia del repositorio con el lockfile, Node 22.13.0 instala bien con `npm ci`, pero `npm run build` de core-service falla con el mismo error | Node 24 LTS para este proyecto, indicado en `.node-version`. El README lo indica como requisito y en «Solución de problemas» |
-| npm 10 no logra instalar la plantilla de NestJS 12: «Cannot read properties of null (reading 'edgesOut')» | Falla npm 10 al resolver las dependencias entre paquetes (`peerDependencies`). Pasa con Node 22.13.0 (npm 10.9.2) y con Node 22.23.1 (npm 10.9.8) | Node 24 LTS, que trae npm 11. Con npm 11 la instalación termina sin errores |
+| `npm audit` marca 2 avisos altos en `multer` 2.4.0 y `npm audit fix` no los corrige | `@nestjs/platform-express` 11.2.8, la última versión 11, exige exactamente `multer` 2.4.0. La versión corregida, 2.5.0, solo la usa NestJS 12 | Decidí pasar a NestJS 12 (apartado 6). `npm audit` queda en 0 avisos |
+| La CLI de NestJS 12 se detiene con `ERR_REQUIRE_CYCLE_MODULE` | Node 22.13.0, la versión por defecto de mi equipo, no resuelve un ciclo al cargar con `require` módulos ESM de la CLI. Con Node 22.23.1 y 24.22.2 sí arranca. Con el lockfile, Node 22.13.0 instala bien con `npm ci`, pero el build de core-service falla con el mismo error | Node 24 LTS para este proyecto, en `.node-version`. El README lo indica como requisito y en «Solución de problemas» |
+| npm 10 no logra instalar la plantilla de NestJS 12: «Cannot read properties of null (reading 'edgesOut')» | Falla al resolver las `peerDependencies`, con npm 10.9.2 (Node 22.13.0) y 10.9.8 (Node 22.23.1) | Node 24 LTS, que trae npm 11 e instala sin errores |
 | Con `@nestjs/mau`, la plantilla de NestJS 12 da 5 avisos (2 bajos, 1 moderado y 2 altos), en `undici` y `tmp` | Es un paquete para desplegar en la nube de NestJS, y esos avisos vienen de sus dependencias | Lo quité, junto con el script `deploy`, porque el despliegue está fuera del alcance. Sin él, 0 avisos |
-| Después de compilar, `git status` mostraba `apps/core-service/tsconfig.build.tsbuildinfo` | El `tsconfig` de la plantilla activa la compilación incremental (`incremental: true`), y TypeScript guardó ese archivo junto al `tsconfig`, fuera de `dist/` | Agregué `*.tsbuildinfo` al `.gitignore` de la raíz |
+| Después de compilar, `git status` mostraba `apps/core-service/tsconfig.build.tsbuildinfo` | La plantilla activa la compilación incremental, y TypeScript guarda ese archivo junto al `tsconfig`, fuera de `dist/` | Agregué `*.tsbuildinfo` al `.gitignore` de la raíz |
 | El script temporal de comprobación se detuvo con «setTypeOfService EINVAL» | El `fetch` de Node 24.22.2 lanzó ese error fuera del `try` al comprobar si los puertos respondían | El script usa `node:http` para esas comprobaciones. No afecta a la app: en el navegador, `fetch` funcionó en todas las fases |
 
-## 9. Pendientes y próximo paso
+## 8. Pendientes y próximo paso
 
 | Pendiente | Responsable | Fecha |
 |---|---|---|
