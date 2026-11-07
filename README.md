@@ -81,9 +81,9 @@ Para comprobar core-service sin la web, abre http://localhost:3000/api/health. D
 | Comando | Qué hace |
 |---|---|
 | `npm run build` | Compila las dos apps |
-| `npm test -w apps/core-service` | Pruebas unitarias de core-service |
-| `npm run test:e2e -w apps/core-service` | Prueba de `GET /api/health` con el origen de la web |
-| `npm run lint -w apps/core-service` y `npm run lint -w apps/web-app` | Revisión de estilo con oxlint |
+| `npm test` | Pruebas unitarias. Por ahora solo core-service tiene pruebas |
+| `npm run test:e2e` | Prueba de `GET /api/health` con el origen de la web |
+| `npm run lint` | Revisión de estilo con oxlint en las dos apps |
 
 **Notas:**
 - **core-service** no usa `.env` y siempre arranca en el puerto 3000.
