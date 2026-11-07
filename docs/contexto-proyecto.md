@@ -1,7 +1,7 @@
 # Contexto del proyecto VehicleControlApp Web
 
-**Estado del contexto:** 31 de octubre de 2026
-**Actividad actual:** modelo de datos y servicios de las sesiones 4 y 5. La versión 0.8 completa los cuatro apartados: el modelo de la primera versión, cargado en Neon y Hasura; los servicios principales con sus contratos; y la revisión del diseño. El documento completo se entrega el 6 de noviembre de 2026 (antes, 5 de noviembre). El 30 de octubre el instructor indicó continuar con los apartados 3 y 4; a esa fecha aún no había revisado los apartados 1 y 2.
+**Estado del contexto:** 7 de noviembre de 2026
+**Actividad actual:** sesión 6, monorepo con React y NestJS, para el 12 de noviembre de 2026. La evidencia de sesiones 4 y 5 se entregó el 6 de noviembre de 2026 en su versión 0.8.
 **Modalidad de trabajo:** individual.
 
 ## 1. Ficha del proyecto
@@ -37,6 +37,7 @@
 | 30 oct 2026 | Cambio de fechas y quinta categoría inicial | El instructor trasladó la revisión de los apartados 1 y 2 del 29 al 30 de octubre, y la entrega completa del 5 al 6 de noviembre de 2026. Decidí que «Ahorro prima conductor» se cree con la cuenta, como quinta categoría inicial. | Cómo reconocer esa categoría si la titular le cambia el nombre se define con los servicios de la semana 5. Detalle en la versión 0.6 de la [evidencia de sesiones 4 y 5](evidencia-sesion-4-modelo-datos-servicios.md). |
 | 30 oct 2026 | Servicios y revisión del diseño (apartados 3 y 4) | El instructor indicó continuar con los apartados 3 y 4; aún no había revisado los apartados 1 y 2. Definí los servicios S01 a S12 con sus contratos y decidí que un vehículo con ingresos no cambia de tipo, que la categoría del ahorro se reconocerá con la marca propuesta `es_ahorro_prima` y que un vehículo de otra cuenta responde 404. | Es diseño: no hay servicios programados y la marca no está cargada en Neon. Detalle en la versión 0.7 de la [evidencia de sesiones 4 y 5](evidencia-sesion-4-modelo-datos-servicios.md). |
 | 31 oct 2026 | Ajustes a los servicios tras revisar la evidencia | Decidí que los ingresos y los gastos no acepten una fecha posterior al día actual. Amplié la consulta (S06) con las listas de ingresos, gastos y documentos por mes y los próximos vencimientos de la flota, que usan pantallas de la primera versión. | Es diseño: la regla de fechas la validaría el servicio y no está en la base cargada en Neon; el prototipo todavía permite fechas futuras. Detalle en la versión 0.7 de la [evidencia de sesiones 4 y 5](evidencia-sesion-4-modelo-datos-servicios.md). |
+| 6 nov 2026 | Entrega de la evidencia de sesiones 4 y 5 | Entregué la versión 0.8: alcance y proceso del MVP, modelo de datos, servicios S01 a S12 y revisión del diseño. | Es diseño: no hay servicios programados y la aplicación no está conectada a Hasura. Detalle en la [evidencia de sesiones 4 y 5](evidencia-sesion-4-modelo-datos-servicios.md). |
 | Sin fecha especificada | Observación previa de Katerin sobre Android | El término “Registro de documentos” le resultó confuso; también sugirió adjuntar imágenes de facturas. | Mantener como observación distinta de la retroalimentación del 2 de octubre. La propuesta de facturas no se incorpora automáticamente al alcance inicial. |
 | Fechas y condiciones distintas, no detalladas aquí | Antecedente de pruebas Android | Katerin y Jean Carlos probaron el MVP Android en momentos y condiciones distintos. | No combinar sus pruebas ni atribuir resultados específicos sin evidencia separada. |
 
@@ -123,7 +124,7 @@ Tras la retroalimentación del 27 de octubre de 2026, HU-04 se implementa primer
 - La [evidencia de semana 1](evidencia-sesion-1.md) conserva el registro de esa actividad y su fecha de entrega indicada: 8 de octubre de 2026.
 - En la [evidencia de sesión 2](evidencia-sesion-2-requerimientos-backlog.md) registré la consulta breve que realicé con Katerin el 12 de octubre y la entrega indicada para el 15 de octubre de 2026.
 - La [evidencia de sesión 3](evidencia-sesion-3-diseno-pantallas.md) documenta el diseño de pantallas, los prototipos visuales y los acuerdos posteriores sobre cuentas y edición/eliminación. La entrega indicada es el 22 de octubre de 2026; la prueba con Katerin se realizó el 20 de octubre de 2026 y sus resultados están en esa evidencia.
-- La [evidencia de sesiones 4 y 5](evidencia-sesion-4-modelo-datos-servicios.md) documenta el proceso del MVP, el modelo de datos, los servicios principales y la revisión del diseño. La versión 0.8 completa los cuatro apartados para la entrega del 6 de noviembre de 2026.
+- La [evidencia de sesiones 4 y 5](evidencia-sesion-4-modelo-datos-servicios.md) documenta el proceso del MVP, el modelo de datos, los servicios principales y la revisión del diseño. La versión 0.8 completa los cuatro apartados y se entregó el 6 de noviembre de 2026.
 - Katerin revisó inicialmente el flujo web el 28 de septiembre, pidió adjuntar soportes el 2 de octubre, validó el proceso y el avance Android el 8 de octubre, respondió preguntas breves el 12 de octubre y probó el prototipo web el 20 de octubre; en esa prueba revisó la identidad visual y le pareció adecuada. Estos contactos no se deben combinar.
 
 ## 7. Orientación técnica, no decisión
