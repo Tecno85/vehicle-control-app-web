@@ -27,20 +27,28 @@
 - Usar `docs/evidencia-sesion-1.md` como registro histórico de la semana 1 y `docs/evidencia-sesion-2-requerimientos-backlog.md` para los requerimientos y acuerdos posteriores. Si hay discrepancias, respetar fechas y aclarar el cambio posterior, no borrar la historia.
 - Usar `docs/evidencia-sesion-3-diseno-pantallas.md` para el mapa y las fichas de pantallas, el prototipo Figma y los acuerdos posteriores sobre acceso y edición/eliminación.
 - Usar `docs/evidencia-sesion-4-modelo-datos-servicios.md` para el modelo de datos, sus decisiones de diseño y los servicios de las sesiones 4 y 5. Sus tablas, campos y relaciones son un diseño previo a la programación.
+- Usar `docs/evidencia-sesion-6-monorepo-react-nestjs.md` para la base del monorepo, la prueba de conexión y el registro de prompts de la sesión 6.
 - No inventar usuarios, integrantes, resultados de pruebas ni decisiones técnicas.
 - Cuando no haya una fecha acordada para un pendiente, escribir «Por definir». No asignar fechas supuestas.
 
 ## Límites de implementación y etapa
 
-- La actividad documental vigente es el modelo de datos y servicios de las sesiones 4 y 5: el instructor trasladó la revisión de los apartados 1 y 2 del 29 al 30 de octubre de 2026, y la entrega del documento completo del 5 al 6 de noviembre de 2026. Es una actividad de diseño. Por indicación del instructor, el modelo de la primera versión ya está cargado en Neon y expuesto por Hasura Cloud con datos de prueba ficticios; no crear otras tablas, permisos, migraciones, servicios ni código sin solicitud expresa. No guardar en el repositorio cadenas de conexión, secretos de administración ni otras credenciales de esas plataformas. La evidencia de sesión 3 (entrega del 22 de octubre de 2026) y la prueba del prototipo con Katerin del 20 de octubre de 2026 se conservan como registro. No afirmar que las funciones web o la autenticación están implementadas o probadas en producción.
+- La actividad vigente es la sesión 6, con entrega el 12 de noviembre de 2026. Es un monorepo con `apps/web-app` (React, TypeScript, Vite y Material UI) y `apps/core-service` (NestJS), conectados solo por la prueba de salud `GET /api/health` y un panel de verificación.
+- Las evidencias de sesión 3 y de sesiones 4 y 5 ya se entregaron y se conservan como registro, igual que la prueba del prototipo con Katerin del 20 de octubre de 2026.
+- El modelo de la primera versión está cargado en Neon y expuesto por Hasura Cloud con datos ficticios, pero core-service no se conecta a ellos.
+- No crear tablas, permisos, migraciones, servicios o pantallas del MVP, acceso ni conexión con Hasura o Neon sin solicitud expresa.
+- No guardar en el repositorio cadenas de conexión, secretos de administración ni otras credenciales. Los `.env` no se versionan; solo `.env.example`, sin secretos.
+- No afirmar que las funciones web o la autenticación están implementadas o probadas en producción.
 - Tras la prueba del 20 de octubre de 2026, el prototipo incluye filtro por mes en las listas, creación de categoría desde el formulario de gasto, motivo obligatorio cuando el valor del taxi difiere de la cuota y registro automático de $5.000 para el conductor (el ahorro para su prima) al guardar un ingreso de taxi mayor que cero. Son ajustes de demostración; no están implementados en un producto con persistencia.
 - El login y la recuperación se incluyen en el diseño de sesión 3; no se implementan como parte de esta evidencia. No inventar roles, permisos compartidos ni políticas técnicas de autenticación.
 - Las rutas de la sección 4 de la evidencia de sesión 3 y la pantalla «Resumen mensual» son propuestas de diseño. El prototipo navega por estado y no cambia la URL; no están implementadas ni deben presentarse como arquitectura final.
 - Por recomendación del instructor técnico, la primera versión prioriza vehículos, ingresos, gastos, categorías, registro de SOAT y tecnomecánica sin archivo, consulta por vehículo e ingreso básico. El registro propio, la recuperación de contraseña, el almacenamiento de archivos, el resumen mensual y el registro automático del ahorro para la prima del conductor quedan para una fase posterior; no presentarlos como parte de la primera versión ni descartar las necesidades de Katerin que los originaron.
-- React/Material UI, NestJS, Hasura GraphQL Engine y PostgreSQL en Neon son orientación del instructor, no decisiones cerradas.
+- Por indicación del instructor, la base del monorepo usa React con TypeScript, Vite y Material UI en `apps/web-app`, y NestJS en `apps/core-service`, con npm workspaces. El monorepo se ejecuta con Node 24 LTS (`.node-version`).
+- El prototipo de sesión 3 conserva Node 22 y su propio npm y `package-lock.json` para el flujo de GitHub Pages.
+- Hasura GraphQL Engine y PostgreSQL en Neon siguen como orientación para una etapa posterior; no presentarlos como conectados.
 - No adelantar actividades posteriores ni implementar funcionalidades sin solicitud expresa.
 - No modificar el prototipo ni el CSS para obtener o mejorar una captura. Si una captura revela un problema de layout, reportarlo antes de tocar el código.
-- No hacer commits salvo que Ivan lo solicite.
+- No hacer commits ni push salvo que Ivan lo solicite.
 - En los mensajes de commit usar los prefijos `docs`, `feat`, `fix` y `chore`. No reescribir los commits anteriores para unificarlos.
 - Al hacer el commit de una entrega, crear una etiqueta anotada con la sesión y la versión del documento, por ejemplo `sesion-4-v0.1`, solo cuando Ivan lo pida.
 - Reglas de edición/eliminación acordadas: un vehículo con registros se desactiva para conservarlos; sin registros se puede eliminar con confirmación. Los ingresos y gastos se eliminan definitivamente con confirmación. Los documentos se pueden editar y reemplazar; al eliminarlos también se elimina su archivo. Las categorías usadas se renombrarán o desactivarán para conservar los gastos históricos.
@@ -55,6 +63,7 @@
 - En pantallas y formularios, cuidar accesibilidad y uso desde distintos tamaños de pantalla: etiquetas comprensibles, navegación por teclado, foco visible, contraste suficiente y mensajes claros para estados de carga, éxito, vacío y error.
 - No presentar una función como terminada ni una comprobación como realizada si no se implementó o verificó. Explicar cualquier límite pendiente.
 - No agregar herramientas, dependencias ni patrones de arquitectura por costumbre; primero confirmar que la tecnología elegida para el proyecto los necesita.
+- Usar la versión estable recomendada de cada herramienta, como la etiqueta `latest` de npm o la LTS de Node, aunque la clase muestre otra. Antes de adoptarla, comprobar que funciona. Registrar el cambio en la evidencia.
 
 ## Documentación
 
@@ -63,7 +72,11 @@
 - Mantener AGENTS.md como reglas estables: no incluir métricas de una entrega, hashes de commit ni rutas absolutas; esos datos van en README o en la evidencia.
 - Conservar las evidencias anteriores como registros históricos. Añadir una nota o referencia a la evidencia nueva si un pendiente antiguo ya fue resuelto; no borrar ni reescribir el historial para hacerlo parecer contemporáneo.
 - Al cerrar una evidencia, verificar que los documentos enlazados existan, que no haya fechas o decisiones contradictorias y que el estado del proyecto no presente como implementado lo que solo está planeado. Actualizar el estado de la entrega solo cuando esté confirmada; no dejar una fecha vencida como si todavía fuera futura.
-- Desde la evidencia de sesión 4, cada evidencia indica en el encabezado su versión y fecha, y cierra con un historial de versiones: 0.x para borradores y revisiones parciales, 1.0 para la entrega completa. No añadir versiones a las evidencias anteriores.
+- Desde la evidencia de sesión 4, cada evidencia indica en el encabezado su versión y fecha, y cierra con un historial de versiones: 0.x para borradores y revisiones parciales, 1.0 para la entrega completa, salvo que Ivan decida entregar una versión 0.x. No añadir versiones a las evidencias anteriores.
+- Registrar cada prompt usado para programar con:
+  - Sus siete elementos: rol, objetivo, contexto, datos o archivos, restricciones, formato de salida y criterios de aceptación.
+  - El texto exacto enviado.
+  - Las comprobaciones con su resultado real.
 - El Markdown es la fuente de verdad de cada evidencia. El PDF es un derivado para entrega, no se versiona y se guarda en la ruta externa que indique Ivan. Al generarlo, verificar que cada ficha quede junto a sus capturas y que las tablas no dupliquen filas ni dejen una fila huérfana.
 - Compactar una evidencia puede reducir fichas o capturas, pero no debe reducir el mapa completo de pantallas ni la cobertura de historias. Las variantes no capturadas se describen en el mapa y en las fichas.
 - Conservar las capturas antiguas no referenciadas como archivo; no borrarlas al actualizar una evidencia.
