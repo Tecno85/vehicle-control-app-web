@@ -20,6 +20,7 @@
 | Fecha real | Trabajo realizado | Comprobación o resultado | Archivos |
 |---|---|---|---|
 | 7 nov 2026 | Registré la entrega de la evidencia de sesiones 4 y 5. DeepSeek revisó el plan y lo ajusté. Ejecuté los prompts 1 y 2, pasé core-service a NestJS 12 con Node 24 LTS, repetí las comprobaciones y ejecuté el prompt 3, con sus capturas. Después agregué en la raíz los atajos de pruebas y lint, ordené el índice de evidencias del README y compacté esta evidencia, agrupando las comprobaciones repetidas | Commits `b189467`, del paso 0, `1b7ccc9`, del código, y `be915cf`, de los atajos, subidos a `origin/main`. Con los atajos pasan las mismas pruebas: 2 unitarias y 1 e2e. Las pruebas de conexión están en el apartado 5, y las de cada prompt, en el 6 | README, AGENTS.md, contexto, configuración de la raíz, `apps/` y capturas |
+| 8 nov 2026 | Corregí esta evidencia después de revisarla: el orden de instalación al rehacer core-service, los casos de error que no probé aparte y las decisiones que se habían quedado sin autor. También dejé como opcional en AGENTS.md guardar la planificación en la carpeta de cada sesión | Commits `5347d18` y `6a7fef6`, subidos a `origin/main`. El texto de los tres prompts no cambió | Esta evidencia y AGENTS.md |
 
 ## 3. Estructura del monorepo
 
@@ -55,7 +56,7 @@
 
 ## 4. Cómo funciona la verificación
 
-Al pulsar «Verificar conexión», `checkHealth()` lee `VITE_API_URL` y pide `${VITE_API_URL}/health` con `fetch`. core-service atiende `GET /api/health`, con el prefijo `api` y CORS solo para `http://localhost:5173`, y responde `{ status: 'ok', service: 'core-service' }`. La web comprueba la forma de la respuesta y muestra una sola alerta: el éxito o un mensaje claro para cada error. Los casos que probé están en el apartado 5. El código usa el mismo mensaje de conexión si la dirección es otra o si el navegador bloquea la respuesta por CORS, y para cualquier otra falla tiene «Ocurrió un error inesperado. Vuelve a intentarlo.» Estos tres casos no los probé aparte.
+Al pulsar «Verificar conexión», `checkHealth()` lee `VITE_API_URL` y pide `${VITE_API_URL}/health` con `fetch`. core-service atiende `GET /api/health`, con el prefijo `api` y CORS solo para `http://localhost:5173`, y responde `{ status: 'ok', service: 'core-service' }`. La web comprueba la forma de la respuesta y muestra una sola alerta: el éxito o un mensaje claro para cada error. Los casos que probé están en el apartado 5. El mensaje que se ve con el servicio detenido es el mismo si en la dirección configurada no responde nada o si el navegador bloquea la respuesta por CORS. El código también tiene un mensaje de respaldo, «Ocurrió un error inesperado. Vuelve a intentarlo.», para un fallo imprevisto. No probé aparte el bloqueo por CORS ni ese respaldo.
 
 | Papel, según la clase | Archivo | Responsabilidad |
 |---|---|---|
