@@ -22,7 +22,7 @@
 | Fecha real | Trabajo realizado | Comprobación o resultado | Archivos |
 |---|---|---|---|
 | 7 nov 2026 | Registré la entrega de la evidencia de sesiones 4 y 5. DeepSeek revisó el plan y lo ajusté. Ejecuté los prompts 1 y 2, pasé core-service a NestJS 12 con Node 24 LTS, repetí las comprobaciones y ejecuté el prompt 3, con sus capturas. Después agregué en la raíz los atajos de pruebas y lint, ordené el índice de evidencias del README y compacté esta evidencia, agrupando las comprobaciones repetidas | Commits `b189467`, del paso 0, `1b7ccc9`, del código, y `be915cf`, de los atajos, subidos a `origin/main`. Con los atajos pasan las mismas pruebas: 2 unitarias y 1 e2e. Las pruebas de conexión están en el apartado 5, y las de cada prompt, en el 6 | README, AGENTS.md, contexto, configuración de la raíz, `apps/` y capturas |
-| 8 nov 2026 | Corregí esta evidencia después de revisarla con Claude Code: el orden de instalación al rehacer core-service, los casos de error que no probé aparte y las decisiones que se habían quedado sin autor. También dejé como opcional en AGENTS.md guardar la planificación en la carpeta de cada sesión. Después reescribí los párrafos en lenguaje sencillo y en primera persona, y dejé esa regla en AGENTS.md | Commits del 8 de noviembre, subidos a `origin/main`. El texto de los tres prompts no cambió | Esta evidencia y AGENTS.md |
+| 8 nov 2026 | Corregí esta evidencia después de revisarla con Claude Code: el orden de instalación al rehacer core-service, los casos de error que no probé aparte y las decisiones que se habían quedado sin autor. También dejé como opcional en AGENTS.md guardar la planificación en la carpeta de cada sesión. Después reescribí los párrafos en lenguaje sencillo y en primera persona, y dejé esa regla en AGENTS.md. Por último, volví a tomar las tres capturas con más nitidez | Commits del 8 de noviembre, subidos a `origin/main`. El texto de los tres prompts no cambió. Al repetir las tres fases, los mensajes y las respuestas fueron los mismos | Esta evidencia, AGENTS.md y capturas |
 
 ## 3. Estructura del monorepo
 
@@ -84,17 +84,19 @@ Al pulsar «Verificar conexión», `checkHealth()` lee la dirección de `VITE_AP
 | 2. Servicio detenido | Detener core-service y pulsar | Error visible y botón habilitado | «No se pudo conectar con core-service. Revisa que esté en marcha y vuelve a intentarlo.» El navegador registró `net::ERR_CONNECTION_REFUSED` y el botón quedó habilitado | 02 |
 | 3. Recuperación | Arrancar core-service y pulsar de nuevo | «Conectado: core-service» | «Conectado: core-service», con 200 | 03 |
 
+**Sobre las capturas.** El 8 de noviembre repetí las tres fases de la misma forma, solo para tomarlas de nuevo con más nitidez: tienen el triple de resolución y muestran únicamente la zona del contenido de esa misma ventana. Los mensajes y las respuestas fueron los mismos. Las anteriores siguen en la misma carpeta.
+
 **Captura 01.** Servicio activo: la web muestra «Conectado: core-service».
 
-![Pantalla de verificación con la alerta verde «Conectado: core-service»](evidencia-sesion-6/capturas/01-conectado.png)
+![Pantalla de verificación con la alerta verde «Conectado: core-service»](evidencia-sesion-6/capturas/01-conectado-3x.png)
 
 **Captura 02.** Servicio detenido: la web muestra el error y el botón sigue disponible.
 
-![Pantalla de verificación con la alerta roja «No se pudo conectar con core-service»](evidencia-sesion-6/capturas/02-servicio-detenido.png)
+![Pantalla de verificación con la alerta roja «No se pudo conectar con core-service»](evidencia-sesion-6/capturas/02-servicio-detenido-3x.png)
 
 **Captura 03.** Servicio reiniciado: en la misma pestaña, la web vuelve a mostrar «Conectado: core-service».
 
-![Pantalla de verificación de nuevo con la alerta verde «Conectado: core-service»](evidencia-sesion-6/capturas/03-recuperacion.png)
+![Pantalla de verificación de nuevo con la alerta verde «Conectado: core-service»](evidencia-sesion-6/capturas/03-recuperacion-3x.png)
 
 **Otras comprobaciones**
 
@@ -424,4 +426,4 @@ Comando de instalación: `npm install -w apps/web-app @mui/material @emotion/rea
 
 | Versión | Fecha | Cambios |
 |---|---|---|
-| 0.1 | 8 de noviembre de 2026 | Primera versión: base del monorepo, prueba de conexión y registro de los tres prompts. La empecé el 7 de noviembre y la corregí y reescribí en lenguaje sencillo el 8. |
+| 0.1 | 8 de noviembre de 2026 | Primera versión: base del monorepo, prueba de conexión y registro de los tres prompts. La empecé el 7 de noviembre; el 8 la corregí, simplifiqué el lenguaje y repetí las capturas. |
