@@ -19,7 +19,7 @@
 
 | Fecha real | Trabajo realizado | Comprobación o resultado | Archivos |
 |---|---|---|---|
-| 7 nov 2026 | Registré la entrega de la evidencia de sesiones 4 y 5. DeepSeek revisó el plan y lo ajusté. Ejecuté los prompts 1 y 2, pasé core-service a NestJS 12 con Node 24 LTS y ejecuté el prompt 3, con sus capturas. Después agregué en la raíz los atajos de pruebas y lint, ordené el índice de evidencias del README y compacté esta evidencia sin quitar comprobaciones | Commits `b189467`, del paso 0, `1b7ccc9`, del código, y `be915cf`, de los atajos, subidos a `origin/main`. Con los atajos pasan las mismas pruebas: 2 unitarias y 1 e2e. Las pruebas de conexión están en el apartado 5, y las de cada prompt, en el 6 | README, AGENTS.md, contexto, configuración de la raíz, `apps/` y capturas |
+| 7 nov 2026 | Registré la entrega de la evidencia de sesiones 4 y 5. DeepSeek revisó el plan y lo ajusté. Ejecuté los prompts 1 y 2, pasé core-service a NestJS 12 con Node 24 LTS, repetí las comprobaciones y ejecuté el prompt 3, con sus capturas. Después agregué en la raíz los atajos de pruebas y lint, ordené el índice de evidencias del README y compacté esta evidencia, agrupando las comprobaciones repetidas | Commits `b189467`, del paso 0, `1b7ccc9`, del código, y `be915cf`, de los atajos, subidos a `origin/main`. Con los atajos pasan las mismas pruebas: 2 unitarias y 1 e2e. Las pruebas de conexión están en el apartado 5, y las de cada prompt, en el 6 | README, AGENTS.md, contexto, configuración de la raíz, `apps/` y capturas |
 
 ## 3. Estructura del monorepo
 
@@ -55,7 +55,7 @@
 
 ## 4. Cómo funciona la verificación
 
-Al pulsar «Verificar conexión», `checkHealth()` lee `VITE_API_URL` y pide `${VITE_API_URL}/health` con `fetch`. core-service atiende `GET /api/health`, con el prefijo `api` y CORS solo para `http://localhost:5173`, y responde `{ status: 'ok', service: 'core-service' }`. La web comprueba la forma de la respuesta y muestra una sola alerta: el éxito o un mensaje claro para cada error, como se ve en el apartado 5. El mensaje de conexión es el mismo si el servicio está detenido, si la dirección es otra o si el navegador bloquea la respuesta por CORS, y cualquier otra falla muestra «Ocurrió un error inesperado. Vuelve a intentarlo.»
+Al pulsar «Verificar conexión», `checkHealth()` lee `VITE_API_URL` y pide `${VITE_API_URL}/health` con `fetch`. core-service atiende `GET /api/health`, con el prefijo `api` y CORS solo para `http://localhost:5173`, y responde `{ status: 'ok', service: 'core-service' }`. La web comprueba la forma de la respuesta y muestra una sola alerta: el éxito o un mensaje claro para cada error. Los casos que probé están en el apartado 5. El código usa el mismo mensaje de conexión si la dirección es otra o si el navegador bloquea la respuesta por CORS, y para cualquier otra falla tiene «Ocurrió un error inesperado. Vuelve a intentarlo.» Estos tres casos no los probé aparte.
 
 | Papel, según la clase | Archivo | Responsabilidad |
 |---|---|---|
@@ -185,7 +185,7 @@ Texto exacto enviado:
 
 **Observaciones y decisiones:**
 - **core-service sin `.gitignore` propio.** Con `--skip-git`, la CLI de Nest no lo crea; el `.gitignore` de la raíz cubre `node_modules`, `dist` y `coverage`.
-- **Avisos de npm.** `npm install` informó 30 avisos de seguridad (5 bajos, 23 moderados y 2 altos, estos de `multer` 2.4.0), y que `eslint` 9.39.5 y `glob` 10.5.0 están obsoletos. `npm audit fix`, sin `--force`, no corrigió `multer` (apartado 7).
+- **Avisos de npm.** `npm install` informó 30 avisos de seguridad (5 bajos, 23 moderados y 2 altos, estos de `multer` 2.4.0), y que `eslint` 9.39.5 y `glob` 10.5.0 están obsoletos. El 7 de noviembre decidí aplicar `npm audit fix`, sin `--force`, y no corrigió `multer` (apartado 7).
 - **README en inglés.** Quité los de las dos plantillas, porque el README de la raíz explica cómo ejecutar todo.
 
 ### Prompt 2 · Endpoint de salud en NestJS (7 de noviembre de 2026)
@@ -282,8 +282,8 @@ La CLI creó el módulo, el controlador, el servicio y sus pruebas, los registr�
   ```bash
   npx --yes @nestjs/cli@12 new core-service --directory apps/core-service --package-manager npm --skip-git --skip-install
   ```
-  De la plantilla quité el `README.md`; el `AGENTS.md`, con instrucciones para agentes que promueven NestJS Observe, porque el repositorio ya tiene el suyo; y `@nestjs/mau` con el script `deploy`, que sirven para desplegar en la nube de NestJS (apartado 7). Conservé `.gitattributes`, que solo fija el fin de línea.
-- **Prompt 2 repetido** con los mismos comandos `nest g` y los mismos archivos. Ahora las importaciones relativas terminan en `.js`, porque la plantilla usa módulos ESM. Después instalé con `npm install` desde la raíz.
+  De la plantilla quité el `README.md`; el `AGENTS.md`, con instrucciones para agentes que promueven NestJS Observe, porque el repositorio ya tiene el suyo; y `@nestjs/mau` con el script `deploy`, que sirven para desplegar en la nube de NestJS (apartado 7). Conservé `.gitattributes`, que solo fija el fin de línea. Después instalé con `npm install` desde la raíz.
+- **Prompt 2 repetido** con los mismos comandos `nest g` y los mismos archivos. Ahora las importaciones relativas terminan en `.js`, porque la plantilla usa módulos ESM.
 
 **Diferencias entre las plantillas 11 y 12**
 
@@ -387,7 +387,8 @@ Comando de instalación: `npm install -w apps/web-app @mui/material @emotion/rea
 - **Servidor falso.** Va dentro del mismo script temporal, no como archivo aparte, como decía el plan. Responde en el puerto 3999 con el encabezado CORS de `http://localhost:5173`.
 
 **Observaciones:**
-- **Botón y foco.** El tema por defecto de MUI muestra el botón en mayúsculas, «VERIFICAR CONEXIÓN», aunque el lector de pantalla lee «Verificar conexión», y su foco de teclado es un brillo discreto sobre el color del botón. Decidí dejarlos así por ahora; si quiero cambiarlos, lo haré más adelante.
+- **Botón y foco.** El tema por defecto de MUI muestra el botón en mayúsculas, «VERIFICAR CONEXIÓN», aunque el lector de pantalla lee «Verificar conexión», y su foco de teclado es un brillo discreto sobre el color del botón.
+- **Mi decisión, el 7 de noviembre de 2026:** dejo por ahora el botón y su foco como los muestra el tema por defecto de MUI. Si más adelante quiero cambiarlos, lo haré en otro momento.
 - **Aviso de npm 11.** `fsevents` 2.3.3 tiene scripts de instalación que su lista de permitidos (`allowScripts`) aún no cubre. Es un paquete opcional de macOS para vigilar archivos, y la instalación terminó sin errores.
 
 ## 7. Problemas encontrados
@@ -395,7 +396,7 @@ Comando de instalación: `npm install -w apps/web-app @mui/material @emotion/rea
 | Síntoma | Causa | Solución |
 |---|---|---|
 | `npm audit` marca 2 avisos altos en `multer` 2.4.0 y `npm audit fix` no los corrige | `@nestjs/platform-express` 11.2.8, la última versión 11, exige exactamente `multer` 2.4.0. La versión corregida, 2.5.0, solo la usa NestJS 12 | Decidí pasar a NestJS 12 (apartado 6). `npm audit` queda en 0 avisos |
-| La CLI de NestJS 12 se detiene con `ERR_REQUIRE_CYCLE_MODULE` | Node 22.13.0, la versión por defecto de mi equipo, no resuelve un ciclo al cargar con `require` módulos ESM de la CLI. Con Node 22.23.1 y 24.22.2 sí arranca. Con el lockfile, Node 22.13.0 instala bien con `npm ci`, pero el build de core-service falla con el mismo error | Node 24 LTS para este proyecto, en `.node-version`. El README lo indica como requisito y en «Solución de problemas» |
+| La CLI de NestJS 12 se detiene con `ERR_REQUIRE_CYCLE_MODULE` | Node 22.13.0, la versión por defecto de mi equipo, no resuelve un ciclo al cargar con `require` módulos ESM de la CLI. Con Node 22.23.1 y 24.22.2 sí arranca. En una copia del repositorio con el lockfile, Node 22.13.0 instala bien con `npm ci`, pero el build de core-service falla con el mismo error | Node 24 LTS para este proyecto, en `.node-version`. El README lo indica como requisito y en «Solución de problemas» |
 | npm 10 no logra instalar la plantilla de NestJS 12: «Cannot read properties of null (reading 'edgesOut')» | Falla al resolver las `peerDependencies`, con npm 10.9.2 (Node 22.13.0) y 10.9.8 (Node 22.23.1) | Node 24 LTS, que trae npm 11 e instala sin errores |
 | Con `@nestjs/mau`, la plantilla de NestJS 12 da 5 avisos (2 bajos, 1 moderado y 2 altos), en `undici` y `tmp` | Es un paquete para desplegar en la nube de NestJS, y esos avisos vienen de sus dependencias | Lo quité, junto con el script `deploy`, porque el despliegue está fuera del alcance. Sin él, 0 avisos |
 | Después de compilar, `git status` mostraba `apps/core-service/tsconfig.build.tsbuildinfo` | La plantilla activa la compilación incremental, y TypeScript guarda ese archivo junto al `tsconfig`, fuera de `dist/` | Agregué `*.tsbuildinfo` al `.gitignore` de la raíz |
