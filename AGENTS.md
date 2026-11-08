@@ -69,7 +69,7 @@
 
 - El código del producto va en `apps/<app>`. El prototipo de la sesión 3 queda aparte, con su propio npm.
 - Cada evidencia nueva va en `docs/evidencia-sesion-N-tema.md`, y sus recursos en `docs/evidencia-sesion-N/` (las capturas, en `capturas/`). Las evidencias anteriores conservan su nombre y ruta, porque los PDF entregados enlazan a ellas.
-- Fuera del repositorio, cada sesión tiene su carpeta en `Asesor_Técnico/Sesión_N`, con los materiales del instructor, el PDF de la evidencia y su planificación. En la raíz de `Asesor_Técnico` solo va lo que abarca varias sesiones.
+- Fuera del repositorio, cada sesión tiene su carpeta en `Asesor_Técnico/Sesión_N`, con los materiales del instructor y el PDF de la evidencia. Conservar allí la planificación de trabajo es opcional. En la raíz de `Asesor_Técnico` solo va lo que abarca varias sesiones.
 - La tabla «Evidencias» del README es el índice: cada sesión suma una fila y cambia su estado cuando se entrega.
 - Orden para cerrar una entrega: commit `feat` del código; evidencia, README, contexto y AGENTS.md; comprobaciones; PDF; commit `docs`; push y etiqueta, cuando Ivan lo pida; y, al enviarla, la fecha real en el README y el contexto.
 
