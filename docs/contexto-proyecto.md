@@ -1,7 +1,7 @@
 # Contexto del proyecto VehicleControlApp Web
 
-**Estado del contexto:** 7 de noviembre de 2026
-**Actividad actual:** sesión 6, monorepo con React y NestJS, para el 12 de noviembre de 2026. La evidencia de sesiones 4 y 5 se entregó el 6 de noviembre de 2026 en su versión 0.8.
+**Estado del contexto:** 15 de noviembre de 2026
+**Actividad actual:** sesión 6, monorepo con React y NestJS. El 12 de noviembre de 2026 no hubo encuentro con el instructor y él no pidió entregar su evidencia, que queda en la versión 0.1. La evidencia de sesiones 4 y 5 se entregó el 6 de noviembre de 2026 en su versión 0.8.
 **Modalidad de trabajo:** individual.
 
 ## 1. Ficha del proyecto
@@ -39,6 +39,7 @@
 | 31 oct 2026 | Ajustes a los servicios tras revisar la evidencia | Decidí que los ingresos y los gastos no acepten una fecha posterior al día actual. Amplié la consulta (S06) con las listas de ingresos, gastos y documentos por mes y los próximos vencimientos de la flota, que usan pantallas de la primera versión. | Es diseño: la regla de fechas la validaría el servicio y no está en la base cargada en Neon; el prototipo todavía permite fechas futuras. Detalle en la versión 0.7 de la [evidencia de sesiones 4 y 5](evidencia-sesion-4-modelo-datos-servicios.md). |
 | 6 nov 2026 | Entrega de la evidencia de sesiones 4 y 5 | Entregué la versión 0.8: alcance y proceso del MVP, modelo de datos, servicios S01 a S12 y revisión del diseño. | Es diseño: no hay servicios programados y la aplicación no está conectada a Hasura. Detalle en la [evidencia de sesiones 4 y 5](evidencia-sesion-4-modelo-datos-servicios.md). |
 | 7 nov 2026 | Monorepo de la sesión 6 | Por indicación del instructor, organicé el repositorio como monorepo con `apps/web-app` (React, TypeScript, Vite y MUI) y `apps/core-service` (NestJS). Los conecta la prueba de salud `GET /api/health`, y un panel en React muestra éxito, error y recuperación. Registré tres prompts con sus comprobaciones. Decidí usar NestJS 12 con Node 24 LTS, las versiones estables recomendadas. | Es una base técnica: no hay funciones del MVP, acceso ni conexión con Hasura o Neon. Detalle en la [evidencia de sesión 6](evidencia-sesion-6-monorepo-react-nestjs.md). |
+| 12 nov 2026 | Encuentro con el instructor que no se realizó, reportado por Ivan | No hubo encuentro con el instructor y él no pidió entregar la evidencia de sesión 6. | La evidencia queda en la versión 0.1. La fecha del próximo encuentro está por definir. |
 | Sin fecha especificada | Observación previa de Katerin sobre Android | El término “Registro de documentos” le resultó confuso; también sugirió adjuntar imágenes de facturas. | Mantener como observación distinta de la retroalimentación del 2 de octubre. La propuesta de facturas no se incorpora automáticamente al alcance inicial. |
 | Fechas y condiciones distintas, no detalladas aquí | Antecedente de pruebas Android | Katerin y Jean Carlos probaron el MVP Android en momentos y condiciones distintos. | No combinar sus pruebas ni atribuir resultados específicos sin evidencia separada. |
 
@@ -126,7 +127,7 @@ Tras la retroalimentación del 27 de octubre de 2026, HU-04 se implementa primer
 - En la [evidencia de sesión 2](evidencia-sesion-2-requerimientos-backlog.md) registré la consulta breve que realicé con Katerin el 12 de octubre. La entregué el 15 de octubre de 2026.
 - La [evidencia de sesión 3](evidencia-sesion-3-diseno-pantallas.md) documenta el diseño de pantallas, los prototipos visuales y los acuerdos posteriores sobre cuentas y edición/eliminación. Ya se entregó; la fecha indicada era el 22 de octubre de 2026. La prueba con Katerin se realizó el 20 de octubre de 2026 y sus resultados están en esa evidencia.
 - La [evidencia de sesiones 4 y 5](evidencia-sesion-4-modelo-datos-servicios.md) documenta el proceso del MVP, el modelo de datos, los servicios principales y la revisión del diseño. La versión 0.8 completa los cuatro apartados y se entregó el 6 de noviembre de 2026.
-- La [evidencia de sesión 6](evidencia-sesion-6-monorepo-react-nestjs.md) documenta la base del monorepo, la prueba de conexión entre React y NestJS y el registro de tres prompts. Se entrega el 12 de noviembre de 2026.
+- La [evidencia de sesión 6](evidencia-sesion-6-monorepo-react-nestjs.md) documenta la base del monorepo, la prueba de conexión entre React y NestJS y el registro de tres prompts. Queda en la versión 0.1: el 12 de noviembre de 2026 no hubo encuentro con el instructor y él no pidió entregarla.
 - Katerin revisó inicialmente el flujo web el 28 de septiembre, pidió adjuntar soportes el 2 de octubre, validó el proceso y el avance Android el 8 de octubre, respondió preguntas breves el 12 de octubre y probó el prototipo web el 20 de octubre; en esa prueba revisó la identidad visual y le pareció adecuada. Estos contactos no se deben combinar.
 
 ## 7. Base técnica y orientación
