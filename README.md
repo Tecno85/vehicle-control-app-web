@@ -28,7 +28,7 @@ También reúne la documentación de descubrimiento y diseño, y el prototipo re
 
 La [evidencia de sesiones 4 y 5](docs/evidencia-sesion-4-modelo-datos-servicios.md) se entregó el 6 de noviembre de 2026 en su versión 0.8. Completa el diseño: alcance de la primera versión, proceso del MVP, seis tablas con sus campos y relaciones, servicios principales con sus contratos y revisión del diseño. Por indicación del instructor, el script [`modelo-inicial.sql`](docs/evidencia-sesion-4/modelo-inicial.sql) ya se ejecutó en Neon y Hasura Cloud expone esas tablas como API GraphQL, con datos de prueba ficticios. Todavía no están programados los servicios S01 a S12, la autenticación ni los permisos, y la aplicación no está conectada a esa API.
 
-La actividad más reciente es la sesión 6. Su [evidencia](docs/evidencia-sesion-6-monorepo-react-nestjs.md) documenta la base del monorepo, la prueba de conexión entre React y NestJS y el registro de tres prompts. El 12 de noviembre de 2026 no hubo encuentro con el instructor y él no pidió entregarla, así que queda en la versión 0.1.
+La actividad más reciente es la sesión 6. Su [evidencia](docs/evidencia-sesion-6-monorepo-react-nestjs.md) documenta la base del monorepo, la prueba de conexión entre React y NestJS y el registro de tres prompts. El 12 de noviembre de 2026 no hubo encuentro con el instructor y él no pidió entregarla, así que queda en la versión 0.1. Ese día indicó por WhatsApp seguir avanzando con el desarrollo del proyecto.
 
 El [prototipo de sesión 3 está publicado en GitHub Pages](https://tecno85.github.io/vehicle-control-app-web/). Se puede recorrer en escritorio y móvil; la vista móvil es adaptable y no es una aplicación nativa.
 
@@ -61,7 +61,7 @@ El [prototipo de sesión 3 está publicado en GitHub Pages](https://tecno85.gith
 | 4 y 5 | [Modelo de datos y servicios](docs/evidencia-sesion-4-modelo-datos-servicios.md): alcance de la primera versión, proceso del MVP, seis tablas con su diagrama, campos y relaciones, modelo cargado en Neon y Hasura, servicios S01 a S12 con sus contratos, revisión del diseño y dudas abiertas | 6 nov 2026 | Entregada (versión 0.8) |
 | 6 | [Monorepo con React y NestJS](docs/evidencia-sesion-6-monorepo-react-nestjs.md): base del monorepo, prueba de conexión con éxito, error y recuperación, y registro de tres prompts con sus comprobaciones | 12 nov 2026 | No solicitada (versión 0.1) |
 
-El instructor trasladó dos fechas de las sesiones 4 y 5: la revisión de los apartados 1 y 2 pasó del 29 al 30 de octubre, y el documento completo, del 5 al 6 de noviembre de 2026. El 12 de noviembre de 2026 no hubo encuentro con el instructor y él no pidió entregar la evidencia de sesión 6.
+El instructor trasladó dos fechas de las sesiones 4 y 5: la revisión de los apartados 1 y 2 pasó del 29 al 30 de octubre, y el documento completo, del 5 al 6 de noviembre de 2026. El 12 de noviembre de 2026 no hubo encuentro con el instructor y él no pidió entregar la evidencia de sesión 6. Ese día indicó por WhatsApp seguir avanzando con el desarrollo del proyecto.
 
 ## Ejecutar el monorepo
 

@@ -33,7 +33,7 @@
 
 ## Límites de implementación y etapa
 
-- La actividad más reciente es la sesión 6; el instructor no pidió entregar su evidencia, que queda en la versión 0.1. Es un monorepo con `apps/web-app` (React, TypeScript, Vite y Material UI) y `apps/core-service` (NestJS), conectados solo por la prueba de salud `GET /api/health` y un panel de verificación.
+- La actividad más reciente es la sesión 6; el instructor no pidió entregar su evidencia, que queda en la versión 0.1, y por WhatsApp indicó seguir avanzando con el desarrollo del proyecto. Es un monorepo con `apps/web-app` (React, TypeScript, Vite y Material UI) y `apps/core-service` (NestJS), conectados solo por la prueba de salud `GET /api/health` y un panel de verificación.
 - Las evidencias de las sesiones 1 a 5 ya se entregaron y se conservan como registro, igual que la prueba del prototipo con Katerin del 20 de octubre de 2026.
 - El modelo de la primera versión está cargado en Neon y expuesto por Hasura Cloud con datos ficticios, pero core-service no se conecta a ellos.
 - No crear tablas, permisos, migraciones, servicios o pantallas del MVP, acceso ni conexión con Hasura o Neon sin solicitud expresa.
