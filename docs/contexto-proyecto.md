@@ -1,7 +1,7 @@
 # Contexto del proyecto VehicleControlApp Web
 
-**Estado del contexto:** 15 de noviembre de 2026
-**Actividad actual:** sesión 6, monorepo con React y NestJS. El 12 de noviembre de 2026 no hubo encuentro con el instructor y él no pidió entregar su evidencia, que queda en la versión 0.1. Ese día indicó por WhatsApp seguir avanzando con el desarrollo del proyecto. La evidencia de sesiones 4 y 5 se entregó el 6 de noviembre de 2026 en su versión 0.8.
+**Estado del contexto:** 17 de noviembre de 2026
+**Actividad actual:** sesión 7, conexión de core-service con Hasura, según la semana 5 de la cartilla del instructor. Está en la versión 0.1 y su entrega está por definir. El 12 de noviembre de 2026 no hubo encuentro con el instructor: no pidió entregar la evidencia de sesión 6, que queda en la versión 0.1, y por WhatsApp indicó seguir avanzando con el desarrollo del proyecto. La evidencia de sesiones 4 y 5 se entregó el 6 de noviembre de 2026 en su versión 0.8.
 **Modalidad de trabajo:** individual.
 
 ## 1. Ficha del proyecto
@@ -40,6 +40,7 @@
 | 6 nov 2026 | Entrega de la evidencia de sesiones 4 y 5 | Entregué la versión 0.8: alcance y proceso del MVP, modelo de datos, servicios S01 a S12 y revisión del diseño. | Es diseño: no hay servicios programados y la aplicación no está conectada a Hasura. Detalle en la [evidencia de sesiones 4 y 5](evidencia-sesion-4-modelo-datos-servicios.md). |
 | 7 nov 2026 | Monorepo de la sesión 6 | Por indicación del instructor, organicé el repositorio como monorepo con `apps/web-app` (React, TypeScript, Vite y MUI) y `apps/core-service` (NestJS). Los conecta la prueba de salud `GET /api/health`, y un panel en React muestra éxito, error y recuperación. Registré tres prompts con sus comprobaciones. Decidí usar NestJS 12 con Node 24 LTS, las versiones estables recomendadas. | Es una base técnica: no hay funciones del MVP, acceso ni conexión con Hasura o Neon. Detalle en la [evidencia de sesión 6](evidencia-sesion-6-monorepo-react-nestjs.md). |
 | 12 nov 2026 | Encuentro que no se realizó y comunicación del instructor por WhatsApp, reportados por Ivan | No hubo encuentro con el instructor y él no pidió entregar la evidencia de sesión 6. Por WhatsApp indicó seguir avanzando con el desarrollo del proyecto. | La evidencia queda en la versión 0.1. La fecha del próximo encuentro está por definir. |
+| 15 a 17 nov 2026 | Conexión de core-service con Hasura (sesión 7), decidida por Ivan tras la indicación del instructor | Versioné en `infra/hasura/` la migración del modelo, los datos de prueba ficticios y la metadata exportada de Hasura Cloud. core-service tiene un cliente interno de Hasura y la consulta de prueba `GET /api/health/hasura`, y la web, un cliente HTTP hacia core-service. En la prueba real, Hasura Cloud respondió el conteo de vehículos. | Es una conexión técnica: no hay servicios del MVP, acceso ni pantallas que usen datos. Detalle en la [evidencia de sesión 7](evidencia-sesion-7-conexion-hasura.md). |
 | Sin fecha especificada | Observación previa de Katerin sobre Android | El término “Registro de documentos” le resultó confuso; también sugirió adjuntar imágenes de facturas. | Mantener como observación distinta de la retroalimentación del 2 de octubre. La propuesta de facturas no se incorpora automáticamente al alcance inicial. |
 | Fechas y condiciones distintas, no detalladas aquí | Antecedente de pruebas Android | Katerin y Jean Carlos probaron el MVP Android en momentos y condiciones distintos. | No combinar sus pruebas ni atribuir resultados específicos sin evidencia separada. |
 
@@ -128,6 +129,7 @@ Tras la retroalimentación del 27 de octubre de 2026, HU-04 se implementa primer
 - La [evidencia de sesión 3](evidencia-sesion-3-diseno-pantallas.md) documenta el diseño de pantallas, los prototipos visuales y los acuerdos posteriores sobre cuentas y edición/eliminación. Ya se entregó; la fecha indicada era el 22 de octubre de 2026. La prueba con Katerin se realizó el 20 de octubre de 2026 y sus resultados están en esa evidencia.
 - La [evidencia de sesiones 4 y 5](evidencia-sesion-4-modelo-datos-servicios.md) documenta el proceso del MVP, el modelo de datos, los servicios principales y la revisión del diseño. La versión 0.8 completa los cuatro apartados y se entregó el 6 de noviembre de 2026.
 - La [evidencia de sesión 6](evidencia-sesion-6-monorepo-react-nestjs.md) documenta la base del monorepo, la prueba de conexión entre React y NestJS y el registro de tres prompts. Queda en la versión 0.1: el 12 de noviembre de 2026 no hubo encuentro con el instructor y él no pidió entregarla. Ese día indicó por WhatsApp seguir avanzando con el desarrollo del proyecto.
+- La [evidencia de sesión 7](evidencia-sesion-7-conexion-hasura.md) documenta la conexión de core-service con Hasura, siguiendo la semana 5 de la cartilla del instructor. Está en la versión 0.1, y su entrega está por definir.
 - Katerin revisó inicialmente el flujo web el 28 de septiembre, pidió adjuntar soportes el 2 de octubre, validó el proceso y el avance Android el 8 de octubre, respondió preguntas breves el 12 de octubre y probó el prototipo web el 20 de octubre; en esa prueba revisó la identidad visual y le pareció adecuada. Estos contactos no se deben combinar.
 
 ## 7. Base técnica y orientación
@@ -136,11 +138,17 @@ Tras la retroalimentación del 27 de octubre de 2026, HU-04 se implementa primer
 - `apps/web-app`, con React, TypeScript, Vite y Material UI.
 - `apps/core-service`, con NestJS.
 
-React consume core-service por HTTP. Por ahora solo existe la prueba de salud `GET /api/health`.
+React consume core-service por HTTP, con el cliente de `src/api/api-client.ts`. Por ahora solo usa la prueba de salud `GET /api/health`.
+
+En la sesión 7, core-service se conectó a Hasura Cloud:
+- Su cliente interno, en `src/hasura/`, envía consultas GraphQL con el secreto de administración. El secreto solo vive en `apps/core-service/.env`, que no se versiona. El cliente tiene un tiempo límite y errores claros.
+- La consulta de prueba `GET /api/health/hasura` cuenta los vehículos.
+- La base de datos y la configuración de Hasura quedaron versionadas en `infra/hasura/`.
+- La web no habla con Hasura.
 
 **Versiones.** Decidí usar las versiones estables recomendadas: NestJS 12 con Node 24 LTS.
 
-**Lo pendiente.** Los materiales del instructor proponen que core-service consulte Hasura por GraphQL y que los datos vivan en PostgreSQL en Neon. El modelo ya está cargado allí, pero core-service no se conecta a ellos. La clase llama a ese paso «el siguiente nivel», y no está hecho.
+**Lo pendiente.** Faltan los servicios del MVP (S01 a S12), el acceso con correo y contraseña y las pantallas que usen datos. En la cartilla del instructor, lo siguiente es el acceso y la autorización (semana 6).
 
 ## 8. Decisiones abiertas antes de implementar
 

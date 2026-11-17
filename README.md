@@ -22,13 +22,15 @@ El formato PDF es el más común indicado por Katerin. Word (.doc/.docx) e imág
 
 ## Estado actual
 
-El repositorio es un monorepo con dos aplicaciones: `apps/web-app` (React, TypeScript y Material UI) y `apps/core-service` (NestJS). Por ahora solo se conectan mediante una prueba de salud: la web consulta `GET /api/health` y muestra si core-service responde. **La aplicación web no contiene funciones del MVP:** no hay pantallas de vehículos, ingresos, gastos ni documentos, ni acceso, autenticación o conexión con la base de datos.
+El repositorio es un monorepo con dos aplicaciones: `apps/web-app` (React, TypeScript y Material UI) y `apps/core-service` (NestJS). Se conectan mediante una prueba de salud: la web consulta `GET /api/health` y muestra si core-service responde. Además, core-service tiene un cliente interno de Hasura y lo prueba con `GET /api/health/hasura`, que solo cuenta los vehículos de la base. **La aplicación web no contiene funciones del MVP:** no hay pantallas de vehículos, ingresos, gastos ni documentos, ni acceso o autenticación, y la web no consulta datos de la base.
 
 También reúne la documentación de descubrimiento y diseño, y el prototipo responsive de la sesión 3 para revisar los recorridos. El prototipo representa las pantallas de acceso, creación de cuenta y recuperación de contraseña, pero sus acciones son simuladas. **El prototipo no es una aplicación lista para producción.** No implementa autenticación real, servidor ni almacenamiento persistente: usa datos de demostración y los cambios se pierden al recargar la página. Los archivos seleccionados solo se muestran durante la sesión del navegador. Katerin probó el prototipo el 20 de octubre de 2026 y revisó la identidad visual; sus observaciones y los ajustes acordados están en la [evidencia de sesión 3](docs/evidencia-sesion-3-diseno-pantallas.md).
 
-La [evidencia de sesiones 4 y 5](docs/evidencia-sesion-4-modelo-datos-servicios.md) se entregó el 6 de noviembre de 2026 en su versión 0.8. Completa el diseño: alcance de la primera versión, proceso del MVP, seis tablas con sus campos y relaciones, servicios principales con sus contratos y revisión del diseño. Por indicación del instructor, el script [`modelo-inicial.sql`](docs/evidencia-sesion-4/modelo-inicial.sql) ya se ejecutó en Neon y Hasura Cloud expone esas tablas como API GraphQL, con datos de prueba ficticios. Todavía no están programados los servicios S01 a S12, la autenticación ni los permisos, y la aplicación no está conectada a esa API.
+La [evidencia de sesiones 4 y 5](docs/evidencia-sesion-4-modelo-datos-servicios.md) se entregó el 6 de noviembre de 2026 en su versión 0.8. Completa el diseño: alcance de la primera versión, proceso del MVP, seis tablas con sus campos y relaciones, servicios principales con sus contratos y revisión del diseño. Por indicación del instructor, el script [`modelo-inicial.sql`](docs/evidencia-sesion-4/modelo-inicial.sql) ya se ejecutó en Neon y Hasura Cloud expone esas tablas como API GraphQL, con datos de prueba ficticios. Todavía no están programados los servicios S01 a S12, la autenticación ni los permisos. Desde la sesión 7, core-service usa esa API solo para una consulta de prueba.
 
-La actividad más reciente es la sesión 6. Su [evidencia](docs/evidencia-sesion-6-monorepo-react-nestjs.md) documenta la base del monorepo, la prueba de conexión entre React y NestJS y el registro de tres prompts. El 12 de noviembre de 2026 no hubo encuentro con el instructor y él no pidió entregarla, así que queda en la versión 0.1. Ese día indicó por WhatsApp seguir avanzando con el desarrollo del proyecto.
+La sesión 6 dejó la base del monorepo y la prueba de conexión entre React y NestJS. Su [evidencia](docs/evidencia-sesion-6-monorepo-react-nestjs.md) quedó en la versión 0.1, porque el 12 de noviembre de 2026 no hubo encuentro con el instructor y él no pidió entregarla. Ese día indicó por WhatsApp seguir avanzando con el desarrollo del proyecto.
+
+Por eso continué con la semana 5 de su cartilla. La actividad más reciente es la sesión 7. Su [evidencia](docs/evidencia-sesion-7-conexion-hasura.md) documenta la conexión de core-service con Hasura, la base de datos versionada en `infra/hasura/` y el registro de tres prompts. Está en la versión 0.1, y su entrega está por definir.
 
 El [prototipo de sesión 3 está publicado en GitHub Pages](https://tecno85.github.io/vehicle-control-app-web/). Se puede recorrer en escritorio y móvil; la vista móvil es adaptable y no es una aplicación nativa.
 
@@ -61,8 +63,9 @@ El [prototipo de sesión 3 está publicado en GitHub Pages](https://tecno85.gith
 | 3 | [Diseño de pantallas](docs/evidencia-sesion-3-diseno-pantallas.md): mapa de 35 pantallas, rutas propuestas, 11 fichas, 24 capturas y resultados de la prueba con Katerin del 20 de octubre de 2026 | 22 oct 2026 | Entregada |
 | 4 y 5 | [Modelo de datos y servicios](docs/evidencia-sesion-4-modelo-datos-servicios.md): alcance de la primera versión, proceso del MVP, seis tablas con su diagrama, campos y relaciones, modelo cargado en Neon y Hasura, servicios S01 a S12 con sus contratos, revisión del diseño y dudas abiertas | 6 nov 2026 | Entregada (versión 0.8) |
 | 6 | [Monorepo con React y NestJS](docs/evidencia-sesion-6-monorepo-react-nestjs.md): base del monorepo, prueba de conexión con éxito, error y recuperación, y registro de tres prompts con sus comprobaciones | 12 nov 2026 | No solicitada (versión 0.1) |
+| 7 | [Conexión de core-service con Hasura](docs/evidencia-sesion-7-conexion-hasura.md): base de datos versionada en `infra/hasura/`, cliente interno de Hasura, prueba real con Hasura Cloud y registro de tres prompts | Por definir | En curso (versión 0.1) |
 
-El instructor trasladó dos fechas de las sesiones 4 y 5: la revisión de los apartados 1 y 2 pasó del 29 al 30 de octubre, y el documento completo, del 5 al 6 de noviembre de 2026. El 12 de noviembre de 2026 no hubo encuentro con el instructor y él no pidió entregar la evidencia de sesión 6. Ese día indicó por WhatsApp seguir avanzando con el desarrollo del proyecto.
+El instructor trasladó dos fechas de las sesiones 4 y 5: la revisión de los apartados 1 y 2 pasó del 29 al 30 de octubre, y el documento completo, del 5 al 6 de noviembre de 2026. El 12 de noviembre de 2026 no hubo encuentro con el instructor y él no pidió entregar la evidencia de sesión 6. Ese día indicó por WhatsApp seguir avanzando con el desarrollo del proyecto, y por eso hice la sesión 7 siguiendo su cartilla.
 
 ## Ejecutar el monorepo
 
@@ -176,7 +179,7 @@ Por indicación del instructor en la sesión 6, la base del monorepo usa:
 
 El monorepo se ejecuta con Node 24 LTS.
 
-El modelo de datos ya está cargado en PostgreSQL en Neon y Hasura Cloud lo expone. Pero core-service todavía no se conecta a ellos, así que no forman parte de la arquitectura implementada.
+El modelo de datos está cargado en PostgreSQL en Neon, y Hasura Cloud lo expone. Desde la sesión 7, core-service se conecta a Hasura con su cliente interno, pero solo para la consulta de prueba `GET /api/health/hasura`: todavía no hay servicios del MVP que lean o guarden datos.
 
 El prototipo de la sesión 3 sigue hecho con React y Vite en JavaScript. Sirve para revisar pantallas y no es el código del producto.
 

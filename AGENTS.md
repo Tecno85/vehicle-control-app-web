@@ -28,16 +28,18 @@
 - Usar `docs/evidencia-sesion-3-diseno-pantallas.md` para el mapa y las fichas de pantallas, el prototipo Figma y los acuerdos posteriores sobre acceso y edición/eliminación.
 - Usar `docs/evidencia-sesion-4-modelo-datos-servicios.md` para el modelo de datos, sus decisiones de diseño y los servicios de las sesiones 4 y 5. Sus tablas, campos y relaciones son un diseño previo a la programación.
 - Usar `docs/evidencia-sesion-6-monorepo-react-nestjs.md` para la base del monorepo, la prueba de conexión y el registro de prompts de la sesión 6.
+- Usar `docs/evidencia-sesion-7-conexion-hasura.md` para la conexión de core-service con Hasura, la base de datos versionada en `infra/hasura/` y el registro de prompts de la sesión 7.
 - No inventar usuarios, integrantes, resultados de pruebas ni decisiones técnicas.
 - Cuando no haya una fecha acordada para un pendiente, escribir «Por definir». No asignar fechas supuestas.
 
 ## Límites de implementación y etapa
 
-- La actividad más reciente es la sesión 6; el instructor no pidió entregar su evidencia, que queda en la versión 0.1, y por WhatsApp indicó seguir avanzando con el desarrollo del proyecto. Es un monorepo con `apps/web-app` (React, TypeScript, Vite y Material UI) y `apps/core-service` (NestJS), conectados solo por la prueba de salud `GET /api/health` y un panel de verificación.
+- La actividad más reciente es la sesión 7, que sigue la semana 5 de la cartilla del instructor porque él indicó por WhatsApp seguir avanzando. No pidió entregar la evidencia de sesión 6, que queda en la versión 0.1. Es un monorepo con `apps/web-app` (React, TypeScript, Vite y Material UI) y `apps/core-service` (NestJS), conectados por la prueba de salud `GET /api/health` y un panel de verificación. core-service consulta Hasura Cloud con un cliente interno, solo en la prueba `GET /api/health/hasura`.
 - Las evidencias de las sesiones 1 a 5 ya se entregaron y se conservan como registro, igual que la prueba del prototipo con Katerin del 20 de octubre de 2026.
-- El modelo de la primera versión está cargado en Neon y expuesto por Hasura Cloud con datos ficticios, pero core-service no se conecta a ellos.
-- No crear tablas, permisos, migraciones, servicios o pantallas del MVP, acceso ni conexión con Hasura o Neon sin solicitud expresa.
-- No guardar en el repositorio cadenas de conexión, secretos de administración ni otras credenciales. Los `.env` no se versionan; solo `.env.example`, sin secretos.
+- El modelo de la primera versión está cargado en Neon y expuesto por Hasura Cloud con datos ficticios. Está versionado en `infra/hasura/`: migración, datos de prueba y metadata. core-service solo lo consulta en la prueba de conexión; no hay servicios del MVP que lean o guarden datos.
+- Los cambios futuros del esquema van en migraciones nuevas dentro de `infra/hasura/migrations/default/`. `docs/evidencia-sesion-4/modelo-inicial.sql` se conserva como parte de esa evidencia.
+- No crear tablas, permisos, migraciones, servicios o pantallas del MVP ni acceso sin solicitud expresa.
+- No guardar en el repositorio cadenas de conexión, secretos de administración ni otras credenciales. Los `.env` no se versionan; solo `.env.example`, sin secretos. El secreto de Hasura solo vive en `apps/core-service/.env`, nunca en la web-app ni en variables `VITE_`.
 - No afirmar que las funciones web o la autenticación están implementadas o probadas en producción.
 - Tras la prueba del 20 de octubre de 2026, el prototipo incluye filtro por mes en las listas, creación de categoría desde el formulario de gasto, motivo obligatorio cuando el valor del taxi difiere de la cuota y registro automático de $5.000 para el conductor (el ahorro para su prima) al guardar un ingreso de taxi mayor que cero. Son ajustes de demostración; no están implementados en un producto con persistencia.
 - El login y la recuperación se incluyen en el diseño de sesión 3; no se implementan como parte de esta evidencia. No inventar roles, permisos compartidos ni políticas técnicas de autenticación.
@@ -45,7 +47,7 @@
 - Por recomendación del instructor técnico, la primera versión prioriza vehículos, ingresos, gastos, categorías, registro de SOAT y tecnomecánica sin archivo, consulta por vehículo e ingreso básico. El registro propio, la recuperación de contraseña, el almacenamiento de archivos, el resumen mensual y el registro automático del ahorro para la prima del conductor quedan para una fase posterior; no presentarlos como parte de la primera versión ni descartar las necesidades de Katerin que los originaron.
 - Por indicación del instructor, la base del monorepo usa React con TypeScript, Vite y Material UI en `apps/web-app`, y NestJS en `apps/core-service`, con npm workspaces. El monorepo se ejecuta con Node 24 LTS (`.node-version`).
 - El prototipo de sesión 3 conserva Node 22 y su propio npm y `package-lock.json` para el flujo de GitHub Pages.
-- Hasura GraphQL Engine y PostgreSQL en Neon siguen como orientación para una etapa posterior; no presentarlos como conectados.
+- core-service se conecta a Hasura Cloud solo con la consulta de prueba de la sesión 7. No presentar la aplicación como conectada a sus datos: no hay servicios del MVP que los lean o guarden.
 - No adelantar actividades posteriores ni implementar funcionalidades sin solicitud expresa.
 - No modificar el prototipo ni el CSS para obtener o mejorar una captura. Si una captura revela un problema de layout, reportarlo antes de tocar el código.
 - No hacer commits ni push salvo que Ivan lo solicite.
