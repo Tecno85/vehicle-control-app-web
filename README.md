@@ -39,12 +39,13 @@ El [prototipo de sesión 3 está publicado en GitHub Pages](https://tecno85.gith
 ├── .github/workflows/              # Publicación manual del prototipo en Pages
 ├── .node-version                    # Node 24 para el monorepo
 ├── apps/
-│   ├── core-service/                # NestJS: GET /api/health
+│   ├── core-service/                # NestJS: prueba de salud y cliente interno de Hasura
 │   └── web-app/                     # React, TypeScript, Vite y Material UI
 ├── docs/                            # Contexto y evidencias de las sesiones
 │   ├── evidencia-sesion-3/capturas/ # Capturas incluidas en la evidencia de diseño
 │   ├── evidencia-sesion-4/          # Diagrama (SVG y PNG) y script SQL del modelo
 │   └── evidencia-sesion-6/capturas/ # Capturas de la prueba de conexión
+├── infra/hasura/                    # Migración, datos de prueba y metadata de Hasura
 ├── package.json                     # Workspaces de npm y atajos del monorepo
 └── prototipo-web-sesion-3/          # Prototipo de revisión, con su propio npm
 ```
@@ -87,12 +88,13 @@ Para comprobar core-service sin la web, abre http://localhost:3000/api/health. D
 |---|---|
 | `npm run build` | Compila las dos apps |
 | `npm test` | Pruebas unitarias. Por ahora solo core-service tiene pruebas |
-| `npm run test:e2e` | Prueba de `GET /api/health` con el origen de la web |
+| `npm run test:e2e` | Pruebas de `GET /api/health` con el origen de la web, y de `GET /api/health/hasura` sin Hasura configurado |
 | `npm run lint` | Revisión de estilo con oxlint en las dos apps |
 
 **Notas:**
-- **core-service** no usa `.env` y siempre arranca en el puerto 3000.
-- **web-app** lee `VITE_API_URL` de `apps/web-app/.env`. El `.env` no se sube al repositorio; solo se sube `.env.example`.
+- **core-service** lee `apps/core-service/.env` si existe. Sin ese archivo arranca igual, pero no se conecta con Hasura. Siempre usa el puerto 3000.
+- **web-app** lee `VITE_API_URL` de `apps/web-app/.env`.
+- **Archivos `.env`.** No se suben al repositorio; solo se suben los `.env.example`.
 - **CORS.** core-service solo acepta peticiones del navegador desde http://localhost:5173, así que la web se abre con `localhost` y no con `127.0.0.1`.
 - **Puerto de Vite.** Usa `strictPort`: si el 5173 está ocupado, se detiene en lugar de pasar a otro puerto.
 
@@ -106,6 +108,48 @@ Para comprobar core-service sin la web, abre http://localhost:3000/api/health. D
 | 404 en `/api/health` | Falta el prefijo `api` o el módulo de salud no está registrado | Revisa `apps/core-service/src/configure-app.ts` y `AppModule` |
 | La API responde, pero la web dice «No se pudo conectar…» | CORS o `VITE_API_URL` | Revisa que `.env` diga `http://localhost:3000/api` y abre la web en http://localhost:5173 |
 | Puerto ocupado (`EADDRINUSE` o «Port 5173 is already in use») | Otra instancia sigue abierta | Ciérrala, o búscala con `lsof -i :3000` o `lsof -i :5173` y termina ese proceso |
+| `/api/health/hasura` responde 503 «Hasura no está configurado…» | Falta `apps/core-service/.env` o una de sus dos variables | Crea el `.env` desde `.env.example`, completa las variables y reinicia `npm run dev:api` |
+| 503 «Hasura rechazó la consulta (código: access-denied).» | El secreto de administración no es el correcto | Cópialo otra vez desde la pestaña General del proyecto y reinicia core-service |
+| 503 «Hasura no respondió en 5000 ms.» | Hasura o la base tardaron más que el tiempo límite | Vuelve a intentarlo. Si se repite, revisa el proyecto en Hasura Cloud o aumenta `HASURA_TIMEOUT_MS` |
+| 503 «No se pudo conectar con Hasura…» | Sin internet, o `HASURA_GRAPHQL_URL` está mal escrita | Revisa la conexión y la dirección, que debe terminar en `/v1/graphql` |
+| core-service no arranca: «HASURA_GRAPHQL_URL no es una dirección válida…» o «HASURA_TIMEOUT_MS debe ser un número entero…» | Un valor mal escrito en `apps/core-service/.env` | Corrige el valor que indica el mensaje |
+
+## Conectar core-service con Hasura
+
+core-service consulta la base de datos de Neon a través de Hasura Cloud, con el secreto de administración. La web-app nunca habla con Hasura ni conoce ese secreto: solo habla con core-service.
+
+1. Crea el archivo de entorno de core-service: `cp apps/core-service/.env.example apps/core-service/.env`.
+2. En [Hasura Cloud](https://cloud.hasura.io/projects), entra al proyecto. En la pestaña **General** copia **GraphQL API** en `HASURA_GRAPHQL_URL` y **Admin Secret** en `HASURA_ADMIN_SECRET`. Si el secreto tiene espacios o `#`, escríbelo entre comillas dobles.
+3. Arranca core-service: `npm run dev:api`.
+4. Abre http://localhost:3000/api/health/hasura. Debe responder con la cantidad de vehículos que hay en la base, por ejemplo:
+
+```json
+{ "status": "ok", "service": "hasura", "vehiculos": 1 }
+```
+
+Si algo falla, responde 503 con un mensaje que dice la causa (ver «Solución de problemas»). La consulta es fija: solo cuenta vehículos y no acepta consultas desde el navegador.
+
+**Dónde se cambia la dirección de Hasura:** en `HASURA_GRAPHQL_URL`, dentro de `apps/core-service/.env`. Después de cambiarla, reinicia core-service. En el mismo archivo están el secreto y `HASURA_TIMEOUT_MS`, el tiempo máximo que core-service espera a Hasura (5000 ms si no se indica).
+
+**El secreto da acceso total a la base.** No lo pegues en el código, en una variable `VITE_` ni en un mensaje. El `.env` no se sube al repositorio.
+
+### Reconstruir la base de datos y Hasura en un proyecto nuevo
+
+`infra/hasura/` guarda lo necesario, con la estructura de carpetas de la CLI de Hasura. No hace falta instalar la CLI:
+
+| Archivo | Qué contiene |
+|---|---|
+| `migrations/default/1794872424463_modelo_inicial/up.sql` | Crea las seis tablas |
+| `migrations/default/1794872424463_modelo_inicial/down.sql` | Las borra, con sus datos; solo para bases de prueba |
+| `seeds/default/datos_ficticios.sql` | Datos de prueba ficticios: el taxi XYZ789 con un ingreso, un gasto y su SOAT |
+| `metadata/metadata.json` | Configuración de Hasura: las tablas que publica y sus relaciones |
+
+Lo único que no está en el repositorio, porque lleva claves, es la cadena de conexión de la base y el secreto de Hasura.
+
+1. **Base de datos.** En Neon, crea una base vacía. En su editor SQL, ejecuta `up.sql` y después `datos_ficticios.sql`. Si prefieres psql, usa `psql "<cadena de conexión>" -v ON_ERROR_STOP=1 --single-transaction -f <archivo>` con cada uno, en ese orden. Carga los datos de prueba solo en una base nueva: la base actual ya tiene su propio caso ficticio.
+2. **Proyecto de Hasura.** Crea un proyecto en Hasura Cloud y, en **Env vars**, agrega `PG_DATABASE_URL` con la cadena de conexión de esa base. La metadata usa ese nombre para conectarse.
+3. **Metadata.** En la consola del proyecto, entra a Settings → Metadata Actions → Import metadata y elige `infra/hasura/metadata/metadata.json`. Revisa en Settings → Metadata Status que no haya inconsistencias.
+4. **Comprobación.** Pon en `apps/core-service/.env` la dirección GraphQL y el secreto del proyecto nuevo, reinicia core-service y abre http://localhost:3000/api/health/hasura.
 
 ## Abrir el prototipo en macOS
 

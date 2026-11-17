@@ -1,0 +1,186 @@
+{
+  "resource_version": 14,
+  "metadata": {
+    "version": 3,
+    "sources": [
+      {
+        "name": "default",
+        "kind": "postgres",
+        "tables": [
+          {
+            "table": {
+              "name": "categorias_gasto",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "usuario",
+                "using": {
+                  "foreign_key_constraint_on": "usuario_id"
+                }
+              }
+            ],
+            "array_relationships": [
+              {
+                "name": "gastos",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "categoria_id",
+                    "table": {
+                      "name": "gastos",
+                      "schema": "public"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "documentos",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "vehiculo",
+                "using": {
+                  "foreign_key_constraint_on": "vehiculo_id"
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "gastos",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "categoria",
+                "using": {
+                  "foreign_key_constraint_on": "categoria_id"
+                }
+              },
+              {
+                "name": "vehiculo",
+                "using": {
+                  "foreign_key_constraint_on": "vehiculo_id"
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "ingresos",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "vehiculo",
+                "using": {
+                  "foreign_key_constraint_on": "vehiculo_id"
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "usuarios",
+              "schema": "public"
+            },
+            "array_relationships": [
+              {
+                "name": "categorias_gasto",
+                "using": {
+                  "manual_configuration": {
+                    "column_mapping": {
+                      "id": "usuario_id"
+                    },
+                    "insertion_order": null,
+                    "remote_table": {
+                      "name": "categorias_gasto",
+                      "schema": "public"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "vehiculos",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "usuario_id",
+                    "table": {
+                      "name": "vehiculos",
+                      "schema": "public"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "vehiculos",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "usuario",
+                "using": {
+                  "foreign_key_constraint_on": "usuario_id"
+                }
+              }
+            ],
+            "array_relationships": [
+              {
+                "name": "documentos",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "vehiculo_id",
+                    "table": {
+                      "name": "documentos",
+                      "schema": "public"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "gastos",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "vehiculo_id",
+                    "table": {
+                      "name": "gastos",
+                      "schema": "public"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "ingresos",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "vehiculo_id",
+                    "table": {
+                      "name": "ingresos",
+                      "schema": "public"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "configuration": {
+          "connection_info": {
+            "database_url": {
+              "from_env": "PG_DATABASE_URL"
+            },
+            "isolation_level": "read-committed",
+            "use_prepared_statements": false
+          }
+        }
+      }
+    ]
+  }
+}
