@@ -2,7 +2,7 @@
 
 | Proyecto | Integrantes y versión |
 |---|---|
-| VehicleControlApp Web · DazaDev | Ivan Dario Madrid Daza, trabajo individual. Versión 0.1 del 17 de noviembre de 2026. Entrega: por definir. |
+| VehicleControlApp Web · DazaDev | Ivan Dario Madrid Daza, trabajo individual. Versión 0.2 del 19 de noviembre de 2026. Entrega: por definir. |
 
 **Por qué hay una sesión 7.** El 12 de noviembre de 2026 no hubo encuentro con el instructor. Ese día, por WhatsApp, indicó seguir avanzando con el desarrollo del proyecto, y no pidió entregar la evidencia de sesión 6. Por eso el 15 de noviembre decidí continuar con el siguiente paso de su «Cartilla de acompañamiento técnico»: completar la semana 5, «Monorepo, Neon, Hasura y cliente interno». La sesión 6 dejó el monorepo; aquí conecto core-service con Hasura. Si en el próximo encuentro el instructor pide otro tema, ajusto esta evidencia antes de entregarla.
 
@@ -10,6 +10,7 @@
 
 | Punto pedido | Dónde se ve | Resultado comprobado |
 |---|---|---|
+| Versiones de las herramientas registradas | Apartado 3 | Node, npm y NestJS, desde la sesión 6. Hasura Cloud y PostgreSQL en Neon, leídas en sus consolas el 19 de noviembre |
 | Migraciones SQL, metadata y datos de prueba en el repositorio | `infra/hasura/` (prompt 1) | Creados y probados en un PostgreSQL 15 temporal: la migración se aplica, se deshace y se vuelve a aplicar, y la metadata no tiene claves |
 | Cliente interno de Hasura en core-service, con tiempo límite y errores de GraphQL | `apps/core-service/src/hasura/` (prompt 2) y pruebas automáticas del apartado 5 | Creado. Pasan sus 13 pruebas unitarias, y en la prueba real consultó Hasura Cloud |
 | Consulta interna de prueba sobre datos ficticios | `GET /api/health/hasura` (prompt 3) | Con Hasura Cloud respondió 200 con `vehiculos: 1`. En cada falla probada responde 503 con la causa |
@@ -34,6 +35,7 @@
 | 15 nov 2026 | Revisé con Claude Code qué sigue en la cartilla y aprobé el plan de esta sesión, después de comprobar que cubre lo que pide la semana 5. Registré en el README, el contexto y AGENTS.md que el 12 de noviembre no hubo encuentro y que el instructor indicó por WhatsApp seguir avanzando. Revisé los tres prompts y los aprobé sin cambios, y pedí detallar en el apartado 5 las pruebas automáticas previstas | Commit `8d13845`. Plan copiado en `Asesor_Técnico` | README, contexto, AGENTS.md y esta evidencia |
 | 16 nov 2026 | Exporté la metadata desde la consola de Hasura Cloud. Aprobé el texto de los prompts 1, 2 y 3 sin pegarlos y pedí ejecutarlos. Creé `apps/core-service/.env` con la dirección y el secreto de Hasura | Metadata revisada sin mostrar su contenido: usa `from_env` y no tiene claves. Migración y datos de prueba comprobados en un PostgreSQL 15 temporal. Cliente de Hasura con 13 pruebas unitarias nuevas. Endpoint de prueba, cliente HTTP de la web y README, comprobados con un Hasura falso (apartado 6) | `infra/hasura/`, `apps/` y README |
 | 17 nov 2026 | Arranqué core-service con mi `.env` para la prueba real, también con un secreto incorrecto, y revisé el panel en el navegador | Hasura Cloud respondió el conteo de vehículos, y con el secreto incorrecto, `access-denied`. Commit `1f17490`. Pasa el clon limpio (apartado 5) | Esta evidencia, README, contexto y AGENTS.md |
+| 19 nov 2026 | Subí a GitHub los commits de la sesión. Leí la versión de Hasura Cloud abriendo la dirección de mi proyecto terminada en `/v1/version`, y la de PostgreSQL con `select version();` en el SQL Editor de Neon | Hasura Cloud v2.51.8-cloud.2 y PostgreSQL 18.7 (apartado 3) | Esta evidencia, README y contexto |
 
 ## 3. Cómo se conecta core-service con Hasura
 
@@ -50,6 +52,18 @@ React (web-app) → NestJS (core-service) → Hasura (GraphQL) → Neon (Postgre
 **¿Dónde se cambia la URL de Hasura?** En `apps/core-service/.env`, en la variable `HASURA_GRAPHQL_URL`. La plantilla es `apps/core-service/.env.example`. core-service la lee al arrancar, en `src/hasura/hasura.config.ts`, así que después de cambiarla hay que reiniciarlo. En el mismo archivo van el secreto (`HASURA_ADMIN_SECRET`) y el tiempo límite (`HASURA_TIMEOUT_MS`). La web-app no cambia, porque nunca habla con Hasura.
 
 El **tiempo límite** es lo máximo que core-service espera una respuesta de Hasura. Si se cumple, deja de esperar y avisa, en vez de quedarse colgado.
+
+**Versiones.** Las registro para que el entorno se pueda reproducir con las mismas herramientas:
+
+| Herramienta | Versión | Cómo la leí |
+|---|---|---|
+| Node.js | 24.22.2 | `node --version` |
+| npm | 11.19.1 | `npm --version` |
+| NestJS | 12.4.0 | `npm ls @nestjs/core` |
+| Hasura Cloud | v2.51.8-cloud.2 | La dirección de mi proyecto terminada en `/v1/version`, que no pide el secreto. La leí el 19 de noviembre de 2026 |
+| PostgreSQL en Neon | 18.7 | `select version();` en el SQL Editor de Neon, el 19 de noviembre de 2026 |
+
+Hasura Cloud y Neon actualizan sus servidores por su cuenta, así que esas dos versiones pueden cambiar con el tiempo. Por eso anoto la fecha en que las leí.
 
 ## 4. Reconstruir la base de datos
 
@@ -197,7 +211,7 @@ Texto exacto enviado:
 **Observaciones:**
 - **Los datos de prueba no se cargan en Neon.** La base actual ya tiene su propio caso ficticio, del 28 de octubre. Si su titular usa otro correo, se agregaría una segunda titular.
 - **Una relación manual.** `usuarios.categorias_gasto` está configurada a mano y no por la clave foránea. Coincide con la evidencia de sesiones 4 y 5: Hasura la propuso como objeto por el índice de `lower(nombre)`, y la registré como arreglo.
-- **Versión de PostgreSQL.** Probé con la 15.18, que es la que tengo instalada. La de Neon la registro cuando la lea en su consola. El SQL no usa nada propio de una versión más nueva.
+- **Versión de PostgreSQL.** Probé con la 15.18, que es la que tengo instalada. La de Neon la registro cuando la lea en su consola. El SQL no usa nada propio de una versión más nueva. **Nota del 19 de noviembre:** Neon usa PostgreSQL 18.7 (apartado 3). Ese mismo esquema ya se había ejecutado allí el 28 de octubre, desde `modelo-inicial.sql`.
 
 ### Prompt 2 · Cliente interno de Hasura en core-service (16 de noviembre de 2026)
 
@@ -372,9 +386,7 @@ El servidor falso registró que todas las consultas fueron por POST con la cabec
 | Pendiente | Responsable | Fecha |
 |---|---|---|
 | Decidir si el monorepo pasa a npm 12, la versión más reciente | Ivan | Por definir |
-| Leer en la consola las versiones de Hasura Cloud y de PostgreSQL en Neon, para registrarlas | Ivan | Por definir |
 | Reconstruir la base y la metadata en un proyecto nuevo siguiendo el README | Ivan | Por definir |
-| Subir a GitHub los commits de esta sesión | Ivan | Por definir |
 | Guardar en el cliente el nombre de la restricción que rechaza un dato, para las reglas | Ivan | Por definir |
 | Acceso con correo y contraseña (semana 6 de la cartilla) | Ivan | Por definir |
 
@@ -390,3 +402,4 @@ El servidor falso registró que todas las consultas fueron por POST con la cabec
 | Versión | Fecha | Cambios |
 |---|---|---|
 | 0.1 | 17 de noviembre de 2026 | Primera versión: base de datos versionada en `infra/hasura/`, cliente interno de Hasura, endpoint de prueba, cliente HTTP de la web, README y registro de los tres prompts. La empecé el 15 de noviembre. El 16 ejecuté los prompts, y el 17 hice la prueba real, el commit y el clon limpio. |
+| 0.2 | 19 de noviembre de 2026 | Versiones de Hasura Cloud y de PostgreSQL en Neon, leídas en sus consolas, y subida de los commits a GitHub. |

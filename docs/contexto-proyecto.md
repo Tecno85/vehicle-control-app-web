@@ -1,7 +1,7 @@
 # Contexto del proyecto VehicleControlApp Web
 
-**Estado del contexto:** 17 de noviembre de 2026
-**Actividad actual:** sesión 7, conexión de core-service con Hasura, según la semana 5 de la cartilla del instructor. Está en la versión 0.1 y su entrega está por definir. El 12 de noviembre de 2026 no hubo encuentro con el instructor: no pidió entregar la evidencia de sesión 6, que queda en la versión 0.1, y por WhatsApp indicó seguir avanzando con el desarrollo del proyecto. La evidencia de sesiones 4 y 5 se entregó el 6 de noviembre de 2026 en su versión 0.8.
+**Estado del contexto:** 19 de noviembre de 2026
+**Actividad actual:** sesión 7, conexión de core-service con Hasura, según la semana 5 de la cartilla del instructor. Está en la versión 0.2 y su entrega está por definir. El 12 de noviembre de 2026 no hubo encuentro con el instructor: no pidió entregar la evidencia de sesión 6, que queda en la versión 0.1, y por WhatsApp indicó seguir avanzando con el desarrollo del proyecto. La evidencia de sesiones 4 y 5 se entregó el 6 de noviembre de 2026 en su versión 0.8.
 **Modalidad de trabajo:** individual.
 
 ## 1. Ficha del proyecto
@@ -129,7 +129,7 @@ Tras la retroalimentación del 27 de octubre de 2026, HU-04 se implementa primer
 - La [evidencia de sesión 3](evidencia-sesion-3-diseno-pantallas.md) documenta el diseño de pantallas, los prototipos visuales y los acuerdos posteriores sobre cuentas y edición/eliminación. Ya se entregó; la fecha indicada era el 22 de octubre de 2026. La prueba con Katerin se realizó el 20 de octubre de 2026 y sus resultados están en esa evidencia.
 - La [evidencia de sesiones 4 y 5](evidencia-sesion-4-modelo-datos-servicios.md) documenta el proceso del MVP, el modelo de datos, los servicios principales y la revisión del diseño. La versión 0.8 completa los cuatro apartados y se entregó el 6 de noviembre de 2026.
 - La [evidencia de sesión 6](evidencia-sesion-6-monorepo-react-nestjs.md) documenta la base del monorepo, la prueba de conexión entre React y NestJS y el registro de tres prompts. Queda en la versión 0.1: el 12 de noviembre de 2026 no hubo encuentro con el instructor y él no pidió entregarla. Ese día indicó por WhatsApp seguir avanzando con el desarrollo del proyecto.
-- La [evidencia de sesión 7](evidencia-sesion-7-conexion-hasura.md) documenta la conexión de core-service con Hasura, siguiendo la semana 5 de la cartilla del instructor. Está en la versión 0.1, y su entrega está por definir.
+- La [evidencia de sesión 7](evidencia-sesion-7-conexion-hasura.md) documenta la conexión de core-service con Hasura, siguiendo la semana 5 de la cartilla del instructor. Está en la versión 0.2, y su entrega está por definir.
 - Katerin revisó inicialmente el flujo web el 28 de septiembre, pidió adjuntar soportes el 2 de octubre, validó el proceso y el avance Android el 8 de octubre, respondió preguntas breves el 12 de octubre y probó el prototipo web el 20 de octubre; en esa prueba revisó la identidad visual y le pareció adecuada. Estos contactos no se deben combinar.
 
 ## 7. Base técnica y orientación
