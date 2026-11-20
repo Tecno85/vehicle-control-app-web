@@ -30,7 +30,7 @@ La [evidencia de sesiones 4 y 5](docs/evidencia-sesion-4-modelo-datos-servicios.
 
 La sesión 6 dejó la base del monorepo y la prueba de conexión entre React y NestJS. Su [evidencia](docs/evidencia-sesion-6-monorepo-react-nestjs.md) quedó en la versión 0.1, porque el 12 de noviembre de 2026 no hubo encuentro con el instructor y él no pidió entregarla. Ese día indicó por WhatsApp seguir avanzando con el desarrollo del proyecto.
 
-Por eso continué con la semana 5 de su cartilla. La actividad más reciente es la sesión 7. Su [evidencia](docs/evidencia-sesion-7-conexion-hasura.md) documenta la conexión de core-service con Hasura, la base de datos versionada en `infra/hasura/` y el registro de tres prompts. Está en la versión 0.2, y su entrega está por definir.
+Por eso continué con la semana 5 de su cartilla. La actividad más reciente es la sesión 7. Su [evidencia](docs/evidencia-sesion-7-conexion-hasura.md) documenta la conexión de core-service con Hasura, la base de datos versionada en `infra/hasura/` y el registro de tres prompts. Está en la versión 0.3, y su entrega está por definir.
 
 El [prototipo de sesión 3 está publicado en GitHub Pages](https://tecno85.github.io/vehicle-control-app-web/). Se puede recorrer en escritorio y móvil; la vista móvil es adaptable y no es una aplicación nativa.
 
@@ -63,7 +63,7 @@ El [prototipo de sesión 3 está publicado en GitHub Pages](https://tecno85.gith
 | 3 | [Diseño de pantallas](docs/evidencia-sesion-3-diseno-pantallas.md): mapa de 35 pantallas, rutas propuestas, 11 fichas, 24 capturas y resultados de la prueba con Katerin del 20 de octubre de 2026 | 22 oct 2026 | Entregada |
 | 4 y 5 | [Modelo de datos y servicios](docs/evidencia-sesion-4-modelo-datos-servicios.md): alcance de la primera versión, proceso del MVP, seis tablas con su diagrama, campos y relaciones, modelo cargado en Neon y Hasura, servicios S01 a S12 con sus contratos, revisión del diseño y dudas abiertas | 6 nov 2026 | Entregada (versión 0.8) |
 | 6 | [Monorepo con React y NestJS](docs/evidencia-sesion-6-monorepo-react-nestjs.md): base del monorepo, prueba de conexión con éxito, error y recuperación, y registro de tres prompts con sus comprobaciones | 12 nov 2026 | No solicitada (versión 0.1) |
-| 7 | [Conexión de core-service con Hasura](docs/evidencia-sesion-7-conexion-hasura.md): base de datos versionada en `infra/hasura/`, cliente interno de Hasura, prueba real con Hasura Cloud y registro de tres prompts | Por definir | En curso (versión 0.2) |
+| 7 | [Conexión de core-service con Hasura](docs/evidencia-sesion-7-conexion-hasura.md): base de datos versionada en `infra/hasura/`, cliente interno de Hasura, prueba real con Hasura Cloud y registro de tres prompts | Por definir | En curso (versión 0.3) |
 
 El instructor trasladó dos fechas de las sesiones 4 y 5: la revisión de los apartados 1 y 2 pasó del 29 al 30 de octubre, y el documento completo, del 5 al 6 de noviembre de 2026. El 12 de noviembre de 2026 no hubo encuentro con el instructor y él no pidió entregar la evidencia de sesión 6. Ese día indicó por WhatsApp seguir avanzando con el desarrollo del proyecto, y por eso hice la sesión 7 siguiendo su cartilla.
 
@@ -149,10 +149,12 @@ Si algo falla, responde 503 con un mensaje que dice la causa (ver «Solución de
 
 Lo único que no está en el repositorio, porque lleva claves, es la cadena de conexión de la base y el secreto de Hasura.
 
-1. **Base de datos.** En Neon, crea una base vacía. En su editor SQL, ejecuta `up.sql` y después `datos_ficticios.sql`. Si prefieres psql, usa `psql "<cadena de conexión>" -v ON_ERROR_STOP=1 --single-transaction -f <archivo>` con cada uno, en ese orden. Carga los datos de prueba solo en una base nueva: la base actual ya tiene su propio caso ficticio.
-2. **Proyecto de Hasura.** Crea un proyecto en Hasura Cloud y, en **Env vars**, agrega `PG_DATABASE_URL` con la cadena de conexión de esa base. La metadata usa ese nombre para conectarse.
+1. **Base de datos.** En Neon, crea una base vacía. En su editor SQL, elige arriba esa base y ejecuta `up.sql` y después `datos_ficticios.sql`. Si prefieres psql, usa `psql "<cadena de conexión>" -v ON_ERROR_STOP=1 --single-transaction -f <archivo>` con cada uno, en ese orden. Carga los datos de prueba solo en una base nueva: la base actual ya tiene su propio caso ficticio.
+2. **Proyecto de Hasura.** Crea un proyecto en Hasura Cloud y, en **Env vars**, agrega `PG_DATABASE_URL` con la cadena de conexión de esa base. La cadena se copia con el botón **Connect** de Neon, eligiendo esa base. El nombre no está entre las sugerencias de Hasura: escríbelo a mano en **Key** y elige crearlo. La metadata usa ese nombre para conectarse.
 3. **Metadata.** En la consola del proyecto, entra a Settings → Metadata Actions → Import metadata y elige `infra/hasura/metadata/metadata.json`. Revisa en Settings → Metadata Status que no haya inconsistencias.
-4. **Comprobación.** Pon en `apps/core-service/.env` la dirección GraphQL y el secreto del proyecto nuevo, reinicia core-service y abre http://localhost:3000/api/health/hasura.
+4. **Comprobación.** En `apps/core-service/.env`, pon `#` al comienzo de las dos líneas actuales para conservarlas, y agrega debajo la dirección GraphQL y el secreto del proyecto nuevo. Reinicia core-service y abre http://localhost:3000/api/health/hasura. Al terminar, borra las líneas nuevas, quita los `#` y reinicia core-service.
+
+Estos pasos los seguí el 20 de noviembre de 2026 en una base y un proyecto nuevos, y funcionaron. El detalle está en la [evidencia de sesión 7](docs/evidencia-sesion-7-conexion-hasura.md).
 
 ## Abrir el prototipo en macOS
 

@@ -2,7 +2,7 @@
 
 | Proyecto | Integrantes y versión |
 |---|---|
-| VehicleControlApp Web · DazaDev | Ivan Dario Madrid Daza, trabajo individual. Versión 0.2 del 19 de noviembre de 2026. Entrega: por definir. |
+| VehicleControlApp Web · DazaDev | Ivan Dario Madrid Daza, trabajo individual. Versión 0.3 del 20 de noviembre de 2026. Entrega: por definir. |
 
 **Por qué hay una sesión 7.** El 12 de noviembre de 2026 no hubo encuentro con el instructor. Ese día, por WhatsApp, indicó seguir avanzando con el desarrollo del proyecto, y no pidió entregar la evidencia de sesión 6. Por eso el 15 de noviembre decidí continuar con el siguiente paso de su «Cartilla de acompañamiento técnico»: completar la semana 5, «Monorepo, Neon, Hasura y cliente interno». La sesión 6 dejó el monorepo; aquí conecto core-service con Hasura. Si en el próximo encuentro el instructor pide otro tema, ajusto esta evidencia antes de entregarla.
 
@@ -15,9 +15,9 @@
 | Cliente interno de Hasura en core-service, con tiempo límite y errores de GraphQL | `apps/core-service/src/hasura/` (prompt 2) y pruebas automáticas del apartado 5 | Creado. Pasan sus 13 pruebas unitarias, y en la prueba real consultó Hasura Cloud |
 | Consulta interna de prueba sobre datos ficticios | `GET /api/health/hasura` (prompt 3) | Con Hasura Cloud respondió 200 con `vehiculos: 1`. En cada falla probada responde 503 con la causa |
 | Cliente HTTP de la web-app hacia core-service | `apps/web-app/src/api/api-client.ts` (prompt 3) | Creado. El panel mostró las tres fases de la sesión 6 con los mismos mensajes |
-| README para configurar y reproducir el entorno | README, apartado «Conectar core-service con Hasura» (prompt 3) | Escrito. Seguí sus pasos de conexión en la prueba real. Falta seguir los de reconstrucción en un proyecto nuevo |
+| README para configurar y reproducir el entorno | README, apartado «Conectar core-service con Hasura» (prompt 3) | Escrito. Seguí sus pasos de conexión en la prueba real, y los de reconstrucción en un proyecto nuevo |
 | Se ejecuta desde un clon limpio | Apartado 5 | Sí: sin `.env`, se instala, compila y pasan las pruebas y el lint |
-| El esquema y la configuración se pueden reconstruir | Apartado 4 | En parte: el SQL se reconstruyó en un PostgreSQL temporal. Falta probarlo todo en una base y un proyecto de Hasura nuevos |
+| El esquema y la configuración se pueden reconstruir | Apartado 4 | Sí: se reconstruyó todo en una base de Neon y un proyecto de Hasura Cloud nuevos, solo con `infra/hasura/` y el README (apartado 5) |
 | No hay secretos en Git ni en el código que llega al navegador | Apartado 5 | Sin claves en los archivos del commit ni en el código compilado de la web. El `.env` queda fuera de Git |
 
 **Alcance.** Es una conexión técnica: no incluye el acceso con correo y contraseña, los servicios S01 a S12 ni las pantallas del MVP de Katerin. Tampoco cambia nada en la base de Neon ni en el proyecto de Hasura Cloud que ya existen; de ellos solo exporto la configuración.
@@ -36,6 +36,7 @@
 | 16 nov 2026 | Exporté la metadata desde la consola de Hasura Cloud. Aprobé el texto de los prompts 1, 2 y 3 sin pegarlos y pedí ejecutarlos. Creé `apps/core-service/.env` con la dirección y el secreto de Hasura | Metadata revisada sin mostrar su contenido: usa `from_env` y no tiene claves. Migración y datos de prueba comprobados en un PostgreSQL 15 temporal. Cliente de Hasura con 13 pruebas unitarias nuevas. Endpoint de prueba, cliente HTTP de la web y README, comprobados con un Hasura falso (apartado 6) | `infra/hasura/`, `apps/` y README |
 | 17 nov 2026 | Arranqué core-service con mi `.env` para la prueba real, también con un secreto incorrecto, y revisé el panel en el navegador | Hasura Cloud respondió el conteo de vehículos, y con el secreto incorrecto, `access-denied`. Commit `1f17490`. Pasa el clon limpio (apartado 5) | Esta evidencia, README, contexto y AGENTS.md |
 | 19 nov 2026 | Subí a GitHub los commits de la sesión. Leí la versión de Hasura Cloud abriendo la dirección de mi proyecto terminada en `/v1/version`, y la de PostgreSQL con `select version();` en el SQL Editor de Neon | Hasura Cloud v2.51.8-cloud.2 y PostgreSQL 18.7 (apartado 3) | Esta evidencia, README y contexto |
+| 20 nov 2026 | Reconstruí la base de datos y Hasura en un proyecto nuevo siguiendo el README, guiado por Claude Code. Al terminar, borré el proyecto y la base de prueba y restauré mi `.env` | La base, la metadata y la conexión de core-service funcionaron. Al borrar el proyecto, core-service falló, así que lo estaba usando (apartado 5) | Esta evidencia, README y contexto |
 
 ## 3. Cómo se conecta core-service con Hasura
 
@@ -86,7 +87,7 @@ infra/hasura/
 - una base PostgreSQL vacía, con su cadena de conexión;
 - un proyecto de Hasura con la variable `PG_DATABASE_URL` apuntando a esa base.
 
-El esquema, la configuración de Hasura y los datos de prueba ya están en `infra/hasura/`. El SQL lo comprobé en una base temporal (apartado 6, prompt 1). Los pasos para una base y un proyecto nuevos están en el README, en «Reconstruir la base de datos y Hasura en un proyecto nuevo». Todavía no los he seguido de principio a fin (apartado 8).
+El esquema, la configuración de Hasura y los datos de prueba ya están en `infra/hasura/`. El SQL lo comprobé en una base temporal (apartado 6, prompt 1). Los pasos para una base y un proyecto nuevos están en el README, en «Reconstruir la base de datos y Hasura en un proyecto nuevo». El 20 de noviembre los seguí de principio a fin en una base y un proyecto nuevos (apartado 5).
 
 ## 5. Pruebas
 
@@ -130,7 +131,27 @@ En total pasan 19 pruebas unitarias y 2 e2e.
 | Secretos en Git | Antes del commit, búsqueda en todos los archivos que se iban a subir | Ningún `.env` real, ninguna cadena de conexión y ninguna variable de secreto con valor. Las 4 menciones de `hasura.app` son ejemplos de `.env.example` y de las pruebas |
 | Secretos en la web | Búsqueda de `hasura` y `admin-secret` en `apps/web-app/dist` | 0 archivos. La web solo conoce `VITE_API_URL`, con la dirección de core-service |
 | Clon limpio | `git clone` del commit `1f17490` en una carpeta temporal, sin `.env`; `npm ci`, `npm run build`, `npm test`, `npm run test:e2e` y `npm run lint` | `npm ci` instaló 364 paquetes con 0 vulnerabilidades. Compilación y lint con código 0, 19 de 19 unitarias y 2 de 2 e2e |
-| Reconstrucción en un proyecto nuevo | Siguiendo el README | Pendiente (apartado 8) |
+| Reconstrucción en un proyecto nuevo (20 nov) | Siguiendo el README, en una base y un proyecto nuevos | Se reconstruyeron la base, los datos de prueba y la metadata, y core-service consultó el proyecto nuevo. Detalle abajo |
+
+### Reconstrucción completa en un proyecto nuevo (20 de noviembre)
+
+Seguí los pasos del README en las consolas de Neon y Hasura Cloud, guiado por Claude Code. Claude Code redactó la consulta de comprobación e hizo con `curl` las consultas a core-service. La cadena de conexión y el secreto los copié directamente de una consola a otra: no pasaron por el chat ni por el repositorio.
+
+| Paso | Qué hice | Resultado |
+|---|---|---|
+| 1. Base de datos | En Neon creé la base `reconstruccion_prueba`, en la rama production. En el SQL Editor comprobé con `select current_database();` que estaba en ella. Luego ejecuté `up.sql` y después `datos_ficticios.sql` | `up.sql` respondió 10 «CREATE»: las 6 tablas y los 4 índices. Con los datos de prueba quedaron 1 usuario, 5 categorías, 1 vehículo, 1 ingreso, 1 gasto y 1 documento |
+| 2. Proyecto de Hasura | Creé un proyecto gratuito en Hasura Cloud, en AWS US East (Ohio), la misma región de Neon. Le agregué `PG_DATABASE_URL` con la cadena de conexión de la base nueva | Se creó. Al principio mostró un aviso de Hasura que desapareció solo (apartado 7) |
+| 3. Metadata | Importé `infra/hasura/metadata/metadata.json` con Import metadata | Metadata Status no mostró inconsistencias. En la pestaña API, una consulta devolvió el taxi XYZ789 con su titular, las 5 categorías, el ingreso de 60000, el gasto de 5000 con su categoría y el SOAT. Usó 6 de las 12 relaciones, entre ellas la que está configurada a mano |
+| 4. core-service | Puse `#` al comienzo de mis dos líneas del `.env` y agregué debajo la dirección y el secreto del proyecto nuevo | `/api/health/hasura` respondió 200 con `vehiculos: 1`, en 0,95 s la primera vez y en 0,15 s la segunda |
+| Contraprueba | Mi proyecto actual también tiene 1 vehículo, así que la respuesta no mostraba de cuál proyecto venía. Por eso borré el proyecto nuevo sin detener core-service | 503 con «Hasura respondió con un error (HTTP 500).». Las respuestas anteriores venían del proyecto nuevo |
+| Restauración | Borré las dos líneas nuevas, quité los `#` y reinicié core-service. Después borré en Neon la base `reconstruccion_prueba` | `/api/health/hasura` respondió de nuevo 200 con `vehiculos: 1`, ahora desde mi proyecto actual, en 0,43 s y 0,17 s |
+
+**Resultado.** Con los archivos de `infra/hasura/` y los pasos del README se reconstruyen el esquema, los datos de prueba y la configuración de Hasura. Solo hacen falta dos datos que no están en el repositorio: la cadena de conexión de la base y el secreto del proyecto.
+
+**Aclaraciones al README.** Los pasos funcionaron sin cambios. Les agregué tres aclaraciones que me sirvieron:
+- elegir la base nueva en el SQL Editor y al copiar la cadena de conexión;
+- escribir a mano el nombre `PG_DATABASE_URL` en Hasura, porque no está entre sus sugerencias;
+- conservar con `#` los valores actuales del `.env` mientras dura la prueba.
 
 ## 6. Registro de prompts
 
@@ -373,7 +394,7 @@ El servidor falso registró que todas las consultas fueron por POST con la cabec
 - **El panel no cambió.** El panel reconoce los errores con el nombre `HealthCheckError`. Para no tocarlo, `health.api.ts` exporta con ese nombre el mismo `ApiError` del cliente HTTP.
 - **El servicio no sabe de HTTP.** `HealthService` lanza `HasuraError`, y es el controlador el que lo convierte en un 503.
 - **Primera consulta más lenta.** La primera consulta real tardó 1,0 s, y las siguientes menos de medio segundo. Puede ser que la base de Neon estuviera en reposo, pero no lo comprobé.
-- **README.** Los pasos de conexión los seguí en la prueba real. Los de reconstrucción en un proyecto nuevo todavía no.
+- **README.** Los pasos de conexión los seguí en la prueba real. Los de reconstrucción en un proyecto nuevo todavía no. **Nota del 20 de noviembre:** ya los seguí (apartado 5).
 - **Revisión del panel.** Esta sesión de Claude Code no tenía navegador, así que revisé yo el panel.
 
 ## 7. Problemas encontrados
@@ -381,12 +402,12 @@ El servidor falso registró que todas las consultas fueron por POST con la cabec
 | Síntoma | Causa | Solución |
 |---|---|---|
 | Con el Hasura falso, el caso correcto tardó 5 s y respondió «Hasura no respondió en 5000 ms.» | La consulta no llegó al servidor falso. Lo más probable es que todavía no estuviera listo cuando empezó la prueba | Repetí el caso esperando a que el servidor escuchara, y respondió 200 en 0,012 s, dos veces. No era un fallo de core-service |
+| Al crear el proyecto de prueba, Hasura Cloud mostró «Your project has an infrastructure issue» y una X junto al nombre | Hasura no explicó la causa. Puede ser que el proyecto, recién creado, todavía se estuviera preparando | Esperé unos minutos y recargué la página. El aviso desapareció y el proyecto quedó listo, sin enviar el ticket de soporte que proponía |
 ## 8. Pendientes y próximo paso
 
 | Pendiente | Responsable | Fecha |
 |---|---|---|
 | Decidir si el monorepo pasa a npm 12, la versión más reciente | Ivan | Por definir |
-| Reconstruir la base y la metadata en un proyecto nuevo siguiendo el README | Ivan | Por definir |
 | Guardar en el cliente el nombre de la restricción que rechaza un dato, para las reglas | Ivan | Por definir |
 | Acceso con correo y contraseña (semana 6 de la cartilla) | Ivan | Por definir |
 
@@ -403,3 +424,4 @@ El servidor falso registró que todas las consultas fueron por POST con la cabec
 |---|---|---|
 | 0.1 | 17 de noviembre de 2026 | Primera versión: base de datos versionada en `infra/hasura/`, cliente interno de Hasura, endpoint de prueba, cliente HTTP de la web, README y registro de los tres prompts. La empecé el 15 de noviembre. El 16 ejecuté los prompts, y el 17 hice la prueba real, el commit y el clon limpio. |
 | 0.2 | 19 de noviembre de 2026 | Versiones de Hasura Cloud y de PostgreSQL en Neon, leídas en sus consolas, y subida de los commits a GitHub. |
+| 0.3 | 20 de noviembre de 2026 | Reconstrucción completa en una base de Neon y un proyecto de Hasura Cloud nuevos, con su contraprueba, y tres aclaraciones al README. |
