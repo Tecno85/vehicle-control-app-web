@@ -11,5 +11,8 @@
     "test": "npm run test --workspaces --if-present",
     "test:e2e": "npm run test:e2e --workspaces --if-present",
     "lint": "npm run lint --workspaces"
+  },
+  "allowScripts": {
+    "fsevents": false
   }
 }
