@@ -2,7 +2,7 @@
 
 | Proyecto | Integrantes y versión |
 |---|---|
-| VehicleControlApp Web · DazaDev | Ivan Dario Madrid Daza, trabajo individual. Versión 0.3 del 20 de noviembre de 2026. Entrega: por definir. |
+| VehicleControlApp Web · DazaDev | Ivan Dario Madrid Daza, trabajo individual. Versión 0.4 del 20 de noviembre de 2026. Entrega: por definir. |
 
 **Por qué hay una sesión 7.** El 12 de noviembre de 2026 no hubo encuentro con el instructor. Ese día, por WhatsApp, indicó seguir avanzando con el desarrollo del proyecto, y no pidió entregar la evidencia de sesión 6. Por eso el 15 de noviembre decidí continuar con el siguiente paso de su «Cartilla de acompañamiento técnico»: completar la semana 5, «Monorepo, Neon, Hasura y cliente interno». La sesión 6 dejó el monorepo; aquí conecto core-service con Hasura. Si en el próximo encuentro el instructor pide otro tema, ajusto esta evidencia antes de entregarla.
 
@@ -37,6 +37,7 @@
 | 17 nov 2026 | Arranqué core-service con mi `.env` para la prueba real, también con un secreto incorrecto, y revisé el panel en el navegador | Hasura Cloud respondió el conteo de vehículos, y con el secreto incorrecto, `access-denied`. Commit `1f17490`. Pasa el clon limpio (apartado 5) | Esta evidencia, README, contexto y AGENTS.md |
 | 19 nov 2026 | Subí a GitHub los commits de la sesión. Leí la versión de Hasura Cloud abriendo la dirección de mi proyecto terminada en `/v1/version`, y la de PostgreSQL con `select version();` en el SQL Editor de Neon | Hasura Cloud v2.51.8-cloud.2 y PostgreSQL 18.7 (apartado 3) | Esta evidencia, README y contexto |
 | 20 nov 2026 | Reconstruí la base de datos y Hasura en un proyecto nuevo siguiendo el README, guiado por Claude Code. Al terminar, borré el proyecto y la base de prueba y restauré mi `.env` | La base, la metadata y la conexión de core-service funcionaron. Al borrar el proyecto, core-service falló, así que lo estaba usando (apartado 5) | Esta evidencia, README y contexto |
+| 20 nov 2026 | Le pedí a Claude Code analizar npm 12 y hacer el cambio sin afectar el trabajo | Pasaron todas las comprobaciones en copias limpias. npm 12.2.3 quedó instalado en Node 24, y `package.json` registra que `fsevents` no necesita su script de instalación (apartado 5) | `package.json`, esta evidencia, README, contexto y AGENTS.md |
 
 ## 3. Cómo se conecta core-service con Hasura
 
@@ -59,7 +60,7 @@ El **tiempo límite** es lo máximo que core-service espera una respuesta de Has
 | Herramienta | Versión | Cómo la leí |
 |---|---|---|
 | Node.js | 24.22.2 | `node --version` |
-| npm | 11.19.1 | `npm --version` |
+| npm | 12.2.3, desde el 20 de noviembre de 2026. Antes, 11.19.1 | `npm --version` |
 | NestJS | 12.4.0 | `npm ls @nestjs/core` |
 | Hasura Cloud | v2.51.8-cloud.2 | La dirección de mi proyecto terminada en `/v1/version`, que no pide el secreto. La leí el 19 de noviembre de 2026 |
 | PostgreSQL en Neon | 18.7 | `select version();` en el SQL Editor de Neon, el 19 de noviembre de 2026 |
@@ -152,6 +153,30 @@ Seguí los pasos del README en las consolas de Neon y Hasura Cloud, guiado por C
 - elegir la base nueva en el SQL Editor y al copiar la cadena de conexión;
 - escribir a mano el nombre `PG_DATABASE_URL` en Hasura, porque no está entre sus sugerencias;
 - conservar con `#` los valores actuales del `.env` mientras dura la prueba.
+
+### Cambio a npm 12 (20 de noviembre)
+
+Al ejecutar las pruebas del prompt 2, npm avisó que había una versión nueva. Mi regla es usar la versión estable recomendada, comprobar que funciona y registrar el cambio. Por eso, el 20 de noviembre le pedí a Claude Code analizar npm 12 y hacer el cambio sin afectar el trabajo. Claude Code leyó las notas de la versión 12.0.0 y probó en copias limpias del repositorio, con npm 12 instalado en una carpeta temporal. Solo después lo instaló en mi computador.
+
+**Lo que se revisó:**
+- La versión «latest» de npm era la 12.2.3. La rama 11 sigue recibiendo arreglos.
+- npm 12 pide Node 22.22.2, 24.15.0 o superior. El monorepo usa Node 24.22.2. En mi computador, el prototipo de la sesión 3 usa Node 22.13, que npm 12 no admite. Pero el prototipo tiene su propio npm y no se tocó.
+- El cambio de npm 12 que podía afectarnos es que bloquea los scripts que algunas dependencias ejecutan al instalarse. Solo deja correr los que permita la lista `allowScripts` de `package.json`. En nuestro proyecto, el único paquete marcado así es `fsevents` 2.3.3, que Vite usa en macOS para vigilar archivos. Ese paquete ya trae su parte compilada y no necesita el script.
+- npm 12 también cambia cómo trata las dependencias que vienen de Git y el archivo `npm-shrinkwrap.json`. El proyecto no usa ninguno de los dos.
+
+| Comprobación | Cómo | Resultado real |
+|---|---|---|
+| Instalación | `npm ci` en dos copias limpias del commit `e9ef159`, una con npm 11.19.1 y otra con npm 12.2.3 | Las dos instalaron 364 paquetes, sin vulnerabilidades, y el `package-lock.json` no cambió. Comparadas paquete por paquete, las dos copias tienen los mismos 361 paquetes con las mismas versiones |
+| `fsevents` | `npm install-scripts ls`, y cargar el paquete con Node en las dos copias | npm 12 bloqueó su script, y npm 11 solo avisaba. En las dos copias sus archivos son idénticos y el paquete funciona |
+| Decisión sobre `fsevents` | `npm install-scripts deny fsevents`, que agrega a `package.json` la línea `"allowScripts": { "fsevents": false }` | Con npm 12 y con npm 11, `npm ci` termina sin avisos |
+| Proyecto con npm 12 | En la copia limpia: `npm run build`, `npm test`, `npm run test:e2e`, `npm run lint`, `npm audit` y `npm install` | Compilación y lint con código 0, 19 de 19 unitarias, 2 de 2 e2e y 0 vulnerabilidades. `npm install` no cambió el lockfile. Los `npm run` internos de los scripts también usaron npm 12.2.3 |
+| Web en modo desarrollo | `npm run dev:web` con npm 12 | Vite respondió 200 en http://localhost:5173 |
+| Instalación en mi computador | `npm install -g npm@12.2.3`, con Node 24 | Node 24 quedó con npm 12.2.3, y Node 22, el del prototipo, siguió con su npm 10.9.2 |
+| Repositorio real | `npm install`, `npm test`, `npm run test:e2e` y `npm run lint` | El lockfile no cambió. Pasaron 19 de 19 unitarias y 2 de 2 e2e, y el lint terminó con código 0. No reinstalé ni compilé aquí porque core-service estaba en marcha; eso quedó comprobado en la copia limpia |
+
+**Observación: opciones de más.** Si se le agregan opciones a un script de la raíz, por ejemplo `npm run dev:web -- --port 5199`, no llegan a Vite ni a NestJS, sino al `npm run` interno. npm 11 las ignoraba con un aviso, y npm 12 se detiene con «Unknown cli flags». Para pasarlas hay que llamar directamente al workspace: `npm run dev --workspace apps/web-app -- --port 5199`. Lo comprobé con npm 12 y lo anoté en «Solución de problemas» del README.
+
+**Cómo volver atrás.** Con Node 24, `npm install -g npm@11.19.1`. La línea de `allowScripts` también funciona con npm 11.
 
 ## 6. Registro de prompts
 
@@ -306,7 +331,7 @@ Texto exacto enviado:
 - **Mensajes de Hasura.** El cliente no guarda el mensaje original de Hasura, porque puede traer detalles internos. Las reglas de la semana 8 necesitarán el nombre de la restricción, por ejemplo `ingresos_check1`, para responder 422 `MOTIVO_REQUERIDO`. Lo agregaré cuando un servicio lo use.
 - **Dónde se lee el `.env`.** Desde la carpeta donde arranca core-service, que con los scripts del proyecto es `apps/core-service`.
 - **El módulo todavía no se usa.** `HasuraModule` existe, pero ningún endpoint lo usa. Lo conecto en el prompt 3, con `GET /api/health/hasura`.
-- **npm 12.** Al ejecutar las pruebas, npm avisó que existe la versión 12.2.2. No la cambié, porque afecta a todo el monorepo; queda como pendiente.
+- **npm 12.** Al ejecutar las pruebas, npm avisó que existe la versión 12.2.2. No la cambié, porque afecta a todo el monorepo; queda como pendiente. **Nota del 20 de noviembre:** pasé el monorepo a npm 12.2.3 (apartado 5).
 
 ### Prompt 3 · Endpoint de prueba, cliente HTTP de la web y README (16 y 17 de noviembre de 2026)
 
@@ -407,7 +432,6 @@ El servidor falso registró que todas las consultas fueron por POST con la cabec
 
 | Pendiente | Responsable | Fecha |
 |---|---|---|
-| Decidir si el monorepo pasa a npm 12, la versión más reciente | Ivan | Por definir |
 | Guardar en el cliente el nombre de la restricción que rechaza un dato, para las reglas | Ivan | Por definir |
 | Acceso con correo y contraseña (semana 6 de la cartilla) | Ivan | Por definir |
 
@@ -425,3 +449,4 @@ El servidor falso registró que todas las consultas fueron por POST con la cabec
 | 0.1 | 17 de noviembre de 2026 | Primera versión: base de datos versionada en `infra/hasura/`, cliente interno de Hasura, endpoint de prueba, cliente HTTP de la web, README y registro de los tres prompts. La empecé el 15 de noviembre. El 16 ejecuté los prompts, y el 17 hice la prueba real, el commit y el clon limpio. |
 | 0.2 | 19 de noviembre de 2026 | Versiones de Hasura Cloud y de PostgreSQL en Neon, leídas en sus consolas, y subida de los commits a GitHub. |
 | 0.3 | 20 de noviembre de 2026 | Reconstrucción completa en una base de Neon y un proyecto de Hasura Cloud nuevos, con su contraprueba, y tres aclaraciones al README. |
+| 0.4 | 20 de noviembre de 2026 | Cambio del monorepo a npm 12.2.3, con su análisis y sus comprobaciones. |

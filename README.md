@@ -30,7 +30,7 @@ La [evidencia de sesiones 4 y 5](docs/evidencia-sesion-4-modelo-datos-servicios.
 
 La sesión 6 dejó la base del monorepo y la prueba de conexión entre React y NestJS. Su [evidencia](docs/evidencia-sesion-6-monorepo-react-nestjs.md) quedó en la versión 0.1, porque el 12 de noviembre de 2026 no hubo encuentro con el instructor y él no pidió entregarla. Ese día indicó por WhatsApp seguir avanzando con el desarrollo del proyecto.
 
-Por eso continué con la semana 5 de su cartilla. La actividad más reciente es la sesión 7. Su [evidencia](docs/evidencia-sesion-7-conexion-hasura.md) documenta la conexión de core-service con Hasura, la base de datos versionada en `infra/hasura/` y el registro de tres prompts. Está en la versión 0.3, y su entrega está por definir.
+Por eso continué con la semana 5 de su cartilla. La actividad más reciente es la sesión 7. Su [evidencia](docs/evidencia-sesion-7-conexion-hasura.md) documenta la conexión de core-service con Hasura, la base de datos versionada en `infra/hasura/` y el registro de tres prompts. Está en la versión 0.4, y su entrega está por definir.
 
 El [prototipo de sesión 3 está publicado en GitHub Pages](https://tecno85.github.io/vehicle-control-app-web/). Se puede recorrer en escritorio y móvil; la vista móvil es adaptable y no es una aplicación nativa.
 
@@ -63,13 +63,13 @@ El [prototipo de sesión 3 está publicado en GitHub Pages](https://tecno85.gith
 | 3 | [Diseño de pantallas](docs/evidencia-sesion-3-diseno-pantallas.md): mapa de 35 pantallas, rutas propuestas, 11 fichas, 24 capturas y resultados de la prueba con Katerin del 20 de octubre de 2026 | 22 oct 2026 | Entregada |
 | 4 y 5 | [Modelo de datos y servicios](docs/evidencia-sesion-4-modelo-datos-servicios.md): alcance de la primera versión, proceso del MVP, seis tablas con su diagrama, campos y relaciones, modelo cargado en Neon y Hasura, servicios S01 a S12 con sus contratos, revisión del diseño y dudas abiertas | 6 nov 2026 | Entregada (versión 0.8) |
 | 6 | [Monorepo con React y NestJS](docs/evidencia-sesion-6-monorepo-react-nestjs.md): base del monorepo, prueba de conexión con éxito, error y recuperación, y registro de tres prompts con sus comprobaciones | 12 nov 2026 | No solicitada (versión 0.1) |
-| 7 | [Conexión de core-service con Hasura](docs/evidencia-sesion-7-conexion-hasura.md): base de datos versionada en `infra/hasura/`, cliente interno de Hasura, prueba real con Hasura Cloud y registro de tres prompts | Por definir | En curso (versión 0.3) |
+| 7 | [Conexión de core-service con Hasura](docs/evidencia-sesion-7-conexion-hasura.md): base de datos versionada en `infra/hasura/`, cliente interno de Hasura, prueba real con Hasura Cloud y registro de tres prompts | Por definir | En curso (versión 0.4) |
 
 El instructor trasladó dos fechas de las sesiones 4 y 5: la revisión de los apartados 1 y 2 pasó del 29 al 30 de octubre, y el documento completo, del 5 al 6 de noviembre de 2026. El 12 de noviembre de 2026 no hubo encuentro con el instructor y él no pidió entregar la evidencia de sesión 6. Ese día indicó por WhatsApp seguir avanzando con el desarrollo del proyecto, y por eso hice la sesión 7 siguiendo su cartilla.
 
 ## Ejecutar el monorepo
 
-**Requisitos:** Node.js 24 LTS y npm 11.
+**Requisitos:** Node.js 24 LTS, desde la 24.15, y npm 12. Node 24 trae npm 11; para pasar a npm 12, ejecuta `npm install -g npm@12` con Node 24. Con npm 11 el proyecto también se instala igual.
 - **fnm.** El archivo `.node-version` indica la 24. Si usas fnm, `fnm use` toma esa versión en esta carpeta, y `fnm install` la instala la primera vez.
 - **Prototipo.** El prototipo de la sesión 3 y su flujo de GitHub Pages siguen con Node 22 y su propio `package-lock.json`.
 
@@ -107,6 +107,7 @@ Para comprobar core-service sin la web, abre http://localhost:3000/api/health. D
 |---|---|---|
 | La terminal no encuentra `npm` o `node` | Node no está instalado o la terminal no se actualizó | Comprueba con `node --version` y `npm --version`, y reinicia la terminal |
 | `npm run dev:api` o `npm run build` fallan con `ERR_REQUIRE_CYCLE_MODULE` | Se está usando una versión anterior de Node, como la 22.13 | Cambia a Node 24 (`fnm use`) y vuelve a ejecutar el comando |
+| `npm error Unknown cli flags` al agregar opciones, como en `npm run dev:web -- --port 5199` | Las opciones llegan al `npm run` interno del script de la raíz, no a Vite ni a NestJS. npm 12 ya no acepta opciones que no conoce | Pásalas directamente al workspace: `npm run dev --workspace apps/web-app -- --port 5199` |
 | La web muestra «Falta configurar VITE_API_URL…» | No existe `apps/web-app/.env` | Copia `.env.example` como `.env` y reinicia `npm run dev:web` |
 | 404 en `/api/health` | Falta el prefijo `api` o el módulo de salud no está registrado | Revisa `apps/core-service/src/configure-app.ts` y `AppModule` |
 | La API responde, pero la web dice «No se pudo conectar…» | CORS o `VITE_API_URL` | Revisa que `.env` diga `http://localhost:3000/api` y abre la web en http://localhost:5173 |
@@ -179,7 +180,7 @@ Por indicación del instructor en la sesión 6, la base del monorepo usa:
 - NestJS en `apps/core-service`.
 - npm workspaces.
 
-El monorepo se ejecuta con Node 24 LTS. Lo comprobé con Node 24.22.2, npm 11.19.1 y NestJS 12.4.0. El 19 de noviembre de 2026, Hasura Cloud estaba en la versión v2.51.8-cloud.2 y Neon usaba PostgreSQL 18.7. Esos dos servicios actualizan sus versiones por su cuenta.
+El monorepo se ejecuta con Node 24 LTS. Lo comprobé con Node 24.22.2, npm 12.2.3 y NestJS 12.4.0. Hasta el 19 de noviembre de 2026 usé npm 11.19.1. El 19 de noviembre de 2026, Hasura Cloud estaba en la versión v2.51.8-cloud.2 y Neon usaba PostgreSQL 18.7. Esos dos servicios actualizan sus versiones por su cuenta.
 
 El modelo de datos está cargado en PostgreSQL en Neon, y Hasura Cloud lo expone. Desde la sesión 7, core-service se conecta a Hasura con su cliente interno, pero solo para la consulta de prueba `GET /api/health/hasura`: todavía no hay servicios del MVP que lean o guarden datos.
 
