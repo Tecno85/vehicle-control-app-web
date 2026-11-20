@@ -30,7 +30,9 @@ La [evidencia de sesiones 4 y 5](docs/evidencia-sesion-4-modelo-datos-servicios.
 
 La sesión 6 dejó la base del monorepo y la prueba de conexión entre React y NestJS. Su [evidencia](docs/evidencia-sesion-6-monorepo-react-nestjs.md) quedó en la versión 0.1, porque el 12 de noviembre de 2026 no hubo encuentro con el instructor y él no pidió entregarla. Ese día indicó por WhatsApp seguir avanzando con el desarrollo del proyecto.
 
-Por eso continué con la semana 5 de su cartilla. La actividad más reciente es la sesión 7. Su [evidencia](docs/evidencia-sesion-7-conexion-hasura.md) documenta la conexión de core-service con Hasura, la base de datos versionada en `infra/hasura/` y el registro de tres prompts. Está en la versión 0.4, y su entrega está por definir.
+Por eso continué con la semana 5 de su cartilla. La actividad más reciente es la sesión 7. Su [evidencia](docs/evidencia-sesion-7-conexion-hasura.md) documenta la conexión de core-service con Hasura, la base de datos versionada en `infra/hasura/` y el registro de tres prompts. Se entregó el 20 de noviembre de 2026, en su versión 1.0.
+
+El 17 de noviembre de 2026, en un audio de WhatsApp, el instructor indicó que ya no hay que hacer entregas: el avance del proyecto se documenta y organiza en el repositorio, y se revisa en las asesorías de clase. Decidí seguir documentando cada sesión como hasta ahora, con su evidencia, sus versiones y su PDF.
 
 El [prototipo de sesión 3 está publicado en GitHub Pages](https://tecno85.github.io/vehicle-control-app-web/). Se puede recorrer en escritorio y móvil; la vista móvil es adaptable y no es una aplicación nativa.
 
@@ -56,16 +58,18 @@ El [prototipo de sesión 3 está publicado en GitHub Pages](https://tecno85.gith
 
 ### Evidencias
 
-| Sesión | Evidencia | Entrega indicada | Estado |
+| Sesión | Evidencia | Fecha | Estado |
 |---|---|---|---|
 | Semana 1 | [Evidencia de semana 1](docs/evidencia-sesion-1.md): registro histórico de la actividad | 8 oct 2026 | Entregada |
 | 2 | [Requerimientos y backlog](docs/evidencia-sesion-2-requerimientos-backlog.md): consulta, requerimientos e historias priorizadas | 15 oct 2026 | Entregada |
 | 3 | [Diseño de pantallas](docs/evidencia-sesion-3-diseno-pantallas.md): mapa de 35 pantallas, rutas propuestas, 11 fichas, 24 capturas y resultados de la prueba con Katerin del 20 de octubre de 2026 | 22 oct 2026 | Entregada |
 | 4 y 5 | [Modelo de datos y servicios](docs/evidencia-sesion-4-modelo-datos-servicios.md): alcance de la primera versión, proceso del MVP, seis tablas con su diagrama, campos y relaciones, modelo cargado en Neon y Hasura, servicios S01 a S12 con sus contratos, revisión del diseño y dudas abiertas | 6 nov 2026 | Entregada (versión 0.8) |
 | 6 | [Monorepo con React y NestJS](docs/evidencia-sesion-6-monorepo-react-nestjs.md): base del monorepo, prueba de conexión con éxito, error y recuperación, y registro de tres prompts con sus comprobaciones | 12 nov 2026 | No solicitada (versión 0.1) |
-| 7 | [Conexión de core-service con Hasura](docs/evidencia-sesion-7-conexion-hasura.md): base de datos versionada en `infra/hasura/`, cliente interno de Hasura, prueba real con Hasura Cloud y registro de tres prompts | Por definir | En curso (versión 0.4) |
+| 7 | [Conexión de core-service con Hasura](docs/evidencia-sesion-7-conexion-hasura.md): base de datos versionada en `infra/hasura/`, cliente interno de Hasura, prueba real con Hasura Cloud y registro de tres prompts | 20 nov 2026 | Entregada (versión 1.0) |
 
 El instructor trasladó dos fechas de las sesiones 4 y 5: la revisión de los apartados 1 y 2 pasó del 29 al 30 de octubre, y el documento completo, del 5 al 6 de noviembre de 2026. El 12 de noviembre de 2026 no hubo encuentro con el instructor y él no pidió entregar la evidencia de sesión 6. Ese día indicó por WhatsApp seguir avanzando con el desarrollo del proyecto, y por eso hice la sesión 7 siguiendo su cartilla.
+
+Desde el 17 de noviembre de 2026 el instructor no pide entregas. Hasta la sesión 7, la columna «Fecha» es la de entrega. Desde la sesión 8, es la fecha en que cierro la sesión, y su estado es «Cerrada». Si el instructor la revisa en una asesoría, también anoto esa fecha.
 
 ## Ejecutar el monorepo
 

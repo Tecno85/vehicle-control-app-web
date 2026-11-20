@@ -2,9 +2,11 @@
 
 | Proyecto | Integrantes y versión |
 |---|---|
-| VehicleControlApp Web · DazaDev | Ivan Dario Madrid Daza, trabajo individual. Versión 0.4 del 20 de noviembre de 2026. Entrega: por definir. |
+| VehicleControlApp Web · DazaDev | Ivan Dario Madrid Daza, trabajo individual. Versión 1.0 del 20 de noviembre de 2026, para la entrega del 20 de noviembre de 2026. |
 
 **Por qué hay una sesión 7.** El 12 de noviembre de 2026 no hubo encuentro con el instructor. Ese día, por WhatsApp, indicó seguir avanzando con el desarrollo del proyecto, y no pidió entregar la evidencia de sesión 6. Por eso el 15 de noviembre decidí continuar con el siguiente paso de su «Cartilla de acompañamiento técnico»: completar la semana 5, «Monorepo, Neon, Hasura y cliente interno». La sesión 6 dejó el monorepo; aquí conecto core-service con Hasura. Si en el próximo encuentro el instructor pide otro tema, ajusto esta evidencia antes de entregarla.
+
+**Entrega.** El 17 de noviembre de 2026, en un audio de WhatsApp, el instructor indicó que ya no hay que hacer entregas: el avance del proyecto se documenta y organiza en el repositorio, y se revisa en las asesorías de clase. Aun así, decidí seguir documentando cada sesión como hasta ahora, y registré la entrega de esta evidencia el 20 de noviembre de 2026, en su versión 1.0.
 
 ## 1. Cumplimiento de la semana 5 de la cartilla
 
@@ -38,6 +40,7 @@
 | 19 nov 2026 | Subí a GitHub los commits de la sesión. Leí la versión de Hasura Cloud abriendo la dirección de mi proyecto terminada en `/v1/version`, y la de PostgreSQL con `select version();` en el SQL Editor de Neon | Hasura Cloud v2.51.8-cloud.2 y PostgreSQL 18.7 (apartado 3) | Esta evidencia, README y contexto |
 | 20 nov 2026 | Reconstruí la base de datos y Hasura en un proyecto nuevo siguiendo el README, guiado por Claude Code. Al terminar, borré el proyecto y la base de prueba y restauré mi `.env` | La base, la metadata y la conexión de core-service funcionaron. Al borrar el proyecto, core-service falló, así que lo estaba usando (apartado 5) | Esta evidencia, README y contexto |
 | 20 nov 2026 | Le pedí a Claude Code analizar npm 12 y hacer el cambio sin afectar el trabajo | Pasaron todas las comprobaciones en copias limpias. npm 12.2.3 quedó instalado en Node 24, y `package.json` registra que `fsevents` no necesita su script de instalación (apartado 5) | `package.json`, esta evidencia, README, contexto y AGENTS.md |
+| 20 nov 2026 | Cerré esta evidencia en la versión 1.0 y registré su entrega con fecha 20 de noviembre. Generé su PDF | Quedaron cumplidos todos los criterios de la semana 5 (apartado 1) | Esta evidencia, README, contexto y AGENTS.md |
 
 ## 3. Cómo se conecta core-service con Hasura
 
@@ -75,7 +78,7 @@ Todo está en `infra/hasura/`, con la estructura de carpetas que usa la CLI de H
 
 ```text
 infra/hasura/
-├── metadata/metadata.json                     # Configuración de Hasura, exportada de la consola
+├── metadata/metadata.json                     # Configuración exportada de Hasura
 ├── migrations/default/1794872424463_modelo_inicial/
 │   ├── up.sql                                 # Crea las seis tablas
 │   └── down.sql                               # Las borra, en orden inverso
@@ -439,6 +442,7 @@ El servidor falso registró que todas las consultas fueron por POST con la cabec
 
 - «Cartilla de acompañamiento técnico» del instructor: semana 5, «Monorepo, Neon, Hasura y cliente interno», y anexo A, sobre el cliente de Hasura en el core.
 - Indicación del instructor por WhatsApp, del 12 de noviembre de 2026, reportada por Ivan.
+- Audio del instructor por WhatsApp, del 17 de noviembre de 2026, reportado por Ivan.
 - [Evidencia de sesiones 4 y 5](evidencia-sesion-4-modelo-datos-servicios.md), con el modelo cargado en Neon y Hasura Cloud, y [evidencia de sesión 6](evidencia-sesion-6-monorepo-react-nestjs.md).
 - [README del repositorio](../README.md).
 
@@ -450,3 +454,4 @@ El servidor falso registró que todas las consultas fueron por POST con la cabec
 | 0.2 | 19 de noviembre de 2026 | Versiones de Hasura Cloud y de PostgreSQL en Neon, leídas en sus consolas, y subida de los commits a GitHub. |
 | 0.3 | 20 de noviembre de 2026 | Reconstrucción completa en una base de Neon y un proyecto de Hasura Cloud nuevos, con su contraprueba, y tres aclaraciones al README. |
 | 0.4 | 20 de noviembre de 2026 | Cambio del monorepo a npm 12.2.3, con su análisis y sus comprobaciones. |
+| 1.0 | 20 de noviembre de 2026 | Versión entregada. Registro de la entrega y del audio del instructor del 17 de noviembre. |

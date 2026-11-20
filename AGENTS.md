@@ -35,7 +35,7 @@
 ## Límites de implementación y etapa
 
 - La actividad más reciente es la sesión 7, que sigue la semana 5 de la cartilla del instructor porque él indicó por WhatsApp seguir avanzando. No pidió entregar la evidencia de sesión 6, que queda en la versión 0.1. Es un monorepo con `apps/web-app` (React, TypeScript, Vite y Material UI) y `apps/core-service` (NestJS), conectados por la prueba de salud `GET /api/health` y un panel de verificación. core-service consulta Hasura Cloud con un cliente interno, solo en la prueba `GET /api/health/hasura`.
-- Las evidencias de las sesiones 1 a 5 ya se entregaron y se conservan como registro, igual que la prueba del prototipo con Katerin del 20 de octubre de 2026.
+- Las evidencias de las sesiones 1 a 5 y 7 ya se entregaron y se conservan como registro, igual que la prueba del prototipo con Katerin del 20 de octubre de 2026.
 - El modelo de la primera versión está cargado en Neon y expuesto por Hasura Cloud con datos ficticios. Está versionado en `infra/hasura/`: migración, datos de prueba y metadata. core-service solo lo consulta en la prueba de conexión; no hay servicios del MVP que lean o guarden datos.
 - Los cambios futuros del esquema van en migraciones nuevas dentro de `infra/hasura/migrations/default/`. `docs/evidencia-sesion-4/modelo-inicial.sql` se conserva como parte de esa evidencia.
 - No crear tablas, permisos, migraciones, servicios o pantallas del MVP ni acceso sin solicitud expresa.
@@ -52,7 +52,7 @@
 - No modificar el prototipo ni el CSS para obtener o mejorar una captura. Si una captura revela un problema de layout, reportarlo antes de tocar el código.
 - No hacer commits ni push salvo que Ivan lo solicite.
 - En los mensajes de commit usar los prefijos `docs`, `feat`, `fix` y `chore`. No reescribir los commits anteriores para unificarlos.
-- Al hacer el commit de una entrega, crear una etiqueta anotada con la sesión y la versión del documento, por ejemplo `sesion-4-v0.1`, solo cuando Ivan lo pida.
+- Al hacer el commit de una entrega o de un cierre, crear una etiqueta anotada con la sesión y la versión del documento, por ejemplo `sesion-4-v0.1`, solo cuando Ivan lo pida.
 - Reglas de edición/eliminación acordadas: un vehículo con registros se desactiva para conservarlos; sin registros se puede eliminar con confirmación. Los ingresos y gastos se eliminan definitivamente con confirmación. Los documentos se pueden editar y reemplazar; al eliminarlos también se elimina su archivo. Las categorías usadas se renombrarán o desactivarán para conservar los gastos históricos.
 - En criterios BDD, presentar cada escenario completo con las etiquetas **Dado**, **Cuando** y **Entonces**. Mantener notas pendientes, reglas y criterios de calidad fuera de escenarios incompletos.
 
@@ -72,8 +72,9 @@
 - El código del producto va en `apps/<app>`. El prototipo de la sesión 3 queda aparte, con su propio npm.
 - Cada evidencia nueva va en `docs/evidencia-sesion-N-tema.md`, y sus recursos en `docs/evidencia-sesion-N/` (las capturas, en `capturas/`). Las evidencias anteriores conservan su nombre y ruta, porque los PDF entregados enlazan a ellas.
 - Fuera del repositorio, cada sesión tiene su carpeta en `Asesor_Técnico/Sesión_N`, con los materiales del instructor y el PDF de la evidencia. Conservar allí la planificación de trabajo es opcional. En la raíz de `Asesor_Técnico` solo va lo que abarca varias sesiones.
-- La tabla «Evidencias» del README es el índice: cada sesión suma una fila y cambia su estado cuando se entrega.
-- Orden para cerrar una entrega: commit `feat` del código; evidencia, README, contexto y AGENTS.md; comprobaciones; PDF; commit `docs`; push y etiqueta, cuando Ivan lo pida; y, al enviarla, la fecha real en el README y el contexto.
+- La tabla «Evidencias» del README es el índice: cada sesión suma una fila y cambia su estado cuando se entrega o se cierra.
+- Desde el 17 de noviembre de 2026 el instructor no pide entregas: el avance se revisa en las asesorías de clase. Ivan decidió seguir documentando cada sesión igual que antes. Desde la sesión 8, una sesión se cierra en lugar de entregarse: su fecha es la de cierre que decida Ivan («Por definir» mientras tanto), su estado es «Cerrada (versión 1.0)» y, si el instructor la revisa en una asesoría, también se anota esa fecha. No presentar como entregado lo que el instructor no recibió.
+- Orden para cerrar una sesión: commit `feat` del código; evidencia, README, contexto y AGENTS.md; comprobaciones; PDF; commit `docs`; push y etiqueta, cuando Ivan lo pida; y la fecha real de entrega o de cierre en el README y el contexto.
 
 ## Documentación
 
@@ -82,12 +83,12 @@
 - Mantener AGENTS.md como reglas estables: no incluir métricas de una entrega, hashes de commit ni rutas absolutas; esos datos van en README o en la evidencia.
 - Conservar las evidencias anteriores como registros históricos. Añadir una nota o referencia a la evidencia nueva si un pendiente antiguo ya fue resuelto; no borrar ni reescribir el historial para hacerlo parecer contemporáneo.
 - Al cerrar una evidencia, verificar que los documentos enlazados existan, que no haya fechas o decisiones contradictorias y que el estado del proyecto no presente como implementado lo que solo está planeado. Actualizar el estado de la entrega solo cuando esté confirmada; no dejar una fecha vencida como si todavía fuera futura.
-- Desde la evidencia de sesión 4, cada evidencia indica en el encabezado su versión y fecha, y cierra con un historial de versiones: 0.x para borradores y revisiones parciales, 1.0 para la entrega completa, salvo que Ivan decida entregar una versión 0.x. No añadir versiones a las evidencias anteriores.
+- Desde la evidencia de sesión 4, cada evidencia indica en el encabezado su versión y fecha, y cierra con un historial de versiones: 0.x para borradores y revisiones parciales, 1.0 para la entrega o el cierre completo, salvo que Ivan decida cerrar con una versión 0.x. No añadir versiones a las evidencias anteriores.
 - Registrar cada prompt usado para programar con:
   - Sus siete elementos: rol, objetivo, contexto, datos o archivos, restricciones, formato de salida y criterios de aceptación.
   - El texto exacto enviado.
   - Las comprobaciones con su resultado real.
-- El Markdown es la fuente de verdad de cada evidencia. El PDF es un derivado para entrega, no se versiona y se guarda en la ruta externa que indique Ivan. Al generarlo, verificar que cada ficha quede junto a sus capturas y que las tablas no dupliquen filas ni dejen una fila huérfana.
+- El Markdown es la fuente de verdad de cada evidencia. El PDF es un derivado para la entrega o el cierre, no se versiona y se guarda en la ruta externa que indique Ivan. Al generarlo, verificar que cada ficha quede junto a sus capturas y que las tablas no dupliquen filas ni dejen una fila huérfana.
 - Compactar una evidencia puede reducir fichas o capturas, pero no debe reducir el mapa completo de pantallas ni la cobertura de historias. Las variantes no capturadas se describen en el mapa y en las fichas.
 - Conservar las capturas antiguas no referenciadas como archivo; no borrarlas al actualizar una evidencia.
 - Las fichas de pantalla deben conservar objetivo, usuario/HU, acción principal, regreso y capturas, según la plantilla del instructor.
