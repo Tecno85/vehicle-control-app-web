@@ -1,18 +1,18 @@
-import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
+import { AppShell } from './components/layout/AppShell.tsx'
 import { HealthPanel } from './components/HealthPanel.tsx'
 
 function App() {
   return (
-    <Container component="main" maxWidth="sm" sx={{ py: 4 }}>
-      <Typography variant="h4" component="h1" gutterBottom>
-        VehicleControlApp Web
+    <AppShell>
+      <Typography variant="h1" sx={{ mb: 1 }}>
+        Verificación de conexión
       </Typography>
-      <Typography sx={{ mb: 3 }}>
+      <Typography color="text.secondary" sx={{ mb: 3 }}>
         Comprueba si la aplicación web se conecta con core-service.
       </Typography>
       <HealthPanel />
-    </Container>
+    </AppShell>
   )
 }
 

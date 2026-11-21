@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Alert from '@mui/material/Alert'
 import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
+import { SectionCard } from './SectionCard.tsx'
 import { checkHealth, HealthCheckError } from '../api/health.api.ts'
 import type { HealthResponse } from '../types/health.ts'
 
@@ -32,14 +33,16 @@ export function HealthPanel() {
   }
 
   return (
-    <Stack spacing={2} sx={{ alignItems: 'flex-start' }}>
-      <Button variant="contained" onClick={verify} disabled={loading}>
-        {loading ? 'Verificando…' : 'Verificar conexión'}
-      </Button>
-      {result?.kind === 'success' && (
-        <Alert severity="success">Conectado: {result.health.service}</Alert>
-      )}
-      {result?.kind === 'error' && <Alert severity="error">{result.message}</Alert>}
-    </Stack>
+    <SectionCard title="Conexión con core-service">
+      <Stack spacing={2}>
+        <Button variant="contained" onClick={verify} disabled={loading} sx={{ alignSelf: 'flex-start' }}>
+          {loading ? 'Verificando…' : 'Verificar conexión'}
+        </Button>
+        {result?.kind === 'success' && (
+          <Alert severity="success">Conectado: {result.health.service}</Alert>
+        )}
+        {result?.kind === 'error' && <Alert severity="error">{result.message}</Alert>}
+      </Stack>
+    </SectionCard>
   )
 }
