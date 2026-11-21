@@ -217,6 +217,12 @@ Frente al borrador de la sección 9.3 de la evidencia de sesión 3, agrego el `n
 | Si se pueden editar o eliminar los registros de un vehículo inactivo. El prototipo lo permite; falta confirmarlo. | Por definir |
 | Cuántos próximos vencimientos muestra la flota y con cuánta anticipación se marca uno como próximo. El prototipo muestra dos de ejemplo. | Por definir |
 
+**Nota posterior a la entrega (20 de noviembre de 2026).** El instructor revisó esta evidencia por Google Classroom. Recomendó dos cosas:
+- crear la cuenta de prueba y sus cinco categorías con un script SQL;
+- no incluir `es_ahorro_prima` en el modelo hasta crear y ejecutar su migración, y en el MVP registrar el ahorro a mano como gasto en su categoría.
+
+Lo que decidí con eso está en el [contexto del proyecto](contexto-proyecto.md). El resto de esta evidencia se conserva como se entregó.
+
 ## 3. Servicios principales a construir
 
 Un servicio es una acción útil que hará el backend. Definí los servicios a partir del proceso del MVP y de las reglas del modelo. Todavía no están programados: son el diseño que guiará la implementación.

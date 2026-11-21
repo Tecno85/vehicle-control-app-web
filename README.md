@@ -26,7 +26,7 @@ El repositorio es un monorepo con dos aplicaciones: `apps/web-app` (React, TypeS
 
 También reúne la documentación de descubrimiento y diseño, y el prototipo responsive de la sesión 3 para revisar los recorridos. El prototipo representa las pantallas de acceso, creación de cuenta y recuperación de contraseña, pero sus acciones son simuladas. **El prototipo no es una aplicación lista para producción.** No implementa autenticación real, servidor ni almacenamiento persistente: usa datos de demostración y los cambios se pierden al recargar la página. Los archivos seleccionados solo se muestran durante la sesión del navegador. Katerin probó el prototipo el 20 de octubre de 2026 y revisó la identidad visual; sus observaciones y los ajustes acordados están en la [evidencia de sesión 3](docs/evidencia-sesion-3-diseno-pantallas.md).
 
-La [evidencia de sesiones 4 y 5](docs/evidencia-sesion-4-modelo-datos-servicios.md) se entregó el 6 de noviembre de 2026 en su versión 0.8. Completa el diseño: alcance de la primera versión, proceso del MVP, seis tablas con sus campos y relaciones, servicios principales con sus contratos y revisión del diseño. Por indicación del instructor, el script [`modelo-inicial.sql`](docs/evidencia-sesion-4/modelo-inicial.sql) ya se ejecutó en Neon y Hasura Cloud expone esas tablas como API GraphQL, con datos de prueba ficticios. Todavía no están programados los servicios S01 a S12, la autenticación ni los permisos. Desde la sesión 7, core-service usa esa API solo para una consulta de prueba.
+La [evidencia de sesiones 4 y 5](docs/evidencia-sesion-4-modelo-datos-servicios.md) se entregó el 6 de noviembre de 2026 en su versión 0.8. Completa el diseño: alcance de la primera versión, proceso del MVP, seis tablas con sus campos y relaciones, servicios principales con sus contratos y revisión del diseño. Por indicación del instructor, el script [`modelo-inicial.sql`](docs/evidencia-sesion-4/modelo-inicial.sql) ya se ejecutó en Neon y Hasura Cloud expone esas tablas como API GraphQL, con datos de prueba ficticios. Todavía no están programados los servicios S01 a S12, la autenticación ni los permisos. Desde la sesión 7, core-service usa esa API solo para una consulta de prueba. El 20 de noviembre de 2026, el instructor revisó esa evidencia por Google Classroom. Validó el modelo y recomendó crear la cuenta de prueba con un script SQL, y dejar el campo propuesto `es_ahorro_prima` para cuando exista su migración.
 
 La sesión 6 dejó la base del monorepo y la prueba de conexión entre React y NestJS. Su [evidencia](docs/evidencia-sesion-6-monorepo-react-nestjs.md) quedó en la versión 0.1, porque el 12 de noviembre de 2026 no hubo encuentro con el instructor y él no pidió entregarla. Ese día indicó por WhatsApp seguir avanzando con el desarrollo del proyecto.
 
@@ -121,6 +121,25 @@ Para comprobar core-service sin la web, abre http://localhost:3000/api/health. D
 | 503 «Hasura no respondió en 5000 ms.» | Hasura o la base tardaron más que el tiempo límite | Vuelve a intentarlo. Si se repite, revisa el proyecto en Hasura Cloud o aumenta `HASURA_TIMEOUT_MS` |
 | 503 «No se pudo conectar con Hasura…» | Sin internet, o `HASURA_GRAPHQL_URL` está mal escrita | Revisa la conexión y la dirección, que debe terminar en `/v1/graphql` |
 | core-service no arranca: «HASURA_GRAPHQL_URL no es una dirección válida…» o «HASURA_TIMEOUT_MS debe ser un número entero…» | Un valor mal escrito en `apps/core-service/.env` | Corrige el valor que indica el mensaje |
+
+## Guía visual (solo en desarrollo)
+
+La web-app toma su aspecto de la app Android: colores, letra Roboto, tarjetas, etiquetas y modo claro u oscuro. La guía visual reúne esos componentes en una página, para revisarlos y mejorarlos antes de construir las pantallas.
+
+1. Arranca la web: `npm run dev:web`. La guía no necesita core-service.
+2. Abre http://localhost:5173/guia-visual.html.
+3. Para ver el otro modo, usa el botón del sol o la luna en el encabezado.
+
+- **Qué muestra:**
+  - los colores con su contraste y la tipografía;
+  - botones, etiquetas, una tarjeta con título y el estado vacío;
+  - mensajes, campos de formulario y una tarjeta de vehículo de ejemplo.
+- **Datos ficticios.** El taxi XYZ789 es el de los datos de prueba de `infra/hasura`. La guía no es una pantalla de la aplicación.
+- **Solo en desarrollo.** `npm run build` compila solo `index.html`, así que la guía no queda en `apps/web-app/dist`.
+- **Dónde está el código:**
+  - el tema, en `apps/web-app/src/theme/`;
+  - los componentes, en `src/components/`;
+  - la guía, en `guia-visual.html` y `src/guia/`.
 
 ## Conectar core-service con Hasura
 
