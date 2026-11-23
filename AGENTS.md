@@ -30,12 +30,13 @@
 - Usar `docs/evidencia-sesion-4-modelo-datos-servicios.md` para el modelo de datos, sus decisiones de diseño y los servicios de las sesiones 4 y 5. Sus tablas, campos y relaciones son un diseño previo a la programación.
 - Usar `docs/evidencia-sesion-6-monorepo-react-nestjs.md` para la base del monorepo, la prueba de conexión y el registro de prompts de la sesión 6.
 - Usar `docs/evidencia-sesion-7-conexion-hasura.md` para la conexión de core-service con Hasura, la base de datos versionada en `infra/hasura/` y el registro de prompts de la sesión 7.
+- Usar `docs/evidencia-sesion-8-base-visual.md` para la base visual de la web-app con la identidad de Android, la guía visual y el registro de prompts de la sesión 8.
 - No inventar usuarios, integrantes, resultados de pruebas ni decisiones técnicas.
 - Cuando no haya una fecha acordada para un pendiente, escribir «Por definir». No asignar fechas supuestas.
 
 ## Límites de implementación y etapa
 
-- La actividad más reciente es la sesión 7, que sigue la semana 5 de la cartilla del instructor porque él indicó por WhatsApp seguir avanzando. No pidió entregar la evidencia de sesión 6, que queda en la versión 0.1. Es un monorepo con `apps/web-app` (React, TypeScript, Vite y Material UI) y `apps/core-service` (NestJS), conectados por la prueba de salud `GET /api/health` y un panel de verificación. core-service consulta Hasura Cloud con un cliente interno, solo en la prueba `GET /api/health/hasura`.
+- La actividad más reciente es la sesión 8, la base visual de la web-app. La sesión 7 siguió la semana 5 de la cartilla del instructor porque él indicó por WhatsApp seguir avanzando. No pidió entregar la evidencia de sesión 6, que queda en la versión 0.1. Es un monorepo con `apps/web-app` (React, TypeScript, Vite y Material UI) y `apps/core-service` (NestJS), conectados por la prueba de salud `GET /api/health` y un panel de verificación. core-service consulta Hasura Cloud con un cliente interno, solo en la prueba `GET /api/health/hasura`.
 - Las evidencias de las sesiones 1 a 5 y 7 ya se entregaron y se conservan como registro, igual que la prueba del prototipo con Katerin del 20 de octubre de 2026.
 - El modelo de la primera versión está cargado en Neon y expuesto por Hasura Cloud con datos ficticios. Está versionado en `infra/hasura/`: migración, datos de prueba y metadata. core-service solo lo consulta en la prueba de conexión; no hay servicios del MVP que lean o guarden datos.
 - Los cambios futuros del esquema van en migraciones nuevas dentro de `infra/hasura/migrations/default/`. `docs/evidencia-sesion-4/modelo-inicial.sql` se conserva como parte de esa evidencia.
@@ -75,6 +76,7 @@
 - Cada evidencia nueva va en `docs/evidencia-sesion-N-tema.md`, y sus recursos en `docs/evidencia-sesion-N/` (las capturas, en `capturas/`). Las evidencias anteriores conservan su nombre y ruta, porque los PDF entregados enlazan a ellas.
 - Fuera del repositorio, cada sesión tiene su carpeta en `Asesor_Técnico/Sesión_N`, con los materiales del instructor y el PDF de la evidencia. Conservar allí la planificación de trabajo es opcional. En la raíz de `Asesor_Técnico` solo va lo que abarca varias sesiones.
 - La tabla «Evidencias» del README es el índice: cada sesión suma una fila y cambia su estado cuando se entrega o se cierra.
+- Por decisión de Ivan del 22 de noviembre de 2026, las sesiones se numeran en el orden en que él trabaja, sin esperar una indicación del instructor.
 - Desde el 17 de noviembre de 2026 el instructor no pide entregas: el avance se revisa en las asesorías de clase. Ivan decidió seguir documentando cada sesión igual que antes. Desde la sesión 8, una sesión se cierra en lugar de entregarse: su fecha es la de cierre que decida Ivan («Por definir» mientras tanto), su estado es «Cerrada (versión 1.0)» y, si el instructor la revisa en una asesoría, también se anota esa fecha. No presentar como entregado lo que el instructor no recibió.
 - Orden para cerrar una sesión: commit `feat` del código; evidencia, README, contexto y AGENTS.md; comprobaciones; PDF; commit `docs`; push y etiqueta, cuando Ivan lo pida; y la fecha real de entrega o de cierre en el README y el contexto.
 

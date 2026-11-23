@@ -30,9 +30,11 @@ La [evidencia de sesiones 4 y 5](docs/evidencia-sesion-4-modelo-datos-servicios.
 
 La sesión 6 dejó la base del monorepo y la prueba de conexión entre React y NestJS. Su [evidencia](docs/evidencia-sesion-6-monorepo-react-nestjs.md) quedó en la versión 0.1, porque el 12 de noviembre de 2026 no hubo encuentro con el instructor y él no pidió entregarla. Ese día indicó por WhatsApp seguir avanzando con el desarrollo del proyecto.
 
-Por eso continué con la semana 5 de su cartilla. La actividad más reciente es la sesión 7. Su [evidencia](docs/evidencia-sesion-7-conexion-hasura.md) documenta la conexión de core-service con Hasura, la base de datos versionada en `infra/hasura/` y el registro de tres prompts. Se entregó el 20 de noviembre de 2026, en su versión 1.0.
+Por eso continué con la semana 5 de su cartilla en la sesión 7. Su [evidencia](docs/evidencia-sesion-7-conexion-hasura.md) documenta la conexión de core-service con Hasura, la base de datos versionada en `infra/hasura/` y el registro de tres prompts. Se entregó el 20 de noviembre de 2026, en su versión 1.0.
 
 El 17 de noviembre de 2026, en un audio de WhatsApp, el instructor indicó que ya no hay que hacer entregas: el avance del proyecto se documenta y organiza en el repositorio, y se revisa en las asesorías de clase. Decidí seguir documentando cada sesión como hasta ahora, con su evidencia, sus versiones y su PDF.
+
+La actividad más reciente es la sesión 8. El 20 de noviembre de 2026 decidí darle a la web-app la identidad visual de la app Android: colores, letra Roboto, tarjetas, etiquetas y modo claro u oscuro. Su [evidencia](docs/evidencia-sesion-8-base-visual.md) documenta el tema, la estructura común, el panel con el nuevo estilo, la guía visual solo para desarrollo y el registro de tres prompts. Está en curso, en su versión 0.1. La siguiente es la sesión 9: el ingreso con correo y contraseña, según la semana 6 de la cartilla. Numeré las dos sesiones en el orden en que vengo trabajando.
 
 El [prototipo de sesión 3 está publicado en GitHub Pages](https://tecno85.github.io/vehicle-control-app-web/). Se puede recorrer en escritorio y móvil; la vista móvil es adaptable y no es una aplicación nativa.
 
@@ -48,7 +50,8 @@ El [prototipo de sesión 3 está publicado en GitHub Pages](https://tecno85.gith
 ├── docs/                            # Contexto y evidencias de las sesiones
 │   ├── evidencia-sesion-3/capturas/ # Capturas incluidas en la evidencia de diseño
 │   ├── evidencia-sesion-4/          # Diagrama (SVG y PNG) y script SQL del modelo
-│   └── evidencia-sesion-6/capturas/ # Capturas de la prueba de conexión
+│   ├── evidencia-sesion-6/capturas/ # Capturas de la prueba de conexión
+│   └── evidencia-sesion-8/capturas/ # Capturas de la base visual y la guía
 ├── infra/hasura/                    # Migración, datos de prueba y metadata de Hasura
 ├── package.json                     # Workspaces de npm y atajos del monorepo
 └── prototipo-web-sesion-3/          # Prototipo de revisión, con su propio npm
@@ -66,6 +69,7 @@ El [prototipo de sesión 3 está publicado en GitHub Pages](https://tecno85.gith
 | 4 y 5 | [Modelo de datos y servicios](docs/evidencia-sesion-4-modelo-datos-servicios.md): alcance de la primera versión, proceso del MVP, seis tablas con su diagrama, campos y relaciones, modelo cargado en Neon y Hasura, servicios S01 a S12 con sus contratos, revisión del diseño y dudas abiertas | 6 nov 2026 | Entregada (versión 0.8) |
 | 6 | [Monorepo con React y NestJS](docs/evidencia-sesion-6-monorepo-react-nestjs.md): base del monorepo, prueba de conexión con éxito, error y recuperación, y registro de tres prompts con sus comprobaciones | 12 nov 2026 | No solicitada (versión 0.1) |
 | 7 | [Conexión de core-service con Hasura](docs/evidencia-sesion-7-conexion-hasura.md): base de datos versionada en `infra/hasura/`, cliente interno de Hasura, prueba real con Hasura Cloud y registro de tres prompts | 20 nov 2026 | Entregada (versión 1.0) |
+| 8 | [Base visual de la web-app](docs/evidencia-sesion-8-base-visual.md): tema con la identidad de Android en modo claro y oscuro, estructura común, panel con el nuevo estilo, guía visual solo para desarrollo y registro de tres prompts | Por definir | En curso (versión 0.1) |
 
 El instructor trasladó dos fechas de las sesiones 4 y 5: la revisión de los apartados 1 y 2 pasó del 29 al 30 de octubre, y el documento completo, del 5 al 6 de noviembre de 2026. El 12 de noviembre de 2026 no hubo encuentro con el instructor y él no pidió entregar la evidencia de sesión 6. Ese día indicó por WhatsApp seguir avanzando con el desarrollo del proyecto, y por eso hice la sesión 7 siguiendo su cartilla.
 
