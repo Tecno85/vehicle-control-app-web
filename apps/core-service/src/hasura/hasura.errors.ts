@@ -17,3 +17,11 @@ export class HasuraError extends Error {
     this.name = 'HasuraError';
   }
 }
+
+// Para los servicios que reciben de Hasura algo distinto de lo que pidieron.
+export function formatoInesperado(): HasuraError {
+  return new HasuraError(
+    'UNAVAILABLE',
+    'Hasura respondió con un formato inesperado.',
+  );
+}

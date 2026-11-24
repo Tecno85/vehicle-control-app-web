@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { HasuraError } from '../hasura/hasura.errors.js';
 import { HasuraService } from '../hasura/hasura.service.js';
-import { HealthService } from './health.service.js';
+import { HealthService, VEHICULOS_COUNT_QUERY } from './health.service.js';
 
 describe('HealthService', () => {
   let service: HealthService;
@@ -26,25 +26,26 @@ describe('HealthService', () => {
     });
   });
 
-  it('cuenta los vehículos con una consulta fija a Hasura', async () => {
+  it('cuenta solo los vehículos de la cuenta, con una consulta fija', async () => {
     hasuraService.request.mockResolvedValue({
       vehiculos_aggregate: { aggregate: { count: 1 } },
     });
 
-    await expect(service.checkHasura()).resolves.toEqual({
+    await expect(service.checkHasura(7)).resolves.toEqual({
       status: 'ok',
       service: 'hasura',
       vehiculos: 1,
     });
-    expect(hasuraService.request).toHaveBeenCalledWith(
-      'query ConteoVehiculos { vehiculos_aggregate { aggregate { count } } }',
-    );
+    expect(hasuraService.request).toHaveBeenCalledWith(VEHICULOS_COUNT_QUERY, {
+      usuarioId: 7,
+    });
+    expect(VEHICULOS_COUNT_QUERY).toContain('usuario_id: { _eq: $usuarioId }');
   });
 
   it('avisa si Hasura no devuelve el conteo', async () => {
     hasuraService.request.mockResolvedValue({ vehiculos_aggregate: null });
 
-    await expect(service.checkHasura()).rejects.toThrow(
+    await expect(service.checkHasura(7)).rejects.toThrow(
       new HasuraError(
         'UNAVAILABLE',
         'Hasura respondió con un formato inesperado.',

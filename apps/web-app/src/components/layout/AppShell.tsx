@@ -1,13 +1,20 @@
 import type { ReactNode } from 'react'
 import Container from '@mui/material/Container'
+import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { ColorModeToggle } from './ColorModeToggle.tsx'
 
 const pagePadding = { px: { xs: 2, sm: 3 } }
 
-// Estructura común de las páginas: el encabezado con el nombre y el botón de modo, y el contenido.
+interface AppShellProps {
+  children: ReactNode
+  // Botones extra del encabezado, junto al de modo; por ejemplo, «Cerrar sesión».
+  acciones?: ReactNode
+}
+
+// Estructura común de las páginas: el encabezado con el nombre y sus botones, y el contenido.
 // Como en Android, el encabezado va sobre el fondo de la página, sin barra de color.
-export function AppShell({ children }: { children: ReactNode }) {
+export function AppShell({ children, acciones }: AppShellProps) {
   return (
     <>
       <Container
@@ -25,7 +32,10 @@ export function AppShell({ children }: { children: ReactNode }) {
         <Typography component="p" variant="h2">
           Control Vehicular
         </Typography>
-        <ColorModeToggle />
+        <Stack direction="row" spacing={1} sx={{ alignItems: 'center', flexShrink: 0 }}>
+          {acciones}
+          <ColorModeToggle />
+        </Stack>
       </Container>
       <Container component="main" maxWidth="md" sx={{ ...pagePadding, py: { xs: 2, sm: 3 } }}>
         {children}

@@ -1,5 +1,5 @@
 {
-  "resource_version": 14,
+  "resource_version": 19,
   "metadata": {
     "version": 3,
     "sources": [
@@ -85,6 +85,20 @@
           },
           {
             "table": {
+              "name": "sesiones",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "usuario",
+                "using": {
+                  "foreign_key_constraint_on": "usuario_id"
+                }
+              }
+            ]
+          },
+          {
+            "table": {
               "name": "usuarios",
               "schema": "public"
             },
@@ -99,6 +113,18 @@
                     "insertion_order": null,
                     "remote_table": {
                       "name": "categorias_gasto",
+                      "schema": "public"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "sesiones",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "usuario_id",
+                    "table": {
+                      "name": "sesiones",
                       "schema": "public"
                     }
                   }

@@ -1,18 +1,14 @@
-import Typography from '@mui/material/Typography'
-import { AppShell } from './components/layout/AppShell.tsx'
-import { HealthPanel } from './components/HealthPanel.tsx'
+import { BrowserRouter } from 'react-router'
+import { AppRoutes } from './app/routes/AppRoutes.tsx'
+import { AccesoProvider } from './features/auth/AccesoProvider.tsx'
 
 function App() {
   return (
-    <AppShell>
-      <Typography variant="h1" sx={{ mb: 1 }}>
-        Verificación de conexión
-      </Typography>
-      <Typography color="text.secondary" sx={{ mb: 3 }}>
-        Comprueba si la aplicación web se conecta con core-service.
-      </Typography>
-      <HealthPanel />
-    </AppShell>
+    <BrowserRouter>
+      <AccesoProvider>
+        <AppRoutes />
+      </AccesoProvider>
+    </BrowserRouter>
   )
 }
 

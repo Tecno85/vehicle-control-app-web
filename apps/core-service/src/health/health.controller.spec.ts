@@ -28,18 +28,19 @@ describe('HealthController', () => {
     });
   });
 
-  it('responde el conteo de vehículos cuando Hasura contesta', async () => {
+  it('responde el conteo de vehículos de la cuenta cuando Hasura contesta', async () => {
     healthService.checkHasura.mockResolvedValue({
       status: 'ok',
       service: 'hasura',
       vehiculos: 1,
     });
 
-    await expect(controller.checkHasura()).resolves.toEqual({
+    await expect(controller.checkHasura(7)).resolves.toEqual({
       status: 'ok',
       service: 'hasura',
       vehiculos: 1,
     });
+    expect(healthService.checkHasura).toHaveBeenCalledWith(7);
   });
 
   it('responde 503 con el mensaje del error cuando Hasura falla', async () => {
@@ -47,7 +48,7 @@ describe('HealthController', () => {
       new HasuraError('TIMEOUT', 'Hasura no respondió en 5000 ms.'),
     );
 
-    const error: unknown = await controller.checkHasura().catch((e) => e);
+    const error: unknown = await controller.checkHasura(7).catch((e) => e);
 
     expect(error).toBeInstanceOf(ServiceUnavailableException);
     expect((error as ServiceUnavailableException).getStatus()).toBe(503);
