@@ -1,7 +1,7 @@
 # Contexto del proyecto VehicleControlApp Web
 
-**Estado del contexto:** 20 de noviembre de 2026
-**Actividad actual:** la sesión 8, base visual de la web-app con la identidad de Android, está en curso en su versión 0.1. Le sigue la sesión 9, el ingreso con correo y contraseña según la semana 6 de la cartilla del instructor. Numeré las dos en el orden en que vengo trabajando. La sesión 7, conexión de core-service con Hasura según la semana 5 de la cartilla, se entregó el 20 de noviembre de 2026 en su versión 1.0. Desde el 17 de noviembre de 2026 el instructor no pide entregas: el avance se revisa en las asesorías de clase, y decidí seguir documentando cada sesión igual. El 12 de noviembre de 2026 no hubo encuentro con el instructor: no pidió entregar la evidencia de sesión 6, que queda en la versión 0.1, y por WhatsApp indicó seguir avanzando con el desarrollo del proyecto. La evidencia de sesiones 4 y 5 se entregó el 6 de noviembre de 2026 en su versión 0.8.
+**Estado del contexto:** 23 de noviembre de 2026
+**Actividad actual:** la sesión 9, el ingreso con correo y contraseña según la semana 6 de la cartilla del instructor, está en curso en su versión 0.1. La sesión 8, base visual de la web-app con la identidad de Android, también está en curso en su versión 0.1. Numeré las dos en el orden en que vengo trabajando. La sesión 7, conexión de core-service con Hasura según la semana 5 de la cartilla, se entregó el 20 de noviembre de 2026 en su versión 1.0. Desde el 17 de noviembre de 2026 el instructor no pide entregas: el avance se revisa en las asesorías de clase, y decidí seguir documentando cada sesión igual. El 12 de noviembre de 2026 no hubo encuentro con el instructor: no pidió entregar la evidencia de sesión 6, que queda en la versión 0.1, y por WhatsApp indicó seguir avanzando con el desarrollo del proyecto. La evidencia de sesiones 4 y 5 se entregó el 6 de noviembre de 2026 en su versión 0.8.
 **Modalidad de trabajo:** individual.
 
 ## 1. Ficha del proyecto
@@ -46,6 +46,8 @@
 | 20 nov 2026 | Decisión sobre la parte visual | Decidí trabajar la parte visual real de la web-app antes de seguir con la cartilla, y basarla en la identidad de la app Android: colores, letra Roboto, tarjetas, etiquetas y modo claro u oscuro. El nombre visible es «Control Vehicular». Ese día quedaron el tema, la estructura común, el panel y una guía visual solo para desarrollo, y me gustó el diseño. | Es una base visual: no hay pantallas del MVP ni datos. Cambia la identidad del prototipo que Katerin revisó el 20 de octubre, y ella todavía no ha visto la nueva. El número de sesión está por definir. |
 | 20 nov 2026 | Retroalimentación del instructor por Google Classroom sobre la evidencia de sesiones 4 y 5, reportada por Ivan | Dijo que el modelo está bien alineado con el MVP ajustado: las seis tablas, sus relaciones, la pertenencia por cuenta y los servicios responden al proceso principal. Le pareció acertado manejar taxi e inDrive en una sola tabla de ingresos con el campo `tipo`, conservar la cuota de referencia y guardar los valores en pesos enteros. También, que React consuma solo las APIs de NestJS y que core-service valide antes de ir a Hasura. Hizo dos recomendaciones. Primero, definir cómo se crean la cuenta de prueba y sus cinco categorías, por ejemplo con un script SQL, y dejar el registro de cuentas y la recuperación de contraseña para después. Segundo, no incluir `es_ahorro_prima` en el modelo hasta crear y ejecutar su migración. | Indicó que las recomendaciones no impiden avanzar a la implementación. Decidí que, en la primera versión, el ahorro para la prima sea un gasto más de su categoría, sin cálculo de ahorro acumulado. El script de datos ficticios de la sesión 7 ya crea la cuenta de prueba con sus cinco categorías, pero sin una contraseña válida (apartado 8). |
 | 22 nov 2026 | Numeración de las sesiones, decidida por Ivan | Numeré las sesiones en el orden en que vengo trabajando: la base visual es la sesión 8, y el ingreso con correo y contraseña, la 9. | No esperé una indicación del instructor, que revisa el avance en las asesorías de clase. |
+| 21 a 23 nov 2026 | Ingreso con correo y contraseña (sesión 9), según la semana 6 de la cartilla | Con Claude Code agregué la tabla `sesiones`, una segunda cuenta ficticia, el ingreso, la renovación y el cierre de la sesión en core-service, y la página de ingreso con rutas protegidas. Con Neon y Hasura Cloud, cada cuenta recibió 404 al pedir el vehículo de la otra, y en Edge ingresé con las dos cuentas a la vez. También lo probé en Safari. | Funciona en desarrollo, en mi equipo; no está publicado. No hay registro propio ni recuperación de contraseña. Las contraseñas reales de las cuentas de prueba no están en el repositorio. |
+| 23 nov 2026 | Límite conocido del ingreso, decidido por Ivan | Recargar dos veces en menos de un segundo puede cerrar la sesión. Decidí dejarlo como límite conocido y resolverlo después de presentar el trabajo final en el SENA, porque voy a seguir trabajando en el proyecto. | Solo obliga a escribir otra vez la contraseña; no expone datos. La solución propuesta, un margen de gracia en core-service, está en la evidencia de sesión 9. |
 | Sin fecha especificada | Observación previa de Katerin sobre Android | El término “Registro de documentos” le resultó confuso; también sugirió adjuntar imágenes de facturas. | Mantener como observación distinta de la retroalimentación del 2 de octubre. La propuesta de facturas no se incorpora automáticamente al alcance inicial. |
 | Fechas y condiciones distintas, no detalladas aquí | Antecedente de pruebas Android | Katerin y Jean Carlos probaron el MVP Android en momentos y condiciones distintos. | No combinar sus pruebas ni atribuir resultados específicos sin evidencia separada. |
 
@@ -124,7 +126,7 @@ Después de la prueba del 20 de octubre de 2026, el prototipo incluye además: f
 
 El backlog de sesión 2 contiene cinco historias de usuario priorizadas para el MVP: crear y clasificar vehículos; registrar ingresos y ajustar la cuota del taxi; registrar gastos y administrar categorías; registrar documentos y consultar sus soportes; y consultar la información por vehículo. Los criterios BDD y sus pendientes están detallados en la [evidencia de requerimientos y backlog](evidencia-sesion-2-requerimientos-backlog.md).
 
-El login se incluyó como pantalla y recorrido del prototipo de sesión 3, a solicitud del instructor. No está implementado. Las funciones que queden fuera del MVP se priorizarán para etapas posteriores; este repositorio no incluye una aplicación nativa.
+El login se incluyó como pantalla y recorrido del prototipo de sesión 3, a solicitud del instructor. Desde la sesión 9, el ingreso con correo y contraseña funciona en desarrollo, en mi equipo; el registro propio y la recuperación de contraseña siguen sin implementar. Las funciones que queden fuera del MVP se priorizarán para etapas posteriores; este repositorio no incluye una aplicación nativa.
 
 Tras la retroalimentación del 27 de octubre de 2026, HU-04 se implementa primero sin archivo de soporte, y el acceso de la primera versión se limita al ingreso con correo y contraseña.
 
@@ -138,6 +140,7 @@ Tras la retroalimentación del 27 de octubre de 2026, HU-04 se implementa primer
 - La [evidencia de sesión 6](evidencia-sesion-6-monorepo-react-nestjs.md) documenta la base del monorepo, la prueba de conexión entre React y NestJS y el registro de tres prompts. Queda en la versión 0.1: el 12 de noviembre de 2026 no hubo encuentro con el instructor y él no pidió entregarla. Ese día indicó por WhatsApp seguir avanzando con el desarrollo del proyecto.
 - La [evidencia de sesión 7](evidencia-sesion-7-conexion-hasura.md) documenta la conexión de core-service con Hasura, siguiendo la semana 5 de la cartilla del instructor. Se entregó el 20 de noviembre de 2026 en su versión 1.0.
 - La [evidencia de sesión 8](evidencia-sesion-8-base-visual.md) documenta la base visual de la web-app con la identidad de Android: tema, estructura común, panel y guía visual solo para desarrollo. Está en curso, en su versión 0.1.
+- La [evidencia de sesión 9](evidencia-sesion-9-acceso.md) documenta el ingreso con correo y contraseña, la sesión, la matriz de autorización y el registro de tres prompts, siguiendo la semana 6 de la cartilla del instructor. Está en curso, en su versión 0.1.
 - Katerin revisó inicialmente el flujo web el 28 de septiembre, pidió adjuntar soportes el 2 de octubre, validó el proceso y el avance Android el 8 de octubre, respondió preguntas breves el 12 de octubre y probó el prototipo web el 20 de octubre; en esa prueba revisó la identidad visual y le pareció adecuada. Estos contactos no se deben combinar.
 
 ## 7. Base técnica y orientación
@@ -146,11 +149,11 @@ Tras la retroalimentación del 27 de octubre de 2026, HU-04 se implementa primer
 - `apps/web-app`, con React, TypeScript, Vite y Material UI.
 - `apps/core-service`, con NestJS.
 
-React consume core-service por HTTP, con el cliente de `src/api/api-client.ts`. Por ahora solo usa la prueba de salud `GET /api/health`.
+React consume core-service por HTTP, con el cliente de `src/api/api-client.ts`. Usa la prueba de salud `GET /api/health` y, desde la sesión 9, el ingreso, la sesión y el perfil.
 
 En la sesión 7, core-service se conectó a Hasura Cloud:
 - Su cliente interno, en `src/hasura/`, envía consultas GraphQL con el secreto de administración. El secreto solo vive en `apps/core-service/.env`, que no se versiona. El cliente tiene un tiempo límite y errores claros.
-- La consulta de prueba `GET /api/health/hasura` cuenta los vehículos.
+- La consulta de prueba `GET /api/health/hasura` cuenta los vehículos. Desde la sesión 9 exige sesión y solo cuenta los de esa cuenta.
 - La base de datos y la configuración de Hasura quedaron versionadas en `infra/hasura/`.
 - La web no habla con Hasura.
 
@@ -160,9 +163,17 @@ El 20 de noviembre de 2026, la web-app recibió una base visual con la identidad
 - componentes comunes, como tarjetas con título, etiquetas y estado vacío;
 - una guía visual en `guia-visual.html`, solo para desarrollo, que no entra en la compilación.
 
+Del 21 al 23 de noviembre de 2026, en la sesión 9, se agregó el ingreso con correo y contraseña:
+- la tabla `sesiones`, en una migración nueva, y una segunda cuenta ficticia con un vehículo particular;
+- contraseñas con Argon2id. Las de las cuentas de prueba se crean con un script y no se guardan en el repositorio;
+- en core-service, el ingreso, la renovación en una cookie que cambia en cada uso, el cierre de la sesión, el perfil y la consulta de un vehículo de la propia cuenta, con una revisión que exige sesión en las demás rutas;
+- en la web-app, la página de ingreso, el inicio protegido y el botón para cerrar sesión, con React Router.
+
+Funciona en desarrollo, en mi equipo; no está publicado ni probado en producción. Tiene un límite conocido: recargar dos veces en menos de un segundo puede cerrar la sesión. Decidí resolverlo después de presentar el trabajo final en el SENA.
+
 **Versiones.** Decidí usar las versiones estables recomendadas: NestJS 12 con Node 24 LTS y, desde el 20 de noviembre de 2026, npm 12.
 
-**Lo pendiente.** Faltan los servicios del MVP (S01 a S12), el acceso con correo y contraseña y las pantallas que usen datos. En la cartilla del instructor, lo siguiente es el acceso y la autorización (semana 6).
+**Lo pendiente.** Faltan los demás servicios del MVP (S02 a S12; de S06 solo está la consulta de un vehículo) y las pantallas que usen datos. En la cartilla del instructor, lo siguiente son los servicios y las pantallas del MVP (semana 7).
 
 ## 8. Decisiones abiertas antes de implementar
 
@@ -172,8 +183,9 @@ El 20 de noviembre de 2026, la web-app recibió una base visual con la identidad
 - **Categorías de gastos:** acordamos los campos y las categorías iniciales, además de permitir agregar y renombrar categorías. Si una categoría ya está usada, se desactiva para conservar los gastos anteriores.
 - **Ahorro para la prima del conductor:** por recomendación del instructor del 20 de noviembre de 2026, el campo propuesto `es_ahorro_prima` queda fuera del modelo hasta crear y ejecutar su migración. En la primera versión, el ahorro es un gasto más de la categoría «Ahorro prima conductor», sin cálculo de ahorro acumulado.
 - **Archivos:** acordamos permitir un archivo por registro y guardar primero los datos. PDF es el formato más común señalado; debo definir los formatos finales, el tamaño máximo, el almacenamiento y la conservación. Interpreto provisionalmente “.Docs” como Word (.doc/.docx). El almacenamiento de archivos queda para la fase posterior a la primera versión.
-- **Autenticación:** se acordó crear cuentas independientes con registro propio, correo y contraseña, y recuperación mediante correo. El MVP considera a la persona titular con acceso a su flota; no se definieron roles para compartir datos. Las políticas técnicas de contraseña, verificación del correo y validez del enlace de recuperación siguen pendientes. El flujo está representado en el diseño de Figma y en el prototipo local; no está implementado en el producto. En la primera versión solo se implementaría el ingreso con correo y contraseña a una cuenta creada previamente. El registro propio, la verificación y la recuperación pasan a la fase posterior.
-- **Cuenta de prueba:** el 20 de noviembre de 2026, el instructor recomendó crear la cuenta de prueba y sus cinco categorías con un script SQL. El script de datos ficticios de la sesión 7 ya lo hace, pero deja una contraseña que no sirve para entrar, porque todavía no había login. Con el login falta definir cómo recibe una contraseña real sin guardarla en el repositorio.
+- **Autenticación:** se acordó crear cuentas independientes con registro propio, correo y contraseña, y recuperación mediante correo. El MVP considera a la persona titular con acceso a su flota; no se definieron roles para compartir datos. Las políticas técnicas de contraseña, verificación del correo y validez del enlace de recuperación siguen pendientes. El flujo está representado en el diseño de Figma y en el prototipo local. La primera versión solo incluye el ingreso con correo y contraseña a una cuenta creada previamente: desde la sesión 9 funciona en desarrollo, con los valores de acceso que aprobé en esa evidencia. El registro propio, la verificación y la recuperación pasan a la fase posterior.
+- **Cuenta de prueba:** el 20 de noviembre de 2026, el instructor recomendó crear la cuenta de prueba y sus cinco categorías con un script SQL. El script de datos ficticios de la sesión 7 ya lo hace, pero deja una contraseña que no sirve para entrar, porque todavía no había login. En la sesión 9 lo resolví: creo la contraseña de cada cuenta con el script `npm run contrasena`, que imprime solo el hash, y lo guardo en Neon con un `update`. La contraseña real no está en el repositorio.
+- **Recarga doble:** recargar dos veces en menos de un segundo puede cerrar la sesión. El 23 de noviembre de 2026 decidí resolverlo después de presentar el trabajo final en el SENA, con un margen de gracia en core-service. Fecha: por definir.
 
 Para ampliar las reglas de edición y eliminación y revisar cada pantalla, consulta la [evidencia de diseño de sesión 3](evidencia-sesion-3-diseno-pantallas.md). La evidencia de sesión 2 se conserva como registro histórico de esa actividad.
 
