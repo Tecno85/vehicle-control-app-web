@@ -2,7 +2,7 @@
 
 | Proyecto | Integrantes y versión |
 |---|---|
-| VehicleControlApp Web · DazaDev | Ivan Dario Madrid Daza, trabajo individual. Versión 0.1 del 23 de noviembre de 2026. Cierre: por definir. |
+| VehicleControlApp Web · DazaDev | Ivan Dario Madrid Daza, trabajo individual. Versión 1.0 del 23 de noviembre de 2026. Cerrada el 23 de noviembre de 2026. |
 
 **Por qué hago este trabajo.** La web-app ya tiene su base: el monorepo, la conexión de core-service con Hasura y la base visual. Pero todavía no sabe de quién son los datos, porque nadie ingresa. Cada vehículo pertenece a una cuenta, así que el ingreso va antes que cualquier pantalla con datos. Por eso sigo con la **semana 6 de la cartilla del instructor, «Login y autorización en el core service»**. El 22 de noviembre de 2026 decidí numerarla como sesión 9, en el orden en que vengo trabajando: la sesión 8 es la base visual.
 
@@ -112,6 +112,8 @@ En su lugar uso `@nestjs/jwt` 12.0.5, el paquete de JWT que NestJS mantiene para
 | 23 nov 2026 | Claude Code probó recargar dos veces seguidas mientras la sesión se renueva | Si la segunda recarga llega a 700 ms o menos de la primera, se pierde la sesión. Decidí dejarlo como límite conocido y resolverlo después de presentar el trabajo final en el SENA (apartados 6 y 7) | Ninguno |
 | 23 nov 2026 | Claude Code recuperó del historial de la sesión los scripts de prueba, que se borraron al reiniciarse, y los guardó en mi carpeta `Asesor_Técnico/Sesión_9`, junto con la solución propuesta para el límite | Desde allí, `recorrido.mjs` dio 17 de 17 y `doble-recarga.mjs`, el mismo resultado | Fuera del repositorio |
 | 23 nov 2026 | Claude Code hizo el commit del código, sin push: `c214446` | Antes del commit, compilación, lint, 62 pruebas unitarias y 17 e2e sin errores, `npm audit` con 0 vulnerabilidades y 0 secretos en los archivos | `apps/`, `infra/hasura/` y `package-lock.json` |
+| 23 nov 2026 | Claude Code hizo el commit de la documentación, `b4cdc70`, y le pedí subir los commits de las sesiones 8 y 9 a GitHub | Push de `0d0a536` a `b4cdc70` sin errores | README, contexto, `AGENTS.md` y esta evidencia |
+| 23 nov 2026 | Cerré esta evidencia en la versión 1.0 y generé su PDF. Claude Code creó la etiqueta `sesion-9-v1.0` y la subió | Enlaces y tablas revisados, y PDF revisado página por página | Esta evidencia, README y contexto |
 
 ## 3. Cómo funcionará el acceso
 
@@ -309,9 +311,9 @@ Texto exacto enviado:
 | 4. `JWT_SECRET` | Lo agregué al final de `apps/core-service/.env` con `printf '\nJWT_SECRET=%s\n' "$(openssl rand -base64 32)" >> apps/core-service/.env`, sin verlo | Una línea `JWT_SECRET`, con 44 caracteres |
 | 5. Hasura sin el secreto | Envié a Hasura la consulta `{ usuarios { correo } }` sin el secreto de administración, con `node --env-file=apps/core-service/.env` y `fetch` | `{"errors":[{"message":"\"x-hasura-admin-secret\" required, but not found","extensions":{"path":"$","code":"access-denied"}}]}`. No devolvió ningún correo |
 
-![SQL Editor de Neon con la consulta de comprobación: titular@ejemplo.test y segunda.prueba@example.com, las dos con activo y contrasena_lista en t, y 0 sesiones guardadas](evidencia-sesion-9/capturas/01-neon-cuentas-con-contrasena.png)
+**Captura 01.** Comprobación en Neon del 22 de noviembre de 2026. La consulta revisa la forma de cada hash sin mostrarlo. La recorté para dejar solo el editor y el resultado.
 
-*Captura 1. Comprobación en Neon del 22 de noviembre de 2026. La consulta revisa la forma de cada hash sin mostrarlo. La recorté para dejar solo el editor y el resultado.*
+![SQL Editor de Neon con la consulta de comprobación: titular@ejemplo.test y segunda.prueba@example.com, las dos con activo y contrasena_lista en t, y 0 sesiones guardadas](evidencia-sesion-9/capturas/01-neon-cuentas-con-contrasena.png)
 
 ### Prompt 2 · Acceso en core-service (23 de noviembre de 2026)
 
@@ -601,41 +603,41 @@ Texto exacto enviado:
 
 **Capturas.** Las tomó Claude Code con `capturas.mjs`, con las cuentas ficticias en el Hasura falso. Las de 360 × 800 son emulación del navegador, no un teléfono real.
 
+**Captura 02.** Página de ingreso en modo claro, a 1280 × 800.
+
 ![Página de ingreso en modo claro a 1280 px: título «Ingresa a tu cuenta», campos Correo y Contraseña con el botón para mostrarla, y el botón Ingresar](evidencia-sesion-9/capturas/02-ingresar-1280-claro.png)
 
-*Captura 2. Página de ingreso en modo claro, a 1280 × 800.*
+**Captura 03.** Página de ingreso en modo oscuro, a 1280 × 800.
 
 ![Página de ingreso en modo oscuro a 1280 px](evidencia-sesion-9/capturas/03-ingresar-1280-oscuro.png)
 
-*Captura 3. Página de ingreso en modo oscuro, a 1280 × 800.*
+**Captura 04.** Página de ingreso en modo claro, a 360 × 800.
 
 ![Página de ingreso en modo claro a 360 px](evidencia-sesion-9/capturas/04-ingresar-360-claro.png)
 
-*Captura 4. Página de ingreso en modo claro, a 360 × 800.*
+**Captura 05.** Página de ingreso en modo oscuro, a 360 × 800.
 
 ![Página de ingreso en modo oscuro a 360 px](evidencia-sesion-9/capturas/05-ingresar-360-oscuro.png)
 
-*Captura 5. Página de ingreso en modo oscuro, a 360 × 800.*
+**Captura 06.** Contraseña equivocada, a 360 × 800: el mensaje de core-service y el foco de vuelta en la contraseña.
 
 ![Página de ingreso a 360 px con la alerta «El correo o la contraseña no coinciden.» y el foco en el campo Contraseña](evidencia-sesion-9/capturas/06-ingresar-error-360-claro.png)
 
-*Captura 6. Contraseña equivocada, a 360 × 800: el mensaje de core-service y el foco de vuelta en la contraseña.*
+**Captura 07.** Inicio en modo claro, a 1280 × 800.
 
 ![Inicio en modo claro a 1280 px: «Hola, Titular de prueba», botón Cerrar sesión, tarjeta «Tu cuenta» con nombre y correo, y el panel «Conexión con core-service»](evidencia-sesion-9/capturas/07-inicio-1280-claro.png)
 
-*Captura 7. Inicio en modo claro, a 1280 × 800.*
+**Captura 08.** Inicio en modo oscuro, a 1280 × 800.
 
 ![Inicio en modo oscuro a 1280 px](evidencia-sesion-9/capturas/08-inicio-1280-oscuro.png)
 
-*Captura 8. Inicio en modo oscuro, a 1280 × 800.*
+**Captura 09.** Inicio en modo claro, a 360 × 800: «Cerrar sesión» queda como ícono, con su etiqueta accesible.
 
 ![Inicio en modo claro a 360 px, con los íconos de cerrar sesión y de modo en el encabezado](evidencia-sesion-9/capturas/09-inicio-360-claro.png)
 
-*Captura 9. Inicio en modo claro, a 360 × 800: «Cerrar sesión» queda como ícono, con su etiqueta accesible.*
+**Captura 10.** Inicio en modo oscuro, a 360 × 800.
 
 ![Inicio en modo oscuro a 360 px](evidencia-sesion-9/capturas/10-inicio-360-oscuro.png)
-
-*Captura 10. Inicio en modo oscuro, a 360 × 800.*
 
 **Ajustes:** no hice ninguno en el texto del prompt. En el README, además de lo que pedía, se corrigieron cuatro partes que el prompt 2 dejó desactualizadas, porque `GET /api/health/hasura` ahora exige sesión y el panel quedó en una página con sesión (apartado 6):
 - el paso 5 de «Ejecutar el monorepo»;
@@ -662,9 +664,9 @@ Texto exacto enviado:
 | 3. Teclado, cierre y Atrás | En la ventana normal recorrí la página con Tab, cerré sesión con Enter, pulsé Atrás, recargué y volví a ingresar solo con el teclado | Todo como se esperaba: foco visible en cada botón, «Cerraste tu sesión.», Atrás y la recarga siguieron en la página de ingreso, y el nuevo ingreso mostró otra vez «Hola, Titular de prueba». La ventana InPrivate siguió con la segunda cuenta |
 | 4. Safari | Ingresé con `titular@ejemplo.test` en Safari, recargué y cerré sesión | Igual que en Edge: al recargar siguió la sesión, así que Safari acepta la cookie `Secure` en http://localhost |
 
-![Dos ventanas de Edge una al lado de la otra: a la izquierda, InPrivate, «Hola, Segunda titular de prueba» con segunda.prueba@example.com; a la derecha, la ventana normal, «Hola, Titular de prueba» con titular@ejemplo.test](evidencia-sesion-9/capturas/11-dos-cuentas-edge.png)
+**Captura 11.** Mi prueba del 23 de noviembre de 2026: dos sesiones a la vez, una por cuenta, con Neon y Hasura Cloud.
 
-*Captura 11. Mi prueba del 23 de noviembre de 2026: dos sesiones a la vez, una por cuenta, con Neon y Hasura Cloud.*
+![Dos ventanas de Edge una al lado de la otra: a la izquierda, InPrivate, «Hola, Segunda titular de prueba» con segunda.prueba@example.com; a la derecha, la ventana normal, «Hola, Titular de prueba» con titular@ejemplo.test](evidencia-sesion-9/capturas/11-dos-cuentas-edge.png)
 
 ## 6. Problemas encontrados
 
@@ -681,7 +683,6 @@ Texto exacto enviado:
 | Pendiente | Responsable | Fecha |
 |---|---|---|
 | Evitar que una recarga doble cierre la sesión, con un margen de gracia en core-service (se propusieron 30 segundos). El diseño está en `Asesor_Técnico/Sesión_9/pendiente-recarga-doble.md` | Ivan, con Claude Code | Por definir: después de presentar el trabajo final en el SENA |
-| Push de los commits y cierre de la sesión, con su PDF | Ivan | Por definir |
 | Definir la limpieza de las filas viejas de `sesiones` | Ivan | Por definir |
 | Al publicar (semana 11), mantener la web y core-service en el mismo sitio, o cambiar la cookie de renovación | Ivan | Por definir |
 | Registro propio, recuperación de contraseña y verificación del correo | Ivan | Fase posterior |
@@ -703,3 +704,4 @@ Texto exacto enviado:
 | Borrador | 21 de noviembre de 2026 | Plan aprobado, diseño del acceso y los tres prompts para revisar. |
 | Borrador | 22 de noviembre de 2026 | Validación con la cartilla y sus referencias. Cinco ajustes a los prompts y un límite total de 30 días. Prompt 1 ejecutado, con sus comprobaciones. |
 | 0.1 | 23 de noviembre de 2026 | Mis pasos en Neon y Hasura después del prompt 1, metadata actualizada, `JWT_SECRET` creado y comprobación de que Hasura rechaza las consultas sin el secreto. Prompt 2 ejecutado, con sus comprobaciones, y prueba real con Neon y Hasura Cloud: 19 de 19. Prompt 3 ejecutado, con sus comprobaciones y 9 capturas. Mi prueba en Edge y Safari, con la captura 11. La recarga doble queda como límite conocido, por mi decisión. Commit del código, scripts de prueba guardados en `Asesor_Técnico/Sesión_9` y README, contexto y `AGENTS.md` actualizados. |
+| 1.0 | 23 de noviembre de 2026 | Versión de cierre. Push de los commits de las sesiones 8 y 9, y capturas en el formato del PDF. |

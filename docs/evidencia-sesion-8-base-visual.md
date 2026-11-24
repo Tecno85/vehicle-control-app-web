@@ -2,7 +2,7 @@
 
 | Proyecto | Integrantes y versión |
 |---|---|
-| VehicleControlApp Web · DazaDev | Ivan Dario Madrid Daza, trabajo individual. Versión 0.1 del 22 de noviembre de 2026. Cierre: por definir. |
+| VehicleControlApp Web · DazaDev | Ivan Dario Madrid Daza, trabajo individual. Versión 1.0 del 22 de noviembre de 2026. Cerrada el 22 de noviembre de 2026. |
 
 **Por qué hago esta base.** Hasta ahora, la web-app real solo tiene el panel de verificación, con el tema de Material UI tal como viene: azul y botones en mayúsculas. El 20 de noviembre de 2026 decidí trabajar en la parte visual real de la web-app antes de seguir con la cartilla, y basar su aspecto en el de la app Android de VehicleControlApp, para irlo mejorando con el tiempo. El 22 de noviembre de 2026 decidí numerarla como sesión 8, en el orden en que vengo trabajando, sin esperar una indicación del instructor.
 
@@ -44,6 +44,7 @@ Esta base no es una semana de la cartilla: es una decisión mía. Adelanta lo qu
 | 20 nov 2026 | Le dije a Claude Code que me gustó el diseño que estamos definiendo y que siguiéramos. Revisé en mi navegador el foco con Tab y el modo guardado | Funcionan bien. Registré la decisión de la identidad visual en el contexto y en `AGENTS.md` | `docs/contexto-proyecto.md` y `AGENTS.md` |
 | 21 nov 2026 | Antes de empezar el ingreso con correo y contraseña, le pedí a Claude Code hacer los commits de la base visual, para que su código no se mezclara con el del ingreso | `0d0a536 feat: crear la base visual de la web-app` y `1a35a79 docs` con README, contexto y `AGENTS.md`, sin push. Antes, compilación, lint, 19 pruebas unitarias y 2 e2e sin errores, y `npm audit` con 0 vulnerabilidades | `apps/web-app/`, README, contexto y `AGENTS.md` |
 | 22 nov 2026 | Decidí numerar las sesiones en el orden en que vengo trabajando: esta base visual es la sesión 8, y el ingreso con correo y contraseña, la 9 | Esta evidencia y sus capturas pasaron a `evidencia-sesion-8-base-visual.md` y `evidencia-sesion-8/` | Esta evidencia, README, contexto y `AGENTS.md` |
+| 23 nov 2026 | Cerré esta evidencia en la versión 1.0, con la fecha del 22 de noviembre, el último día que la trabajé. Generé su PDF. Claude Code subió los commits a GitHub y creó la etiqueta `sesion-8-v1.0` | Enlaces y tablas revisados, y PDF revisado página por página | Esta evidencia, README y contexto |
 
 ## 3. Qué tomo de la app Android
 
@@ -383,7 +384,7 @@ Texto exacto enviado:
 | Pendiente | Responsable | Fecha |
 |---|---|---|
 | Mostrarle a Katerin la base visual, junto con la segunda prueba del prototipo | Ivan | Por definir |
-| Agregar React Router con el login, en la sesión 9 | Ivan | Por definir |
+| Agregar React Router con el login, en la sesión 9 | Ivan | Hecho el 23 de noviembre de 2026, en la [sesión 9](evidencia-sesion-9-acceso.md) |
 | Decidir si «Particular» necesita otro color, porque comparte el verde con «Activo» | Ivan | Por definir |
 
 ## Fuentes
@@ -398,3 +399,4 @@ Texto exacto enviado:
 | Versión | Fecha | Cambios |
 |---|---|---|
 | 0.1 | 22 de noviembre de 2026 | Primera versión: plan aprobado, lo que tomo de Android, el contraste medido y los tres prompts, con sus resultados, pruebas y capturas. La empecé el 20 de noviembre, el 21 hice los commits del código y el 22 le asigné el número de sesión. |
+| 1.0 | 22 de noviembre de 2026 | Versión de cierre. La cerré el 23 de noviembre con la fecha del 22, el último día que trabajé en ella, y anoté que React Router llegó con la sesión 9. |
