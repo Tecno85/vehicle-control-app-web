@@ -11,17 +11,13 @@ npm ci
 npm run dev
 ```
 
-El navegador mostrará la dirección local que indique Vite. Para preparar los archivos de Sites:
-
-```bash
-npm run build
-```
+El navegador mostrará la dirección local que indique Vite.
 
 ## Compartirlo para revisión
 
 El prototipo se publicó por primera vez el 18 de octubre de 2026. El flujo manual de GitHub Actions permite publicar las versiones siguientes: desde la pestaña **Actions**, ejecuta **Publicar prototipo de sesión 3**. La fuente de Pages ya está configurada como **GitHub Actions**.
 
-GitHub Pages puede dejar el sitio accesible públicamente, incluso si el repositorio es privado, según el plan y la configuración. Por eso el prototipo muestra datos ficticios y no incluye datos de la flota. `npm run build` conserva la preparación existente para Sites; el flujo de Pages usa `npm run build:pages` y publica solo `dist/client/`.
+GitHub Pages puede dejar el sitio accesible públicamente, incluso si el repositorio es privado, según el plan y la configuración. Por eso el prototipo muestra datos ficticios y no incluye datos de la flota. El flujo de Pages usa `npm run build:pages` y publica solo `dist/client/`.
 
 ## Límites de la demostración
 
