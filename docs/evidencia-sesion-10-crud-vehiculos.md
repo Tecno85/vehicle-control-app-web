@@ -2,7 +2,7 @@
 
 | Proyecto | Integrantes y versión |
 |---|---|
-| VehicleControlApp Web · DazaDev | Ivan Dario Madrid Daza, trabajo individual. Versión 0.1 del 25 de noviembre de 2026. Cierre: por definir. |
+| VehicleControlApp Web · DazaDev | Ivan Dario Madrid Daza, trabajo individual. Versión 1.0 del 25 de noviembre de 2026. Cerrada el 25 de noviembre de 2026. |
 
 **Por qué hago este trabajo.** Desde la sesión 9, Katerin puede ingresar a su cuenta, pero la web-app todavía no guarda nada: core-service solo lee el perfil y un vehículo. Sigo con la **semana 7 de la cartilla del instructor, «CRUD completo a través del core service»**. CRUD quiere decir crear, consultar, editar y eliminar. Lo hago con los **vehículos**, porque cada ingreso, gasto y documento pertenece a uno. La numero como sesión 10, en el orden en que vengo trabajando.
 
@@ -21,6 +21,8 @@
 - No agregué al prompt 3 las pautas de diseño de Android que me propuso Claude Code.
 - Durante el prompt 3 aprobé corregir la flota, que se pasaba 3 px a 360 px de ancho, y decidí dejar el aviso de Vite por el tamaño del código para la semana 11.
 - Después de probar las pantallas en mi navegador con Neon, pedí seguir con el commit del código.
+- Pedí subir los commits a GitHub y que Claude Code guardara los scripts de prueba en `Asesor_Técnico/Sesión_10` y rehiciera los dos que se habían perdido.
+- Cerré la sesión con la fecha real, el 25 de noviembre de 2026, en su versión 1.0.
 
 **Alcance.**
 - **Se hace:** crear, consultar, editar, desactivar y eliminar vehículos (S02, S07, S08 y la parte de flota y detalle de S06), con sus pantallas.
@@ -71,6 +73,8 @@ La cartilla pide, como entregable, un primer CRUD integrado, con endpoints docum
 | 25 nov 2026 | Respondí dos preguntas de Claude Code durante el prompt 3: aprobé corregir la flota a 360 px y dejar el aviso de Vite para la semana 11 | Después del arreglo, ninguna página se pasa de 360 px | Prompt 3 (apartado 5) |
 | 25 nov 2026 | Le pedí a Claude Code que me guiara paso a paso para probar las pantallas en mi navegador con Neon y Hasura Cloud, y seguí su guía | Le respondí «Todo bien.»: crear, recargar, editar y eliminar el vehículo de prueba funcionó | Prompt 3 (apartado 5) |
 | 25 nov 2026 | Le dije a Claude Code «Sigamos». Hizo el commit `feat` con el código de los tres prompts, comprobó una copia limpia y actualizó esta evidencia, el README, el contexto, `AGENTS.md` y las notas de las evidencias 4 y 9 | Commit `8298672`. En la copia limpia, sin `.env`: compilación, 140 pruebas unitarias, 32 e2e, lint y `npm audit` sin errores | Código y documentación |
+| 25 nov 2026 | Le pedí a Claude Code subir los commits, guardar los scripts de prueba en `Asesor_Técnico/Sesión_10` y rehacer `demo-vehiculos.mjs` y `paso0.mjs`. Le aclaré que mi revisión del teclado y el foco ya había quedado bien | Push de los dos commits. Claude Code recuperó los dos scripts del historial de la sesión y los ejecutó desde esa carpeta con el Hasura falso: el paso 0 en Chrome con el código final, 11 de 11; la demostración, 32 de 32, y el recorrido de vehículos, 21 de 21 | Scripts en `Asesor_Técnico/Sesión_10` |
+| 25 nov 2026 | Decidí cerrar la sesión con la fecha real, la de hoy | Versión 1.0, con su PDF en `Asesor_Técnico/Sesión_10`, el commit `docs`, el push y la etiqueta `sesion-10-v1.0` | Esta evidencia |
 
 ## 3. Cómo funcionará el CRUD
 
@@ -148,8 +152,8 @@ Las escribí antes del prompt 2, y el prompt 2 las confirmó (apartado 5).
 | CRUD de vehículos y reglas | Pruebas unitarias y e2e con un Hasura simulado en memoria y las dos cuentas ficticias | Hecha el 25 de noviembre: 71 pruebas unitarias de vehículos, donde antes había 10, y 13 e2e nuevas, todas sin errores (apartado 5) |
 | Nombres de las restricciones | PostgreSQL temporal con la migración inicial | Hecha el 25 de noviembre, con PostgreSQL 15.18 (apartado 5) |
 | Pantallas | Chrome sin pantalla, con un Hasura falso local, en claro y oscuro, a 1280 × 800 y 360 × 800 | Hecha el 25 de noviembre: 21 de 21 en el recorrido, 23 capturas y la regresión de la sesión 9, 17 de 17 (apartado 5) |
-| Teclado y foco | Chrome sin pantalla y revisión en mi navegador | En parte: en Chrome, el recorrido completo se hizo con el teclado y el foco se vio en cada control. Falta mi revisión |
-| Secretos | `git grep` y búsqueda en el código compilado de la web | Hecha después del prompt 3: sin secretos en el repositorio, y el código compilado de la web sin «hasura», «admin-secret» ni «JWT_SECRET». Se repite al cerrar |
+| Teclado y foco | Chrome sin pantalla y revisión en mi navegador | Hecha: en Chrome, el recorrido completo se hizo con el teclado y el foco se vio en cada control. En mi navegador, mi revisión quedó bien |
+| Secretos | `git grep` y búsqueda en el código compilado de la web | Hecha después del prompt 3 y otra vez al cerrar, el 25 de noviembre: sin secretos en el repositorio, y el código compilado de la web sin «hasura», «admin-secret» ni «JWT_SECRET» |
 | Clon limpio | `npm ci`, compilación y pruebas sin `.env` | Hecha el 25 de noviembre, con el commit `8298672`: todo sin errores (apartado 5) |
 | Prueba real con Neon | Un script de demostración que ejecuto yo y que deja Neon como estaba, y una recarga en mi navegador | Hecha el 25 de noviembre: el script con mi `.env`, 32 de 32, y mi prueba en el navegador, «Todo bien.» (apartado 5) |
 
@@ -303,7 +307,7 @@ Texto exacto enviado:
 - **Foco.** Mientras espera, el botón se desactiva y pierde el foco. Si la petición falla, el foco vuelve a «Reintentar» o a «Cerrar sesión», para intentarlo otra vez con el teclado. El aviso del cierre se cierra con su botón o con Escape, no con un clic en otra parte de la página.
 - **Tamaño de la web-app.** El código pasó de 496,69 kB a 504,41 kB, sobre todo por el componente del aviso del cierre (`Snackbar`). Vite avisa desde los 500 kB; no es un error. El prompt 3 también usará `Snackbar` para los avisos de éxito, así que lo decido allí: dividir el código por páginas o ajustar el límite del aviso.
 - **La memoria de un minuto** vale para un solo proceso de core-service, igual que el límite de intentos. Se revisa al publicar, en la semana 11.
-- **Scripts de Chrome.** Quedaron en una carpeta temporal. Según el plan, se guardan en `Asesor_Técnico/Sesión_10` al cerrar la sesión.
+- **Scripts de Chrome.** Quedaron en una carpeta temporal. Según el plan, se guardan en `Asesor_Técnico/Sesión_10` al cerrar la sesión. Así se hizo el 25 de noviembre (ver «Scripts de prueba», al final del prompt 3).
 
 ### Prompt 2 · CRUD de vehículos en core-service (25 de noviembre de 2026)
 
@@ -614,7 +618,7 @@ Texto exacto enviado:
 | `README.md` | Reescribe el estado actual, el paso 5 de «Ejecutar», las pruebas e2e, la solución de problemas, la conexión con Hasura, el paso 4 del ingreso, la matriz de rutas y las referencias técnicas. Agrega la sección «Vehículos», con las pantallas, el contrato, las reglas, los errores y cómo probarlo |
 | `docs/evidencia-sesion-10/capturas/` | 23 capturas: 17 numeradas, que están en esta evidencia, y seis combinaciones más de modo y ancho |
 
-Fuera del repositorio, en la carpeta temporal de Claude Code: el Hasura falso, rehecho (ver «Problemas encontrados»), el recorrido de vehículos (`recorrido-vehiculos.mjs`), el script de capturas (`capturas-vehiculos.mjs`), el recorrido de la sesión 9 adaptado a la flota y dos scripts de diagnóstico, uno del ancho a 360 px y otro del contraste.
+Fuera del repositorio, en la carpeta temporal de Claude Code: el Hasura falso, rehecho (ver «Problemas encontrados»), el recorrido de vehículos (`recorrido-vehiculos.mjs`), el script de capturas (`capturas-vehiculos.mjs`), el recorrido de la sesión 9 adaptado a la flota y dos scripts de diagnóstico, uno del ancho a 360 px y otro del contraste. Al cerrar la sesión, Claude Code los guardó en `Asesor_Técnico/Sesión_10`.
 
 **Comandos ejecutados**, desde la raíz, con Node 24.22.2 y npm 12.2.3:
 - `npm run build`, `npm test`, `npm run test:e2e`, `npm run lint` y `npm audit`.
@@ -682,7 +686,7 @@ También busqué la guía `responsive-design` y la `validate-input-after-interac
 - **Capturas.** El script de capturas tomó 23 y midió el ancho de cada página: ninguna se pasa del ancho de la ventana. Consola sin errores.
 - **Contraste.** La explicación del tipo bloqueado mide 5,86:1 en claro y 8,19:1 en oscuro (ver «Problemas encontrados»).
 - **Regresión de la sesión 9.** Claude Code adaptó `recorrido.mjs` a la flota: ahora espera «Mis vehículos» donde esperaba «Hola, Titular de prueba» como título, y la flota donde esperaba el perfil. Resultado: 17 de 17, con la recarga, dos pestañas que recargan a la vez, la renovación ante un 401, el cierre con el teclado, la segunda cuenta, que solo ve KLM456, y el límite de intentos.
-- **Lo que no se repitió.** Las 11 comprobaciones del paso 0 en Chrome (`paso0.mjs`) no se repitieron, porque el script se perdió (ver «Problemas encontrados»). El recorrido de vehículos volvió a probar la flota sin core-service, y el código de A2, A6 y A7 no cambió en este prompt.
+- **Lo que no se repitió.** Las 11 comprobaciones del paso 0 en Chrome (`paso0.mjs`) no se repitieron, porque el script se perdió (ver «Problemas encontrados»). El recorrido de vehículos volvió a probar la flota sin core-service, y el código de A2, A6 y A7 no cambió en este prompt. Al cerrar la sesión, Claude Code recuperó el script, lo adaptó a la flota y lo repitió con el código final: 11 de 11 (ver «Scripts de prueba», más abajo).
 
 Todo se probó con emulación del navegador en Chrome sin pantalla, no en un celular real ni en otros navegadores. Después lo probé yo en mi navegador, con Neon (al final de este prompt).
 
@@ -794,6 +798,17 @@ La guía también tenía tres pasos opcionales: el modo oscuro, 360 px en las he
 | Dependencias | `npm audit` | `found 0 vulnerabilities` |
 | Código compilado de la web | Búsqueda de «hasura», «admin-secret» y «JWT_SECRET» en `apps/web-app/dist` | 0 archivos |
 
+**Scripts de prueba (25 de noviembre, al cerrar).** Le pedí a Claude Code guardar los scripts de esta sesión en `Asesor_Técnico/Sesión_10/scripts-prueba-vehiculos/` y rehacer los dos que se perdieron. Recuperó `demo-vehiculos.mjs` y `paso0.mjs` del historial de la sesión, con el ajuste que le hizo a `paso0.mjs` en el prompt 1, y volvió a agregar a `servicios.mjs` la función que simula un core-service colgado. Guardó `paso0.mjs` dos veces: tal como se usó en el prompt 1 (`paso0-original.mjs`) y adaptado a la flota, porque con sesión la web ya no abre el inicio con la tarjeta «Tu cuenta», sino «Mis vehículos». La adaptación cambia solo cómo reconoce la página con sesión. Desde esa carpeta, con el Hasura falso y el código final:
+
+| Script | Resultado real |
+|---|---|
+| `navegador/paso0.mjs` (A6, A2 y A7 en Chrome) | 11 de 11. El ingreso y la apertura de la página avisaron a los 15,0 y 15,1 segundos con core-service colgado |
+| `navegador/recorrido-vehiculos.mjs` | 21 de 21: «Todas las comprobaciones salieron bien.» |
+| `demo-vehiculos.mjs` | 32 de 32, con las contraseñas falsas del Hasura falso |
+
+La carpeta tiene un `LEEME.md` que explica cada script y cómo usarlo.
+
+## 6. Problemas encontrados
 
 | Problema | Causa | Solución |
 |---|---|---|
@@ -802,7 +817,7 @@ La guía también tenía tres pasos opcionales: el modo oscuro, 360 px en las he
 | La primera ejecución en Chrome dio 10 de 11 (prompt 1) | El script comparaba el texto del aviso de A6 incluyendo el del botón «Reintentar» | Claude Code corrigió el script, no la página, para leer solo el mensaje. Dio 11 de 11 |
 | El PostgreSQL temporal no arrancaba (prompt 2) | La ruta de su carpeta temporal pasaba del largo máximo que acepta PostgreSQL para su conexión local (103 caracteres) | Lo arrancó solo con conexión por red, en `127.0.0.1` y el puerto 55432 |
 | La primera ejecución de las pruebas unitarias del prompt 2 dio 10 fallas en `vehiculos.spec.ts` | La preparación de cada prueba, `beforeEach(() => request.mockReset())`, devolvía la función simulada de Hasura. Vitest toma una función devuelta como limpieza y la llamó al terminar cada prueba, sin datos | Claude Code lo encontró con una prueba mínima aparte y escribió la preparación entre llaves, sin devolver nada. Las 140 pruebas pasaron. El código de core-service no cambió |
-| La carpeta temporal de Claude Code quedó vacía antes de las pruebas en Chrome del prompt 3 | Esa carpeta se puede vaciar sola, por ejemplo al reiniciar el equipo o en una limpieza de rutina; Claude Code no la borró. Se perdieron `demo-vehiculos.mjs`, `paso0.mjs` y el Hasura falso de esta sesión | Claude Code copió los scripts de la sesión 9, que estaban en `Asesor_Técnico/Sesión_9`, y rehízo el Hasura falso con las reglas de `test/hasura-simulado.ts`. `demo-vehiculos.mjs` y `paso0.mjs` siguen perdidos (apartado 7) |
+| La carpeta temporal de Claude Code quedó vacía antes de las pruebas en Chrome del prompt 3 | Esa carpeta se puede vaciar sola, por ejemplo al reiniciar el equipo o en una limpieza de rutina; Claude Code no la borró. Se perdieron `demo-vehiculos.mjs`, `paso0.mjs` y el Hasura falso de esta sesión | Claude Code copió los scripts de la sesión 9, que estaban en `Asesor_Técnico/Sesión_9`, y rehízo el Hasura falso con las reglas de `test/hasura-simulado.ts`. Al cerrar la sesión recuperó `demo-vehiculos.mjs` y `paso0.mjs` del historial de la sesión y guardó todos los scripts en `Asesor_Técnico/Sesión_10`, donde no se borran solos |
 | La primera compilación del prompt 3 falló con dos errores de tipos | En Material UI 9, `Radio` y `Checkbox` no aceptan `inputRef`. Además, la función de desactivar o eliminar devolvía a veces un vehículo y a veces nada | La referencia del campo pasó a `slotProps.input.ref`, y esa función quedó como `async`, sin devolver nada |
 | Lint avisó «Calling setState synchronously within an effect» en `AvisoExito.tsx` | El aviso de éxito se copiaba al estado dentro del efecto | El aviso se muestra un momento después, con un temporizador. Así, además, el lector de pantalla encuentra la región ya en la página cuando llega el texto |
 | El primer recorrido de vehículos en Chrome dio 20 de 21: al abrir el diálogo, el foco quedaba en el diálogo entero y no en «Cancelar» | Con el diálogo de Material UI, `autoFocus` en el botón no se sostuvo en la prueba | El foco pasa a «Cancelar» cuando termina la animación de apertura. Dio 21 de 21 |
@@ -815,11 +830,7 @@ La guía también tenía tres pasos opcionales: el modo oscuro, 360 px en las he
 
 | Pendiente | Responsable | Fecha |
 |---|---|---|
-| Revisar el teclado y el foco en mi navegador | Ivan | Por definir |
-| Cerrar la sesión 10: fecha de cierre, versión 1.0, PDF, push y etiqueta | Ivan | Por definir |
 | Revisar el tamaño del código de la web-app (557,46 kB; Vite avisa desde 500 kB) | Ivan, con Claude Code | Por definir: semana 11, al publicar |
-| Guardar en `Asesor_Técnico/Sesión_10` los scripts de Chrome de esta sesión | Claude Code, a pedido de Ivan | Por definir: al cerrar la sesión |
-| Decidir si Claude Code rehace `demo-vehiculos.mjs` y `paso0.mjs`, que se perdieron, para guardarlos con los demás | Ivan | Por definir |
 | A1 y A5: renovar la sesión en un solo paso y probar dos renovaciones a la vez | Ivan, con Claude Code | Por definir: sesión 11, con la semana 8 de la cartilla |
 | A9 y A10: pruebas de la web-app y scripts de la demostración | Ivan, con Claude Code | Por definir: semana 10 |
 | A12 y A13: lo que hay que cambiar al publicar | Ivan, con Claude Code | Por definir: semana 11 |
@@ -851,3 +862,4 @@ La guía también tenía tres pasos opcionales: el modo oscuro, 360 px en las he
 | Borrador | 25 de noviembre de 2026 | Mi prueba real con Neon y Hasura Cloud, 32 de 32, y mi decisión de hacer un solo commit con el código de los tres prompts. |
 | Borrador | 25 de noviembre de 2026 | Resultado del prompt 3 (pantallas de vehículos): archivos, guías de Modern Web Guidance y sus choques con Material UI, comprobaciones en el repositorio y en Chrome, 17 capturas, mis dos decisiones durante el prompt, observaciones y problemas encontrados. Cumplimiento de la cartilla, pruebas y pendientes actualizados. |
 | 0.1 | 25 de noviembre de 2026 | Mi prueba en el navegador con Neon y Hasura Cloud. Commit del código y copia limpia sin `.env`. Notas en las evidencias 4 y 9, y README, contexto y `AGENTS.md` actualizados. |
+| 1.0 | 25 de noviembre de 2026 | Versión de cierre. Mi revisión del teclado y el foco. Scripts de prueba recuperados y guardados en `Asesor_Técnico/Sesión_10`, con el paso 0 repetido con el código final, 11 de 11. Push de los commits y PDF. |
