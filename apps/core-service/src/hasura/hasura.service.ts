@@ -38,6 +38,7 @@ export class HasuraService {
           ? `Hasura rechazó la consulta (código: ${codes.join(', ')}).`
           : 'Hasura rechazó la consulta.',
         codes,
+        constraintNames(body),
       );
     }
     if (status < 200 || status >= 300) {
@@ -118,4 +119,22 @@ function graphQLErrorCodes(body: unknown): string[] | null {
       codes.filter((code): code is string => typeof code === 'string'),
     ),
   ];
+}
+
+// Cuando PostgreSQL rechaza un dato, Hasura repite su mensaje, por ejemplo
+// «Uniqueness violation. duplicate key value violates unique constraint
+// "vehiculos_usuario_id_placa_key"». Solo se toman los nombres que siguen a
+// la palabra «constraint»; el resto del mensaje se descarta.
+const CONSTRAINT_NAME = /constraint "([a-z0-9_]+)"/g;
+
+function constraintNames(body: unknown): string[] {
+  if (!isGraphQLBody(body) || !Array.isArray(body.errors)) {
+    return [];
+  }
+  const names = body.errors.flatMap((error: { message?: unknown } | null) =>
+    typeof error?.message === 'string'
+      ? [...error.message.matchAll(CONSTRAINT_NAME)].map((match) => match[1])
+      : [],
+  );
+  return [...new Set(names)];
 }

@@ -29,7 +29,8 @@ export function PaginaIngreso() {
   const campoCorreo = useRef<HTMLInputElement>(null)
   const campoContrasena = useRef<HTMLInputElement>(null)
 
-  if (estado === 'comprobando') return <CargandoSesion />
+  // Sin conexión tampoco se podría ingresar: se ofrece reintentar.
+  if (estado === 'comprobando' || estado === 'sin-conexion') return <CargandoSesion />
   if (estado === 'con-sesion') return <Navigate to="/" replace />
 
   async function enviar(evento: FormEvent<HTMLFormElement>) {

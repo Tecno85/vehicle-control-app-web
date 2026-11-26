@@ -22,6 +22,12 @@ function esNoAutorizado(error: unknown): boolean {
   return error instanceof ApiError && error.status === 401
 }
 
+// El 401 del guard de core-service, que rechaza el token antes de hacer nada.
+// Solo ese se puede repetir sin riesgo de hacer dos veces la misma acción.
+function esSesionRequerida(error: unknown): boolean {
+  return esNoAutorizado(error) && (error as ApiError).codigo === 'SESION_REQUERIDA'
+}
+
 export function AccesoProvider({ children }: { children: ReactNode }) {
   const [estado, setEstado] = useState<EstadoAcceso>('comprobando')
   const [titular, setTitular] = useState<Titular | null>(null)
@@ -59,11 +65,26 @@ export function AccesoProvider({ children }: { children: ReactNode }) {
     return renovacionEnCurso.current
   }, [abrir])
 
-  // Al abrir la página: si la cookie de renovación sigue vigente, la sesión
-  // continúa sin pedir la contraseña. Si no, se muestra la página de ingreso.
-  useEffect(() => {
-    renovar().catch(() => terminar(null))
+  // Si la cookie de renovación sigue vigente, la sesión continúa sin pedir la
+  // contraseña. Un 401 quiere decir que no hay sesión y lleva a la página de
+  // ingreso; cualquier otra falla (sin conexión, tiempo agotado o Hasura
+  // caído) no dice nada de la sesión, así que se ofrece reintentar.
+  const comprobar = useCallback(() => {
+    renovar().catch((error: unknown) => {
+      if (esNoAutorizado(error)) terminar(null)
+      else setEstado('sin-conexion')
+    })
   }, [renovar, terminar])
+
+  // Al abrir la página.
+  useEffect(() => {
+    comprobar()
+  }, [comprobar])
+
+  const reintentar = useCallback(() => {
+    setEstado('comprobando')
+    comprobar()
+  }, [comprobar])
 
   const conSesion = useCallback(
     async <T,>(peticion: (token: string) => Promise<T>): Promise<T> => {
@@ -71,7 +92,7 @@ export function AccesoProvider({ children }: { children: ReactNode }) {
         try {
           return await peticion(token.current)
         } catch (error) {
-          if (!esNoAutorizado(error)) throw error
+          if (!esSesionRequerida(error)) throw error
         }
       }
       // El token de acceso dura 15 minutos: si venció, se renueva una vez y se repite.
@@ -92,19 +113,16 @@ export function AccesoProvider({ children }: { children: ReactNode }) {
     [abrir],
   )
 
+  // Si core-service no confirma, el error llega a quien llamó: borrar solo el
+  // token de memoria dejaría la cookie vigente, y al recargar la sesión volvería.
   const cerrarSesion = useCallback(async () => {
-    try {
-      await enOrden(cerrarSesionApi)
-      terminar('Cerraste tu sesión.')
-    } catch {
-      // Sin respuesta de core-service, la sesión se cierra igual en esta pestaña.
-      terminar('Cerraste la sesión en esta pestaña, pero core-service no respondió.')
-    }
+    await enOrden(cerrarSesionApi)
+    terminar('Cerraste tu sesión.')
   }, [terminar])
 
   const valor = useMemo<Acceso>(
-    () => ({ estado, titular, aviso, ingresar, cerrarSesion, conSesion }),
-    [estado, titular, aviso, ingresar, cerrarSesion, conSesion],
+    () => ({ estado, titular, aviso, ingresar, cerrarSesion, reintentar, conSesion }),
+    [estado, titular, aviso, ingresar, cerrarSesion, reintentar, conSesion],
   )
 
   return <AccesoContext value={valor}>{children}</AccesoContext>

@@ -6,7 +6,7 @@ import { CargandoSesion } from './CargandoSesion.tsx'
 // que revisa el token en cada petición.
 export function RutaProtegida() {
   const { estado } = useAcceso()
-  if (estado === 'comprobando') return <CargandoSesion />
+  if (estado === 'comprobando' || estado === 'sin-conexion') return <CargandoSesion />
   if (estado === 'sin-sesion') return <Navigate to="/ingresar" replace />
   return <Outlet />
 }

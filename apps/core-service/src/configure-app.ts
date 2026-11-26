@@ -1,5 +1,6 @@
 import type { INestApplication } from '@nestjs/common';
 import cookieParser from 'cookie-parser';
+import { crearValidationPipe } from './common/validacion.js';
 
 // core-service solo acepta peticiones del navegador desde la web-app local.
 export const WEB_APP_ORIGIN = 'http://localhost:5173';
@@ -16,4 +17,5 @@ export function configureApp(app: INestApplication): void {
   // web-app va como único origen de confianza.
   app.enableCsrfProtection({ trustedOrigins: [WEB_APP_ORIGIN] });
   app.use(cookieParser());
+  app.useGlobalPipes(crearValidationPipe());
 }

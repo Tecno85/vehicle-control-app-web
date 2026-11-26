@@ -230,10 +230,34 @@ describe('acceso (e2e)', () => {
     expect(invalido.body).toMatchObject({ codigo: 'DATOS_INVALIDOS' });
     expect((await consultar('/api/vehiculos/1')).status).toBe(401);
 
-    // La prueba de conexión cuenta solo los vehículos de cada cuenta.
-    expect((await consultar('/api/health/hasura', titular.acceso)).body).toEqual({ status: 'ok', service: 'hasura', vehiculos: 2 });
-    expect((await consultar('/api/health/hasura', segunda.acceso)).body).toEqual({ status: 'ok', service: 'hasura', vehiculos: 1 });
-    expect((await consultar('/api/health/hasura')).status).toBe(401);
+    // La flota trae solo los vehículos de cada cuenta.
+    expect((await consultar('/api/vehiculos', titular.acceso)).body.vehiculos.map((v: { placa: string }) => v.placa)).toEqual(['ABC123', 'XYZ789']);
+    expect((await consultar('/api/vehiculos', segunda.acceso)).body.vehiculos.map((v: { placa: string }) => v.placa)).toEqual(['KLM456']);
+    expect((await consultar('/api/vehiculos')).status).toBe(401);
+  });
+
+  it('una cuenta desactivada deja de recibir datos en un minuto, aunque su token siga vigente', async () => {
+    vi.useFakeTimers({ toFake: ['Date'] });
+    const inicio = Date.now();
+    const { acceso } = await ingresarComo('titular');
+    const sesionRequerida = { codigo: 'SESION_REQUERIDA', mensaje: 'Necesitas ingresar para ver esta información.' };
+    expect((await consultar('/api/vehiculos/1', acceso)).status).toBe(200);
+
+    hasura.usuarios[0].activo = false;
+    // El perfil lee la cuenta en cada consulta: la rechaza en el acto.
+    expect((await consultar('/api/perfil', acceso)).body).toEqual(sesionRequerida);
+    // El guard recuerda la cuenta hasta un minuto.
+    vi.setSystemTime(inicio + 59_000);
+    expect((await consultar('/api/vehiculos/1', acceso)).status).toBe(200);
+    vi.setSystemTime(inicio + 61_000);
+    const vehiculo = await consultar('/api/vehiculos/1', acceso);
+    expect(vehiculo.status).toBe(401);
+    expect(vehiculo.body).toEqual(sesionRequerida);
+
+    // Un token firmado para una cuenta que ya estaba desactivada no sirve desde el principio.
+    const deLaInactiva = new JwtService().sign({ sub: '3' }, { secret: SECRETO, expiresIn: 60 });
+    expect((await consultar('/api/vehiculos/1', deLaInactiva)).status).toBe(401);
+    expect((await consultar('/api/vehiculos', deLaInactiva)).status).toBe(401);
   });
 
   it('la renovación entrega otra cookie y otro token de acceso, y el token anterior queda usado', async () => {

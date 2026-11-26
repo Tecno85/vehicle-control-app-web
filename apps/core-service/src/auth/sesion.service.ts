@@ -166,8 +166,9 @@ export class SesionService {
     if (cuenta === undefined) {
       throw formatoInesperado();
     }
-    // Una cuenta desactivada conserva su token hasta que vence (15 minutos como
-    // máximo), pero ya no recibe datos.
+    // SesionGuard ya rechaza una cuenta desactivada, pero recuerda su respuesta
+    // hasta un minuto. Como esta consulta ya trae la fila, el perfil la rechaza
+    // en el acto.
     if (!cuenta?.activo) {
       throw errorApi(
         HttpStatus.UNAUTHORIZED,

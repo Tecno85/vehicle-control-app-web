@@ -89,6 +89,37 @@ describe('HasuraService', () => {
     expect(error.message).toBe(
       'Hasura rechazó la consulta (código: permission-error).',
     );
+    expect(error.restricciones).toEqual(['ingresos_check1']);
+  });
+
+  it('guarda solo los nombres de las restricciones que rechazaron el dato', async () => {
+    simularFetch(() =>
+      Promise.resolve(
+        respuestaJson({
+          errors: [
+            {
+              message:
+                'Uniqueness violation. duplicate key value violates unique constraint "vehiculos_usuario_id_placa_key"',
+              extensions: { path: '$', code: 'constraint-violation' },
+            },
+            {
+              message:
+                'Foreign key violation. update or delete on table "vehiculos" violates foreign key constraint "documentos_vehiculo_id_fkey" on table "documentos"',
+              extensions: { path: '$', code: 'constraint-violation' },
+            },
+            { message: 'field "placa" not found', extensions: { code: 'validation-failed' } },
+          ],
+        }),
+      ),
+    );
+
+    const error = await errorDe(new HasuraService(CONFIG).request(CONSULTA));
+
+    expect(error.restricciones).toEqual([
+      'vehiculos_usuario_id_placa_key',
+      'documentos_vehiculo_id_fkey',
+    ]);
+    expect(error.message).not.toContain('duplicate');
   });
 
   it('trata un HTTP 500 como servicio no disponible', async () => {

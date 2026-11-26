@@ -4,6 +4,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { HasuraModule } from '../hasura/hasura.module.js';
 import { AUTH_CONFIG, readAuthConfig } from './auth.config.js';
+import { CuentasActivasService } from './cuentas-activas.service.js';
 import { PerfilController } from './perfil.controller.js';
 import { SesionController } from './sesion.controller.js';
 import { SesionGuard } from './sesion.guard.js';
@@ -28,6 +29,7 @@ import { TokenAccesoService } from './token-acceso.service.js';
     { provide: AUTH_CONFIG, useFactory: () => readAuthConfig(process.env) },
     TokenAccesoService,
     SesionService,
+    CuentasActivasService,
     // Exige sesión en toda la API, salvo en las rutas marcadas con @Publico().
     { provide: APP_GUARD, useClass: SesionGuard },
   ],

@@ -1,11 +1,15 @@
 import { HttpException, type ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
+import { HasuraError } from '../hasura/hasura.errors.js';
+import type { CuentasActivasService } from './cuentas-activas.service.js';
 import { Publico } from './publico.decorator.js';
 import { SesionGuard, type SolicitudConSesion } from './sesion.guard.js';
 import { TokenAccesoService } from './token-acceso.service.js';
 
 const SECRETO = 'secreto-solo-para-pruebas-unitarias-del-guard';
+// La cuenta 8 está desactivada; las demás, activas.
+const CUENTA_DESACTIVADA = 8;
 
 class RutasDePrueba {
   @Publico()
@@ -41,11 +45,18 @@ async function rechazo(promesa: Promise<boolean>) {
 describe('SesionGuard', () => {
   const jwt = new JwtService();
   const tokens = new TokenAccesoService(jwt, { jwtSecret: SECRETO });
-  const guard = new SesionGuard(new Reflector(), tokens);
+  const estaActiva = vi.fn((cuentaId: number) => Promise.resolve(cuentaId !== CUENTA_DESACTIVADA));
+  const cuentas = { estaActiva } as unknown as CuentasActivasService;
+  const guard = new SesionGuard(new Reflector(), tokens, cuentas);
   const ahora = () => Math.floor(Date.now() / 1000);
 
-  it('deja pasar una ruta pública sin token', async () => {
+  beforeEach(() => {
+    estaActiva.mockClear();
+  });
+
+  it('deja pasar una ruta pública sin token y sin consultar la cuenta', async () => {
     await expect(guard.canActivate(contexto('publica', { headers: {} }))).resolves.toBe(true);
+    expect(estaActiva).not.toHaveBeenCalled();
   });
 
   it('acepta un token válido y deja el id de la cuenta en la solicitud', async () => {
@@ -54,6 +65,32 @@ describe('SesionGuard', () => {
 
     await expect(guard.canActivate(contexto('protegida', solicitud))).resolves.toBe(true);
     expect(solicitud.cuentaId).toBe(7);
+    expect(estaActiva).toHaveBeenCalledWith(7);
+  });
+
+  it('responde 401 SESION_REQUERIDA a un token válido de una cuenta desactivada', async () => {
+    const { token } = await tokens.crear(CUENTA_DESACTIVADA);
+    const solicitud = conToken(token);
+
+    await expect(
+      rechazo(guard.canActivate(contexto('protegida', solicitud))),
+    ).resolves.toEqual({
+      estado: 401,
+      cuerpo: {
+        codigo: 'SESION_REQUERIDA',
+        mensaje: 'Necesitas ingresar para ver esta información.',
+      },
+    });
+    expect(solicitud.cuentaId).toBeUndefined();
+  });
+
+  it('no deja pasar a nadie si no puede comprobar la cuenta', async () => {
+    const { token } = await tokens.crear(7);
+    estaActiva.mockRejectedValueOnce(new HasuraError('TIMEOUT', 'Hasura no respondió en 5000 ms.'));
+
+    await expect(
+      guard.canActivate(contexto('protegida', conToken(token))),
+    ).rejects.toBeInstanceOf(HasuraError);
   });
 
   it('el token solo lleva sub, iat y exp, y vence a los 15 minutos', async () => {
@@ -103,6 +140,8 @@ describe('SesionGuard', () => {
       );
       expect(estado).toBe(401);
     }
+    // Un token inválido se rechaza sin consultar Hasura.
+    expect(estaActiva).not.toHaveBeenCalled();
   });
 
   it('sin JWT_SECRET ningún token sirve', async () => {
@@ -110,6 +149,7 @@ describe('SesionGuard', () => {
     const sinConfig = new SesionGuard(
       new Reflector(),
       new TokenAccesoService(jwt, null),
+      cuentas,
     );
 
     const { estado } = await rechazo(
