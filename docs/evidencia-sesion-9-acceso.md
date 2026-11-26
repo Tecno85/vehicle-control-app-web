@@ -687,6 +687,8 @@ Texto exacto enviado:
 | Al publicar (semana 11), mantener la web y core-service en el mismo sitio, o cambiar la cookie de renovación | Ivan | Por definir |
 | Registro propio, recuperación de contraseña y verificación del correo | Ivan | Fase posterior |
 
+**Nota posterior (25 de noviembre de 2026).** El 23 de noviembre le pedí a Claude Code revisar el cierre de las sesiones 8 y 9. En la [sesión 10](evidencia-sesion-10-crud-vehiculos.md) corregí siete de sus hallazgos: el cierre de sesión que fallaba sin avisar (A2), la forma de los errores (A3 y A8), una cuenta desactivada con un token vigente (A4), la renovación fallida al abrir la página (A6), la espera sin límite de la web (A7) y los reintentos ante cualquier 401 (A14). A1 y A5, sobre la renovación, quedan para la sesión 11. El resto de esta evidencia se conserva como se cerró.
+
 ## Fuentes
 
 - «Cartilla de acompañamiento técnico» del instructor: semana 6, «Login y autorización en el core service», páginas 16 y 17. Para la validación también se revisaron las páginas 3 y 4, las semanas 7, 10 y 11 y los anexos A y C.

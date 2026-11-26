@@ -1,7 +1,7 @@
 # Contexto del proyecto VehicleControlApp Web
 
-**Estado del contexto:** 23 de noviembre de 2026
-**Actividad actual:** la sesión 9, el ingreso con correo y contraseña según la semana 6 de la cartilla del instructor, es la más reciente: la cerré el 23 de noviembre de 2026 en su versión 1.0. La sesión 8, base visual de la web-app con la identidad de Android, la cerré el 22 de noviembre de 2026 en su versión 1.0. Numeré las dos en el orden en que vengo trabajando. La sesión 7, conexión de core-service con Hasura según la semana 5 de la cartilla, se entregó el 20 de noviembre de 2026 en su versión 1.0. Desde el 17 de noviembre de 2026 el instructor no pide entregas: el avance se revisa en las asesorías de clase, y decidí seguir documentando cada sesión igual. El 12 de noviembre de 2026 no hubo encuentro con el instructor: no pidió entregar la evidencia de sesión 6, que queda en la versión 0.1, y por WhatsApp indicó seguir avanzando con el desarrollo del proyecto. La evidencia de sesiones 4 y 5 se entregó el 6 de noviembre de 2026 en su versión 0.8.
+**Estado del contexto:** 25 de noviembre de 2026
+**Actividad actual:** la sesión 10, el CRUD de vehículos según la semana 7 de la cartilla del instructor, es la más reciente: está en curso, en su versión 0.1. La sesión 9, el ingreso con correo y contraseña según la semana 6, la cerré el 23 de noviembre de 2026 en su versión 1.0. La sesión 8, base visual de la web-app con la identidad de Android, la cerré el 22 de noviembre de 2026 en su versión 1.0. Numeré las dos en el orden en que vengo trabajando. La sesión 7, conexión de core-service con Hasura según la semana 5 de la cartilla, se entregó el 20 de noviembre de 2026 en su versión 1.0. Desde el 17 de noviembre de 2026 el instructor no pide entregas: el avance se revisa en las asesorías de clase, y decidí seguir documentando cada sesión igual. El 12 de noviembre de 2026 no hubo encuentro con el instructor: no pidió entregar la evidencia de sesión 6, que queda en la versión 0.1, y por WhatsApp indicó seguir avanzando con el desarrollo del proyecto. La evidencia de sesiones 4 y 5 se entregó el 6 de noviembre de 2026 en su versión 0.8.
 **Modalidad de trabajo:** individual.
 
 ## 1. Ficha del proyecto
@@ -50,6 +50,8 @@
 | 23 nov 2026 | Límite conocido del ingreso, decidido por Ivan | Recargar dos veces en menos de un segundo puede cerrar la sesión. Decidí dejarlo como límite conocido y resolverlo después de presentar el trabajo final en el SENA, porque voy a seguir trabajando en el proyecto. | Solo obliga a escribir otra vez la contraseña; no expone datos. La solución propuesta, un margen de gracia en core-service, está en la evidencia de sesión 9. |
 | 23 nov 2026 | Cierre de las sesiones 8 y 9, decidido por Ivan | Cerré la sesión 8 con la fecha del 22 de noviembre y la 9 con la del 23, los últimos días en que trabajé en cada una, en su versión 1.0 y con su PDF. Subí los commits a GitHub, con las etiquetas `sesion-8-v1.0` y `sesion-9-v1.0`. | Son cierres sin entrega. Si el instructor las revisa en una asesoría, anoto esa fecha. |
 | 23 nov 2026 | Depuración del repositorio, decidida por Ivan | Antes de la semana 7 quité lo que el proyecto no usa: en core-service, restos de la plantilla de NestJS (`source-map-support`, la medición de cobertura, Prettier y cuatro scripts), y en el prototipo de sesión 3, la preparación para publicarlo en Sites, porque se publica en GitHub Pages. | El código de las dos apps no tenía archivos ni funciones sin uso. El panel de verificación y `GET /api/health/hasura` se quitarán en la semana 7, cuando el inicio muestre la lista de vehículos. |
+| 23 nov 2026 | Revisión del cierre de las sesiones 8 y 9, pedida por Ivan | Le pedí a Claude Code revisar el cierre como revisor independiente. Encontró 14 hallazgos; ninguno bloquea la presentación en el SENA. Decidí no reabrir esas sesiones y corregir siete en la sesión 10; A1 y A5 pasan a la sesión 11. | El informe está fuera del repositorio, en `Asesor_Técnico/Sesión_9`. |
+| 23 a 25 nov 2026 | CRUD de vehículos (sesión 10), según la semana 7 de la cartilla | Con Claude Code corregí siete hallazgos de la revisión y agregué el CRUD de vehículos en core-service y sus pantallas en la web-app. Para la parte visual usé la skill Modern Web Guidance, con el visto bueno del instructor. Con Neon y Hasura Cloud, la demostración dio 32 de 32, y en mi navegador creé, recargué, edité y eliminé un vehículo de prueba. | Funciona en desarrollo, en mi equipo; no está publicado. Por ahora, un vehículo desactivado no se reactiva. Faltan ingresos, gastos, documentos y categorías. |
 | Sin fecha especificada | Observación previa de Katerin sobre Android | El término “Registro de documentos” le resultó confuso; también sugirió adjuntar imágenes de facturas. | Mantener como observación distinta de la retroalimentación del 2 de octubre. La propuesta de facturas no se incorpora automáticamente al alcance inicial. |
 | Fechas y condiciones distintas, no detalladas aquí | Antecedente de pruebas Android | Katerin y Jean Carlos probaron el MVP Android en momentos y condiciones distintos. | No combinar sus pruebas ni atribuir resultados específicos sin evidencia separada. |
 
@@ -143,6 +145,7 @@ Tras la retroalimentación del 27 de octubre de 2026, HU-04 se implementa primer
 - La [evidencia de sesión 7](evidencia-sesion-7-conexion-hasura.md) documenta la conexión de core-service con Hasura, siguiendo la semana 5 de la cartilla del instructor. Se entregó el 20 de noviembre de 2026 en su versión 1.0.
 - La [evidencia de sesión 8](evidencia-sesion-8-base-visual.md) documenta la base visual de la web-app con la identidad de Android: tema, estructura común, panel y guía visual solo para desarrollo. La cerré el 22 de noviembre de 2026, en su versión 1.0.
 - La [evidencia de sesión 9](evidencia-sesion-9-acceso.md) documenta el ingreso con correo y contraseña, la sesión, la matriz de autorización y el registro de tres prompts, siguiendo la semana 6 de la cartilla del instructor. La cerré el 23 de noviembre de 2026, en su versión 1.0.
+- La [evidencia de sesión 10](evidencia-sesion-10-crud-vehiculos.md) documenta el CRUD de vehículos por core-service, siguiendo la semana 7 de la cartilla del instructor, con el paso 0 de la revisión del cierre de las sesiones 8 y 9 y el registro de tres prompts. Está en curso, en su versión 0.1.
 - Katerin revisó inicialmente el flujo web el 28 de septiembre, pidió adjuntar soportes el 2 de octubre, validó el proceso y el avance Android el 8 de octubre, respondió preguntas breves el 12 de octubre y probó el prototipo web el 20 de octubre; en esa prueba revisó la identidad visual y le pareció adecuada. Estos contactos no se deben combinar.
 
 ## 7. Base técnica y orientación
@@ -151,11 +154,11 @@ Tras la retroalimentación del 27 de octubre de 2026, HU-04 se implementa primer
 - `apps/web-app`, con React, TypeScript, Vite y Material UI.
 - `apps/core-service`, con NestJS.
 
-React consume core-service por HTTP, con el cliente de `src/api/api-client.ts`. Usa la prueba de salud `GET /api/health` y, desde la sesión 9, el ingreso, la sesión y el perfil.
+React consume core-service por HTTP, con el cliente de `src/api/api-client.ts`. Hasta la sesión 9 usaba la prueba de salud `GET /api/health`, el ingreso, la sesión y el perfil. Desde la sesión 10 usa el ingreso, la sesión y los vehículos; `GET /api/health` y `GET /api/perfil` siguen en core-service.
 
 En la sesión 7, core-service se conectó a Hasura Cloud:
 - Su cliente interno, en `src/hasura/`, envía consultas GraphQL con el secreto de administración. El secreto solo vive en `apps/core-service/.env`, que no se versiona. El cliente tiene un tiempo límite y errores claros.
-- La consulta de prueba `GET /api/health/hasura` cuenta los vehículos. Desde la sesión 9 exige sesión y solo cuenta los de esa cuenta.
+- La consulta de prueba `GET /api/health/hasura` contaba los vehículos; desde la sesión 9 exigía sesión. Se retiró en la sesión 10, junto con el panel de verificación de la web.
 - La base de datos y la configuración de Hasura quedaron versionadas en `infra/hasura/`.
 - La web no habla con Hasura.
 
@@ -173,9 +176,15 @@ Del 21 al 23 de noviembre de 2026, en la sesión 9, se agregó el ingreso con co
 
 Funciona en desarrollo, en mi equipo; no está publicado ni probado en producción. Tiene un límite conocido: recargar dos veces en menos de un segundo puede cerrar la sesión. Decidí resolverlo después de presentar el trabajo final en el SENA.
 
+Del 23 al 25 de noviembre de 2026, en la sesión 10, se agregó el CRUD de vehículos:
+- un paso 0 con siete hallazgos de la revisión del cierre de las sesiones 8 y 9: validación de los datos con class-validator y errores siempre con `{ codigo, mensaje }`; una cuenta desactivada deja de recibir datos en un minuto como máximo; la web espera hasta 15 segundos, avisa si no pudo comprobar o cerrar la sesión y solo renueva cuando el token venció;
+- en core-service, `GET`, `POST`, `PATCH` y `DELETE` en `/api/vehiculos`, siempre filtrados por la cuenta de la sesión, con las reglas de placa, tipo, cuota e inDrive;
+- en la web-app, «Mis vehículos», el detalle y el formulario para agregar o editar, con confirmación para desactivar o eliminar;
+- se retiraron el panel de verificación, la tarjeta «Tu cuenta» y `GET /api/health/hasura`.
+
 **Versiones.** Decidí usar las versiones estables recomendadas: NestJS 12 con Node 24 LTS y, desde el 20 de noviembre de 2026, npm 12.
 
-**Lo pendiente.** Faltan los demás servicios del MVP (S02 a S12; de S06 solo está la consulta de un vehículo) y las pantallas que usen datos. En la cartilla del instructor, lo siguiente son los servicios y las pantallas del MVP (semana 7).
+**Lo pendiente.** Faltan los servicios de ingresos, gastos, documentos y categorías (S03 a S05 y S09 a S12), los próximos vencimientos y los totales del mes de S06, y sus pantallas. En la cartilla del instructor, lo siguiente es la semana 8, sobre transacciones y concurrencia; allí van A1 y A5 de la revisión, en la sesión 11.
 
 ## 8. Decisiones abiertas antes de implementar
 
@@ -187,6 +196,7 @@ Funciona en desarrollo, en mi equipo; no está publicado ni probado en producci�
 - **Archivos:** acordamos permitir un archivo por registro y guardar primero los datos. PDF es el formato más común señalado; debo definir los formatos finales, el tamaño máximo, el almacenamiento y la conservación. Interpreto provisionalmente “.Docs” como Word (.doc/.docx). El almacenamiento de archivos queda para la fase posterior a la primera versión.
 - **Autenticación:** se acordó crear cuentas independientes con registro propio, correo y contraseña, y recuperación mediante correo. El MVP considera a la persona titular con acceso a su flota; no se definieron roles para compartir datos. Las políticas técnicas de contraseña, verificación del correo y validez del enlace de recuperación siguen pendientes. El flujo está representado en el diseño de Figma y en el prototipo local. La primera versión solo incluye el ingreso con correo y contraseña a una cuenta creada previamente: desde la sesión 9 funciona en desarrollo, con los valores de acceso que aprobé en esa evidencia. El registro propio, la verificación y la recuperación pasan a la fase posterior.
 - **Cuenta de prueba:** el 20 de noviembre de 2026, el instructor recomendó crear la cuenta de prueba y sus cinco categorías con un script SQL. El script de datos ficticios de la sesión 7 ya lo hace, pero deja una contraseña que no sirve para entrar, porque todavía no había login. En la sesión 9 lo resolví: creo la contraseña de cada cuenta con el script `npm run contrasena`, que imprime solo el hash, y lo guardo en Neon con un `update`. La contraseña real no está en el repositorio.
+- **Reactivar un vehículo:** por ahora, un vehículo desactivado no se reactiva. Decidirlo sigue «Por definir».
 - **Recarga doble:** recargar dos veces en menos de un segundo puede cerrar la sesión. El 23 de noviembre de 2026 decidí resolverlo después de presentar el trabajo final en el SENA, con un margen de gracia en core-service. Fecha: por definir.
 
 Para ampliar las reglas de edición y eliminación y revisar cada pantalla, consulta la [evidencia de diseño de sesión 3](evidencia-sesion-3-diseno-pantallas.md). La evidencia de sesión 2 se conserva como registro histórico de esa actividad.
