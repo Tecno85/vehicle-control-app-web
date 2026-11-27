@@ -25,8 +25,8 @@ Para comprobar core-service sin la web, abre http://localhost:3000/api/health. D
 | Comando | Qué hace |
 |---|---|
 | `npm run build` | Compila las dos apps |
-| `npm test` | Pruebas unitarias. Por ahora solo core-service tiene pruebas |
-| `npm run test:e2e` | Pruebas de core-service con un Hasura simulado: salud, ingreso, renovación, cierre, límite de intentos, acceso a datos de otra cuenta, cuenta desactivada, rutas que no existen y vehículos con sus reglas |
+| `npm test` | Pruebas unitarias de core-service: acceso, vehículos e ingresos |
+| `npm run test:e2e` | Pruebas de core-service con un Hasura simulado: salud, ingreso, renovación, cierre, vehículos e ingresos con sus reglas |
 | `npm run lint` | Revisión de estilo con oxlint en las dos apps |
 
 **Notas:**

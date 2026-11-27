@@ -20,7 +20,7 @@ Por recomendación del instructor técnico (27 de octubre de 2026), la primera v
 
 ## Estado actual
 
-Es un monorepo con dos aplicaciones: `apps/web-app` (React, TypeScript y Material UI) y `apps/core-service` (NestJS). La web-app solo habla con core-service, y core-service consulta la base de datos, en Neon, a través de Hasura Cloud. Hoy la titular ingresa con su correo y su contraseña y maneja sus vehículos: los agrega, los consulta, los edita, los desactiva o los elimina. **Del MVP faltan ingresos, gastos, documentos y categorías.** Todo funciona en desarrollo, en mi equipo; no está publicado ni probado en producción.
+Es un monorepo con `apps/web-app` (React, TypeScript y Material UI) y `apps/core-service` (NestJS). En desarrollo local, la titular ingresa, gestiona sus vehículos y registra y consulta ingresos por vehículo; probé este flujo manualmente con la cuenta de prueba conectada a Neon y Hasura Cloud. Faltan gastos, documentos y categorías; en ingresos, edición, eliminación y filtro por mes. No está publicado ni probado en producción.
 
 El avance de cada sesión está en la tabla «Evidencias», y los acuerdos y decisiones pendientes, en el [contexto del proyecto](docs/contexto-proyecto.md). El [prototipo de la sesión 3](https://tecno85.github.io/vehicle-control-app-web/) sigue publicado en GitHub Pages para recorrer las pantallas; sus acciones son simuladas y no guarda nada.
 
@@ -83,5 +83,7 @@ Por indicación del instructor en la sesión 6, el monorepo usa React con TypeSc
 | 8 | [Base visual de la web-app](docs/evidencia-sesion-8-base-visual.md): tema con la identidad de Android en modo claro y oscuro, estructura común, panel con el nuevo estilo, guía visual solo para desarrollo y registro de tres prompts | 22 nov 2026 | Cerrada (versión 1.0) |
 | 9 | [Ingreso con correo y contraseña](docs/evidencia-sesion-9-acceso.md): tabla `sesiones`, contraseñas con Argon2id, ingreso, renovación y cierre de la sesión en core-service, matriz de autorización, página de ingreso con rutas protegidas, prueba con dos cuentas y registro de tres prompts | 23 nov 2026 | Cerrada (versión 1.0) |
 | 10 | [CRUD de vehículos](docs/evidencia-sesion-10-crud-vehiculos.md): paso 0 con siete hallazgos de la revisión del cierre, CRUD de vehículos en core-service con su contrato, pantallas de flota, detalle y formulario, prueba con Neon y Hasura Cloud, y registro de tres prompts | 25 nov 2026 | Cerrada (versión 1.0) |
+| 11 | [Identidad visual y pantalla de ingreso](docs/evidencia-sesion-11-identidad-visual.md): letra Barlow, marca con los carros y mejora de la pantalla de ingreso | 26 nov 2026 | En borrador (versión 0.3) |
+| 12 | [Ingresos por vehículo](docs/evidencia-sesion-12-ingresos.md): registro, consulta y comprobaciones | 26 nov 2026 | En borrador (versión 0.2) |
 
 Hasta la sesión 7, la columna «Fecha» es la de entrega. Desde el 17 de noviembre de 2026 el instructor no pide entregas: desde la sesión 8 es la fecha en que cierro la sesión, y su estado es «Cerrada». Los cambios de fecha de las sesiones 4 a 6 están en el [contexto del proyecto](docs/contexto-proyecto.md).

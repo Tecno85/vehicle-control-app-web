@@ -29,6 +29,7 @@ El detalle está en la [evidencia de sesión 9](evidencia-sesion-9-acceso.md).
 | `GET /api/perfil` | Quien tiene sesión. Responde solo con los datos de su cuenta |
 | `GET /api/vehiculos` y `POST /api/vehiculos` | Quien tiene sesión. Lista y crea solo en su cuenta |
 | `GET`, `PATCH` y `DELETE /api/vehiculos/:id` | Quien tiene sesión, si el vehículo es de su cuenta. Si no, responde 404 |
+| `GET` y `POST /api/vehiculos/:id/ingresos` | Quien tiene sesión, si el vehículo es de su cuenta. Lista y registra sus ingresos |
 
 Las rutas que exigen sesión también exigen que la cuenta siga activa. Los `POST`, `PATCH` y `DELETE` solo se aceptan desde la web-app: desde otro sitio responden 403 `ORIGEN_NO_PERMITIDO`.
 
@@ -78,3 +79,30 @@ Un vehículo, como lo devuelve core-service:
 | 409 `VEHICULO_CON_REGISTROS` | Se intenta eliminar un vehículo con ingresos, gastos o documentos |
 | 422 `TIPO_INCOHERENTE` | Los datos no corresponden al tipo, por ejemplo un taxi sin cuota. Trae `campos` |
 | 401 `SESION_REQUERIDA`, 403 `ORIGEN_NO_PERMITIDO` y 503 `SERVICIO_NO_DISPONIBLE` | Sin sesión, desde otro sitio o cuando Hasura falla |
+
+## Ingresos
+
+Desde la sesión 12, core-service registra y consulta los ingresos de un vehículo de la cuenta con sesión. No recibe el tipo ni la cuota desde el navegador: los toma del vehículo para conservar las reglas acordadas.
+
+| Método y ruta | Body | Respuesta |
+|---|---|---|
+| `GET /api/vehiculos/:id/ingresos` | — | 200 con los ingresos del vehículo, del más reciente al más antiguo |
+| `POST /api/vehiculos/:id/ingresos` | `fecha` (`AAAA-MM-DD`), `valor` entero en pesos, `motivo` opcional y `nota` opcional | 201 con el ingreso guardado |
+
+**Reglas:**
+
+- Solo hay un ingreso por vehículo y fecha.
+- La fecha no puede ser posterior al día actual.
+- El taxi usa el tipo `TAXI` y copia su cuota vigente como `cuota_referencia`. Si el valor recibido es distinto —incluido cero— el motivo es obligatorio.
+- Un particular solo recibe `INDRIVE` si está habilitado para inDrive. No lleva cuota de referencia.
+- Un vehículo desactivado no recibe ingresos nuevos.
+
+| Estado y código | Cuándo |
+|---|---|
+| 400 `DATOS_INVALIDOS` | Falta un campo, llega un campo no permitido o la fecha/valor no tiene el formato esperado. Trae `campos` |
+| 404 `VEHICULO_NO_ENCONTRADO` | El vehículo no existe o es de otra cuenta |
+| 409 `INGRESO_DUPLICADO` | Ya hay un ingreso para el vehículo en esa fecha |
+| 409 `VEHICULO_INACTIVO` | Se intenta registrar en un vehículo desactivado |
+| 422 `MOTIVO_REQUERIDO` | El valor de un taxi no coincide con su cuota y no llega motivo |
+| 422 `VEHICULO_SIN_INDRIVE` | Se intenta registrar inDrive en un particular no habilitado |
+| 422 `FECHA_FUTURA` | La fecha es posterior al día actual |
