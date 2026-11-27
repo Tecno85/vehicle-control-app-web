@@ -7,6 +7,7 @@ import {
 } from '../../features/vehiculos/PaginaFormularioVehiculo.tsx'
 import { PaginaFlota } from '../../features/vehiculos/PaginaFlota.tsx'
 import { PaginaVehiculo } from '../../features/vehiculos/PaginaVehiculo.tsx'
+import { PaginaIngresos } from '../../features/vehiculos/PaginaIngresos.tsx'
 
 // /ingresar es pública; las páginas dentro de RutaProtegida exigen sesión.
 // Las rutas de vehículos son las que propuso la evidencia de sesión 3. La flota
@@ -19,6 +20,7 @@ export function AppRoutes() {
         <Route path="/vehiculos" element={<PaginaFlota />} />
         <Route path="/vehiculos/nuevo" element={<PaginaNuevoVehiculo />} />
         <Route path="/vehiculos/:id" element={<PaginaVehiculo />} />
+        <Route path="/vehiculos/:id/ingresos" element={<PaginaIngresos />} />
         <Route path="/vehiculos/:id/editar" element={<PaginaEditarVehiculo />} />
       </Route>
       <Route path="*" element={<Navigate to="/vehiculos" replace />} />

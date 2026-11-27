@@ -67,6 +67,8 @@ describe('vehículos (e2e)', () => {
   const crear = (body: object, cuenta: 1 | 2 = 1) => desdeLaWeb(servidor().post('/api/vehiculos'), cuenta).send(body);
   const editar = (id: number, body: object, cuenta: 1 | 2 = 1) => desdeLaWeb(servidor().patch(`/api/vehiculos/${id}`), cuenta).send(body);
   const eliminar = (id: number, cuenta: 1 | 2 = 1) => desdeLaWeb(servidor().delete(`/api/vehiculos/${id}`), cuenta);
+  const ingresos = (id: number, cuenta: 1 | 2 = 1) => desdeLaWeb(servidor().get(`/api/vehiculos/${id}/ingresos`), cuenta);
+  const registrarIngreso = (id: number, body: object, cuenta: 1 | 2 = 1) => desdeLaWeb(servidor().post(`/api/vehiculos/${id}/ingresos`), cuenta).send(body);
   const placas = async (cuenta: 1 | 2 = 1) => ((await listar(cuenta)).body.vehiculos as { placa: string }[]).map((v) => v.placa);
 
   it('recorrido completo: crear 201, listar, ver, editar 200, eliminar 204 y después ver 404', async () => {
@@ -95,6 +97,27 @@ describe('vehículos (e2e)', () => {
     expect(eliminado.text).toBe('');
     expect((await ver(4)).body).toEqual({ codigo: 'VEHICULO_NO_ENCONTRADO', mensaje: 'No encontramos ese vehículo en tu cuenta.' });
     expect(await placas()).toEqual(['ABC123', 'XYZ789']);
+  });
+
+  it('registra un ingreso de taxi, conserva su cuota y no permite repetir la fecha', async () => {
+    const creado = await registrarIngreso(1, { fecha: '2026-11-25', valor: 40000, motivo: 'Recibió menos por reparación.' });
+    expect(creado.status).toBe(201);
+    expect(creado.body).toMatchObject({ vehiculo_id: 1, tipo: 'TAXI', fecha: '2026-11-25', valor: 40000, cuota_referencia: 60000, motivo: 'Recibió menos por reparación.' });
+    expect((await ver(1)).body.registros.ingresos).toBe(2);
+
+    const duplicado = await registrarIngreso(1, { fecha: '2026-11-25', valor: 60000 });
+    expect(duplicado.status).toBe(409);
+    expect(duplicado.body).toEqual({ codigo: 'INGRESO_DUPLICADO', mensaje: 'Ya existe un ingreso para ese vehículo y esa fecha.' });
+    expect((await ingresos(1)).body).toHaveLength(1);
+  });
+
+  it('aplica las reglas de taxi, inDrive, vehículo inactivo y cuenta ajena', async () => {
+    await expect(registrarIngreso(1, { fecha: '2026-11-25', valor: 0 })).resolves.toMatchObject({ status: 422, body: { codigo: 'MOTIVO_REQUERIDO' } });
+    await expect(registrarIngreso(2, { fecha: '2026-11-25', valor: 10000 })).resolves.toMatchObject({ status: 422, body: { codigo: 'VEHICULO_SIN_INDRIVE' } });
+    await expect(registrarIngreso(3, { fecha: '2026-11-25', valor: 10000 }, 1)).resolves.toMatchObject({ status: 404, body: { codigo: 'VEHICULO_NO_ENCONTRADO' } });
+    await expect(registrarIngreso(1, { fecha: '2099-01-01', valor: 60000 })).resolves.toMatchObject({ status: 422, body: { codigo: 'FECHA_FUTURA' } });
+    expect((await editar(1, { activo: false })).status).toBe(200);
+    await expect(registrarIngreso(1, { fecha: '2026-11-25', valor: 60000 })).resolves.toMatchObject({ status: 409, body: { codigo: 'VEHICULO_INACTIVO' } });
   });
 
   it('un campo reservado en el body responde 400 y el vehículo no cambia', async () => {

@@ -34,3 +34,15 @@ export interface Flota {
 // Lo que el formulario envía al crear o editar. La cuenta, el id y el estado no
 // se envían: core-service los toma de la sesión o de la base.
 export type DatosVehiculo = Omit<Vehiculo, 'id' | 'activo'>
+
+export type TipoIngreso = 'TAXI' | 'INDRIVE'
+export interface Ingreso {
+  id: number
+  vehiculo_id: number
+  tipo: TipoIngreso
+  fecha: string
+  valor: number
+  cuota_referencia: number | null
+  motivo: string | null
+  nota: string | null
+}

@@ -4,6 +4,7 @@ import type {
   Registros,
   Vehiculo,
   VehiculoConRegistros,
+  Ingreso,
 } from '../types/vehiculo.ts'
 import { ApiError, requestJson } from './api-client.ts'
 
@@ -96,4 +97,23 @@ export async function desactivarVehiculo(id: number, token: string): Promise<Veh
 // Solo para un vehículo sin registros; core-service responde 204, sin cuerpo.
 export async function eliminarVehiculo(id: number, token: string): Promise<void> {
   await requestJson(`/vehiculos/${id}`, { method: 'DELETE', token })
+}
+
+function esIngreso(data: unknown): data is Ingreso {
+  return esObjeto(data) && Number.isInteger(data.id) && Number.isInteger(data.vehiculo_id) &&
+    (data.tipo === 'TAXI' || data.tipo === 'INDRIVE') && typeof data.fecha === 'string' &&
+    Number.isInteger(data.valor) && (Number.isInteger(data.cuota_referencia) || data.cuota_referencia === null) &&
+    (typeof data.motivo === 'string' || data.motivo === null) && (typeof data.nota === 'string' || data.nota === null)
+}
+
+export async function listarIngresos(id: number, token: string): Promise<Ingreso[]> {
+  const data = await requestJson(`/vehiculos/${id}/ingresos`, { token })
+  if (!Array.isArray(data) || !data.every(esIngreso)) throw formatoInesperado()
+  return data
+}
+
+export async function crearIngreso(id: number, datos: { fecha: string; valor: number; motivo?: string; nota?: string }, token: string): Promise<Ingreso> {
+  const data = await requestJson(`/vehiculos/${id}/ingresos`, { method: 'POST', body: datos, token })
+  if (!esIngreso(data)) throw formatoInesperado()
+  return data
 }

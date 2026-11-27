@@ -14,6 +14,8 @@ import { errorApi } from '../common/errores.js';
 import { leerId } from '../common/ids.js';
 import { ActualizarVehiculoDto } from './dto/actualizar-vehiculo.dto.js';
 import { CrearVehiculoDto } from './dto/crear-vehiculo.dto.js';
+import { CrearIngresoDto } from './dto/crear-ingreso.dto.js';
+import { IngresosService, type Ingreso } from './ingresos.service.js';
 import {
   VehiculosService,
   type Flota,
@@ -25,7 +27,17 @@ import {
 // los pasa al servicio, que aplica las reglas. Todas las rutas exigen sesión.
 @Controller('vehiculos')
 export class VehiculosController {
-  constructor(private readonly vehiculos: VehiculosService) {}
+  constructor(private readonly vehiculos: VehiculosService, private readonly ingresos: IngresosService) {}
+
+  @Get(':id/ingresos')
+  listarIngresos(@Param('id') idTexto: string, @CuentaActual() cuentaId: number): Promise<Ingreso[]> {
+    return this.ingresos.listar(idDeVehiculo(idTexto), cuentaId);
+  }
+
+  @Post(':id/ingresos')
+  crearIngreso(@Param('id') idTexto: string, @Body() dto: CrearIngresoDto, @CuentaActual() cuentaId: number): Promise<Ingreso> {
+    return this.ingresos.crear(idDeVehiculo(idTexto), dto, cuentaId);
+  }
 
   @Get()
   listar(@CuentaActual() cuentaId: number): Promise<Flota> {

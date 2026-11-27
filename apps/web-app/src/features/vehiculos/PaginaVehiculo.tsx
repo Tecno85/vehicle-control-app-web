@@ -106,6 +106,7 @@ function DetalleVehiculo({ vehiculo, recargar }: DetalleVehiculoProps) {
       </Stack>
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5}>
+        <Button component={Link} to={`/vehiculos/${vehiculo.id}/ingresos`} variant="contained">Registrar ingreso</Button>
         <Button
           component={Link}
           to={`/vehiculos/${vehiculo.id}/editar`}

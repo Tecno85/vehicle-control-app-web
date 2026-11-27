@@ -37,6 +37,17 @@ export interface SesionSimulada {
   revocada_en: string | null;
 }
 
+export interface IngresoSimulado {
+  id: number;
+  vehiculo_id: number;
+  tipo: 'TAXI' | 'INDRIVE';
+  fecha: string;
+  valor: number;
+  cuota_referencia: number | null;
+  motivo: string | null;
+  nota: string | null;
+}
+
 // Cuántos ingresos, gastos y documentos tiene cada vehículo, por su id.
 export type RegistrosSimulados = Record<number, { ingresos: number; gastos: number; documentos: number }>;
 
@@ -70,6 +81,7 @@ type Filtro = {
 export class HasuraSimulado {
   sesiones: SesionSimulada[] = [];
   consultas: string[] = [];
+  ingresos: IngresoSimulado[] = [];
 
   constructor(
     readonly usuarios: UsuarioSimulado[],
@@ -166,6 +178,29 @@ export class HasuraSimulado {
         }
         this.vehiculos.splice(0, this.vehiculos.length, ...this.vehiculos.filter((x) => !afectados.includes(x)));
         return { delete_vehiculos: { affected_rows: afectados.length } };
+      }
+      case 'VehiculoParaIngreso':
+        return { vehiculos: this.deLaCuenta(v.id as number, v.usuarioId as number).map(({ usuario_id: _cuenta, ...vehiculo }) => ({
+          id: vehiculo.id, activo: vehiculo.activo, tipo: vehiculo.tipo,
+          habilitado_indrive: vehiculo.habilitado_indrive, cuota_diaria: vehiculo.cuota_diaria,
+        })) };
+      case 'CrearIngreso': {
+        const ingreso = v.ingreso as Omit<IngresoSimulado, 'id'>;
+        camposDesconocidos(ingreso, ['vehiculo_id', 'tipo', 'fecha', 'valor', 'cuota_referencia', 'motivo', 'nota']);
+        if (this.ingresos.some((x) => x.vehiculo_id === ingreso.vehiculo_id && x.fecha === ingreso.fecha)) {
+          throw rechazo('ingresos_vehiculo_id_fecha_key');
+        }
+        const nuevo = { ...ingreso, id: Math.max(0, ...this.ingresos.map((x) => x.id)) + 1 };
+        this.ingresos.push(nuevo);
+        const registros = this.registros[nuevo.vehiculo_id] ?? { ingresos: 0, gastos: 0, documentos: 0 };
+        this.registros[nuevo.vehiculo_id] = { ...registros, ingresos: registros.ingresos + 1 };
+        return { insert_ingresos_one: nuevo };
+      }
+      case 'IngresosDelVehiculo': {
+        const vehiculos = this.deLaCuenta(v.id as number, v.usuarioId as number);
+        return { vehiculos: vehiculos.map((vehiculo) => ({
+          ingresos: this.ingresos.filter((x) => x.vehiculo_id === vehiculo.id).sort((a, b) => b.fecha.localeCompare(a.fecha) || b.id - a.id),
+        })) };
       }
       default:
         throw new Error(`Consulta no simulada: ${operacion}`);

@@ -2,10 +2,11 @@ import { Module } from '@nestjs/common';
 import { HasuraModule } from '../hasura/hasura.module.js';
 import { VehiculosController } from './vehiculos.controller.js';
 import { VehiculosService } from './vehiculos.service.js';
+import { IngresosService } from './ingresos.service.js';
 
 @Module({
   imports: [HasuraModule],
   controllers: [VehiculosController],
-  providers: [VehiculosService],
+  providers: [VehiculosService, IngresosService],
 })
 export class VehiculosModule {}
