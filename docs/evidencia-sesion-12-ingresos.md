@@ -2,9 +2,11 @@
 
 | Proyecto | Integrantes y versión |
 |---|---|
-| VehicleControlApp Web · DazaDev | Ivan Dario Madrid Daza, trabajo individual. Versión 0.2 del 26 de noviembre de 2026, en borrador. |
+| VehicleControlApp Web · DazaDev | Ivan Dario Madrid Daza, trabajo individual. Versión 1.0 del 27 de noviembre de 2026. Cerrada el 27 de noviembre de 2026. |
 
 ## 1. Propósito y alcance
+
+**Autoría.** Escribo en primera persona lo que decidí, pedí y probé. Codex ejecutó los dos prompts: programó los cambios, corrió las pruebas y redactó el borrador de esta evidencia. Claude Code completó la documentación de cierre el 27 de noviembre de 2026.
 
 Implementé el primer recorrido vertical de ingresos: la titular abre un vehículo, registra el ingreso diario y consulta los ya guardados. La web sigue hablando solo con core-service, y core-service consulta Hasura; no agregué una conexión directa desde el navegador.
 
@@ -54,7 +56,9 @@ La prueba se hizo en desarrollo local; no publiqué la aplicación ni la probé 
 ## 5. Límites de la comprobación
 
 - La vista de 360 × 800 px se comprobó con emulación de navegador, no en un teléfono físico.
-- La sesión sigue en borrador; su fecha de cierre queda por definir.
+- A 360 px, el encabezado de la página de ingresos se parte en dos líneas. Se revisa en la sesión 13, con los ingresos completos.
+- Durante el trabajo quedó una carpeta de migración vacía, `1795700000000_ingresos_reglas`, que no se usó ni se versionó. La borré el 27 de noviembre de 2026; el esquema no cambió.
+- Cerré la sesión el 27 de noviembre de 2026, junto con la sesión 11, antes de seguir con las sesiones 13 a 15 de la primera versión.
 
 ## 6. Registro de prompts
 
@@ -62,7 +66,7 @@ La prueba se hizo en desarrollo local; no publiqué la aplicación ni la probé 
 
 | Elemento | Registro |
 |---|---|
-| Rol | No se indicó explícitamente. Actué como desarrollador del repositorio. |
+| Rol | No se indicó explícitamente. Codex actuó como desarrollador del repositorio. |
 | Objetivo | Implementar el flujo vertical de ingresos recomendado. |
 | Contexto | El proyecto ya tenía ingreso con correo y contraseña y CRUD de vehículos; la tabla `ingresos` existía en el modelo inicial. |
 | Datos o archivos | Las evidencias de sesiones 3, 4 y 10, y el código de vehículos, autenticación y Hasura. |
@@ -82,7 +86,7 @@ Comprobaciones: al terminar esta primera parte, `npm run build`, `npm test` y `n
 
 | Elemento | Registro |
 |---|---|
-| Rol | No se indicó explícitamente. Actué como desarrollador y redactor de la evidencia. |
+| Rol | No se indicó explícitamente. Codex actuó como desarrollador y redactor de la evidencia. |
 | Objetivo | Agregar pruebas específicas de ingresos y actualizar la documentación. |
 | Contexto | El registro y la consulta de ingresos ya estaban implementados localmente. |
 | Datos o archivos | Servicio de ingresos, Hasura simulado, pruebas e2e, README, contexto, guía de desarrollo y API. |
@@ -104,3 +108,4 @@ Comprobaciones: `npm test` dio 146 de 146, `npm run test:e2e` dio 34 de 34 y `np
 |---|---|---|
 | 0.1 | 26 nov 2026 | Borrador inicial: implementación local, pruebas específicas y documentación. |
 | 0.2 | 26 nov 2026 | Registré la prueba manual local con Neon y Hasura Cloud y la revisión responsive en modo claro y oscuro. |
+| 1.0 | 27 nov 2026 | Versión de cierre: autoría de Codex, límites pendientes para la sesión 13 y PDF. |

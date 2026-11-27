@@ -142,7 +142,7 @@ Desde la sesión 10, la titular maneja sus vehículos en la web-app, y core-serv
 
 ## Guía visual (solo en desarrollo)
 
-La web-app toma su aspecto de la app Android: colores, letra Roboto, tarjetas, etiquetas y modo claro u oscuro. La guía visual reúne esos componentes en una página, para revisarlos y mejorarlos antes de construir las pantallas.
+La web-app toma su aspecto de la app Android: colores, tarjetas, etiquetas y modo claro u oscuro. Desde la sesión 11 usa la letra Barlow y las imágenes de la sección «Marca e imágenes». La guía visual reúne esos componentes en una página, para revisarlos y mejorarlos antes de construir las pantallas.
 
 1. Arranca la web: `npm run dev:web`. La guía no necesita core-service.
 2. Abre http://localhost:5173/guia-visual.html.
@@ -158,6 +158,18 @@ La web-app toma su aspecto de la app Android: colores, letra Roboto, tarjetas, e
   - el tema, en `apps/web-app/src/theme/`;
   - los componentes, en `src/components/`;
   - la guía, en `guia-visual.html` y `src/guia/`.
+
+### Marca e imágenes
+
+Están en `apps/web-app/src/assets/marca/`:
+- **`imagenes.ts`** reúne las imágenes con su tamaño y su proporción. Úsalo en lugar de importar los archivos sueltos.
+- **`bienvenida-600.webp` y `bienvenida-900.webp`:** el sedán y el taxi juntos, para la franja del ingreso. El navegador elige el tamaño con `srcSet` y `sizes`.
+- **`taxi-138.webp` y `particular-138.webp`:** un carro por tipo, para las tarjetas y el detalle, donde se ven a 46 px.
+- **`icono.svg`:** el ícono de la pestaña y del encabezado. Es un dibujo hecho para tamaños pequeños.
+
+Las imágenes del sedán y el taxi las generé con IA (ChatGPT y Gemini) y no llevan logos ni nombres de fabricantes. Los originales y el script que prepara las WebP (`procesar-imagenes.py`) están fuera del repositorio, en `Asesor_Técnico/Sesión_11/imagenes-ia/`. El ícono lo genera `marca.py`, en `Asesor_Técnico/Sesión_11/maquetas-ingreso/carros/`. La [evidencia de sesión 11](evidencia-sesion-11-identidad-visual.md) explica cómo se hicieron.
+
+**Etiquetas de los campos.** El tema deja la etiqueta de cada campo fija encima de su casilla. No pases `slotProps.inputLabel.shrink` en un `TextField`: volvería a abrir el hueco del borde, aunque la etiqueta no esté allí.
 
 ## Prototipo de la sesión 3
 

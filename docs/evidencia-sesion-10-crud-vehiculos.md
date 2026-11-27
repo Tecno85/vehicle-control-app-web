@@ -10,6 +10,8 @@
 - **Revisión del cierre.** Le pedí a Claude Code revisar el cierre de las sesiones 8 y 9 como revisor independiente. Encontró 14 hallazgos; ninguno bloquea la presentación en el SENA. El informe, con el prompt de la revisión, está en mi carpeta `Asesor_Técnico/Sesión_9/revision-cierre-sesiones-8-9.md`.
   - Decidí no reabrir las sesiones 8 y 9 y corregir siete hallazgos en un **paso 0** de esta sesión, antes del CRUD (apartado 3).
   - Dejé A1 y A5 (renovar la sesión en un solo paso y probar dos renovaciones a la vez) para la **sesión 11**. La semana 8 de la cartilla trata justo de transacciones y concurrencia.
+
+  **Nota posterior (27 de noviembre de 2026).** La sesión 11 terminó siendo la identidad visual, y la 12, el registro de ingresos. A1 y A5 quedan para la semana 8 de la cartilla, que haré después de completar la primera versión en las sesiones 13 a 15.
 - **Validación con class-validator,** la librería que la guía de NestJS que cita la cartilla (R19) muestra primero.
 - **El contrato de la API va en esta evidencia y en el README,** sin Swagger.
 - **Un vehículo desactivado no se reactiva** por ahora; sigue «Por definir», como en la evidencia de sesiones 4 y 5.

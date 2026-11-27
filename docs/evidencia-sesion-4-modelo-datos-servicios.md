@@ -356,6 +356,8 @@ S10 a S12 no exigen un vehículo activo mientras siga pendiente si se pueden edi
 
 **Nota posterior (25 de noviembre de 2026).** S01, el ingreso, se programó en la [sesión 9](evidencia-sesion-9-acceso.md). En la [sesión 10](evidencia-sesion-10-crud-vehiculos.md) programé S02, S07 y S08, y la flota y el detalle de S06, sin los próximos vencimientos ni los registros y totales del mes. Cambié un contrato de S08: desactivar con `PATCH /api/vehiculos/:id` y `{ "activo": false }` responde 200 con el vehículo, no 204, para que la web muestre el resultado sin otra consulta. El resto de esta evidencia se conserva como se entregó.
 
+**Nota posterior (27 de noviembre de 2026).** S03, el registro del ingreso, y la consulta de ingresos de un vehículo se programaron en la [sesión 12](evidencia-sesion-12-ingresos.md). Ese día decidí que S10 a S12 sí permitan editar y eliminar los registros de un vehículo inactivo, como el prototipo; así se programarán en las sesiones 13 a 15. También decidí, de forma tentativa, que los próximos vencimientos de la flota sean los documentos que vencen dentro de 15 días.
+
 ## 4. Revisión del diseño y compromisos
 
 Relaciono las historias con las tablas y los servicios, y compruebo el recorrido con los datos ficticios del taxi XYZ789 antes de programarlo. Salvo lo que indico como probado en Hasura, los resultados describen lo que el diseño debe producir; no son pruebas de una aplicación.

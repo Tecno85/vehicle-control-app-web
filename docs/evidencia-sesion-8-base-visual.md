@@ -12,6 +12,8 @@
 - Incluyo el modo oscuro desde ahora, con un botón.
 - La web-app muestra el nombre «Control Vehicular».
 
+**Nota posterior (27 de noviembre de 2026).** En la [sesión 11](evidencia-sesion-11-identidad-visual.md) cambié la letra Roboto por Barlow, agregué un ícono propio e imágenes del sedán y el taxi, generadas con IA, y dejé las etiquetas de los campos fijas encima de su casilla. Los colores, las tarjetas, las etiquetas de estado y el modo claro u oscuro de esta sesión no cambiaron.
+
 **Cambio de identidad.** El prototipo de la sesión 3 tiene la identidad de «bitácora vehicular contemporánea» (verde petróleo y latón), que a Katerin le pareció adecuada el 20 de octubre de 2026. La web-app real usará la de Android, que Katerin también conoce: la evidencia de sesión 2 registra que le gusta su organización visual y funcional como punto de partida, y el 8 de octubre revisó esa app. El prototipo no cambia y queda como registro.
 
 **Alcance.** Es una base visual: no incluye las pantallas del MVP, el login ni rutas, y no cambia core-service, Hasura ni la base de datos. De Android tomo el estilo, no sus pantallas ni sus funciones.
