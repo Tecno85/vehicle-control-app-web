@@ -58,9 +58,10 @@ function paletteFrom(colors: ColorSet): ColorSystemOptions['palette'] {
   }
 }
 
-// Escala de Type.kt de Android: headline → h1 a h3, title → h4 a h6 y subtitle, body y label → button y overline.
+// Letra Barlow, elegida en la sesión 11. Los tamaños siguen la escala de Type.kt de Android:
+// headline → h1 a h3, title → h4 a h6 y subtitle, body y label → button y overline.
 const typography = {
-  fontFamily: '"Roboto Variable", Roboto, system-ui, -apple-system, "Segoe UI", Arial, sans-serif',
+  fontFamily: '"Barlow", system-ui, -apple-system, "Segoe UI", Arial, sans-serif',
   h1: { fontSize: '1.875rem', lineHeight: '2.25rem', fontWeight: 700, letterSpacing: 0 },
   h2: { fontSize: '1.625rem', lineHeight: '2rem', fontWeight: 700, letterSpacing: 0 },
   h3: { fontSize: '1.375rem', lineHeight: '1.75rem', fontWeight: 700, letterSpacing: 0 },
@@ -94,6 +95,11 @@ export const theme = createTheme({
   typography,
   shape: { borderRadius: 14 },
   components: {
+    MuiCssBaseline: {
+      // Ajusta la letra de respaldo a la altura de Barlow, para que el texto no cambie de tamaño
+      // si Barlow tarda en cargar. Donde el navegador no lo soporta, no cambia nada.
+      styleOverrides: { body: { fontSizeAdjust: 'from-font' } },
+    },
     MuiButtonBase: {
       styleOverrides: {
         // Foco de teclado bien visible, en lugar del brillo discreto del tema por defecto.

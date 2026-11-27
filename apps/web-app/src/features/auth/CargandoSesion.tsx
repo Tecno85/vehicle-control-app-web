@@ -4,7 +4,7 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import CircularProgress from '@mui/material/CircularProgress'
 import Typography from '@mui/material/Typography'
-import { AppShell } from '../../components/layout/AppShell.tsx'
+import { PantallaBienvenida } from '../../components/layout/PantallaBienvenida.tsx'
 import { useAcceso } from './acceso-context.ts'
 
 // Se ve un instante al abrir la página, mientras se comprueba si hay sesión.
@@ -27,11 +27,10 @@ export function CargandoSesion() {
   }
 
   return (
-    <AppShell>
+    <PantallaBienvenida>
       {estado === 'sin-conexion' ? (
         <Alert
           severity="error"
-          sx={{ my: 4 }}
           action={
             <Button color="inherit" size="small" onClick={reintentarAhora} ref={botonReintentar}>
               Reintentar
@@ -41,11 +40,11 @@ export function CargandoSesion() {
           No pudimos comprobar tu sesión. Revisa la conexión y vuelve a intentarlo.
         </Alert>
       ) : (
-        <Box role="status" sx={{ display: 'flex', alignItems: 'center', gap: 2, py: 6 }}>
+        <Box role="status" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2, py: 2 }}>
           <CircularProgress size={28} aria-hidden />
           <Typography>Comprobando tu sesión…</Typography>
         </Box>
       )}
-    </AppShell>
+    </PantallaBienvenida>
   )
 }

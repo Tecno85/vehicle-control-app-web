@@ -1,16 +1,16 @@
-import DirectionsCarOutlined from '@mui/icons-material/DirectionsCarOutlined'
-import LocalTaxiOutlined from '@mui/icons-material/LocalTaxiOutlined'
 import Box from '@mui/material/Box'
+import particular from '../../assets/marca/particular.svg'
+import taxi from '../../assets/marca/taxi.svg'
 import type { Vehiculo } from '../../types/vehiculo.ts'
 
-// Círculo con el ícono del tipo, como en las tarjetas de Android: naranja para
-// el taxi, verde para el particular y gris si el vehículo está desactivado.
+// Círculo con el carro del tipo, como en las tarjetas de Android: fondo naranja para el taxi,
+// verde para el particular y gris si el vehículo está desactivado. Es decorativo: el tipo
+// también está escrito en su etiqueta.
 export function IconoVehiculo({ vehiculo }: { vehiculo: Vehiculo }) {
-  const Icono = vehiculo.tipo === 'TAXI' ? LocalTaxiOutlined : DirectionsCarOutlined
-  const tono = vehiculo.tipo === 'TAXI' ? 'orange' : 'green'
-  const colores = vehiculo.activo
-    ? { bgcolor: `tones.${tono}.soft`, color: `tones.${tono}.text` }
-    : { bgcolor: 'background.default', color: 'text.secondary', border: 1, borderColor: 'divider' }
+  const esTaxi = vehiculo.tipo === 'TAXI'
+  const fondo = vehiculo.activo
+    ? { bgcolor: `tones.${esTaxi ? 'orange' : 'green'}.soft` }
+    : { bgcolor: 'background.default', border: 1, borderColor: 'divider' }
 
   return (
     <Box
@@ -22,10 +22,15 @@ export function IconoVehiculo({ vehiculo }: { vehiculo: Vehiculo }) {
         borderRadius: '50%',
         display: 'grid',
         placeItems: 'center',
-        ...colores,
+        ...fondo,
       }}
     >
-      <Icono fontSize="large" />
+      <Box
+        component="img"
+        src={esTaxi ? taxi : particular}
+        alt=""
+        sx={{ width: 46, height: 'auto', ...(!vehiculo.activo && { filter: 'grayscale(1)', opacity: 0.7 }) }}
+      />
     </Box>
   )
 }

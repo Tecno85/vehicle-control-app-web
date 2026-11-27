@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react'
 import DeleteOutlined from '@mui/icons-material/DeleteOutlined'
-import LocalTaxiOutlined from '@mui/icons-material/LocalTaxiOutlined'
 import Alert from '@mui/material/Alert'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
@@ -13,12 +12,16 @@ import Stack from '@mui/material/Stack'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import { useColorScheme, useTheme } from '@mui/material/styles'
+import bienvenida from '../assets/marca/bienvenida.svg'
+import icono from '../assets/marca/icono.svg'
 import { BackButton } from '../components/BackButton.tsx'
 import { EmptyState } from '../components/EmptyState.tsx'
 import { SectionCard } from '../components/SectionCard.tsx'
 import { StatusChip } from '../components/StatusChip.tsx'
 import { AppShell } from '../components/layout/AppShell.tsx'
+import { IconoVehiculo } from '../features/vehiculos/IconoVehiculo.tsx'
 import { darkColors, lightColors } from '../theme/colors.ts'
+import type { Vehiculo } from '../types/vehiculo.ts'
 
 // Catálogo de los componentes con el estilo de Android, solo para desarrollo.
 // Los datos son ficticios: el taxi XYZ789 es el de los datos de prueba de infra/hasura.
@@ -37,6 +40,7 @@ export function GuiaVisual() {
         de la aplicación.
       </Alert>
       <Stack spacing={6}>
+        <BrandSection />
         <ColorsSection />
         <TypographySection />
         <GuideSection title="Botones">
@@ -135,6 +139,32 @@ function GuideSection({ title, children }: { title: string; children: ReactNode 
       </Typography>
       {children}
     </Box>
+  )
+}
+
+// El dibujo de bienvenida va sobre el azul suave de la franja del ingreso.
+function BrandSection() {
+  return (
+    <GuideSection title="Marca">
+      <Typography color="text.secondary" sx={{ mb: 2 }}>
+        Dibujos originales, sin el logo ni el nombre de ningún fabricante.
+      </Typography>
+      <Stack spacing={3}>
+        <Box sx={{ p: 3, borderRadius: 1, bgcolor: 'tones.blue.soft', maxWidth: 420 }}>
+          <Box component="img" src={bienvenida} alt="" sx={{ display: 'block', width: 300, maxWidth: '100%', height: 'auto' }} />
+        </Box>
+        <Stack direction="row" spacing={3} sx={{ alignItems: 'flex-end' }}>
+          {[16, 32, 48].map((size) => (
+            <Box key={size} sx={{ textAlign: 'center' }}>
+              <Box component="img" src={icono} alt="" sx={{ display: 'block', width: size, height: size, mx: 'auto', mb: 0.5 }} />
+              <Typography variant="caption" color="text.secondary">
+                {size} px
+              </Typography>
+            </Box>
+          ))}
+        </Stack>
+      </Stack>
+    </GuideSection>
   )
 }
 
@@ -273,24 +303,23 @@ function TypographySection() {
   )
 }
 
+const taxiDeEjemplo: Vehiculo = {
+  id: 1,
+  placa: 'XYZ789',
+  marca: 'Vehículo de ejemplo',
+  modelo: 'Taxi',
+  tipo: 'TAXI',
+  habilitado_indrive: false,
+  conductor: 'Conductor de ejemplo',
+  cuota_diaria: 60000,
+  activo: true,
+}
+
 function VehicleCardExample() {
   return (
     <Card sx={{ p: 2, maxWidth: 520 }}>
       <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
-        <Box
-          sx={{
-            width: 64,
-            height: 64,
-            flexShrink: 0,
-            borderRadius: '50%',
-            display: 'grid',
-            placeItems: 'center',
-            bgcolor: 'tones.orange.soft',
-            color: 'tones.orange.text',
-          }}
-        >
-          <LocalTaxiOutlined fontSize="large" />
-        </Box>
+        <IconoVehiculo vehiculo={taxiDeEjemplo} />
         <Box sx={{ flex: 1, minWidth: 0 }}>
           <Stack direction="row" spacing={1} sx={{ justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <Box sx={{ minWidth: 0 }}>
