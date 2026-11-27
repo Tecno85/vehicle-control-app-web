@@ -43,7 +43,7 @@ export function PaginaIngresos() {
     {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
     {guardado && <Alert severity="success" sx={{ mb: 2 }}>{guardado}</Alert>}
     <SectionCard title="Registrar ingreso"><Stack spacing={2}>
-      <TextField label="Fecha" type="date" value={fecha} onChange={(e) => setFecha(e.target.value)} slotProps={{ inputLabel: { shrink: true } }} />
+      <TextField label="Fecha" type="date" value={fecha} onChange={(e) => setFecha(e.target.value)} />
       <TextField label="Valor recibido" type="number" value={valor} onChange={(e) => setValor(e.target.value)} slotProps={{ htmlInput: { min: 0, step: 1 } }} helperText="Escribe el valor en pesos. Puede ser 0." />
       <TextField label="Motivo (si aplica)" value={motivo} onChange={(e) => setMotivo(e.target.value)} helperText="Obligatorio si el valor del taxi no coincide con su cuota." />
       <TextField label="Nota (opcional)" value={nota} onChange={(e) => setNota(e.target.value)} multiline minRows={2} />

@@ -1,6 +1,5 @@
 import Box from '@mui/material/Box'
-import particular from '../../assets/marca/particular.svg'
-import taxi from '../../assets/marca/taxi.svg'
+import { imagenesVehiculo } from '../../assets/marca/imagenes.ts'
 import type { Vehiculo } from '../../types/vehiculo.ts'
 
 // Círculo con el carro del tipo, como en las tarjetas de Android: fondo naranja para el taxi,
@@ -27,7 +26,7 @@ export function IconoVehiculo({ vehiculo }: { vehiculo: Vehiculo }) {
     >
       <Box
         component="img"
-        src={esTaxi ? taxi : particular}
+        {...imagenesVehiculo[vehiculo.tipo]}
         alt=""
         sx={{ width: 46, height: 'auto', ...(!vehiculo.activo && { filter: 'grayscale(1)', opacity: 0.7 }) }}
       />

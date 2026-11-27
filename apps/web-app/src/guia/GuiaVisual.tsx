@@ -12,7 +12,7 @@ import Stack from '@mui/material/Stack'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import { useColorScheme, useTheme } from '@mui/material/styles'
-import bienvenida from '../assets/marca/bienvenida.svg'
+import { imagenBienvenida } from '../assets/marca/imagenes.ts'
 import icono from '../assets/marca/icono.svg'
 import { BackButton } from '../components/BackButton.tsx'
 import { EmptyState } from '../components/EmptyState.tsx'
@@ -95,12 +95,7 @@ export function GuiaVisual() {
         </GuideSection>
         <GuideSection title="Campos de formulario">
           <Stack spacing={2.5} sx={{ maxWidth: 420 }}>
-            <TextField
-              label="Fecha"
-              type="date"
-              defaultValue="2026-10-01"
-              slotProps={{ inputLabel: { shrink: true } }}
-            />
+            <TextField label="Fecha" type="date" defaultValue="2026-10-01" />
             <TextField select label="Categoría" defaultValue="Combustible">
               {['Combustible', 'Lavado', 'Mantenimiento', 'Repuestos', 'Ahorro prima conductor'].map(
                 (category) => (
@@ -142,16 +137,17 @@ function GuideSection({ title, children }: { title: string; children: ReactNode 
   )
 }
 
-// El dibujo de bienvenida va sobre el azul suave de la franja del ingreso.
+// La imagen de bienvenida va sobre el azul suave de la franja del ingreso.
 function BrandSection() {
   return (
     <GuideSection title="Marca">
       <Typography color="text.secondary" sx={{ mb: 2 }}>
-        Dibujos originales, sin el logo ni el nombre de ningún fabricante.
+        Imágenes generadas con IA (el sedán con ChatGPT y el taxi con Gemini), sin el logo ni el nombre
+        de ningún fabricante. El ícono es un dibujo original, hecho para tamaños pequeños.
       </Typography>
       <Stack spacing={3}>
         <Box sx={{ p: 3, borderRadius: 1, bgcolor: 'tones.blue.soft', maxWidth: 420 }}>
-          <Box component="img" src={bienvenida} alt="" sx={{ display: 'block', width: 300, maxWidth: '100%', height: 'auto' }} />
+          <Box component="img" {...imagenBienvenida} alt="" sx={{ display: 'block', width: 300, maxWidth: '100%', height: 'auto' }} />
         </Box>
         <Stack direction="row" spacing={3} sx={{ alignItems: 'flex-end' }}>
           {[16, 32, 48].map((size) => (

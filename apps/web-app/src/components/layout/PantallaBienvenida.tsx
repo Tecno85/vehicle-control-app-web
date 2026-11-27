@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography'
-import bienvenida from '../../assets/marca/bienvenida.svg'
+import { imagenBienvenida } from '../../assets/marca/imagenes.ts'
 import { ColorModeToggle } from './ColorModeToggle.tsx'
 
 // Estructura del ingreso y de la comprobación de sesión (propuesta C de la sesión 11): una franja
@@ -41,13 +41,13 @@ export function PantallaBienvenida({ children }: { children: ReactNode }) {
           }
         }}
       >
-        {/* Decorativo: el nombre de la app está escrito debajo. */}
+        {/* Decorativo: el nombre de la app está escrito debajo. Es lo más grande de la pantalla al
+            abrirla, por eso se pide primero. */}
         <Box
           component="img"
-          src={bienvenida}
+          {...imagenBienvenida}
           alt=""
-          width={250}
-          height={112}
+          fetchPriority="high"
           sx={{ display: 'block', width: { xs: 220, sm: 300 }, height: 'auto' }}
         />
         <Typography

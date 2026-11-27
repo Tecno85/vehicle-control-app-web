@@ -149,9 +149,13 @@ export const theme = createTheme({
     },
     // En modo claro, el rojo de relleno sobre el fondo gris da 4,38:1: el texto de error de los
     // campos (etiqueta, asterisco y ayuda) usa el tono de texto. El borde con error no cambia.
+    // Las etiquetas de las casillas y los títulos de grupo, como «Tipo», comparten tamaño y peso.
     MuiFormLabel: {
       styleOverrides: {
         root: ({ theme }) => ({
+          ...theme.typography.body2,
+          fontWeight: 500,
+          color: (theme.vars || theme).palette.text.primary,
           '&.Mui-error': { color: (theme.vars || theme).palette.tones.red.text },
         }),
         asterisk: ({ theme }) => ({
@@ -166,7 +170,24 @@ export const theme = createTheme({
         }),
       },
     },
+    // La etiqueta va fija encima de la casilla en todos los formularios (decisión de Ivan del
+    // 27/11/2026): así no se cruza con el borde ni puede quedar encima de los datos, por ejemplo
+    // cuando el navegador los autocompleta. No pasar `shrink` en un campo: abriría el borde.
+    MuiInputLabel: {
+      defaultProps: { shrink: true },
+      styleOverrides: {
+        root: {
+          position: 'relative',
+          transform: 'none',
+          maxWidth: '100%',
+          whiteSpace: 'normal',
+          marginBottom: 6,
+        },
+      },
+    },
     MuiOutlinedInput: {
+      // Sin el hueco en el borde que dejaba espacio a la etiqueta flotante.
+      defaultProps: { notched: false },
       styleOverrides: {
         root: { borderRadius: 10 },
         // Solo el borde en reposo: al pasar el mouse, con foco o con error manda Material UI.
